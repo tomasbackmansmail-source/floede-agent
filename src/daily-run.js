@@ -189,14 +189,19 @@ async function insertToSupabase(supabase, permits, extractionRun) {
       raw_html_hash: null
     };
 
+    // Use different conflict target depending on whether case_number exists
+    const conflictTarget = row.case_number
+      ? "municipality,case_number"
+      : "idx_permits_v2_dedup_fallback";
+
     const { error } = await withRetry(
       () => supabase
         .from("permits_v2")
         .upsert(row, {
-          onConflict: "municipality,case_number",
+          onConflict: conflictTarget,
           ignoreDuplicates: true
         }),
-      { maxRetries: 3, baseDelay: 5000, label: `DB ${p.case_number}` }
+      { maxRetries: 3, baseDelay: 5000, label: `DB ${row.case_number || row.address}` }
     );
 
     if (error) {

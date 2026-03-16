@@ -12,7 +12,7 @@
   "requires_subpages": {
     "required": true,
     "reason": "Listsidan visar endast titel, kategori, anslaget-datum och tas-ned-datum. Detaljinformation om enskilda bygglovsärenden finns på undersidor.",
-    "link_selector_hint": "li.c-noticeboard__item[data-category='Bygglov'] h3.c-noticeboard__heading a"
+    "link_selector_hint": "div.c-news-list-item__content a[href*='kungorelse-bygglov']"
   },
   "selectors_hint": {
     "container": "ul.c-noticeboard__list",
