@@ -1,0 +1,33 @@
+{
+  "municipality": "Karlstad",
+  "platform_guess": "netpub",
+  "listing_url": "https://karlstad.se/kommun-och-politik/delta-och-paverka/anslagstavla",
+  "listing_type": "dynamic_list",
+  "pagination": {
+    "has_pagination": false,
+    "type": "none",
+    "mechanism": "Sidan använder React-baserad Netpub Bulletin Board (v0.0.3) som laddar anslag dynamiskt via JavaScript. Filtrering via dropdown för nämnd och anslagstyp. Ingen traditionell paginering synlig.",
+    "estimated_total_pages": null
+  },
+  "requires_subpages": {
+    "required": true,
+    "reason": "Listsidan visar grundläggande info via dynamisk rendering. Fullständiga detaljer om fastighetsbeteckning och ärendenummer kräver besök på individuella anslagssidor.",
+    "link_selector_hint": null
+  },
+  "selectors_hint": {
+    "container": "#netpub-bulletinboard",
+    "item": null,
+    "case_number": null,
+    "address": null,
+    "date": null,
+    "description": null
+  },
+  "filter_hint": {
+    "relevant_types": ["Kungörelse"],
+    "relevant_committee": "Stadsbyggnadsnämnden",
+    "type_selector": null
+  },
+  "notes": "Sidan använder Netpub Bulletin Board (netpub-bulletinboard v0.0.3), en React-baserad komponent som renderar anslag client-side via JavaScript. Dropdown-filter finns för nämnd och anslagstyp. Kräver browser-rendering (Playwright/headless) för att hämta innehåll. Filtrering på bygglovsrelaterade kungörelser via nämnd 'Stadsbyggnadsnämnden' rekommenderas. Vissa handlingar publiceras inte i sin helhet pga sekretess. Manuellt upptäckt URL efter att automatisk discovery misslyckades.",
+  "confidence": "medium",
+  "approved": true
+}

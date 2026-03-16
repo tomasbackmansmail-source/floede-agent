@@ -1,0 +1,28 @@
+{
+  "municipality": "Umeå",
+  "platform_guess": "sitevision",
+  "listing_url": "https://www.umea.se/kommunochpolitik/overklagabeslutrattssakerhet/anslagstavlaofficiell.4.88db09b1724ee319ca4b0.html",
+  "listing_type": "links_to_subpages",
+  "pagination": {
+    "has_pagination": true,
+    "type": "category_links",
+    "mechanism": "Sidan visar kategoriserade listor med 3 poster per kategori. Varje kategori har en 'Fler anslag'-länk som leder till en utökad listning. Kategorin 'Bygglov' är den relevanta.",
+    "estimated_total_pages": null
+  },
+  "requires_subpages": {
+    "required": true,
+    "reason": "Listsidan visar endast datum och titel. Fastighetsbeteckning, ärendenummer och detaljer finns på respektive undersida.",
+    "link_selector_hint": "a[href*='bygglov'], a[href*='anslag']"
+  },
+  "selectors_hint": {
+    "container": ".sol-collapsible",
+    "item": "li",
+    "case_number": null,
+    "address": null,
+    "date": "li time, li .date",
+    "description": "li a"
+  },
+  "notes": "Sidan är Umeå kommuns officiella anslagstavla med kategoriserade sektioner: Möten och protokoll, Bygglov, Detaljplaner, Miljö- och hälsoskydd, Övriga anslag, Flyttade fordon. Bygglovssektionen visar 3 senaste poster med en 'Fler anslag'-länk för att se alla. Varje post är en länk med datum till en detaljsida. Sidan använder sol-collapsible/sol-toolbar CSS-klasser (SiteVision). Flyttade fordon-sektionen använder tabellformat. Manuellt upptäckt URL efter att automatisk discovery misslyckades.",
+  "confidence": "high",
+  "approved": true
+}
