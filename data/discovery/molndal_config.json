@@ -1,0 +1,28 @@
+{
+  "municipality": "Mölndal",
+  "platform_guess": "sitevision",
+  "listing_url": "https://www.molndal.se/kommun-och-politik/insyn-och-paverkan/anslagstavla?sv.url=12.75b7e0e9194d832c8bbc4f1&query=*%3A*&100.7bdab48918c624d207d392=Byggnadsnämnden",
+  "listing_type": "links_to_subpages",
+  "pagination": {
+    "has_pagination": true,
+    "type": "unknown",
+    "mechanism": "Trolig paginering via facetterad sökning, möjligen load_more eller numrerade sidor - ej synligt i HTML-utdraget. Byggnadsnämnden har 31 träffar.",
+    "estimated_total_pages": null
+  },
+  "requires_subpages": {
+    "required": true,
+    "reason": "Listningssidan visar anslag från Byggnadsnämnden (31 st) via facettfilter. Varje anslag är en länk till en detaljsida med ärendeinfo.",
+    "link_selector_hint": ".con-archive a, .sv-search-result a"
+  },
+  "selectors_hint": {
+    "container": ".con-archive, #search12_75b7e0e9194d832c8bbc4f1result",
+    "item": ".sv-search-result-item, .con-archive-item",
+    "case_number": null,
+    "address": null,
+    "date": ".sv-search-result-date, .con-archive-item__date",
+    "description": ".sv-search-result-description"
+  },
+  "notes": "Anslagstavlan är SiteVisions digitala anslagstavla. Byggnadsnämnden-filtret ger 31 aktiva anslag. Filter-URL använder parametern 100.7bdab48918c624d207d392=Byggnadsnämnden. AJAX-endpoint finns på /4.75b7e0e9194d832c8bb379c/12.75b7e0e9194d832c8bbc4f1.htm?state=ajaxQuery&isRenderingAjaxResult=true&query=*:*&100.7bdab48918c624d207d392=Byggnadsnämnden och kan användas för direkt datahämtning utan sidrendering.",
+  "confidence": "high",
+  "approved": false
+}

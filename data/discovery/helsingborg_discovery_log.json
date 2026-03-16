@@ -1,0 +1,15 @@
+{
+  "municipality": "Helsingborg",
+  "municipality_id": "helsingborg",
+  "homepage": "https://helsingborg.se",
+  "success": false,
+  "config": null,
+  "discovery_result": null,
+  "navigations_used": 8,
+  "max_navigations": 8,
+  "tokens": {
+    "input": 197781,
+    "output": 249,
+    "cost_usd": 0.5970780000000001
+  }
+}

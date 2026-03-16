@@ -1,0 +1,31 @@
+{
+  "municipality": "Nacka",
+  "platform_guess": "custom",
+  "listing_url": "https://www.nacka.se/kommun--politik/delta-och-paverka/anslagstavla-officiell/",
+  "listing_type": "list",
+  "pagination": {
+    "has_pagination": false,
+    "type": "none",
+    "mechanism": "Sidan visar de senaste 30 dagarnas anslag utan paginering",
+    "estimated_total_pages": null
+  },
+  "requires_subpages": {
+    "required": true,
+    "reason": "Listsidan visar endast titel, kategori, anslaget-datum och tas-ned-datum. Detaljinformation om enskilda bygglovsärenden finns på undersidor.",
+    "link_selector_hint": "li.c-noticeboard__item[data-category='Bygglov'] h3.c-noticeboard__heading a"
+  },
+  "selectors_hint": {
+    "container": "ul.c-noticeboard__list",
+    "item": "li.c-noticeboard__item[data-category='Bygglov']",
+    "case_number": null,
+    "address": null,
+    "date": "span.c-noticeboard__date:first-child",
+    "description": null,
+    "title": "h3.c-noticeboard__heading a",
+    "category": "span.c-noticeboard__category",
+    "takes_down_date": "span.c-noticeboard__date:last-child"
+  },
+  "notes": "Anslagstavlan har ett inbyggt kategorifilter via data-category-attributet på li-element. Bygglovsärenden samlas i listobjekt med data-category='Bygglov'. URL-mönster för undersidor: /kommun--politik/delta-och-paverka/anslagstavla-officiell/bygglov/{year}/beslut-om-bygglov-och-anmalan-{YYYY-MM-DD}/. Varje undersida listar troligen flera ärenden för det datumet. Sidans period är begränsad till 30 dagar.",
+  "confidence": "high",
+  "approved": false
+}

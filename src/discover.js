@@ -3,6 +3,7 @@ import { chromium } from "playwright";
 import { writeFile, mkdir } from "fs/promises";
 import { join } from "path";
 import { EXAMPLE_CONFIG } from "./config/discovery-schema.js";
+import { preflight } from "./preflight-search.js";
 
 const CONFIG_DIR = join(process.cwd(), "data", "discovery");
 const COST_DIR = join(process.cwd(), "data", "costs");
@@ -123,6 +124,19 @@ async function discoverMunicipality(client, browser, target) {
   const maxNavigations = 8;
   const conversationHistory = [];
 
+  // Step 0: Pre-flight Google search to find candidate URLs
+  console.log(`[Preflight] Searching for ${target.name} anslagstavla...`);
+  let preflightResult = null;
+  try {
+    preflightResult = await preflight(target.name, browser);
+  } catch (err) {
+    console.log(`[Preflight] Failed: ${err.message}`);
+  }
+
+  const preflightHint = preflightResult?.best_guess
+    ? `\n\nFORSLAG FRAN FORSOK (Google-sokning): Dessa URL:er kan vara relevanta:\n${preflightResult.ranked_urls.slice(0, 5).map((u) => `  ${u.score}p: ${u.url}`).join("\n")}\nBasta gissning: ${preflightResult.best_guess}\nDu kan borja med att navigera till den basta gissningen, eller utforska sjalv om du inte litar pa den.`
+    : "";
+
   // Step 1: Navigate to homepage and get initial HTML
   console.log(`[Nav ${navigations + 1}] Going to: ${target.homepage}`);
   await page.goto(target.homepage, { waitUntil: "networkidle", timeout: 30000 });
@@ -135,7 +149,7 @@ async function discoverMunicipality(client, browser, target) {
   // Start conversation with Sonnet
   conversationHistory.push({
     role: "user",
-    content: `Kommun: ${target.name}\nStartsida: ${currentUrl}\n\nHTML-struktur (forkortat):\n${currentHtml}\n\nHitta var denna kommun publicerar sina bygglovsarenden/anslagstavla. Svara med ett kommando: NAVIGATE: <url>, CLICK: <text>, eller ANALYZE om du redan ser arendelistan.`
+    content: `Kommun: ${target.name}\nStartsida: ${currentUrl}\n\nHTML-struktur (forkortat):\n${currentHtml}${preflightHint}\n\nHitta var denna kommun publicerar sina bygglovsarenden/anslagstavla. Svara med ett kommando: NAVIGATE: <url>, CLICK: <text>, eller ANALYZE om du redan ser arendelistan.`
   });
 
   let discoveryResult = null;

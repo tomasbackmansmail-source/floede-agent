@@ -1,6 +1,7 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { readFile, readdir, writeFile, mkdir } from "fs/promises";
 import { join } from "path";
+import { EXTRACTION_PROMPT_V2 } from "./config/extraction-prompt-v2.js";
 
 const HTML_DIR = join(process.cwd(), "data", "html");
 const OUTPUT_DIR = join(process.cwd(), "data", "extracted");
@@ -16,47 +17,7 @@ const onlyIds = onlyArg ? onlyArg.split("=")[1].split(",") : null;
 const HAIKU_INPUT_COST_PER_TOKEN = 0.0000008;
 const HAIKU_OUTPUT_COST_PER_TOKEN = 0.000004;
 
-const EXTRACTION_PROMPT = `Du ar en dataextraktionsagent. Din uppgift ar att extrahera bygglovsarenden fran HTML-kod fran en svensk kommuns anslagstavla.
-
-REGLER:
-1. Extrahera ALLA arenden du hittar pa sidan.
-2. Varje arende ska ha foljande falt:
-   - municipality: Kommunens namn (string)
-   - case_number: Arendenummer/diarienummer (string)
-   - address: Fastighetsbeteckning eller gatuadress (string eller null)
-   - permit_type: EN av: "bygglov", "marklov", "rivningslov", "forhandsbesked", "strandskyddsdispens", "anmalan"
-   - status: EN av: "ansokt", "beviljat", "avslag", "overklagat", "startbesked", "slutbesked"
-   - date: Datum i ISO 8601-format (YYYY-MM-DD). Om bara ar och manad finns, anvand forsta dagen i manaden.
-   - description: Kort beskrivning av arendet (string eller null)
-   - source_url: Satt till null (fylls i av anropande kod)
-
-3. permit_type och status ar SEPARATA falt. Forvaxla dem ALDRIG.
-   - permit_type = VAD for typ av arende (bygglov, marklov etc)
-   - status = VAR i processen arendet ar (ansokt, beviljat etc)
-
-4. Om ett falt inte kan extraheras med sakerhet, satt det till null. GISSA ALDRIG.
-
-5. permit_type-mappning:
-   - "bygglov", "lov for nybyggnad", "lov for tillbyggnad", "lov for andrad anvandning" -> "bygglov"
-   - "marklov" -> "marklov"
-   - "rivningslov" -> "rivningslov"
-   - "forhandsbesked" -> "forhandsbesked"
-   - "strandskyddsdispens", "strandskydd" -> "strandskyddsdispens"
-   - "anmalan", "anmalningsarende" -> "anmalan"
-   - Om det inte gar att avgora -> null
-
-6. status-mappning:
-   - Anslagstavlor visar typiskt arenden som har beslutats (beviljat/avslag).
-   - "beslut om lov", "beviljat", "bifall" -> "beviljat"
-   - "avslag", "avslaget" -> "avslag"
-   - "overklagat", "overklagande" -> "overklagat"
-   - "startbesked" -> "startbesked"
-   - "slutbesked" -> "slutbesked"
-   - Om arendet ar nyinkommet/under handlaggning -> "ansokt"
-   - Om det inte gar att avgora -> null
-
-Svara ENBART med en JSON-array. Ingen annan text. Inga markdown-backticks.
-Om du inte hittar nagra arenden, svara med en tom array: []`;
+const EXTRACTION_PROMPT = EXTRACTION_PROMPT_V2;
 
 async function ensureDirs() {
   await mkdir(OUTPUT_DIR, { recursive: true });
