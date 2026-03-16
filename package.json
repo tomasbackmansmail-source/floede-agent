@@ -7,6 +7,9 @@
     "fetch": "node src/fetch-html.js",
     "extract": "node src/extract.js",
     "compare": "node src/compare.js",
+    "gap": "node src/gap-analysis.js",
+    "discover": "node src/discover.js",
+    "approve": "node src/approve.js",
     "report": "node src/report.js",
     "poc": "node src/fetch-html.js && node src/extract.js && node src/report.js"
   },
