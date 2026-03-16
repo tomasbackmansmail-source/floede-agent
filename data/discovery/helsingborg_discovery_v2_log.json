@@ -1,0 +1,47 @@
+{
+  "municipality": "Helsingborg",
+  "municipality_id": "helsingborg",
+  "success": true,
+  "needs_manual_url": false,
+  "config": {
+    "municipality": "Helsingborg",
+    "platform_guess": "custom",
+    "listing_url": "https://anslagstavla.helsingborg.se/#!/billboard/",
+    "listing_type": "table",
+    "pagination": {
+      "has_pagination": true,
+      "type": "load_more_button",
+      "mechanism": "Click element with class 'show-more more-results' and text 'Visa fler' within the 'Övrigt anslagen information' section",
+      "estimated_total_pages": null
+    },
+    "requires_subpages": {
+      "required": false,
+      "reason": "All relevant data is embedded inline in the HTML via AngularJS data attributes on the listing page itself. Each item's metadata (title, doctype, object_link, diary_name, contains_files) is encoded in the board-details td[item] attribute as JSON. Detail fields (anslaget från/till, handläggare, ankomstdatum) are loaded dynamically via Angular on click but the core identifiers are already in the DOM.",
+      "link_selector_hint": "td[board-details][template='3']"
+    },
+    "selectors_hint": {
+      "container": "fieldset:has(h1.board-header:contains('Övrigt anslagen information')) div.fieldset-inner table.table tbody",
+      "item": "tr.table-item[ng-repeat-start]",
+      "case_number": "td[board-details][template='3'] parsed from item attribute: object_link d-parameter (e.g. d=158482)",
+      "address": "td[board-item][template='3'] p.ng-binding (title text contains fastighet and address)",
+      "date": "parsed from item JSON attribute: title text often contains date range",
+      "description": "td[board-item][template='3'] p.ng-binding (full title text)"
+    },
+    "javascript_required": true,
+    "angular_app": true,
+    "data_source_notes": "Page is a full AngularJS SPA. Data is rendered client-side. Each item in 'Övrigt anslagen information' has doctype=4, type='Handling', diary_name='STBYGG' (bygglov) or 'MILJO' (miljö). Item metadata is JSON-encoded in the attribute item='...' on td[board-details]. The object_link field contains diary reference: ?t=4&d=<id>&n=<diary>. API endpoint is likely https://anslagstavla.helsingborg.se/api/ - worth inspecting network traffic to find direct JSON endpoint.",
+    "filter_hint": "Target items where diary_name='STBYGG' for bygglov, or where title contains 'Kungörelse' or 'bygglov' (case-insensitive). Exclude protocol entries (doctype=128).",
+    "notes": "AngularJS single-page app rendered at https://anslagstavla.helsingborg.se/#!/billboard/. Bygglov-ärenden appear in the 'Övrigt anslagen information' section as type=Handling, doctype=4, diary_name=STBYGG. Titles follow pattern 'Kungörelse bygglovsärende - FASTIGHET (GATUADRESS) - åtgärd'. A Selenium/Playwright scraper is required since content is JavaScript-rendered. Recommend intercepting XHR/fetch API calls on page load to find the underlying REST API endpoint, which would be more reliable than DOM scraping. The 'Visa fler' load-more button must be clicked repeatedly to retrieve all current postings.",
+    "confidence": "high",
+    "approved": false
+  },
+  "navigations_used": 1,
+  "candidate_url": "https://anslagstavla.helsingborg.se/",
+  "final_url": "https://anslagstavla.helsingborg.se/#!/billboard/",
+  "tokens": {
+    "input": 141078,
+    "output": 1563,
+    "cost_usd": 0.446679
+  },
+  "failure_reason": null
+}

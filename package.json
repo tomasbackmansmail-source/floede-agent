@@ -9,6 +9,8 @@
     "compare": "node src/compare.js",
     "gap": "node src/gap-analysis.js",
     "discover": "node src/discover.js",
+    "discover-v2": "node src/discover-v2.js",
+    "nacka-gap": "node src/nacka-gap-analysis.js",
     "approve": "node src/approve.js",
     "report": "node src/report.js",
     "poc": "node src/fetch-html.js && node src/extract.js && node src/report.js"

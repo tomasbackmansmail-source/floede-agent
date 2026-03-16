@@ -1,0 +1,37 @@
+{
+  "municipality": "Malmö",
+  "platform_guess": "meetingsplus",
+  "listing_url": "https://motenmedborgarportal.malmo.se/digital-bulletin-board",
+  "listing_type": "table",
+  "pagination": {
+    "has_pagination": true,
+    "type": "numbered_pages",
+    "mechanism": "Klickbara sidnummer i .pagination-lista, 7 sidor synliga. Sidan renderas troligen via JavaScript/React – paginering sker client-side.",
+    "estimated_total_pages": 7
+  },
+  "requires_subpages": {
+    "required": true,
+    "reason": "Listsidan visar nämnd, typ, datum och titel men inga detaljer om fastighet, ärendenummer eller beslutets innehåll. Dessa finns på individuella anslagssidor med UUID-baserade URL:er.",
+    "link_selector_hint": ".dbb-published-announcements-table-title-column a[href*='/digital-bulletin-board/announcements/']"
+  },
+  "selectors_hint": {
+    "container": ".dbb-list-items",
+    "item": ".dbb-list-items-row",
+    "case_number": null,
+    "address": ".dbb-published-announcements-table-title-column a",
+    "date": ".dbb-published-announcements-table-dates-column span",
+    "description": ".dbb-published-announcements-table-type-column span",
+    "committee": ".dbb-published-announcements-table-committee-column a"
+  },
+  "filter_hint": {
+    "relevant_types": [
+      "Kungörelse: Beslut om lov och förhandsbesked",
+      "Kungörelse: Ansökan om lov med avvikelse"
+    ],
+    "relevant_committee": "Stadsbyggnadsnämnden",
+    "type_selector": ".dbb-published-announcements-table-type-column span"
+  },
+  "notes": "Sidan använder MeetingPlus-plattformen och är React-renderad. Tabellen innehåller alla anslagstyper – filtrering på typ 'Kungörelse' och nämnd 'Stadsbyggnadsnämnden' krävs för att isolera bygglovsrelaterade ärenden. Varje rad har en direktlänk till en undersida med UUID i URL:en, t.ex. /digital-bulletin-board/announcements/1caeb0f3-.... Fastighetsbeteckning förekommer i titeln (t.ex. 'JÄRNYXAN 10, SEJEN 3') men fullständiga detaljer kräver besök på undersidan. Paginering är troligen JavaScript-driven och kan kräva browser-rendering. Sidstorlek kan justeras till 100/sida via dropdown för att minska antal anrop.",
+  "confidence": "high",
+  "approved": false
+}

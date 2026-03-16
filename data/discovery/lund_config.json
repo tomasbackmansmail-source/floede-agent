@@ -1,0 +1,28 @@
+{
+  "municipality": "Lund",
+  "platform_guess": "sitevision",
+  "listing_url": "https://lund.se/kommun-och-politik/anslagstavla/kungorelser-bygglov",
+  "listing_type": "list",
+  "pagination": {
+    "has_pagination": false,
+    "type": "none",
+    "mechanism": "Sidan visar alla aktuella kungörelser på en och samma sida utan paginering",
+    "estimated_total_pages": null
+  },
+  "requires_subpages": {
+    "required": false,
+    "reason": "Kungörelserna presenteras direkt på listsidan uppdelade i två sektioner: Grannehörande och Beslutade bygglov. Detaljer som ärendenummer, adress och beskrivning förväntas finnas inline i respektive listelement.",
+    "link_selector_hint": null
+  },
+  "selectors_hint": {
+    "container": "#Mittenspalt",
+    "item": ".sv-text-portlet-content",
+    "case_number": null,
+    "address": null,
+    "date": null,
+    "description": ".env-text-body-01"
+  },
+  "notes": "Sidan är byggd i Sitevision och innehåller två huvudsektioner: 'Grannehörande' (id: h-Grannehorande) och 'Beslutade bygglov' (id: h-Beslutadebygglov). Innehållet renderas som statisk text i sv-text-portlet-content-element. Det är oklart exakt hur varje ärende är strukturerat i HTML eftersom innehållsdelen var trunkerad – selektorer bör verifieras vid faktisk körning. Sidan har ingen paginering och uppdateras löpande med aktuella ärenden.",
+  "confidence": "medium",
+  "approved": false
+}
