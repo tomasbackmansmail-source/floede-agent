@@ -1,0 +1,22 @@
+{
+  "name": "floede-agent",
+  "version": "0.1.0",
+  "description": "Autonomous pipeline for public permit data extraction",
+  "type": "module",
+  "scripts": {
+    "fetch": "node src/fetch-html.js",
+    "extract": "node src/extract.js",
+    "compare": "node src/compare.js",
+    "report": "node src/report.js",
+    "poc": "node src/fetch-html.js && node src/extract.js && node src/report.js"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.39.0",
+    "@supabase/supabase-js": "^2.47.0",
+    "pg": "^8.20.0",
+    "playwright": "^1.49.0"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}
