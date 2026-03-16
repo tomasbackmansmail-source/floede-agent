@@ -1,0 +1,36 @@
+{
+  "municipality": "Norrköping",
+  "platform_guess": "sitevision",
+  "listing_url": "https://norrkoping.se/kommun-och-politik/riktlinjer-beslut-och-dokument/anslagstavla?sv.url=12.4e77256e19931d3c7613502&sv.mode=view&query=*%3A*&100.4e77256e19931d3c7613503=Beslut",
+  "listing_type": "links_to_subpages",
+  "pagination": {
+    "has_pagination": true,
+    "type": "unknown",
+    "mechanism": "Sitevision faceted search portlet – sannolikt numrerade sidor eller load-more via URL-parameter. Kontrollera om parametern 'start' eller 'page' tillkommer vid fler träffar.",
+    "estimated_total_pages": null
+  },
+  "requires_subpages": {
+    "required": true,
+    "reason": "Listsidan visar endast titel, anslags-typ, anslags-datum och datum för nedtagning. Fastighetsbeteckning, ärendenummer, detaljerad beskrivning och eventuella handlingar finns på respektive undersida.",
+    "link_selector_hint": "ol.sv-search-result li.sv-search-hit h2.heading a[href*='anslag-bygglov']"
+  },
+  "selectors_hint": {
+    "container": "ol.sv-search-result",
+    "item": "li.sv-search-hit",
+    "case_number": null,
+    "address": "li.sv-search-hit h2.heading a",
+    "date": "li.sv-search-hit .metadata p.normal",
+    "description": "li.sv-search-hit div.info-type",
+    "anslag_type": "div.searchpage__info div.info-type",
+    "anslag_date": "div.searchpage__info time.info-date",
+    "anslag_ner": "div.metadata div.sv-text-portlet p.normal"
+  },
+  "filter_urls": {
+    "Beslut": "https://norrkoping.se/kommun-och-politik/riktlinjer-beslut-och-dokument/anslagstavla?sv.url=12.4e77256e19931d3c7613502&sv.mode=view&query=*%3A*&100.4e77256e19931d3c7613503=Beslut",
+    "Grannehörande": "https://norrkoping.se/kommun-och-politik/riktlinjer-beslut-och-dokument/anslagstavla?sv.url=12.4e77256e19931d3c7613502&sv.mode=view&query=*%3A*&100.4e77256e19931d3c7613503=Granneh%C3%B6rande",
+    "Detaljplaner": "https://norrkoping.se/kommun-och-politik/riktlinjer-beslut-och-dokument/anslagstavla?sv.url=12.4e77256e19931d3c7613502&sv.mode=view&query=*%3A*&100.4e77256e19931d3c7613503=Detaljplaner"
+  },
+  "notes": "Anslagstavlan använder Sitevisions facetterade sökportlet. Bygglovsrelaterade poster återfinns under filtren 'Beslut' och 'Grannehörande'. Varje post är en länk till en undersida under /anslag-bygglov/. Titeln innehåller fastighetsbeteckning och åtgärdstyp, t.ex. 'Kittet 8 Bygglov för tillbyggnad av enbostadshus'. Metadata på listsidan inkluderar 'Anslaget' (datum anslaget sattes upp) och 'Anslaget tas ner' (sista överklagningsdag). Grannehöranden har alltid nedtagningsdatum; Beslut saknar ibland detta fält. Namnmönster i URL: YYYY-MM-DD-fastighet-atgard. Nämnden är Byggnads- och miljöskyddsnämnden.",
+  "confidence": "high",
+  "approved": true
+}

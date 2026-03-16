@@ -1,0 +1,28 @@
+{
+  "municipality": "Västerås",
+  "platform_guess": "sitevision",
+  "listing_url": "https://www.vasteras.se/kommun-och-politik/moten-handlingar-och-protokoll/anslagstavla.html",
+  "listing_type": "list",
+  "pagination": {
+    "has_pagination": false,
+    "type": "none",
+    "mechanism": "Alla tillkännagivanden listas på en och samma sida utan paginering.",
+    "estimated_total_pages": null
+  },
+  "requires_subpages": {
+    "required": false,
+    "reason": "All relevant data finns inline på listsidan. Varje post har ett expanderbart block (.appropriaton-more-info) som innehåller organ, dokumenttyp, ärendenummer, fastighetsbeteckning, anslagsdatum och datum för nedtagande direkt i HTML:en – inga separata undersidor behövs.",
+    "link_selector_hint": null
+  },
+  "selectors_hint": {
+    "container": "div.appropriation-list",
+    "item": "div.meeting-container",
+    "case_number": "div.appropriaton-more-info div.sv-text-portlet-content p.normal",
+    "address": "div.meeting-header h4",
+    "date": "div.appropriaton-more-info p:contains('Anslagsdatum')",
+    "description": "div.appropriaton-more-info div.sv-text-portlet-content"
+  },
+  "notes": "Innehållet är inbäddat direkt i sidan som dold HTML (display:none) i .appropriaton-more-info per post – ingen JavaScript-rendering krävs för att hämta data, allt finns i källkoden. Varje .meeting-container innehåller: rubrik i h4 (med typ, organ och fastighetsbeteckning), ärendenummer i brödtext (format BY YYYY-XXXXXX), organ/dokumenttyp/anslagsdatum/nedtagandedatum som rena <p>-taggar. Filtrera på 'Byggnadsnämnden' i organ-fältet för att isolera bygglovärenden. Posten kan vara antingen 'Kungörelse' (beslut/underrättelse) eller 'Tillkännagivande' (protokoll). Ärendenummer extraheras ur brödtexten med regex-mönster BY \\d{4}-\\d{6}.",
+  "confidence": "high",
+  "approved": true
+}

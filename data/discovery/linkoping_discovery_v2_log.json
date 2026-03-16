@@ -1,0 +1,49 @@
+{
+  "municipality": "Linköping",
+  "municipality_id": "linkoping",
+  "success": true,
+  "needs_manual_url": false,
+  "config": {
+    "municipality": "Linköping",
+    "platform_guess": "custom",
+    "listing_url": "https://ciceron-anslagstavlan.linkoping.se/#!/billboard/",
+    "listing_type": "table",
+    "pagination": {
+      "has_pagination": true,
+      "type": "load_more_button",
+      "mechanism": "Click element with class 'show-more more-results' and text 'Visa fler' within each board section",
+      "estimated_total_pages": null
+    },
+    "requires_subpages": {
+      "required": false,
+      "reason": "Detaljdata laddas inline via AngularJS getMoreData() vid klick på rad. Fältvärdena (anslaget från/till, handläggare, ankomstdatum) populeras i samma tabell via API-anrop. Ingen separat undersida behövs, men ett API-anrop per item krävs för att hämta detaljfält.",
+      "link_selector_hint": null
+    },
+    "selectors_hint": {
+      "container": "#billboard",
+      "item": "tr.table-item",
+      "case_number": "td[board-details] [item*='diarie']",
+      "address": null,
+      "date": "label:contains('Anslaget från och med') + div",
+      "description": "td[board-item] p.ng-binding",
+      "detail_data_attribute": "td[board-details]",
+      "item_json": "td[board-details][item]",
+      "section_heading": "h1.board-header",
+      "relevant_section": "h1.board-header:contains('Övrigt anslagen information')",
+      "diary_name_filter": "SBN",
+      "load_more_button": "div.show-more.more-results"
+    },
+    "notes": "Sidan är en AngularJS SPA (Ciceron-plattformen) som kräver JavaScript-rendering. Data finns inbäddad i data-attributet 'item' på td[board-details] som JSON-strängar innehållande id, doctype, type, title, diarie, diary_name och object_link. Relevant sektion för bygglov/detaljplaner är 'Övrigt anslagen information' med diary_name SBN (Stadsbyggnadsnämnden) och BMN (Byggnadsnämnden). Detaljfält som anslaget-datum, handläggare och ankomstdatum är lazy-loaded via API och är tomma i initial HTML. API-anrop sker till ciceron-anslagstavlan.linkoping.se/api med parametrar från object_link (t, d, n). Titlar att filtrera på: kungörelse, underrättelse, detaljplan, granskning, samråd, antagande, grannehörande. Sektionen 'Justerade protokoll' innehåller mötesprotokoll med doctype 128 och är mindre relevant för bygglov.",
+    "confidence": "high",
+    "approved": false
+  },
+  "navigations_used": 2,
+  "candidate_url": "https://www.linkoping.se/anslagstavla/",
+  "final_url": "https://ciceron-anslagstavlan.linkoping.se/#!/billboard/",
+  "tokens": {
+    "input": 68881,
+    "output": 1860,
+    "cost_usd": 0.234543
+  },
+  "failure_reason": null
+}

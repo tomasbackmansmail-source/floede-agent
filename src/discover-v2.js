@@ -29,11 +29,28 @@ async function callWithRetry(fn, maxRetries = 3) {
 }
 
 const DISCOVERY_TARGETS = [
+  // Fas A (5 befintliga)
   { id: "nacka", name: "Nacka", homepage: "https://www.nacka.se" },
   { id: "helsingborg", name: "Helsingborg", homepage: "https://helsingborg.se" },
   { id: "malmo", name: "Malmö", homepage: "https://malmo.se" },
   { id: "molndal", name: "Mölndal", homepage: "https://www.molndal.se" },
-  { id: "lund", name: "Lund", homepage: "https://www.lund.se" }
+  { id: "lund", name: "Lund", homepage: "https://www.lund.se" },
+  // Fas B (15 nya)
+  { id: "uppsala", name: "Uppsala", homepage: "https://www.uppsala.se" },
+  { id: "linkoping", name: "Linköping", homepage: "https://www.linkoping.se" },
+  { id: "norrkoping", name: "Norrköping", homepage: "https://www.norrkoping.se" },
+  { id: "umea", name: "Umeå", homepage: "https://www.umea.se" },
+  { id: "orebro", name: "Örebro", homepage: "https://www.orebro.se" },
+  { id: "jonkoping", name: "Jönköping", homepage: "https://www.jonkoping.se" },
+  { id: "karlstad", name: "Karlstad", homepage: "https://karlstad.se" },
+  { id: "vasteras", name: "Västerås", homepage: "https://www.vasteras.se" },
+  { id: "sundsvall", name: "Sundsvall", homepage: "https://www.sundsvall.se" },
+  { id: "halmstad", name: "Halmstad", homepage: "https://www.halmstad.se" },
+  { id: "trosa", name: "Trosa", homepage: "https://www.trosa.se" },
+  { id: "hoor", name: "Höör", homepage: "https://www.hoor.se" },
+  { id: "tibro", name: "Tibro", homepage: "https://www.tibro.se" },
+  { id: "kiruna", name: "Kiruna", homepage: "https://www.kiruna.se" },
+  { id: "gotland", name: "Gotland", homepage: "https://www.gotland.se" },
 ];
 
 // Parse --only=nacka,malmo CLI argument
@@ -342,6 +359,12 @@ ${CONFIG_GENERATION_PROMPT}`
         }
 
         await new Promise((r) => setTimeout(r, 1000));
+      } else {
+        // navMatch failed or max navigations reached — ask to ANALYZE instead
+        conversationHistory.push({
+          role: "user",
+          content: "URL:en var ogiltig eller max navigeringar nadda. Svara ANALYZE for nuvarande sida eller ge en giltig https-URL med NAVIGATE: <url>."
+        });
       }
     } else {
       conversationHistory.push({

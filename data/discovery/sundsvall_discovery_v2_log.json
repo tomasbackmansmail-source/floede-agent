@@ -1,0 +1,52 @@
+{
+  "municipality": "Sundsvall",
+  "municipality_id": "sundsvall",
+  "success": true,
+  "needs_manual_url": false,
+  "config": {
+    "municipality": "Sundsvall",
+    "platform_guess": "sitevision",
+    "listing_url": "https://sundsvall.se/kommun/kommun-och-politik/overklaga-beslut-rattssakerhet/sundsvalls-kommuns-officiella-anslagstavla",
+    "listing_type": "unknown",
+    "pagination": {
+      "has_pagination": null,
+      "type": "unknown",
+      "mechanism": "Okänt - innehåll är dynamiskt laddat via JavaScript efter cookie-consent. Paginering kan ej observeras i statisk HTML.",
+      "estimated_total_pages": null
+    },
+    "requires_subpages": {
+      "required": null,
+      "reason": "Kan ej avgöras - sidans anslags-innehåll är inte synligt i statisk HTML. Sidan använder SiteVision sv-template-anslagsarkiv-mall som laddar anslag dynamiskt via JavaScript. Cookie-consent måste accepteras och JS renderas innan innehållsstruktur kan analyseras.",
+      "link_selector_hint": ".sv-template-anslagsarkiv"
+    },
+    "selectors_hint": {
+      "container": ".sv-template-anslagsarkiv",
+      "item": null,
+      "case_number": null,
+      "address": null,
+      "date": null,
+      "description": null
+    },
+    "cookie_handling": {
+      "required": true,
+      "method": "POST",
+      "action_url": "https://sundsvall.se/kommun/kommun-och-politik/overklaga-beslut-rattssakerhet/sundsvalls-kommuns-officiella-anslagstavla?sv.target=12.235b114b198e57425bc376aa&sv.12.235b114b198e57425bc376aa.route=/consent-settings",
+      "post_fields": {
+        "necessary": "necessary"
+      },
+      "note": "Skicka POST med endast necessary-cookie för att acceptera nödvändiga kakor och komma åt innehållet"
+    },
+    "notes": "Sidan kräver JavaScript-rendering (Playwright/Puppeteer). HTML-klassen sv-template-anslagsarkiv bekräftar att detta är en SiteVision anslagsarkiv-mall. Allt anslags-innehåll laddas dynamiskt efter cookie-accept. Rekommenderat tillvägagångssätt: (1) Acceptera nödvändiga kakor via POST, (2) Rendera sidan med headless browser, (3) Vänta på att anslagsarkivet laddas, (4) Inspektera nätverkstrafik för att identifiera underliggande REST/JSON API-anrop från SiteVision-portleten, (5) Anropa API direkt för strukturerad data. Node-ID för anslagsarkivet är troligen 4.235b114b198e57425bc3694a baserat på meny-strukturen.",
+    "confidence": "low",
+    "approved": false
+  },
+  "navigations_used": 2,
+  "candidate_url": "https://sundsvall.se/kommun/kommun-och-politik/overklaga-beslut-rattssakerhet/sundsvalls-kommuns-officiella-anslagstavla",
+  "final_url": "https://sundsvall.se/kommun/kommun-och-politik/overklaga-beslut-rattssakerhet/sundsvalls-kommuns-officiella-anslagstavla",
+  "tokens": {
+    "input": 70872,
+    "output": 2102,
+    "cost_usd": 0.244146
+  },
+  "failure_reason": null
+}

@@ -24,5 +24,5 @@
   },
   "notes": "Sidan är byggd i Sitevision och innehåller två huvudsektioner: 'Grannehörande' (id: h-Grannehorande) och 'Beslutade bygglov' (id: h-Beslutadebygglov). Innehållet renderas som statisk text i sv-text-portlet-content-element. Det är oklart exakt hur varje ärende är strukturerat i HTML eftersom innehållsdelen var trunkerad – selektorer bör verifieras vid faktisk körning. Sidan har ingen paginering och uppdateras löpande med aktuella ärenden.",
   "confidence": "medium",
-  "approved": false
+  "approved": true
 }

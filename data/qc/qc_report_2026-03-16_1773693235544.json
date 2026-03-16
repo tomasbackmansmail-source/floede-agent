@@ -1,0 +1,131 @@
+{
+  "run_at": "2026-03-16T20:33:55.543Z",
+  "summary": {
+    "total_permits_extracted": 165,
+    "total_municipalities": 16,
+    "total_flagged_permits": 0,
+    "stale_sources": 0,
+    "anomalies": 0
+  },
+  "per_municipality": [
+    {
+      "municipality": "gotland",
+      "permits_today": 0,
+      "baseline": null,
+      "issues": [],
+      "issue_count": 0
+    },
+    {
+      "municipality": "halmstad",
+      "permits_today": 14,
+      "baseline": null,
+      "issues": [],
+      "issue_count": 0
+    },
+    {
+      "municipality": "helsingborg",
+      "permits_today": 4,
+      "baseline": null,
+      "issues": [],
+      "issue_count": 0
+    },
+    {
+      "municipality": "jnkping",
+      "permits_today": 11,
+      "baseline": null,
+      "issues": [],
+      "issue_count": 0
+    },
+    {
+      "municipality": "linkping",
+      "permits_today": 0,
+      "baseline": null,
+      "issues": [],
+      "issue_count": 0
+    },
+    {
+      "municipality": "lund",
+      "permits_today": 41,
+      "baseline": null,
+      "issues": [],
+      "issue_count": 0
+    },
+    {
+      "municipality": "malm",
+      "permits_today": 4,
+      "baseline": null,
+      "issues": [],
+      "issue_count": 0
+    },
+    {
+      "municipality": "malmo",
+      "permits_today": 17,
+      "baseline": null,
+      "issues": [],
+      "issue_count": 0
+    },
+    {
+      "municipality": "mlndal",
+      "permits_today": 10,
+      "baseline": null,
+      "issues": [],
+      "issue_count": 0
+    },
+    {
+      "municipality": "molndal",
+      "permits_today": 6,
+      "baseline": null,
+      "issues": [],
+      "issue_count": 0
+    },
+    {
+      "municipality": "nacka",
+      "permits_today": 0,
+      "baseline": null,
+      "issues": [],
+      "issue_count": 0
+    },
+    {
+      "municipality": "norrkping",
+      "permits_today": 3,
+      "baseline": null,
+      "issues": [],
+      "issue_count": 0
+    },
+    {
+      "municipality": "rebro",
+      "permits_today": 3,
+      "baseline": null,
+      "issues": [],
+      "issue_count": 0
+    },
+    {
+      "municipality": "trosa",
+      "permits_today": 8,
+      "baseline": null,
+      "issues": [],
+      "issue_count": 0
+    },
+    {
+      "municipality": "uppsala",
+      "permits_today": 3,
+      "baseline": null,
+      "issues": [],
+      "issue_count": 0
+    },
+    {
+      "municipality": "vsters",
+      "permits_today": 41,
+      "baseline": null,
+      "issues": [],
+      "issue_count": 0
+    }
+  ],
+  "stale_sources": [],
+  "anomalies": [],
+  "cost": {
+    "extraction_usd": 0.40885600000000005,
+    "cost_per_permit_usd": 0.002879267605633803,
+    "qc_usd": 0
+  }
+}

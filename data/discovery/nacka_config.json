@@ -27,5 +27,5 @@
   },
   "notes": "Anslagstavlan har ett inbyggt kategorifilter via data-category-attributet på li-element. Bygglovsärenden samlas i listobjekt med data-category='Bygglov'. URL-mönster för undersidor: /kommun--politik/delta-och-paverka/anslagstavla-officiell/bygglov/{year}/beslut-om-bygglov-och-anmalan-{YYYY-MM-DD}/. Varje undersida listar troligen flera ärenden för det datumet. Sidans period är begränsad till 30 dagar.",
   "confidence": "high",
-  "approved": false
+  "approved": true
 }

@@ -1,0 +1,356 @@
+// Daily runner: fetch HTML → extract with Haiku → insert to permits_v2 → QC
+// This is what Railway cron runs daily at 14:00 CET.
+
+import Anthropic from "@anthropic-ai/sdk";
+import { createClient } from "@supabase/supabase-js";
+import { chromium } from "playwright";
+import { readFile, readdir, writeFile, mkdir } from "fs/promises";
+import { join } from "path";
+import { createHash } from "crypto";
+import { EXTRACTION_PROMPT_V2 } from "./config/extraction-prompt-v2.js";
+
+const HTML_DIR = join(process.cwd(), "data", "html");
+const EXTRACTED_DIR = join(process.cwd(), "data", "extracted");
+const COST_DIR = join(process.cwd(), "data", "costs");
+const RUN_LOG_DIR = join(process.cwd(), "data", "runs");
+
+const HAIKU_INPUT_COST = 0.0000008;
+const HAIKU_OUTPUT_COST = 0.000004;
+
+async function ensureDirs() {
+  for (const dir of [HTML_DIR, EXTRACTED_DIR, COST_DIR, RUN_LOG_DIR]) {
+    await mkdir(dir, { recursive: true });
+  }
+}
+
+async function loadApprovedConfigs() {
+  const configDir = join(process.cwd(), "data", "discovery");
+  try {
+    const files = (await readdir(configDir)).filter((f) => f.endsWith("_config.json"));
+    const configs = [];
+    for (const file of files) {
+      const config = JSON.parse(await readFile(join(configDir, file), "utf-8"));
+      if (config.approved) {
+        configs.push({ ...config, _file: file });
+      }
+    }
+    return configs;
+  } catch {
+    return [];
+  }
+}
+
+function stripNonContent(html) {
+  return html
+    .replace(/<script[\s\S]*?<\/script>/gi, "")
+    .replace(/<style[\s\S]*?<\/style>/gi, "")
+    .replace(/<svg[\s\S]*?<\/svg>/gi, "")
+    .replace(/<!--[\s\S]*?-->/g, "")
+    .replace(/<link[^>]*>/gi, "")
+    .replace(/<meta[^>]*>/gi, "")
+    .replace(/<img[^>]*>/gi, "")
+    .replace(/\s{2,}/g, " ")
+    .trim();
+}
+
+async function fetchPage(page, config) {
+  const url = config.listing_url;
+  console.log(`  [Fetch] ${url}`);
+
+  await page.goto(url, { waitUntil: "networkidle", timeout: 30000 });
+  await page.waitForTimeout(1500);
+
+  // Handle pagination if configured
+  if (config.pagination && config.pagination.has_pagination) {
+    if (config.pagination.type === "load_more_button" && config.pagination.mechanism) {
+      // Click "load more" button multiple times
+      for (let i = 0; i < 10; i++) {
+        try {
+          const btn = await page.$(config.pagination.mechanism);
+          if (!btn) break;
+          await btn.click();
+          await page.waitForTimeout(1500);
+        } catch {
+          break;
+        }
+      }
+    } else if (config.pagination.type === "page_size_selector") {
+      // Try to set page size to maximum
+      try {
+        const selectors = ["select[name*='size']", "select[name*='antal']", ".page-size select"];
+        for (const sel of selectors) {
+          const select = await page.$(sel);
+          if (select) {
+            const options = await select.$$("option");
+            if (options.length > 0) {
+              const lastOption = options[options.length - 1];
+              const value = await lastOption.getAttribute("value");
+              await select.selectOption(value);
+              await page.waitForTimeout(2000);
+            }
+            break;
+          }
+        }
+      } catch (err) {
+        console.log(`  [Fetch] Could not set page size: ${err.message}`);
+      }
+    }
+  }
+
+  // Handle subpages if required
+  let html = await page.content();
+
+  if (config.requires_subpages && config.requires_subpages.required) {
+    const linkSelector = config.requires_subpages.link_selector_hint || "a[href*='bygglov'], a[href*='kungorelse']";
+    const links = await page.$$eval(linkSelector, (els) =>
+      els.map((el) => el.href).filter((href) => href && href.startsWith("http"))
+    );
+
+    const uniqueLinks = [...new Set(links)];
+    console.log(`  [Fetch] Found ${uniqueLinks.length} subpage links`);
+
+    const subpageHtmls = [];
+    for (const link of uniqueLinks.slice(0, 50)) { // Cap at 50 subpages
+      try {
+        await page.goto(link, { waitUntil: "networkidle", timeout: 15000 });
+        await page.waitForTimeout(500);
+        subpageHtmls.push(await page.content());
+      } catch (err) {
+        console.log(`  [Fetch] Subpage failed: ${link} — ${err.message}`);
+      }
+      await new Promise((r) => setTimeout(r, 1000)); // Rate limit
+    }
+
+    html = subpageHtmls.join("\n<!-- SUBPAGE_SEPARATOR -->\n");
+  }
+
+  return html;
+}
+
+async function extractPermits(client, html, municipalityName, sourceUrl) {
+  const cleaned = stripNonContent(html);
+  const truncated = cleaned.length > 100000 ? cleaned.slice(0, 100000) : cleaned;
+
+  const response = await client.messages.create({
+    model: "claude-haiku-4-5-20251001",
+    max_tokens: 8192,
+    messages: [
+      {
+        role: "user",
+        content: `${EXTRACTION_PROMPT_V2}\n\nKommun: ${municipalityName}\n\nHTML:\n${truncated}`
+      }
+    ]
+  });
+
+  const rawText = response.content[0].text.trim()
+    .replace(/```json\s*/g, "").replace(/```\s*/g, "");
+
+  let permits = [];
+  try {
+    permits = JSON.parse(rawText);
+  } catch {
+    console.log(`  [Extract] JSON parse error for ${municipalityName}`);
+    permits = [];
+  }
+
+  const cost = {
+    input_tokens: response.usage.input_tokens,
+    output_tokens: response.usage.output_tokens,
+    cost_usd: (response.usage.input_tokens * HAIKU_INPUT_COST) +
+              (response.usage.output_tokens * HAIKU_OUTPUT_COST)
+  };
+
+  return { permits, cost };
+}
+
+async function insertToSupabase(supabase, permits, extractionRun) {
+  if (permits.length === 0) return { inserted: 0, skipped: 0, errors: 0 };
+
+  let inserted = 0;
+  let skipped = 0;
+  let errors = 0;
+
+  for (const p of permits) {
+    const row = {
+      municipality: p.municipality,
+      case_number: p.case_number || null,
+      address: p.address || null,
+      permit_type: p.permit_type || null,
+      status: p.status || null,
+      date: p.date || null,
+      description: p.description || null,
+      source_url: p.source_url || null,
+      extraction_model: "claude-haiku-4-5-20251001",
+      extraction_cost_usd: null,
+      raw_html_hash: null
+    };
+
+    const { error } = await supabase
+      .from("permits_v2")
+      .upsert(row, {
+        onConflict: "municipality,case_number",
+        ignoreDuplicates: true
+      });
+
+    if (error) {
+      if (error.code === "23505") { // Unique violation = duplicate
+        skipped++;
+      } else {
+        errors++;
+        console.log(`  [DB] Error inserting ${p.case_number}: ${error.message}`);
+      }
+    } else {
+      inserted++;
+    }
+  }
+
+  return { inserted, skipped, errors };
+}
+
+async function main() {
+  await ensureDirs();
+
+  const startTime = Date.now();
+  const runId = new Date().toISOString().slice(0, 19).replace(/[:.]/g, "-");
+
+  console.log(`=== Floede Agent - Daily Run ${runId} ===\n`);
+
+  const configs = await loadApprovedConfigs();
+  if (configs.length === 0) {
+    console.error("No approved configs found. Run Discovery first and approve configs.");
+    process.exit(1);
+  }
+
+  console.log(`Found ${configs.length} approved configs\n`);
+
+  const client = new Anthropic();
+  const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_KEY);
+  const browser = await chromium.launch({ headless: true });
+  const context = await browser.newContext({
+    userAgent: "FloedAgent/0.1 (byggsignal.se; datainsamling fran offentliga anslagstavlor)"
+  });
+  const page = await context.newPage();
+
+  const results = [];
+  let totalCost = 0;
+  let totalPermits = 0;
+  let totalInserted = 0;
+
+  for (const config of configs) {
+    const muniName = config.municipality;
+    console.log(`\n--- ${muniName} ---`);
+
+    try {
+      // 1. Fetch HTML
+      const html = await fetchPage(page, config);
+      const hash = createHash("sha256").update(html).digest("hex").slice(0, 16);
+
+      // Save HTML
+      const htmlFile = `${muniName.toLowerCase().replace(/[^a-z]/g, "")}_${runId}.html`;
+      await writeFile(join(HTML_DIR, htmlFile), html, "utf-8");
+
+      // 2. Extract permits
+      const { permits, cost } = await extractPermits(client, html, muniName, config.listing_url);
+      totalCost += cost.cost_usd;
+      totalPermits += permits.length;
+
+      console.log(`  Permits: ${permits.length}, Cost: $${cost.cost_usd.toFixed(4)}`);
+
+      // Save extracted data
+      await writeFile(
+        join(EXTRACTED_DIR, `${muniName.toLowerCase().replace(/[^a-z]/g, "")}_extracted.json`),
+        JSON.stringify(permits, null, 2),
+        "utf-8"
+      );
+
+      // 3. Insert to Supabase
+      const db = await insertToSupabase(supabase, permits, runId);
+      totalInserted += db.inserted;
+      console.log(`  DB: ${db.inserted} inserted, ${db.skipped} skipped, ${db.errors} errors`);
+
+      results.push({
+        municipality: muniName,
+        status: "ok",
+        permits: permits.length,
+        inserted: db.inserted,
+        skipped: db.skipped,
+        errors: db.errors,
+        cost_usd: cost.cost_usd,
+        html_hash: hash
+      });
+
+    } catch (err) {
+      console.error(`  ERROR: ${err.message}`);
+      results.push({
+        municipality: muniName,
+        status: "error",
+        error: err.message,
+        permits: 0,
+        cost_usd: 0
+      });
+    }
+
+    // Rate limit between municipalities
+    await new Promise((r) => setTimeout(r, 1000));
+  }
+
+  await browser.close();
+
+  const elapsed = Date.now() - startTime;
+
+  // Save run log
+  const runLog = {
+    run_id: runId,
+    run_at: new Date().toISOString(),
+    elapsed_ms: elapsed,
+    configs_count: configs.length,
+    total_permits: totalPermits,
+    total_inserted: totalInserted,
+    total_cost_usd: totalCost,
+    cost_per_permit_usd: totalPermits > 0 ? totalCost / totalPermits : 0,
+    results
+  };
+
+  await writeFile(join(RUN_LOG_DIR, `run_${runId}.json`), JSON.stringify(runLog, null, 2), "utf-8");
+
+  // Save cost log (for QC to read)
+  await writeFile(
+    join(COST_DIR, `extraction_cost_${Date.now()}.json`),
+    JSON.stringify({
+      run_at: new Date().toISOString(),
+      agent: "extraction",
+      model: "claude-haiku-4-5-20251001",
+      total_cost_usd: totalCost,
+      total_permits: totalPermits,
+      cost_per_permit_usd: totalPermits > 0 ? totalCost / totalPermits : 0,
+      details: results.map((r) => ({
+        municipality: r.municipality,
+        permits: r.permits,
+        cost_usd: r.cost_usd
+      }))
+    }, null, 2),
+    "utf-8"
+  );
+
+  // Summary
+  console.log(`\n=== RUN COMPLETE ===`);
+  console.log(`Time: ${Math.round(elapsed / 1000)}s`);
+  console.log(`Municipalities: ${configs.length}`);
+  console.log(`Permits extracted: ${totalPermits}`);
+  console.log(`Permits inserted: ${totalInserted}`);
+  console.log(`Cost: $${totalCost.toFixed(4)}`);
+  console.log(`Cost/permit: $${(totalPermits > 0 ? totalCost / totalPermits : 0).toFixed(6)}`);
+
+  const ok = results.filter((r) => r.status === "ok").length;
+  const failed = results.filter((r) => r.status === "error").length;
+  console.log(`OK: ${ok}, Failed: ${failed}`);
+
+  if (failed > 0) {
+    console.log("Failed municipalities:");
+    results.filter((r) => r.status === "error").forEach((r) => {
+      console.log(`  - ${r.municipality}: ${r.error}`);
+    });
+  }
+}
+
+main().catch(console.error);

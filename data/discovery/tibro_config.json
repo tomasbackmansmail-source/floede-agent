@@ -1,0 +1,28 @@
+{
+  "municipality": "Tibro",
+  "platform_guess": "custom",
+  "listing_url": "https://tibro.se/kommun-och-politik/sa-styrs-tibro-kommun/anslagstavla2/",
+  "listing_type": "links_to_subpages",
+  "pagination": {
+    "has_pagination": false,
+    "type": "none",
+    "mechanism": "Ingen paginering observerad",
+    "estimated_total_pages": null
+  },
+  "requires_subpages": {
+    "required": true,
+    "reason": "Anslagstavlan listar ärenden som länkar till undersidor där detaljer som ärendenummer, adress, status och beslut finns.",
+    "link_selector_hint": "a[href*='anslagstavla']"
+  },
+  "selectors_hint": {
+    "container": ".section-main, main, .area-content",
+    "item": "ul li, .list-item, article",
+    "case_number": null,
+    "address": null,
+    "date": null,
+    "description": null
+  },
+  "notes": "Faktisk anslagstavla med innehåll finns troligen på https://tibro.se/kommun-och-politik/sa-styrs-tibro-kommun/anslagstavla2/ (aktiv länk hittad i navigationsmenyn med class='active'). Den ursprungliga URL:en /anslagstavla verkar vara en omdirigering eller alias. Rekommenderar att scrapa /kommun-och-politik/sa-styrs-tibro-kommun/anslagstavla2/ istället. Innehållets exakta HTML-struktur för anslagens lista kunde inte observeras i det tillhandahållna HTML-utdraget – selektorer är uppskattningar baserade på plattformens typiska mönster.",
+  "confidence": "low",
+  "approved": true
+}

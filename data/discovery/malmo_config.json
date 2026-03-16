@@ -33,5 +33,5 @@
   },
   "notes": "Sidan använder MeetingPlus-plattformen och är React-renderad. Tabellen innehåller alla anslagstyper – filtrering på typ 'Kungörelse' och nämnd 'Stadsbyggnadsnämnden' krävs för att isolera bygglovsrelaterade ärenden. Varje rad har en direktlänk till en undersida med UUID i URL:en, t.ex. /digital-bulletin-board/announcements/1caeb0f3-.... Fastighetsbeteckning förekommer i titeln (t.ex. 'JÄRNYXAN 10, SEJEN 3') men fullständiga detaljer kräver besök på undersidan. Paginering är troligen JavaScript-driven och kan kräva browser-rendering. Sidstorlek kan justeras till 100/sida via dropdown för att minska antal anrop.",
   "confidence": "high",
-  "approved": false
+  "approved": true
 }

@@ -1,0 +1,44 @@
+{
+  "municipality": "Jönköping",
+  "municipality_id": "jonkoping",
+  "success": true,
+  "needs_manual_url": false,
+  "config": {
+    "municipality": "Jönköping",
+    "platform_guess": "sitevision",
+    "listing_url": "https://www.jonkoping.se/kommun--politik/anslagstavla-for-jonkopings-kommun",
+    "listing_type": "links_to_subpages",
+    "pagination": {
+      "has_pagination": false,
+      "type": "none",
+      "mechanism": "Alla poster verkar listas på en och samma sida utan paginering. Sidan innehåller minst 30+ poster synliga i HTML.",
+      "estimated_total_pages": null
+    },
+    "requires_subpages": {
+      "required": true,
+      "reason": "Listsidan visar endast titel, datum och en kort beskrivning. Detaljerad information om fastigheter, ärendenummer och beslut finns på respektive undersida.",
+      "link_selector_hint": "a.sv-font-artikel-rubrik-startsida[href*='kungorelse-bygglov']"
+    },
+    "selectors_hint": {
+      "container": "ul.sv-channel.sv-defaultlist",
+      "item": "li.sv-channel-item.c24559",
+      "case_number": null,
+      "address": null,
+      "date": "time.sv-font-aktuellt-datum-startsida",
+      "description": "span.normal",
+      "title": "a.sv-font-artikel-rubrik-startsida span"
+    },
+    "notes": "Anslagstavlan innehåller blandade ärendetyper: bygglov (inkomna ansökningar och beviljade beslut), protokoll från nämnder, kungörelser om detaljplaner m.m. Filtrering bör ske på länk-href eller titel för att plocka ut enbart bygglovsrelaterade kungörelser. Relevanta href-mönster: 'kungorelse-bygglov---inkomna-ansokningar' och 'kungorelse-bygglov---beviljade-beslut'. Base URL för relativa länkar är https://www.jonkoping.se. Notera att ett fåtal äldre poster har avvikande URL-format (långa hash-baserade URL:er) vilket kan tyda på plattformsmigration.",
+    "confidence": "high",
+    "approved": false
+  },
+  "navigations_used": 1,
+  "candidate_url": "https://www.jonkoping.se/kommun--politik/anslagstavla-for-jonkopings-kommun",
+  "final_url": "https://www.jonkoping.se/kommun--politik/anslagstavla-for-jonkopings-kommun",
+  "tokens": {
+    "input": 54619,
+    "output": 793,
+    "cost_usd": 0.175752
+  },
+  "failure_reason": null
+}

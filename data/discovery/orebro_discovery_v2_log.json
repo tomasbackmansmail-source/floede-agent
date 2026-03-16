@@ -1,0 +1,45 @@
+{
+  "municipality": "Örebro",
+  "municipality_id": "orebro",
+  "success": true,
+  "needs_manual_url": false,
+  "config": {
+    "municipality": "Örebro",
+    "platform_guess": "sitevision",
+    "listing_url": "https://www.orebro.se/kommun--politik/politik--beslut/digital-anslagstavla.html",
+    "listing_type": "table",
+    "pagination": {
+      "has_pagination": false,
+      "type": "none",
+      "mechanism": "Alla poster visas i tabeller på en och samma sida utan paginering",
+      "estimated_total_pages": null
+    },
+    "requires_subpages": {
+      "required": true,
+      "reason": "Tabellen visar anslagsdatum, rubrik, typ och ansvarig nämnd. Detaljerad information om fastighetsbeteckning, ärendenummer, beslutsdatum och övriga ärendedetaljer finns på individuella undersidor via länkarna i rubriken.",
+      "link_selector_hint": "table.digital-pinboard tbody tr td a"
+    },
+    "selectors_hint": {
+      "container": "table.digital-pinboard",
+      "item": "table.digital-pinboard tbody tr",
+      "case_number": null,
+      "address": "table.digital-pinboard tbody tr td:nth-child(2) a",
+      "date": "table.digital-pinboard tbody tr td:nth-child(1) p",
+      "description": "table.digital-pinboard tbody tr td:nth-child(3) p",
+      "responsible_unit": "table.digital-pinboard tbody tr td:nth-child(4) p",
+      "section_heading": "h2.subheading"
+    },
+    "notes": "Sidan innehåller flera separata tabeller med klassen 'digital-pinboard', en per ärendekategori: 'Beviljade bygglov', 'Bygglov grannehörande', samt möjligen fler. Varje tabell har kolumnerna Anslagsdatum, Rubrik, Typ, Ansvarig nämnd. Rubriklänkarna leder till undersidor under /digital-anslagstavla/anslag-beviljade-bygglov/ respektive /anslag-bygglov-grannehorande/. Fastighetsadress/beteckning ingår i rubriktexten, t.ex. 'Bygglov, Nikolai 3:286'. Typ är genomgående 'Kungörelse'. Ansvarig nämnd är genomgående 'Bygg- och miljönämnden'. Plattformen är SiteVision baserat på CSS-klasser och div-id-mönster.",
+    "confidence": "high",
+    "approved": false
+  },
+  "navigations_used": 1,
+  "candidate_url": "https://www.orebro.se/kommun--politik/politik--beslut/digital-anslagstavla.html",
+  "final_url": "https://www.orebro.se/kommun--politik/politik--beslut/digital-anslagstavla.html",
+  "tokens": {
+    "input": 58129,
+    "output": 1065,
+    "cost_usd": 0.190362
+  },
+  "failure_reason": null
+}

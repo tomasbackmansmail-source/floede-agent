@@ -24,5 +24,5 @@
   },
   "notes": "Anslagstavlan är SiteVisions digitala anslagstavla. Byggnadsnämnden-filtret ger 31 aktiva anslag. Filter-URL använder parametern 100.7bdab48918c624d207d392=Byggnadsnämnden. AJAX-endpoint finns på /4.75b7e0e9194d832c8bb379c/12.75b7e0e9194d832c8bbc4f1.htm?state=ajaxQuery&isRenderingAjaxResult=true&query=*:*&100.7bdab48918c624d207d392=Byggnadsnämnden och kan användas för direkt datahämtning utan sidrendering.",
   "confidence": "high",
-  "approved": false
+  "approved": true
 }

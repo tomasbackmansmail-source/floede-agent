@@ -1,0 +1,28 @@
+{
+  "municipality": "Höör",
+  "platform_guess": "wordpress",
+  "listing_url": "https://www.hoor.se/kommun-politik/anslagstavla/",
+  "listing_type": "unknown",
+  "pagination": {
+    "has_pagination": false,
+    "type": "none",
+    "mechanism": "No pagination detected in available HTML",
+    "estimated_total_pages": null
+  },
+  "requires_subpages": {
+    "required": true,
+    "reason": "Sidan använder Municipio-temat (WordPress) och innehållsblocket var trunkerat i HTML-källan. Sidans struktur indikerar att anslag presenteras som kort eller lista med länkar till undersidor för detaljer.",
+    "link_selector_hint": "main#main-content a[href*='anslagstavla']"
+  },
+  "selectors_hint": {
+    "container": "main#main-content",
+    "item": ".c-card, article, .wp-block-post",
+    "case_number": null,
+    "address": null,
+    "date": "time, .c-card__date",
+    "description": ".c-card__body, .wp-block-post-excerpt"
+  },
+  "notes": "Sidan körs på WordPress med Municipio-temat (municipio LTS 2025). Sidans faktiska anlagsinnehåll var inte synligt i den tillgängliga HTML-koden då main-content-blocket trunkerades. Navigationsstrukturen bekräftar att detta är rätt sida. Sidomenyn visar pageId=416 som aktiv anslagstavla. Rekommenderar att verifiera faktiska item-selektorer mot live-renderad sida. Sidan kan använda dynamisk inladdning via REST API (wp-json/municipio/v1) för barnposter.",
+  "confidence": "low",
+  "approved": true
+}

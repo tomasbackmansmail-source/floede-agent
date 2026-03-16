@@ -1,0 +1,16 @@
+{
+  "municipality": "Karlstad",
+  "municipality_id": "karlstad",
+  "success": false,
+  "needs_manual_url": false,
+  "config": null,
+  "navigations_used": 4,
+  "candidate_url": "https://karlstad.se/kommun-och-politik/delta-och-paverka/anslagstavla",
+  "final_url": "https://karlstad.se/kommun-och-politik/delta-och-paverka/anslagstavla",
+  "tokens": {
+    "input": 80538,
+    "output": 813,
+    "cost_usd": 0.253809
+  },
+  "failure_reason": "Could not generate valid config after analysis"
+}

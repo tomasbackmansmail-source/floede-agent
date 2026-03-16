@@ -1,0 +1,28 @@
+{
+  "municipality": "Gotland",
+  "platform_guess": "sitevision",
+  "listing_url": "https://gotland.se/region-och-politik/diarium-allmanna-handlingar-och-arkiv/anslagstavla",
+  "listing_type": "links_to_subpages",
+  "pagination": {
+    "has_pagination": false,
+    "type": "none",
+    "mechanism": "Alla poster visas direkt på sidan utan paginering. Tre separata listor: Tillkännagivanden/kungörelser, Underrättelser (grannehörande), Meddelanden om beslut.",
+    "estimated_total_pages": null
+  },
+  "requires_subpages": {
+    "required": true,
+    "reason": "Listsidan visar endast titel och datum. Fastighetsbeteckning, ärendenummer, ärendetyp och övriga detaljer finns på respektive undersida.",
+    "link_selector_hint": "div.got-anslagstavla-listning ul.sv-channel li.sv-channel-item a"
+  },
+  "selectors_hint": {
+    "container": "div.got-anslagstavla-listning",
+    "item": "li.sv-channel-item",
+    "case_number": null,
+    "address": null,
+    "date": "li.sv-channel-item time",
+    "description": "li.sv-channel-item a span"
+  },
+  "notes": "Sidan har tre distinkta sektioner med varsin got-anslagstavla-listning-container: (1) Tillkännagivanden och kungörelser (id=Tillkannagivandenochkungorelser-0) – protokoll och kungörelser; (2) Bygglov: underrättelse – grannehörande inför beslut (id=Underrattelser) – länkstruktur /anslagstavla/underrattelser/; (3) Bygglov: meddelande om beslut (id=Meddelandenombeslut) – länkstruktur /anslagstavla/meddelanden-om-beslut/. Bygglovsrelevanta poster finns i sektion 2 och 3. Titlar innehåller fastighetsbeteckning och ärendenummer i formatet BYGG ÅÅÅÅ-XXXXXX direkt i länktexten. Datum finns i datetime-attributet på time-elementet (ISO 8601). Inga JavaScript-beroenden för att rendera listan – HTML är statisk.",
+  "confidence": "high",
+  "approved": true
+}
