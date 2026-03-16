@@ -6,6 +6,10 @@ const HTML_DIR = join(process.cwd(), "data", "html");
 const OUTPUT_DIR = join(process.cwd(), "data", "extracted");
 const COST_DIR = join(process.cwd(), "data", "costs");
 
+// CLI: --only nacka,malmo to extract specific municipalities
+const onlyArg = process.argv.find((a) => a.startsWith("--only="));
+const onlyIds = onlyArg ? onlyArg.split("=")[1].split(",") : null;
+
 // Haiku pricing (per token, as of 2025)
 // Input: $0.80 per 1M tokens = $0.0000008/token
 // Output: $4.00 per 1M tokens = $0.000004/token
@@ -82,9 +86,22 @@ function stripNonContent(html) {
     .trim();
 }
 
+function prepareHtml(html) {
+  // For multi-page HTML (listing + detail pages), skip the listing and
+  // only keep the detail pages to avoid truncation losing actual content.
+  if (html.includes("<!-- DETAIL PAGE:")) {
+    const parts = html.split(/<!-- DETAIL PAGE:/);
+    // parts[0] is the listing page — skip it
+    const detailParts = parts.slice(1).map((p) => "<!-- DETAIL PAGE:" + p);
+    console.log(`  Multi-page HTML: skipping listing, using ${detailParts.length} detail pages`);
+    const combined = detailParts.map((p) => stripNonContent(p)).join("\n\n");
+    return truncateHtml(combined, 200000);
+  }
+  return truncateHtml(stripNonContent(html));
+}
+
 async function extractFromHtml(client, html, municipalityName, sourceUrl) {
-  const cleaned = stripNonContent(html);
-  const truncated = truncateHtml(cleaned);
+  const prepared = prepareHtml(html);
 
   const startTime = Date.now();
 
@@ -94,7 +111,7 @@ async function extractFromHtml(client, html, municipalityName, sourceUrl) {
     messages: [
       {
         role: "user",
-        content: `${EXTRACTION_PROMPT}\n\nKommun: ${municipalityName}\n\nHTML:\n${truncated}`
+        content: `${EXTRACTION_PROMPT}\n\nKommun: ${municipalityName}\n\nHTML:\n${prepared}`
       }
     ]
   });
@@ -163,8 +180,19 @@ async function main() {
 
   console.log("=== Floede Agent - Extraction ===\n");
 
-  // Find all HTML files
-  const htmlFiles = (await readdir(HTML_DIR)).filter((f) => f.endsWith(".html"));
+  // Find all HTML files (filtered by --only if provided)
+  let htmlFiles = (await readdir(HTML_DIR)).filter((f) => f.endsWith(".html"));
+  if (onlyIds) {
+    htmlFiles = htmlFiles.filter((f) => onlyIds.some((id) => f.startsWith(id)));
+    console.log(`Filtering to: ${onlyIds.join(", ")}\n`);
+  }
+  // Use the newest file per municipality
+  const byMuni = new Map();
+  for (const f of htmlFiles) {
+    const id = f.split("_")[0];
+    if (!byMuni.has(id) || f > byMuni.get(id)) byMuni.set(id, f);
+  }
+  htmlFiles = [...byMuni.values()];
 
   if (htmlFiles.length === 0) {
     console.error("No HTML files found. Run fetch-html.js first.");
