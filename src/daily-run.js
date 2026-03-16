@@ -8,6 +8,7 @@ import { readFile, readdir, writeFile, mkdir } from "fs/promises";
 import { join } from "path";
 import { createHash } from "crypto";
 import { EXTRACTION_PROMPT_V2 } from "./config/extraction-prompt-v2.js";
+import { withRetry } from "./utils/retry.js";
 
 const HTML_DIR = join(process.cwd(), "data", "html");
 const EXTRACTED_DIR = join(process.cwd(), "data", "extracted");
@@ -131,16 +132,19 @@ async function extractPermits(client, html, municipalityName, sourceUrl) {
   const cleaned = stripNonContent(html);
   const truncated = cleaned.length > 100000 ? cleaned.slice(0, 100000) : cleaned;
 
-  const response = await client.messages.create({
-    model: "claude-haiku-4-5-20251001",
-    max_tokens: 8192,
-    messages: [
-      {
-        role: "user",
-        content: `${EXTRACTION_PROMPT_V2}\n\nKommun: ${municipalityName}\n\nHTML:\n${truncated}`
-      }
-    ]
-  });
+  const response = await withRetry(
+    () => client.messages.create({
+      model: "claude-haiku-4-5-20251001",
+      max_tokens: 8192,
+      messages: [
+        {
+          role: "user",
+          content: `${EXTRACTION_PROMPT_V2}\n\nKommun: ${municipalityName}\n\nHTML:\n${truncated}`
+        }
+      ]
+    }),
+    { maxRetries: 3, baseDelay: 30000, label: municipalityName }
+  );
 
   const rawText = response.content[0].text.trim()
     .replace(/```json\s*/g, "").replace(/```\s*/g, "");
@@ -185,12 +189,15 @@ async function insertToSupabase(supabase, permits, extractionRun) {
       raw_html_hash: null
     };
 
-    const { error } = await supabase
-      .from("permits_v2")
-      .upsert(row, {
-        onConflict: "municipality,case_number",
-        ignoreDuplicates: true
-      });
+    const { error } = await withRetry(
+      () => supabase
+        .from("permits_v2")
+        .upsert(row, {
+          onConflict: "municipality,case_number",
+          ignoreDuplicates: true
+        }),
+      { maxRetries: 3, baseDelay: 5000, label: `DB ${p.case_number}` }
+    );
 
     if (error) {
       if (error.code === "23505") { // Unique violation = duplicate
