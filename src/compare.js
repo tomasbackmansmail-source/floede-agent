@@ -45,12 +45,12 @@ async function main() {
     const extracted = JSON.parse(await readFile(join(EXTRACTED_DIR, file), "utf-8"));
 
     // Fetch legacy data from Supabase permits table
-    // NOTE: The legacy table column names may differ. Adjust query if needed.
+    // Legacy columns: kommun, diarienummer, adress, atgard, status, permit_type, beslutsdatum, scraped_at
     const { data: legacy, error } = await supabase
       .from("permits")
       .select("*")
-      .ilike("municipality", `%${municipalityName}%`)
-      .order("created_at", { ascending: false })
+      .ilike("kommun", `%${municipalityName}%`)
+      .order("scraped_at", { ascending: false })
       .limit(200);
 
     if (error) {
@@ -69,7 +69,7 @@ async function main() {
 
     // Compare case numbers to find overlap
     const extractedCaseNumbers = new Set(extracted.map((p) => p.case_number).filter(Boolean));
-    const legacyCaseNumbers = new Set((legacy || []).map((p) => p.case_number || p.diary_number || p.dnr).filter(Boolean));
+    const legacyCaseNumbers = new Set((legacy || []).map((p) => p.diarienummer).filter(Boolean));
 
     const matchedCases = [...extractedCaseNumbers].filter((cn) => legacyCaseNumbers.has(cn));
     const extractedOnly = [...extractedCaseNumbers].filter((cn) => !legacyCaseNumbers.has(cn));
@@ -90,7 +90,7 @@ async function main() {
 
     for (const caseNum of matchedCases) {
       const ext = extracted.find((p) => p.case_number === caseNum);
-      const leg = (legacy || []).find((p) => (p.case_number || p.diary_number || p.dnr) === caseNum);
+      const leg = (legacy || []).find((p) => p.diarienummer === caseNum);
 
       if (!ext || !leg) continue;
       fieldTotal++;
@@ -98,8 +98,8 @@ async function main() {
       // Compare fields (normalize for comparison)
       if (ext.permit_type && leg.permit_type && ext.permit_type === leg.permit_type) fieldMatches.permit_type++;
       if (ext.status && leg.status && ext.status === leg.status) fieldMatches.status++;
-      if (ext.address && leg.address && ext.address.toLowerCase().includes(leg.address.toLowerCase().slice(0, 10))) fieldMatches.address++;
-      if (ext.date && leg.date && ext.date.slice(0, 10) === (leg.date || "").slice(0, 10)) fieldMatches.date++;
+      if (ext.address && leg.adress && ext.address.toLowerCase().includes(leg.adress.toLowerCase().slice(0, 10))) fieldMatches.address++;
+      if (ext.date && leg.beslutsdatum && ext.date.slice(0, 10) === (leg.beslutsdatum || "").slice(0, 10)) fieldMatches.date++;
     }
 
     const comparison = {
