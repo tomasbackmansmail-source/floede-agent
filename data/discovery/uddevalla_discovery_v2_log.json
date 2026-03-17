@@ -1,0 +1,16 @@
+{
+  "municipality": "Uddevalla",
+  "municipality_id": "uddevalla",
+  "success": false,
+  "needs_manual_url": false,
+  "config": null,
+  "navigations_used": 1,
+  "candidate_url": "https://www.uddevalla.se/kommun-och-politik/overklaga-beslut-rattsakerhet/uddevalla-kommuns-anslagstavla/digital-anslagstavla-plan-och-bygg/",
+  "final_url": "https://www.uddevalla.se/kommun-och-politik/overklaga-beslut-rattsakerhet/uddevalla-kommuns-anslagstavla/digital-anslagstavla-plan-och-bygg/",
+  "tokens": {
+    "input": 80384,
+    "output": 578,
+    "cost_usd": 0.24982200000000002
+  },
+  "failure_reason": "Could not generate valid config after analysis"
+}

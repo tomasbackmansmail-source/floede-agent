@@ -1,0 +1,28 @@
+{
+  "municipality": "Ängelholm",
+  "platform_guess": "custom",
+  "listing_url": "https://anslagstavlan.engelholm.se/#!/billboard/",
+  "listing_type": "list",
+  "pagination": {
+    "has_pagination": true,
+    "type": "load_more",
+    "mechanism": "Varje sektion har en 'Visa fler'-knapp som laddar mer innehåll.",
+    "estimated_total_pages": null
+  },
+  "requires_subpages": {
+    "required": false,
+    "reason": "Listan visar titlar med expanderbar ikon. Klick på en post visar troligen mer detalj. Bygglovsposter visar fastighetsbeteckning och typ i titeln men fullständig information kräver expansion.",
+    "link_selector_hint": null
+  },
+  "selectors_hint": {
+    "container": null,
+    "item": null,
+    "case_number": null,
+    "address": null,
+    "date": null,
+    "description": null
+  },
+  "notes": "Ängelholms anslagstavla finns på en extern domän (anslagstavlan.engelholm.se) och är en SPA-applikation med hashbang-routing (#!/billboard/). Huvudsidan på engelholm.se gav 404 för alla testade URL:er. Anslagstavlan har sektioner: Justerade protokoll, Övriga sammanträden, Fullmäktiges sammanträden och Övrigt anslagen information. Under 'Övrigt anslagen information' finns direkt bygglovsinformation med fastighetsbeteckningar (t.ex. 'Ugglehult 1-99 Underrättelse om pågående grannhörande i bygglovsärende', 'Ängelholm 3-49 Kungörelse om beviljat bygglov'). Poster är expanderbara.",
+  "confidence": "high",
+  "approved": true
+}

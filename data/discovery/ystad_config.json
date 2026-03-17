@@ -1,0 +1,28 @@
+{
+  "municipality": "Ystad",
+  "platform_guess": "sitevision",
+  "listing_url": "https://ystad.se/kommun-och-politik/sa-styrs-ystads-kommun/den-politiska-styrningen/anslagstavla",
+  "listing_type": "pdf_list",
+  "pagination": {
+    "has_pagination": false,
+    "type": "none",
+    "mechanism": "Alla anslag visas direkt på sidan utan paginering",
+    "estimated_total_pages": null
+  },
+  "requires_subpages": {
+    "required": false,
+    "reason": "Länkarna pekar direkt på nedladdningsbara PDF- eller DOCX-filer (anslagsbevis). Inga mellanliggande undersidor finns.",
+    "link_selector_hint": "div.limepark-app-evolution__blockloader__container ul li a"
+  },
+  "selectors_hint": {
+    "container": "div.limepark-app-evolution__blockloader__container",
+    "item": "ul li",
+    "case_number": null,
+    "address": null,
+    "date": null,
+    "description": "a"
+  },
+  "notes": "Anslagstavlan är kommunens enda officiella anslagstavla och täcker alla nämnder inklusive Samhällsbyggnadsnämnden. Varje anslag är en länk till en PDF eller DOCX-fil. Titeltexten på länken innehåller datum, nämnd, paragrafnummer och anslagstid. Samhällsbyggnadsnämndens sektion innehåller bl.a. detaljplaner. Filerna ligger på /appresource/... med query-parametrar för file och folder. Länkarna har CSS-klass limepark-app-evolution__link--pdf eller limepark-app-evolution__link--docx som indikerar filtyp.",
+  "confidence": "high",
+  "approved": true
+}

@@ -1,0 +1,43 @@
+{
+  "municipality": "Nynäshamn",
+  "municipality_id": "nynashamn",
+  "success": true,
+  "needs_manual_url": false,
+  "config": {
+    "municipality": "Nynäshamn",
+    "platform_guess": "sitevision",
+    "listing_url": "https://nynashamn.se/Anslagstavlan",
+    "listing_type": "unknown",
+    "pagination": {
+      "has_pagination": false,
+      "type": "none",
+      "mechanism": "No pagination observed - all notices appear on single page",
+      "estimated_total_pages": null
+    },
+    "requires_subpages": {
+      "required": true,
+      "reason": "SiteVision-baserad anslagstavla där enskilda anslag troligen är länkade undersidor med fullständiga detaljer om ärendenummer, adress och beslut.",
+      "link_selector_hint": "a[href*='anslagstavlan'], .sv-text-portlet-content a"
+    },
+    "selectors_hint": {
+      "container": "#Mittenspalt .sv-text-portlet-content",
+      "item": "table tr, ul li",
+      "case_number": "td:nth-child(1)",
+      "address": "td:nth-child(2)",
+      "date": "td:nth-child(3), time",
+      "description": "td:nth-child(4)"
+    },
+    "notes": "HTML var trunkerad och innehållsdelen (#Mittenspalt) var inte synlig. Titeln 'Anslagstavlan - Nynäshamns kommun' bekräftar korrekt sida. Sidan ligger ovanligt nog direkt under rooten (/Anslagstavlan) snarare än under /service/-hierarkin. Selektorer är kvalificerade gissningar baserade på SiteVision-plattformens typiska struktur och måste verifieras. Confidence sänkt till medium på grund av trunkerad HTML.",
+    "confidence": "medium",
+    "approved": false
+  },
+  "navigations_used": 3,
+  "candidate_url": "https://nynashamn.se/Anslagstavlan/",
+  "final_url": "https://nynashamn.se/Anslagstavlan",
+  "tokens": {
+    "input": 137503,
+    "output": 1661,
+    "cost_usd": 0.43742400000000004
+  },
+  "failure_reason": null
+}

@@ -1,0 +1,16 @@
+{
+  "municipality": "Piteå",
+  "municipality_id": "pitea",
+  "success": false,
+  "needs_manual_url": false,
+  "config": null,
+  "navigations_used": 4,
+  "candidate_url": "https://www.pitea.se/site/kommunal-anslagstavla/ovriga-kungorelser--tillkannagivanden/",
+  "final_url": "https://www.pitea.se/site/kommunal-anslagstavla/bygglov-och-anmarkningar/",
+  "tokens": {
+    "input": 142424,
+    "output": 1230,
+    "cost_usd": 0.445722
+  },
+  "failure_reason": "Could not generate valid config after analysis"
+}

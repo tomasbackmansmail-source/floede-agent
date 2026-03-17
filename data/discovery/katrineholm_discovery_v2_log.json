@@ -1,0 +1,47 @@
+{
+  "municipality": "Katrineholm",
+  "municipality_id": "katrineholm",
+  "success": true,
+  "needs_manual_url": false,
+  "config": {
+    "municipality": "Katrineholm",
+    "platform_guess": "sitevision",
+    "listing_url": "https://www.katrineholm.se/kommun-och-politik/anslagstavla.html",
+    "listing_type": "links_to_subpages",
+    "pagination": {
+      "has_pagination": false,
+      "type": "none",
+      "mechanism": "All current items appear on one page, no pagination controls visible",
+      "estimated_total_pages": null
+    },
+    "requires_subpages": {
+      "required": true,
+      "reason": "Listing page shows title, sammanträdesdatum, paragraf, uppsättningsdatum, nedtagningsdatum och förvaringsplats. Detaljerad ärendeinformation, fastighetsbeteckning och eventuella dokument finns troligen på undersidor.",
+      "link_selector_hint": "a.sv-font-nyhets-rubrik[href*='bygglov'], a.sv-font-nyhets-rubrik[href*='grannehorande'], a.sv-font-nyhets-rubrik[href*='kungorelse']"
+    },
+    "selectors_hint": {
+      "container": "div.sv-archive-portlet.katrineholm-news ul.sv-channel",
+      "item": "li.sv-channel-item div.katrineholm-main-boxshadow",
+      "case_number": null,
+      "address": "a.sv-font-nyhets-rubrik span",
+      "date": "time.normal[datetime]",
+      "description": null,
+      "posted_date": "div.normal:nth-of-type(3) time.normal",
+      "removal_date": "div.normal:nth-of-type(4) time.normal",
+      "storage_location": "div.normal:last-of-type span.normal",
+      "item_url": "a.sv-font-nyhets-rubrik"
+    },
+    "notes": "Anslagstavlan innehåller blandade anslag från alla nämnder. Bygglov-relaterade poster identifieras via titeln och innehåller nyckelord som 'Kungörelse bygglov', 'Grannehörande bygglov'. Dessa saknar sammanträdesdatum och paragraf men har uppsättnings- och nedtagningsdatum. Förvaringsplats är alltid 'Samhällsbyggnadsförvaltningen' för bygglovsposter. URL-slug innehåller fastighetsbeteckning t.ex. 'djulo-240', 'leby-121'. Filter bör matcha titlar med 'bygglov' eller 'grannehörande'. Relativa URL:er måste prefixas med https://www.katrineholm.se.",
+    "confidence": "high",
+    "approved": false
+  },
+  "navigations_used": 1,
+  "candidate_url": "https://www.katrineholm.se/kommun-och-politik/anslagstavla.html",
+  "final_url": "https://www.katrineholm.se/kommun-och-politik/anslagstavla.html",
+  "tokens": {
+    "input": 60457,
+    "output": 1929,
+    "cost_usd": 0.210306
+  },
+  "failure_reason": null
+}

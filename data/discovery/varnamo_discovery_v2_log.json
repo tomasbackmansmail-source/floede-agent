@@ -1,0 +1,43 @@
+{
+  "municipality": "Värnamo",
+  "municipality_id": "varnamo",
+  "success": true,
+  "needs_manual_url": false,
+  "config": {
+    "municipality": "Värnamo",
+    "platform_guess": "sitevision",
+    "listing_url": "https://kommun.varnamo.se/kommun-och-politik/politik-och-demokrati/anslagstavla.html",
+    "listing_type": "links_to_subpages",
+    "pagination": {
+      "has_pagination": false,
+      "type": "none",
+      "mechanism": "Alla aktuella anslag visas på en sida, uppdelade i sektioner (Anslag, Kallelse, Protokoll). Ingen paginering observerad.",
+      "estimated_total_pages": null
+    },
+    "requires_subpages": {
+      "required": true,
+      "reason": "Listsidan visar endast titel och kort ingress per anslag. Fullständig information (diarienummer, datum för anslag, sista överklagningsdag, PDF-handlingar) finns på respektive undersida.",
+      "link_selector_hint": "li.sv-channel-item a.sv-font-nyhetsmodul-rubrik"
+    },
+    "selectors_hint": {
+      "container": "ul.sv-channel.sv-defaultlist",
+      "item": "li.sv-channel-item",
+      "case_number": null,
+      "address": null,
+      "date": null,
+      "description": "a.normalblack span"
+    },
+    "notes": "Anslagstavlan är uppdelad i tre sektioner via anchor-länkar: #Anslag (detaljplaner/överklaganden), #kallelse (kommunfullmäktige), #Protokoll (justerade protokoll). Relevant sektion för bygglov och detaljplaner är #Anslag (id='Anslag-0', portlet-id='svid12_3b1eee1116368523f408534'). Aktuellt anslag i listan: 'Överklagandeanvisning Detaljplan för Rörstorp 6:31 med flera'. URL-mönster för anslag: /kommun-och-politik/politik-och-demokrati/anslagstavla/arkiv-anslag/. URL-mönster för protokoll: /kommun-och-politik/politik-och-demokrati/anslagstavla/arkiv-protokoll/. Filtrera på arkiv-anslag-länkar för detaljplaner.",
+    "confidence": "high",
+    "approved": false
+  },
+  "navigations_used": 2,
+  "candidate_url": "https://kommun.varnamo.se/kommun-och-politik/politik-och-demokrati/anslagstavla.html",
+  "final_url": "https://kommun.varnamo.se/kommun-och-politik/politik-och-demokrati/anslagstavla.html#Detaljplanerochplanprogram",
+  "tokens": {
+    "input": 85547,
+    "output": 1781,
+    "cost_usd": 0.283356
+  },
+  "failure_reason": null
+}

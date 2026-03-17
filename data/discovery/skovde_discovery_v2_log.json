@@ -1,0 +1,16 @@
+{
+  "municipality": "Skövde",
+  "municipality_id": "skovde",
+  "success": false,
+  "needs_manual_url": false,
+  "config": null,
+  "navigations_used": 5,
+  "candidate_url": "https://www.skovde.se/kommun-och-politik/anslagstavla/",
+  "final_url": "https://www.skovde.se/api/anslagstavla/",
+  "tokens": {
+    "input": 89634,
+    "output": 1365,
+    "cost_usd": 0.28937700000000005
+  },
+  "failure_reason": "Could not generate valid config after analysis"
+}

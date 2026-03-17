@@ -1,0 +1,52 @@
+{
+  "run_id": "2026-03-17T14-26-57",
+  "run_at": "2026-03-17T14:27:33.350Z",
+  "elapsed_ms": 36079,
+  "configs_count": 4,
+  "total_permits": 16,
+  "total_inserted": 16,
+  "total_cost_usd": 0.029882399999999996,
+  "cost_per_permit_usd": 0.0018676499999999998,
+  "results": [
+    {
+      "municipality": "Håbo",
+      "status": "ok",
+      "permits": 15,
+      "inserted": 15,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.019245599999999998,
+      "html_hash": "e846abdfe42f65bb"
+    },
+    {
+      "municipality": "Kumla",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0019496,
+      "html_hash": "d70625f3d39bc670"
+    },
+    {
+      "municipality": "Värmdö",
+      "status": "ok",
+      "permits": 1,
+      "inserted": 1,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0023607999999999997,
+      "html_hash": "127927d4ad8904b5"
+    },
+    {
+      "municipality": "Värnamo",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.006326399999999999,
+      "html_hash": "4554f711db303fc9"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "municipality": "Kumla",
+  "platform_guess": "sitevision",
+  "listing_url": "https://www.kumla.se/kommun-och-politik/kommunal-anslagstavla/kungorelser-om-beslut-enligt-plan--och-bygglagen.html",
+  "listing_type": "unknown",
+  "pagination": {
+    "has_pagination": false,
+    "type": "none",
+    "mechanism": "Okänd - sidan returnerar 404",
+    "estimated_total_pages": null
+  },
+  "requires_subpages": {
+    "required": false,
+    "reason": "Kan ej avgöras - sidan returnerar 404",
+    "link_selector_hint": null
+  },
+  "selectors_hint": {
+    "container": null,
+    "item": null,
+    "case_number": null,
+    "address": null,
+    "date": null,
+    "description": null
+  },
+  "notes": "Huvudanslagstavlan har inga bygglov direkt. Bygglovskungörelser finns på dedikerad undersida.",
+  "confidence": "low",
+  "approved": true
+}

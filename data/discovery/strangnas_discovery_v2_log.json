@@ -1,0 +1,16 @@
+{
+  "municipality": "Strängnäs",
+  "municipality_id": "strangnas",
+  "success": false,
+  "needs_manual_url": false,
+  "config": null,
+  "navigations_used": 5,
+  "candidate_url": "https://www.strangnas.se/kommun-och-politik/overklaga-beslut-rattssakerhet/kommunal-anslagstavla/kungorelser",
+  "final_url": "https://www.strangnas.se/kommun-och-politik/overklaga-beslut-rattssakerhet/kommunal-anslagstavla",
+  "tokens": {
+    "input": 94695,
+    "output": 1154,
+    "cost_usd": 0.301395
+  },
+  "failure_reason": "Could not generate valid config after analysis"
+}

@@ -1,0 +1,16 @@
+{
+  "municipality": "Karlskrona",
+  "municipality_id": "karlskrona",
+  "success": false,
+  "needs_manual_url": false,
+  "config": null,
+  "navigations_used": 5,
+  "candidate_url": "https://www.karlskrona.se/kommun-och-politik/sa-fungerar-kommunen/anslagstavlan/",
+  "final_url": "https://www.karlskrona.se/Bo-och-bygga/bygglov-och-anmalan/anslagstavla/",
+  "tokens": {
+    "input": 84790,
+    "output": 884,
+    "cost_usd": 0.26763
+  },
+  "failure_reason": "Could not generate valid config after analysis"
+}

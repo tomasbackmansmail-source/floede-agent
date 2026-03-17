@@ -1,0 +1,28 @@
+{
+  "municipality": "Sandviken",
+  "platform_guess": "sitevision",
+  "listing_url": "https://sandviken.se/kommunochpolitik/anslagochkungorelser.22958.html",
+  "listing_type": "list",
+  "pagination": {
+    "has_pagination": false,
+    "type": "none",
+    "mechanism": "Alla anslag visas på en och samma sida i en expanderbar lista. Ingen paginering förekommer.",
+    "estimated_total_pages": null
+  },
+  "requires_subpages": {
+    "required": false,
+    "reason": "All information finns inline på listsidan. Varje ärende är ett expanderbart listitem (accordion) med tabell som innehåller instans, förvaringsplats, publiceringsdatum samt beskrivningstext. Inga separata undersidor behövs.",
+    "link_selector_hint": null
+  },
+  "selectors_hint": {
+    "container": "div.lp-bulletin-board__list-item__content",
+    "item": "li.lp-bulletin-board__list-item",
+    "case_number": "li.lp-bulletin-board__list-item[data-string-representation]",
+    "address": null,
+    "date": "td time",
+    "description": "div.lp-bulletin-board__list-item__description"
+  },
+  "notes": "Anslagstavlan är byggd med SiteVision-komponenten 'lp-bulletin-board'. Varje ärende är ett li-element med klassen lp-bulletin-board__list-item. Titeln finns i button-elementet inuti strong.lp-bulletin-board__list-item__heading. Ärendekategori (t.ex. 'Bygglovsärende') finns i li.lp-bulletin-board__list-item__tag. Detaljer (instans, förvaringsplats, datum från/till) finns i en tabell inuti div.lp-bulletin-board__list-item__content som är dold (display:none) tills användaren expanderar. Diarienummer förekommer i beskrivningstexten men är inte i ett eget fält. Fullt innehåll finns även i data-attributet data-string-representation på li-elementet, vilket kan användas för extraktion utan att behöva expandera accordion. Filtrera på tag 'Bygglovsärende' för att isolera bygglovsärenden.",
+  "confidence": "high",
+  "approved": true
+}

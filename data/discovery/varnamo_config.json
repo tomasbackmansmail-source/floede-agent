@@ -1,0 +1,28 @@
+{
+  "municipality": "Värnamo",
+  "platform_guess": "sitevision",
+  "listing_url": "https://pollux.varnamo.se/kungorelse",
+  "listing_type": "links_to_subpages",
+  "pagination": {
+    "has_pagination": false,
+    "type": "none",
+    "mechanism": "Alla aktuella anslag visas på en sida, uppdelade i sektioner (Anslag, Kallelse, Protokoll). Ingen paginering observerad.",
+    "estimated_total_pages": null
+  },
+  "requires_subpages": {
+    "required": false,
+    "reason": "Pollux-system med inline bygglovskungörelser. Tom denna vecka.",
+    "link_selector_hint": null
+  },
+  "selectors_hint": {
+    "container": "ul.sv-channel.sv-defaultlist",
+    "item": "li.sv-channel-item",
+    "case_number": null,
+    "address": null,
+    "date": null,
+    "description": "a.normalblack span"
+  },
+  "notes": "Bygglovskungörelser finns på pollux.varnamo.se/kungorelse (extern tjänst). Kan vara tom vissa veckor. Anslagstavlan kommun.varnamo.se visar bara protokoll.",
+  "confidence": "high",
+  "approved": true
+}

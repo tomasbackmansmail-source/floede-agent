@@ -1,0 +1,32 @@
+{
+  "municipality": "Kungsbacka",
+  "platform_guess": "custom",
+  "listing_url": "https://ciceronanslagstavla.kungsbacka.se/#!/billboard/",
+  "listing_type": "table",
+  "pagination": {
+    "has_pagination": true,
+    "type": "load_more_button",
+    "mechanism": "Click element with class 'show-more more-results' and text 'Visa fler'",
+    "estimated_total_pages": null
+  },
+  "requires_subpages": {
+    "required": false,
+    "reason": "All relevant data is embedded in the item attribute as JSON within the td[board-details] element. The full title including fastighet, diarienummer, beslutsdatum and publiceringsdatum is available inline in the p.ng-binding element. No subpage navigation needed.",
+    "link_selector_hint": null
+  },
+  "selectors_hint": {
+    "container": "fieldset:has(h1.board-header)",
+    "item": "tr.table-item td[board-item] p.ng-binding",
+    "item_data_attribute": "tr.table-details td[board-details]",
+    "case_number": null,
+    "address": null,
+    "date": null,
+    "description": "tr.table-item td[board-item] p.ng-binding",
+    "section_header": "h1.board-header.separator",
+    "relevant_section": "h1.board-header:contains('Övrigt anslagen information')",
+    "item_json": "td[board-details][item]"
+  },
+  "notes": "Angular SPA (AngularJS) som kraver JavaScript-rendering. Sidan innehaller fyra sektioner: 'Justerade protokoll', 'Övriga sammanträden', 'Fullmäktiges sammanträden' och 'Övrigt anslagen information'. Bygglov och kungörelser finns i sektionen 'Övrigt anslagen information' med template=3. Varje post har all data inbäddad i attributet item= som URL-enkodad JSON på td[board-details]. JSON-objektet innehåller fält: id, doctype, type, title (med fastighet, diarienr, beslutsdatum, publiceringsdatum), diary_name, object_link, handler. Detaljerad data (anslaget från/till, handläggare, ankomstdatum) laddas dynamiskt via API vid klick och är tom i initial HTML. Filtrera på diary_name='BN' för bygglov eller handler='Bygglov' för att isolera bygglovjärenden. object_link-formatet är ?t=4&d=<id>&n=BN och kan potentiellt användas för direkt API-anrop.",
+  "confidence": "high",
+  "approved": true
+}

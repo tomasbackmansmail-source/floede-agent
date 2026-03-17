@@ -1,0 +1,43 @@
+{
+  "municipality": "Håbo",
+  "municipality_id": "habo",
+  "success": true,
+  "needs_manual_url": false,
+  "config": {
+    "municipality": "Håbo",
+    "platform_guess": "sitevision",
+    "listing_url": "https://www.habo.se/kommun-och-politik/anslagstavla.html",
+    "listing_type": "unknown",
+    "pagination": {
+      "has_pagination": false,
+      "type": "none",
+      "mechanism": "Ingen paginering identifierad",
+      "estimated_total_pages": null
+    },
+    "requires_subpages": {
+      "required": true,
+      "reason": "Innehållet är dolt bakom display:none och kräver JavaScript för rendering. Strukturen på undersidor är okänd utan JS-renderat innehåll.",
+      "link_selector_hint": ".sv-text-portlet-content a"
+    },
+    "selectors_hint": {
+      "container": ".sv-text-portlet-content",
+      "item": "p, li",
+      "case_number": null,
+      "address": null,
+      "date": null,
+      "description": null
+    },
+    "notes": "Sidan använder Sitevision CMS. Huvudinnehållet ligger i ett element med style='display:none' och renderas först efter JS-exekvering (cookie-banner måste hanteras). Kräver Playwright eller liknande JS-kapabel scraper. Cookie-banner med id 'id_habo_cookie_close' eller 'habo_cookie_close_id' måste klickas bort innan innehåll visas. Selektorer och struktur för anslag/bygglov kan inte verifieras utan fullständigt renderat innehåll.",
+    "confidence": "low",
+    "approved": false
+  },
+  "navigations_used": 3,
+  "candidate_url": "https://www.habo.se/kommun-och-politik/anslagstavla.html",
+  "final_url": "https://www.habo.se/kommun-och-politik/anslagstavla.html",
+  "tokens": {
+    "input": 126639,
+    "output": 1587,
+    "cost_usd": 0.403722
+  },
+  "failure_reason": null
+}

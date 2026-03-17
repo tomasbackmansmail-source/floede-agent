@@ -1,0 +1,43 @@
+{
+  "municipality": "Enköping",
+  "municipality_id": "enkoping",
+  "success": true,
+  "needs_manual_url": false,
+  "config": {
+    "municipality": "Enköping",
+    "platform_guess": "sitevision",
+    "listing_url": "https://enkoping.se/kommun-och-politik/anslagstavla.html",
+    "listing_type": "unknown",
+    "pagination": {
+      "has_pagination": false,
+      "type": "none",
+      "mechanism": "Ingen paginering observerad",
+      "estimated_total_pages": null
+    },
+    "requires_subpages": {
+      "required": true,
+      "reason": "Sidans innehåll är dynamiskt laddat via SiteVision CMS och syns inte i den statiska HTML:en. Enskilda ärenden antas ligga på undersidor eller renderas via JavaScript.",
+      "link_selector_hint": "a[href*='anslagstavla'], .sv-text-portlet a, .sv-list a"
+    },
+    "selectors_hint": {
+      "container": ".sv-text-portlet, .sv-list-portlet, #svid10_6cd9b89d14fefd0c4f59642a",
+      "item": null,
+      "case_number": null,
+      "address": null,
+      "date": null,
+      "description": null
+    },
+    "notes": "Sidan använder SiteVision CMS. Det faktiska innehållet på anslagstavlan är inte synligt i den statiska HTML:en – troligen renderat via JavaScript eller dynamiska portlets. Sidtiteln 'Anslagstavla – Enköpings kommun' bekräftar att detta är rätt URL. Scraping-agenten behöver rendera JavaScript (Playwright/Puppeteer) för att se det faktiska innehållet med kungörelser och bygglov. Innehållet kan finnas i en .sv-text-portlet eller .sv-list-portlet efter rendering.",
+    "confidence": "low",
+    "approved": false
+  },
+  "navigations_used": 2,
+  "candidate_url": "https://enkoping.se/kommun-och-politik/anslagstavla.html",
+  "final_url": "https://enkoping.se/kommun-och-politik/anslagstavla.html",
+  "tokens": {
+    "input": 81603,
+    "output": 1143,
+    "cost_usd": 0.261954
+  },
+  "failure_reason": null
+}

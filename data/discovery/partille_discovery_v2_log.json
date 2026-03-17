@@ -1,0 +1,44 @@
+{
+  "municipality": "Partille",
+  "municipality_id": "partille",
+  "success": true,
+  "needs_manual_url": false,
+  "config": {
+    "municipality": "Partille",
+    "platform_guess": "custom",
+    "listing_url": "https://lex.partille.se/Lex2PinBoardWasm",
+    "listing_type": "table",
+    "pagination": {
+      "has_pagination": false,
+      "type": "none",
+      "mechanism": "All items are rendered on a single page with no pagination controls visible.",
+      "estimated_total_pages": null
+    },
+    "requires_subpages": {
+      "required": true,
+      "reason": "Items in the listing show only a title text inside .notetext elements. No case number, address, date, status or permit details are visible in the listing. Each item wraps an <a> tag suggesting clickable links to detail pages, but href attributes appear empty in the captured HTML - likely populated dynamically by Blazor WebAssembly.",
+      "link_selector_hint": "div.lex-table_body div[tabindex='6'] a"
+    },
+    "selectors_hint": {
+      "container": "div.lex-table.cust-table",
+      "item": "div.lex-table_body div[tabindex='6']",
+      "section_heading": "div.lex-table_heading div.lex-table_cell",
+      "case_number": null,
+      "address": null,
+      "date": null,
+      "description": "div.notetext.cust-notetext"
+    },
+    "notes": "Site is built on Blazor WebAssembly (note version string '21.0.2978.2' and blazor-error-ui div). This means the page is a SPA rendered client-side - a standard HTTP fetch will likely return an empty shell and items must be scraped with a headless browser (e.g. Playwright/Puppeteer) after Blazor has hydrated the DOM. The relevant section for bygglov/kungorelser is 'Kungörelser och tillkännagivanden' (tabindex=6 items). A secondary relevant section is 'Justerade protokoll' which contains bygg- och miljönämnden protocols. The <a> tags have no visible href in the static HTML - links are likely injected by Blazor on interaction. Scraper must wait for full DOM render before extracting links.",
+    "confidence": "medium",
+    "approved": false
+  },
+  "navigations_used": 1,
+  "candidate_url": "https://www.partille.se/digital-anslagstavla/",
+  "final_url": "https://lex.partille.se/Lex2PinBoardWasm",
+  "tokens": {
+    "input": 28809,
+    "output": 752,
+    "cost_usd": 0.097707
+  },
+  "failure_reason": null
+}

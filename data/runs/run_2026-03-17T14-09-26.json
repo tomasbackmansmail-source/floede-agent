@@ -1,0 +1,162 @@
+{
+  "run_id": "2026-03-17T14-09-26",
+  "run_at": "2026-03-17T14:19:53.943Z",
+  "elapsed_ms": 627942,
+  "configs_count": 15,
+  "total_permits": 174,
+  "total_inserted": 172,
+  "total_cost_usd": 0.17498159999999996,
+  "cost_per_permit_usd": 0.0010056413793103447,
+  "results": [
+    {
+      "municipality": "Alingsås",
+      "status": "ok",
+      "permits": 16,
+      "inserted": 16,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.010123199999999999,
+      "html_hash": "4cbbd29d86666e0f"
+    },
+    {
+      "municipality": "Danderyd",
+      "status": "ok",
+      "permits": 7,
+      "inserted": 7,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0064128,
+      "html_hash": "8721e8fe3c457479"
+    },
+    {
+      "municipality": "Enköping",
+      "status": "ok",
+      "permits": 8,
+      "inserted": 6,
+      "skipped": 2,
+      "errors": 0,
+      "cost_usd": 0.0264184,
+      "html_hash": "32865696a2d51865"
+    },
+    {
+      "municipality": "Katrineholm",
+      "status": "ok",
+      "permits": 19,
+      "inserted": 19,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0158776,
+      "html_hash": "9bfb54ec298ccb29"
+    },
+    {
+      "municipality": "Kungsbacka",
+      "status": "ok",
+      "permits": 8,
+      "inserted": 8,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0065416,
+      "html_hash": "45e9af3693126b24"
+    },
+    {
+      "municipality": "Lerum",
+      "status": "ok",
+      "permits": 5,
+      "inserted": 5,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0044312,
+      "html_hash": "72c61934331996f6"
+    },
+    {
+      "municipality": "Nynäshamn",
+      "status": "ok",
+      "permits": 6,
+      "inserted": 6,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0215736,
+      "html_hash": "b82c539082d720cb"
+    },
+    {
+      "municipality": "Partille",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0018399999999999998,
+      "html_hash": "e3b0c44298fc1c14"
+    },
+    {
+      "municipality": "Sandviken",
+      "status": "ok",
+      "permits": 8,
+      "inserted": 8,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0057072,
+      "html_hash": "c7f8ff2dc89b76a6"
+    },
+    {
+      "municipality": "Sigtuna",
+      "status": "ok",
+      "permits": 16,
+      "inserted": 16,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.011824,
+      "html_hash": "8c5d936347d20cdc"
+    },
+    {
+      "municipality": "Trelleborg",
+      "status": "ok",
+      "permits": 18,
+      "inserted": 18,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0094464,
+      "html_hash": "cbd27912a51e5ae0"
+    },
+    {
+      "municipality": "Värmdö",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0023376,
+      "html_hash": "7599434c0ddb8592"
+    },
+    {
+      "municipality": "Värnamo",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.015176799999999999,
+      "html_hash": "a8a865404a11eb0b"
+    },
+    {
+      "municipality": "Vellinge",
+      "status": "ok",
+      "permits": 41,
+      "inserted": 41,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0245712,
+      "html_hash": "2044195a16ab50ad"
+    },
+    {
+      "municipality": "Ystad",
+      "status": "ok",
+      "permits": 22,
+      "inserted": 22,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0127,
+      "html_hash": "d40a184fa61d7c8d"
+    }
+  ]
+}

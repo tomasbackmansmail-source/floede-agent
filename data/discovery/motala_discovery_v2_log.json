@@ -1,0 +1,14 @@
+{
+  "municipality": "Motala",
+  "municipality_id": "motala",
+  "success": false,
+  "needs_manual_url": true,
+  "config": null,
+  "navigations_used": 0,
+  "tokens": {
+    "input": 60620,
+    "output": 424,
+    "cost_usd": 0.18822
+  },
+  "failure_reason": "Could not load candidate URL: page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://www.motala.se/kommun-och-politik/beslut-insyn-och-rattssakerhet/anslagstavla-officiell/\", waiting until \"networkidle\"\u001b[22m\n"
+}

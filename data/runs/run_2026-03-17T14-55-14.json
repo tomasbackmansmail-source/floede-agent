@@ -1,0 +1,112 @@
+{
+  "run_id": "2026-03-17T14-55-14",
+  "run_at": "2026-03-17T15:00:29.352Z",
+  "elapsed_ms": 314613,
+  "configs_count": 10,
+  "total_permits": 105,
+  "total_inserted": 105,
+  "total_cost_usd": 0.09423519999999999,
+  "cost_per_permit_usd": 0.0008974780952380951,
+  "results": [
+    {
+      "municipality": "Ängelholm",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0018407999999999999,
+      "html_hash": "e3b0c44298fc1c14"
+    },
+    {
+      "municipality": "Karlskrona",
+      "status": "ok",
+      "permits": 27,
+      "inserted": 27,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.018968,
+      "html_hash": "3d38edb474b44dd0"
+    },
+    {
+      "municipality": "Kumla",
+      "status": "ok",
+      "permits": 10,
+      "inserted": 10,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0076863999999999995,
+      "html_hash": "4d3017f989004bfc"
+    },
+    {
+      "municipality": "Motala",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0018399999999999998,
+      "html_hash": "e3b0c44298fc1c14"
+    },
+    {
+      "municipality": "Piteå",
+      "status": "ok",
+      "permits": 17,
+      "inserted": 17,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.015366399999999999,
+      "html_hash": "fa9e6101b0a1bb43"
+    },
+    {
+      "municipality": "Skövde",
+      "status": "ok",
+      "permits": 1,
+      "inserted": 1,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0036008,
+      "html_hash": "211147001e3edae7"
+    },
+    {
+      "municipality": "Sollentuna",
+      "status": "ok",
+      "permits": 15,
+      "inserted": 15,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0151536,
+      "html_hash": "f0fd2850b7cae2d0"
+    },
+    {
+      "municipality": "Strängnäs",
+      "status": "ok",
+      "permits": 5,
+      "inserted": 5,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.006429600000000001,
+      "html_hash": "6e71110f5c94b012"
+    },
+    {
+      "municipality": "Uddevalla",
+      "status": "ok",
+      "permits": 30,
+      "inserted": 30,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0215088,
+      "html_hash": "f685c4bf9d0d578e"
+    },
+    {
+      "municipality": "Värnamo",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0018407999999999999,
+      "html_hash": "e3b0c44298fc1c14"
+    }
+  ]
+}

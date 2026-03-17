@@ -1,0 +1,54 @@
+{
+  "municipality": "Danderyd",
+  "municipality_id": "danderyd",
+  "success": true,
+  "needs_manual_url": false,
+  "config": {
+    "municipality": "Danderyd",
+    "platform_guess": "meetingsplus",
+    "listing_url": "https://meetingsplus.danderyd.se/digital-bulletin-board",
+    "listing_type": "table",
+    "pagination": {
+      "has_pagination": true,
+      "type": "numbered_pages",
+      "mechanism": "Numbered pagination links rendered as <li class='page-item'> inside <ul class='pagination'>. Also supports page size selector (10/20/30/100 per page). Navigate by clicking page number buttons.",
+      "estimated_total_pages": 4
+    },
+    "requires_subpages": {
+      "required": true,
+      "reason": "Listing table shows nämnd, typ, datum (från/till) och titel. Detaljerad ärendeinformation (fastighetsbeteckning, beslut, handlingar) finns på individuella undersidor.",
+      "link_selector_hint": "div.dbb-published-announcements-table-title-column a[href*='/digital-bulletin-board/announcements/']"
+    },
+    "selectors_hint": {
+      "container": "div.dbb-list div.dbb-list-items",
+      "item": "div.dbb-list-items-row",
+      "case_number": null,
+      "address": "div.dbb-published-announcements-table-title-column a",
+      "date": "div.dbb-published-announcements-table-dates-column span",
+      "description": "div.dbb-published-announcements-table-type-column span",
+      "committee": "div.dbb-published-announcements-table-committee-column a",
+      "detail_link": "div.dbb-published-announcements-table-title-column a[href*='/digital-bulletin-board/announcements/']"
+    },
+    "relevant_types": [
+      "Kungörelse lov MSN",
+      "Kungörelse grannhörande MSN"
+    ],
+    "exclude_types": [
+      "Protokoll MSN",
+      "Protokoll KS",
+      "Protokoll SU"
+    ],
+    "notes": "Sidan är en React-renderad tabell (MeetingsPlus-plattform). Varje rad innehåller nämnd, anslagstyp, datum från/till och titel med länk till undersida. Relevant för bygglov är typerna 'Kungörelse lov MSN' och 'Kungörelse grannhörande MSN'. Titlarna på lovärenden är fastighetsbeteckningar (t.ex. DREVKARLEN 1, SJUKHUSET 5). Paginering med 4 sidor vid 10 per sida – överväg att sätta page size till 100 för att minimera antal requests. Sidan är JavaScript-renderad och kan kräva Playwright/Selenium.",
+    "confidence": "high",
+    "approved": false
+  },
+  "navigations_used": 1,
+  "candidate_url": "https://meetingsplus.danderyd.se/digital-bulletin-board",
+  "final_url": "https://meetingsplus.danderyd.se/digital-bulletin-board",
+  "tokens": {
+    "input": 32963,
+    "output": 1083,
+    "cost_usd": 0.115134
+  },
+  "failure_reason": null
+}
