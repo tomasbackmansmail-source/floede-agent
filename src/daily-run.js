@@ -10,6 +10,17 @@ import { createHash } from "crypto";
 import { EXTRACTION_PROMPT_V2 } from "./config/extraction-prompt-v2.js";
 import { withRetry } from "./utils/retry.js";
 
+function sanitizeFilename(name) {
+  return name
+    .toLowerCase()
+    .replace(/å/g, "a")
+    .replace(/ä/g, "a")
+    .replace(/ö/g, "o")
+    .replace(/[^a-z0-9-]/g, "-")
+    .replace(/-+/g, "-")
+    .replace(/^-|-$/g, "");
+}
+
 const HTML_DIR = join(process.cwd(), "data", "html");
 const EXTRACTED_DIR = join(process.cwd(), "data", "extracted");
 const COST_DIR = join(process.cwd(), "data", "costs");
@@ -300,7 +311,7 @@ async function main() {
       const hash = createHash("sha256").update(html).digest("hex").slice(0, 16);
 
       // Save HTML
-      const htmlFile = `${muniName.toLowerCase().replace(/[^a-z]/g, "")}_${runId}.html`;
+      const htmlFile = `${sanitizeFilename(muniName)}_${runId}.html`;
       await writeFile(join(HTML_DIR, htmlFile), html, "utf-8");
 
       // 2. Extract permits
@@ -312,7 +323,7 @@ async function main() {
 
       // Save extracted data
       await writeFile(
-        join(EXTRACTED_DIR, `${muniName.toLowerCase().replace(/[^a-z]/g, "")}_extracted.json`),
+        join(EXTRACTED_DIR, `${sanitizeFilename(muniName)}_extracted.json`),
         JSON.stringify(permits, null, 2),
         "utf-8"
       );

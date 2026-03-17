@@ -155,6 +155,45 @@ function detectAnomalies(baselines, todayCounts) {
   return anomalies;
 }
 
+const POPULATION = {
+  "Malmö": 351749, "Uppsala": 233839, "Linköping": 164616, "Örebro": 155696,
+  "Västerås": 154049, "Norrköping": 143171, "Helsingborg": 149280,
+  "Jönköping": 144489, "Umeå": 132004, "Lund": 128036, "Halmstad": 105295,
+  "Nacka": 109525, "Sundsvall": 99785, "Karlstad": 96466, "Mölndal": 69517,
+  "Gotland": 60124, "Kiruna": 22915, "Höör": 17046, "Trosa": 13527,
+  "Tibro": 11089,
+};
+
+function populationFlags(todayCounts, baselines) {
+  const flags = [];
+  for (const [muniFile, count] of Object.entries(todayCounts)) {
+    // Match sanitized filename to population key
+    const popEntry = Object.entries(POPULATION).find(([name]) => {
+      const sanitized = name.toLowerCase()
+        .replace(/å/g, "a").replace(/ä/g, "a").replace(/ö/g, "o")
+        .replace(/[^a-z0-9-]/g, "-").replace(/-+/g, "-").replace(/^-|-$/g, "");
+      return sanitized === muniFile;
+    });
+    if (!popEntry) continue;
+    const [muniName, pop] = popEntry;
+
+    // Estimate days covered from baseline
+    const baseline = baselines[muniFile];
+    const daysCovered = baseline ? Math.floor((Date.now() - new Date(baseline.last_data_date).getTime()) / 86400000) : 3;
+    const monthlyRate = (count / Math.max(daysCovered, 1)) * 30;
+
+    if (pop > 100000 && monthlyRate < 10) {
+      flags.push(`${muniName} (${(pop / 1000).toFixed(0)}k inv): ${monthlyRate.toFixed(1)} ärenden/mån, förväntat >= 10`);
+    } else if (pop > 50000 && monthlyRate < 5) {
+      flags.push(`${muniName} (${(pop / 1000).toFixed(0)}k inv): ${monthlyRate.toFixed(1)} ärenden/mån, förväntat >= 5`);
+    }
+    if (pop > 20000 && daysCovered >= 14 && count === 0) {
+      flags.push(`${muniName} (${(pop / 1000).toFixed(0)}k inv): 0 ärenden på ${daysCovered} dagar`);
+    }
+  }
+  return flags;
+}
+
 async function main() {
   await mkdir(QC_DIR, { recursive: true });
   await mkdir(COST_DIR, { recursive: true });
@@ -200,6 +239,9 @@ async function main() {
   // Detect anomalies
   const anomalies = detectAnomalies(baselines, todayCounts);
 
+  // Population-based flags
+  const popFlags = populationFlags(todayCounts, baselines);
+
   // Calculate cost for today's extraction
   const costFiles = (await readdir(COST_DIR))
     .filter((f) => f.startsWith("extraction_cost"))
@@ -229,6 +271,7 @@ async function main() {
     })),
     stale_sources: staleSources,
     anomalies: anomalies,
+    population_flags: popFlags,
     cost: todayCost ? {
       extraction_usd: todayCost.total_cost_usd,
       cost_per_permit_usd: todayCost.cost_per_permit_usd,
@@ -243,6 +286,7 @@ async function main() {
   console.log(`Flagged permits: ${totalFlagged}`);
   console.log(`Stale sources: ${staleSources.length}`);
   console.log(`Anomalies: ${anomalies.length}`);
+  console.log(`Population flags: ${popFlags.length}`);
 
   console.log("\n--- PER MUNICIPALITY ---");
   for (const [muni, count] of Object.entries(todayCounts).sort((a, b) => b[1] - a[1])) {
@@ -273,6 +317,11 @@ async function main() {
     anomalies.forEach((a) => {
       console.log(`  ${a.municipality}: expected ~${a.expected}, got ${a.actual} (${a.deviation_pct}% ${a.direction})`);
     });
+  }
+
+  if (popFlags.length > 0) {
+    console.log("\n--- POPULATION FLAGS ---");
+    popFlags.forEach((f) => console.log(`  ${f}`));
   }
 
   if (todayCost) {

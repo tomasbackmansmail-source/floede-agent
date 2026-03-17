@@ -1,0 +1,191 @@
+{
+  "run_at": "2026-03-17T07:13:53.237Z",
+  "summary": {
+    "total_permits_extracted": 393,
+    "total_municipalities": 20,
+    "total_flagged_permits": 4,
+    "stale_sources": 0,
+    "anomalies": 0
+  },
+  "per_municipality": [
+    {
+      "municipality": "gotland",
+      "permits_today": 18,
+      "baseline": null,
+      "issues": [],
+      "issue_count": 0
+    },
+    {
+      "municipality": "halmstad",
+      "permits_today": 14,
+      "baseline": null,
+      "issues": [],
+      "issue_count": 0
+    },
+    {
+      "municipality": "helsingborg",
+      "permits_today": 5,
+      "baseline": null,
+      "issues": [],
+      "issue_count": 0
+    },
+    {
+      "municipality": "hoor",
+      "permits_today": 10,
+      "baseline": null,
+      "issues": [],
+      "issue_count": 0
+    },
+    {
+      "municipality": "jonkoping",
+      "permits_today": 60,
+      "baseline": null,
+      "issues": [],
+      "issue_count": 0
+    },
+    {
+      "municipality": "karlstad",
+      "permits_today": 31,
+      "baseline": null,
+      "issues": [],
+      "issue_count": 0
+    },
+    {
+      "municipality": "kiruna",
+      "permits_today": 4,
+      "baseline": null,
+      "issues": [],
+      "issue_count": 0
+    },
+    {
+      "municipality": "linkoping",
+      "permits_today": 0,
+      "baseline": null,
+      "issues": [],
+      "issue_count": 0
+    },
+    {
+      "municipality": "lund",
+      "permits_today": 60,
+      "baseline": null,
+      "issues": [
+        {
+          "case_number": null,
+          "address": "Stångby 17:40",
+          "issues": [
+            "future date: 2026-03-20"
+          ]
+        },
+        {
+          "case_number": null,
+          "address": "Östra torn 27:2 (Odarslövsvägen 20)",
+          "issues": [
+            "future date: 2026-03-20"
+          ]
+        },
+        {
+          "case_number": null,
+          "address": "Fäladen 5 (Vångavägen 24)",
+          "issues": [
+            "future date: 2026-03-25"
+          ]
+        },
+        {
+          "case_number": null,
+          "address": "Östra torn 27:2",
+          "issues": [
+            "future date: 2026-03-26"
+          ]
+        }
+      ],
+      "issue_count": 4
+    },
+    {
+      "municipality": "malmo",
+      "permits_today": 4,
+      "baseline": null,
+      "issues": [],
+      "issue_count": 0
+    },
+    {
+      "municipality": "molndal",
+      "permits_today": 10,
+      "baseline": null,
+      "issues": [],
+      "issue_count": 0
+    },
+    {
+      "municipality": "nacka",
+      "permits_today": 17,
+      "baseline": null,
+      "issues": [],
+      "issue_count": 0
+    },
+    {
+      "municipality": "norrkoping",
+      "permits_today": 67,
+      "baseline": null,
+      "issues": [],
+      "issue_count": 0
+    },
+    {
+      "municipality": "orebro",
+      "permits_today": 26,
+      "baseline": null,
+      "issues": [],
+      "issue_count": 0
+    },
+    {
+      "municipality": "sundsvall",
+      "permits_today": 10,
+      "baseline": null,
+      "issues": [],
+      "issue_count": 0
+    },
+    {
+      "municipality": "tibro",
+      "permits_today": 0,
+      "baseline": null,
+      "issues": [],
+      "issue_count": 0
+    },
+    {
+      "municipality": "trosa",
+      "permits_today": 8,
+      "baseline": null,
+      "issues": [],
+      "issue_count": 0
+    },
+    {
+      "municipality": "umea",
+      "permits_today": 4,
+      "baseline": null,
+      "issues": [],
+      "issue_count": 0
+    },
+    {
+      "municipality": "uppsala",
+      "permits_today": 3,
+      "baseline": null,
+      "issues": [],
+      "issue_count": 0
+    },
+    {
+      "municipality": "vasteras",
+      "permits_today": 42,
+      "baseline": null,
+      "issues": [],
+      "issue_count": 0
+    }
+  ],
+  "stale_sources": [],
+  "anomalies": [],
+  "population_flags": [
+    "Linköping (165k inv): 0.0 ärenden/mån, förväntat >= 10"
+  ],
+  "cost": {
+    "extraction_usd": 0.5102095999999999,
+    "cost_per_permit_usd": 0.0012982432569974554,
+    "qc_usd": 0
+  }
+}
