@@ -108,21 +108,31 @@ async function fetchPage(page, config) {
     );
 
     const uniqueLinks = [...new Set(links)];
-    console.log(`  [Fetch] Found ${uniqueLinks.length} subpage links`);
+    const maxSubpages = config.requires_subpages.max_subpages || 200;
+    console.log(`  [Fetch] Found ${uniqueLinks.length} subpage links (fetching up to ${maxSubpages})`);
 
-    const subpageHtmls = [];
-    for (const link of uniqueLinks.slice(0, 50)) { // Cap at 50 subpages
+    const subpageTexts = [];
+    for (const link of uniqueLinks.slice(0, maxSubpages)) {
       try {
         await page.goto(link, { waitUntil: "networkidle", timeout: 15000 });
         await page.waitForTimeout(500);
-        subpageHtmls.push(await page.content());
+
+        // Extract only the meaningful text content to avoid bloat from
+        // navigation, headers, footers, and scripts. This lets us fit
+        // hundreds of subpages within the extraction token limit.
+        const text = await page.evaluate(() => {
+          const main = document.querySelector("main, article, .pagecontent, [role='main']");
+          return (main || document.body).innerText;
+        });
+        subpageTexts.push(`<!-- SUBPAGE: ${link} -->\n${text}`);
       } catch (err) {
         console.log(`  [Fetch] Subpage failed: ${link} — ${err.message}`);
       }
       await new Promise((r) => setTimeout(r, 1000)); // Rate limit
     }
 
-    html = subpageHtmls.join("\n<!-- SUBPAGE_SEPARATOR -->\n");
+    console.log(`  [Fetch] Fetched ${subpageTexts.length} subpages`);
+    html = subpageTexts.join("\n\n");
   }
 
   return html;
@@ -243,9 +253,23 @@ async function main() {
   const startTime = Date.now();
   const runId = new Date().toISOString().slice(0, 19).replace(/[:.]/g, "-");
 
+  // CLI: --municipality norrkoping,malmo to run specific municipalities
+  const muniArg = process.argv.find((a) => a.startsWith("--municipality="));
+  const onlyMunis = muniArg
+    ? muniArg.split("=")[1].split(",").map((s) => s.trim().toLowerCase())
+    : null;
+
   console.log(`=== Floede Agent - Daily Run ${runId} ===\n`);
 
-  const configs = await loadApprovedConfigs();
+  let configs = await loadApprovedConfigs();
+  if (onlyMunis) {
+    configs = configs.filter((c) =>
+      onlyMunis.some((m) => c.municipality.toLowerCase().includes(m) ||
+        c._file.toLowerCase().includes(m))
+    );
+    console.log(`Filtered to ${configs.length} configs: ${configs.map((c) => c.municipality).join(", ")}\n`);
+  }
+
   if (configs.length === 0) {
     console.error("No approved configs found. Run Discovery first and approve configs.");
     process.exit(1);

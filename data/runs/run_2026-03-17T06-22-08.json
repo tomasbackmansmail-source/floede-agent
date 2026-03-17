@@ -1,0 +1,22 @@
+{
+  "run_id": "2026-03-17T06-22-08",
+  "run_at": "2026-03-17T06:28:33.971Z",
+  "elapsed_ms": 385348,
+  "configs_count": 1,
+  "total_permits": 67,
+  "total_inserted": 67,
+  "total_cost_usd": 0.06430319999999999,
+  "cost_per_permit_usd": 0.0009597492537313431,
+  "results": [
+    {
+      "municipality": "Norrköping",
+      "status": "ok",
+      "permits": 67,
+      "inserted": 67,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.06430319999999999,
+      "html_hash": "a3160691f36d5be8"
+    }
+  ]
+}
