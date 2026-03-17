@@ -1,28 +1,28 @@
 {
   "municipality": "Uppsala",
   "platform_guess": "custom",
-  "listing_url": "https://www.uppsala.se/kommun-och-politik/anslagstavla/kungorelser/kungorelse-om-beslut-i-lov-och-forhandsbesked/",
+  "listing_url": "https://www.uppsala.se/kommun-och-politik/anslagstavla/kungorelser/ansokan-om-bygglov-och-forhandsbesked/",
   "listing_type": "list",
   "pagination": {
     "has_pagination": false,
     "type": "none",
-    "mechanism": "All items appear on a single page. New kungörelse replaces the old one periodically (published date range visible: 26 januari 2026 till 23 februari 2026).",
-    "estimated_total_pages": 1
+    "mechanism": "All items are on a single page. Each kungörelse period is a separate page with its own URL. New kungörelser replace old ones.",
+    "estimated_total_pages": null
   },
   "requires_subpages": {
     "required": false,
-    "reason": "All permit details (fastighet, åtgärd, beslutsdatum, diarienummer) are embedded directly in the main page content as plain HTML paragraphs within .content-area.",
+    "reason": "All relevant data (fastighet, åtgärd, diarienummer, sista synpunktsdatum) finns direkt i brödtexten på listningssidan. Inga undersidor förekommer.",
     "link_selector_hint": null
   },
   "selectors_hint": {
     "container": ".content-area",
-    "item": "p",
-    "case_number": "p:contains('Diarienummer')",
-    "address": "p > strong",
-    "date": "p:contains('beviljas')",
-    "description": "p"
+    "item": "h3",
+    "case_number": "p",
+    "address": "h3",
+    "date": "time",
+    "description": "h3 + p"
   },
-  "notes": "Sidan är en enda kungörelsesida som uppdateras med ny publiceringsperiod. Alla ärenden listas som fritext-paragrafer i .content-area. Varje ärende följer mönstret: <strong>Fastighetsbeteckning</strong> → beskrivning → 'Bygglov beviljas ÅÅÅÅ-MM-DD' → 'Diarienummer PBN ÅÅÅÅ-XXXXXX'. Innehållet är inte strukturerat i tabell eller dedikerade CSS-klasser, vilket kräver textparsning. Sidan verkar vara manuellt redigerad HTML utan CMS-genererade strukturer för ärendeposter. Diarienummer följer formatet 'PBN ÅÅÅÅ-XXXXXX'. Publiceringsperiod finns i <aside class='meta-data'> som datetime-attribut.",
+  "notes": "Sidan är en enskild kungörelsesida per publiceringsperiod. Varje ärende presenteras som en h3 (fastighetsbeteckning) följt av ett p-element (beskrivning och diarienummer på formen Dnr.YYYY-XXXXXX). Publiceringsdatum och sista synpunktsdatum finns i aside.meta-data i time-element. Strukturen är: h2 anger kategori (t.ex. 'Åtgärd utom detaljplanerat område'), h3 anger fastighetsbeteckning, p anger åtgärdstyp och diarienummer. Sidan uppdateras med ny URL per kungörelseperiod – bevakningslösning bör följa anslagstavlans indexsida på /kommun-och-politik/anslagstavla/kungorelser/ för att upptäcka nya perioder. Platform är troligen ett egenutvecklat CMS baserat på ASP.NET (syns i form-token och URL-struktur).",
   "confidence": "high",
-  "approved": true
+  "approved": false
 }

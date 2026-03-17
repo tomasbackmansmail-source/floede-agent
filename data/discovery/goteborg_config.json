@@ -1,51 +1,40 @@
 {
   "municipality": "Göteborg",
   "platform_guess": "custom",
-  "listing_url": "https://goteborg.se/wps/portal/start/kommun-och-politik/goteborgs-stads-anslagstavla/grannehorande-fore-beslut",
-  "listing_type": "cards",
+  "listing_url": "https://goteborg.se/wps/portal/start/kommun-och-politik/goteborgs-stads-anslagstavla",
+  "listing_type": "links_to_subpages",
   "pagination": {
     "has_pagination": false,
     "type": "none",
-    "mechanism": "Alla aktuella ärenden visas på en och samma sida utan paginering",
+    "mechanism": "Indexsidan har inga ärenden direkt – den länkar vidare till två relevanta undersektioner för PBL-kungörelser.",
     "estimated_total_pages": null
   },
   "requires_subpages": {
-    "required": false,
-    "reason": "Alla relevanta fält (diarienummer, fastighetsbeteckning, adress, beskrivning, deadline för synpunkter, uppsatt- och nedtagningsdatum) finns direkt i listningen på sidan",
-    "link_selector_hint": null
+    "required": true,
+    "reason": "Indexsidan listar bara kategorier som nav-tiles. Faktiska ärenden finns på två undersidor: 'grannehorande-fore-beslut' (kungörelser om grannehörande) och 'kungorelser-efter-beslut' (kungörelser om beslut i lov och förhandsbesked). Båda måste skrapas separat.",
+    "link_selector_hint": "a.c-navigation-tile__head[href*='grannehorande-fore-beslut'], a.c-navigation-tile__head[href*='kungorelser-efter-beslut']"
   },
-  "selectors_hint": {
-    "container": "div#bygglov-lista ul.c-list",
-    "item": "li",
-    "case_number": "h2.c-snippet__title",
-    "address": null,
-    "date": "div.c-snippet__sub",
-    "description": "div.c-snippet__content p:first-of-type"
-  },
-  "extraction_hints": {
-    "property_and_address": {
-      "source": "div.c-snippet__content p:first-of-type",
-      "regex": "fastigheten ([\\w\\s:åäöÅÄÖ]+?)(?:\\s+\\(([^)]+)\\))?\\s+med diarienummer"
+  "sub_listing_urls": [
+    {
+      "url": "https://goteborg.se/wps/portal/start/kommun-och-politik/goteborgs-stads-anslagstavla/grannehorande-fore-beslut",
+      "label": "Kungörelse om grannehörande i lov och förhandsbesked (PBL)",
+      "type": "grannehorande"
     },
-    "deadline": {
-      "source": "div.c-snippet__content",
-      "regex": "senast (\\d{4}-\\d{2}-\\d{2})\\.?"
-    },
-    "posted_date": {
-      "source": "div.c-snippet__sub",
-      "regex": "sätts upp:\\s*(\\d+ \\w+ \\d{4})"
-    },
-    "removal_date": {
-      "source": "div.c-snippet__sub",
-      "regex": "tas ned:\\s*(\\d+ \\w+ \\d{4})"
-    },
-    "permit_type": {
-      "source": "div.c-snippet__content p:first-of-type",
-      "regex": "har skickat ut (.+?) på fastigheten",
-      "note": "Innehåller t.ex. 'bygglov för nybyggnad av enbostadshus' eller 'tidsbegränsat bygglov för tillbyggnad av restaurang'"
+    {
+      "url": "https://goteborg.se/wps/portal/start/kommun-och-politik/goteborgs-stads-anslagstavla/kungorelser-efter-beslut",
+      "label": "Kungörelse om beslut i lov och förhandsbesked (PBL)",
+      "type": "beslut"
     }
+  ],
+  "selectors_hint": {
+    "container": ".o-grid",
+    "item": ".c-navigation-tile",
+    "case_number": null,
+    "address": null,
+    "date": null,
+    "description": ".c-navigation-tile__content"
   },
-  "notes": "IBM WebSphere Portal-baserad sajt (WPS). URL innehåller dynamiskt genererat suffix efter /grannehorande-fore-beslut/ men bas-URL fungerar. Alla ärenden är grannehöranden enligt PBL. Fastighetsbeteckning extraheras med regex ur beskrivningstexten, adress finns ibland inom parentes direkt efter fastighetsbeteckningen. Datumformat i c-snippet__sub är svenska ord (t.ex. '17 mars 2026') medan deadline-datum i brödtexten är ISO-format (YYYY-MM-DD). Observera att ett OneNote-länkfel finns i en länk på informationssidan – påverkar ej denna sida.",
-  "confidence": "high",
-  "approved": true
+  "notes": "Indexsidan innehåller inga ärenden direkt. IBM WebSphere Portal används (WPS) vilket ger långa dynamiska URL:er med hash-segment – använd kanoniska /start/-URL:er utan hash. De två PBL-relevanta undersidorna måste båda skrapas. Sidorna är troligen statiska HTML utan JavaScript-rendering men URL-strukturen kan variera vid navigering. Rekommendation: scrapa båda sub_listing_urls direkt.",
+  "confidence": "medium",
+  "approved": false
 }

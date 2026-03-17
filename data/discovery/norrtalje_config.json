@@ -1,28 +1,28 @@
 {
   "municipality": "Norrtälje",
-  "platform_guess": "ciceron",
-  "listing_url": "https://forum.norrtalje.se/#!/billboard",
-  "listing_type": "no_building_permits_on_board",
+  "platform_guess": "episerver",
+  "listing_url": "https://www.norrtalje.se/info/bygga-bo-miljo/bygga-andra-riva/kungorelse/",
+  "listing_type": "unknown",
   "pagination": {
     "has_pagination": false,
     "type": "none",
-    "mechanism": null,
+    "mechanism": "Kunde ej fastställa - sidans huvudinnehåll dolt bakom cookie-banner i tillgänglig HTML",
     "estimated_total_pages": null
   },
   "requires_subpages": {
-    "required": false,
-    "reason": "Ciceron-plattform med digital anslagstavla. Bygglov kan finnas under anslagstavla-fliken.",
-    "link_selector_hint": null
+    "required": null,
+    "reason": "Kunde ej fastställa struktur - sidans innehåll ej synligt i tillgänglig HTML. Sidan använder Episerver/Optimizely som CMS vilket ofta renderar innehåll dynamiskt.",
+    "link_selector_hint": "a[href*='kungorelse'], a[href*='bygglov'], a[href*='forhandsbesked']"
   },
   "selectors_hint": {
-    "container": "body",
-    "item": null,
+    "container": ".main-content, #main, .page-content, article",
+    "item": "table tr, .list-item, li",
     "case_number": null,
     "address": null,
     "date": null,
     "description": null
   },
-  "notes": "PARKERAD: forum.norrtalje.se (Ciceron) visar bara mötes-/sammanträdeskalender. Ingen bygglovsdata på digital anslagstavla-fliken. Bygglovskungörelser kan finnas bakom inloggning eller annan URL.",
+  "notes": "Sidan körs på Episerver/Optimizely (indikerat av EPiForm-cookies och body id='InfoPage' data-pageid='10310'). Sidans faktiska innehåll var ej synligt i tillhandahållen HTML - dominerades av cookie-banner. Hämtning bör ske med cookie-samtycke hanterat eller via direktanrop som kringgår cookie-wall. ASP.NET_SessionId krävs troligen för session. Rekommenderar att hämta sidan med User-Agent och acceptera cookies programmatiskt innan extraktion.",
   "confidence": "low",
   "approved": false
 }

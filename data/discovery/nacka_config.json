@@ -1,31 +1,30 @@
 {
   "municipality": "Nacka",
   "platform_guess": "custom",
-  "listing_url": "https://www.nacka.se/kommun--politik/delta-och-paverka/anslagstavla-officiell/",
-  "listing_type": "list",
+  "listing_url": "https://www.nacka.se/kommun--politik/delta-och-paverka/anslagstavla-officiell/kungorelser/",
+  "listing_type": "links_to_subpages",
   "pagination": {
-    "has_pagination": false,
-    "type": "none",
-    "mechanism": "Sidan visar de senaste 30 dagarnas anslag utan paginering",
+    "has_pagination": true,
+    "type": "load_more_button",
+    "mechanism": "Klicka på länk med texten 'Fler Nyheter' med URL-mönster ?page=2#page-2, ?page=3#page-3 osv. Länken har klassen .c-get-more__button och attributet data-list='list'.",
     "estimated_total_pages": null
   },
   "requires_subpages": {
     "required": true,
-    "reason": "Listsidan visar endast titel, kategori, anslaget-datum och tas-ned-datum. Detaljinformation om enskilda bygglovsärenden finns på undersidor.",
-    "link_selector_hint": "div.c-news-list-item__content a[href*='kungorelse-bygglov']"
+    "reason": "Listsidan visar endast titel och publiceringsdatum. Ärendenummer, adress, status och detaljer om bygglovet finns enbart på respektive undersida.",
+    "link_selector_hint": ".c-news-list-item__content a[href*='kungorelser']"
   },
   "selectors_hint": {
-    "container": "ul.c-noticeboard__list",
-    "item": "li.c-noticeboard__item[data-category='Bygglov']",
+    "container": "#list",
+    "item": ".c-news-list-item",
     "case_number": null,
     "address": null,
-    "date": "span.c-noticeboard__date:first-child",
-    "description": null,
-    "title": "h3.c-noticeboard__heading a",
-    "category": "span.c-noticeboard__category",
-    "takes_down_date": "span.c-noticeboard__date:last-child"
+    "date": "time.c-timestamp__date",
+    "description": ".c-news-list-item__text",
+    "title": ".c-news-list-item__title",
+    "link": ".c-news-list-item__content a"
   },
-  "notes": "Anslagstavlan har ett inbyggt kategorifilter via data-category-attributet på li-element. Bygglovsärenden samlas i listobjekt med data-category='Bygglov'. URL-mönster för undersidor: /kommun--politik/delta-och-paverka/anslagstavla-officiell/bygglov/{year}/beslut-om-bygglov-och-anmalan-{YYYY-MM-DD}/. Varje undersida listar troligen flera ärenden för det datumet. Sidans period är begränsad till 30 dagar.",
+  "notes": "Listsidan visar generiska titlar som 'Kungörelse bygglov' utan adress eller ärendenummer. Alla detaljer kräver besök på undersida. Sidan innehåller även andra kungörelsetyper (t.ex. 'Kommunfullmäktige sammanträder', 'Kungörelse om flyttade fordon', 'Underrättelse om antagande') – filtrera på titel för att isolera bygglovsrelaterade ärenden. URL-mönster för bygglov: /kungorelser/YYYY/MM/kungorelse-bygglov*/. Paginering sker via länk med klass .c-get-more__button som pekar på ?page=N#page-N. Plattformen liknar ett anpassat CMS, möjligen EPiServer/Optimizely baserat på URL-struktur och HTML-mönster.",
   "confidence": "high",
-  "approved": true
+  "approved": false
 }

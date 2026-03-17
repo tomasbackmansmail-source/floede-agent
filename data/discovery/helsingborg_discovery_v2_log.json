@@ -11,27 +11,45 @@
     "pagination": {
       "has_pagination": true,
       "type": "load_more_button",
-      "mechanism": "Click element with class 'show-more more-results' and text 'Visa fler' within the 'Övrigt anslagen information' section",
+      "mechanism": "Click element with class 'show-more more-results' and text 'Visa fler' within each board section",
       "estimated_total_pages": null
     },
     "requires_subpages": {
       "required": false,
-      "reason": "All relevant data is embedded inline in the HTML via AngularJS data attributes on the listing page itself. Each item's metadata (title, doctype, object_link, diary_name, contains_files) is encoded in the board-details td[item] attribute as JSON. Detail fields (anslaget från/till, handläggare, ankomstdatum) are loaded dynamically via Angular on click but the core identifiers are already in the DOM.",
-      "link_selector_hint": "td[board-details][template='3']"
+      "reason": "All data is rendered inline in the same page via AngularJS. Details expand in-place when a row is clicked. Item metadata including object_link is embedded in the 'item' attribute of td[board-details] as JSON. No separate subpages needed, but detail fields (anslaget från/till, handläggare, etc.) are loaded dynamically via API call when row is expanded.",
+      "link_selector_hint": "tr.table-item td[board-item] p.ng-binding"
     },
     "selectors_hint": {
-      "container": "fieldset:has(h1.board-header:contains('Övrigt anslagen information')) div.fieldset-inner table.table tbody",
-      "item": "tr.table-item[ng-repeat-start]",
-      "case_number": "td[board-details][template='3'] parsed from item attribute: object_link d-parameter (e.g. d=158482)",
-      "address": "td[board-item][template='3'] p.ng-binding (title text contains fastighet and address)",
-      "date": "parsed from item JSON attribute: title text often contains date range",
-      "description": "td[board-item][template='3'] p.ng-binding (full title text)"
+      "container": "fieldset:has(h1.board-header)",
+      "item": "tr.table-item",
+      "case_number": "td[board-details][item*='STBYGG']",
+      "address": "tr.table-item td[board-item] p.ng-binding",
+      "date": "tr.table-item td[board-item] p.ng-binding",
+      "description": "tr.table-item td[board-item] p.ng-binding",
+      "detail_json": "td[board-details]",
+      "detail_json_attr": "item",
+      "section_header": "h1.board-header.separator"
     },
-    "javascript_required": true,
-    "angular_app": true,
-    "data_source_notes": "Page is a full AngularJS SPA. Data is rendered client-side. Each item in 'Övrigt anslagen information' has doctype=4, type='Handling', diary_name='STBYGG' (bygglov) or 'MILJO' (miljö). Item metadata is JSON-encoded in the attribute item='...' on td[board-details]. The object_link field contains diary reference: ?t=4&d=<id>&n=<diary>. API endpoint is likely https://anslagstavla.helsingborg.se/api/ - worth inspecting network traffic to find direct JSON endpoint.",
-    "filter_hint": "Target items where diary_name='STBYGG' for bygglov, or where title contains 'Kungörelse' or 'bygglov' (case-insensitive). Exclude protocol entries (doctype=128).",
-    "notes": "AngularJS single-page app rendered at https://anslagstavla.helsingborg.se/#!/billboard/. Bygglov-ärenden appear in the 'Övrigt anslagen information' section as type=Handling, doctype=4, diary_name=STBYGG. Titles follow pattern 'Kungörelse bygglovsärende - FASTIGHET (GATUADRESS) - åtgärd'. A Selenium/Playwright scraper is required since content is JavaScript-rendered. Recommend intercepting XHR/fetch API calls on page load to find the underlying REST API endpoint, which would be more reliable than DOM scraping. The 'Visa fler' load-more button must be clicked repeatedly to retrieve all current postings.",
+    "angular_notes": {
+      "framework": "AngularJS (ng-repeat, ng-controller, ng-include)",
+      "requires_js": true,
+      "data_in_attr": "Item metadata embedded as HTML-encoded JSON in attribute 'item' on td[board-details]. Parse fields: id, doctype, type, title, contains_files, diary_name, object_link",
+      "object_link_pattern": "?t=4&d={document_id}&n={diary_name}",
+      "bygglov_doctype": 4,
+      "protokoll_doctype": 128,
+      "diary_name_bygglov": "STBYGG",
+      "relevant_section": "Övrigt anslagen information"
+    },
+    "filter": {
+      "target_section": "Övrigt anslagen information",
+      "filter_by_title_contains": [
+        "Kungörelse bygglovsärende",
+        "Kungörelse Bygglovsärende"
+      ],
+      "filter_by_diary_name": "STBYGG",
+      "filter_by_doctype": 4
+    },
+    "notes": "AngularJS SPA anslagstavla. Sidan kräver JavaScript för att rendera innehåll. Bygglovsärenden finns i sektionen 'Övrigt anslagen information' med doctype=4 och diary_name=STBYGG. Titeln innehåller fastighetsbeteckning, adress och åtgärdsbeskrivning i fritext, t.ex. 'Kungörelse bygglovsärende - ADOLFSBERG VÄSTRA 3 (SÖDRA HUNNETORPSVÄGEN 86A), Bygglov för anläggande av 12 parkeringsplatser'. Detaljdata (anslaget från/till, handläggare, ankomstdatum) laddas via separat API-anrop när rad expanderas - dessa fält är tomma i initial HTML. object_link i item-attributet ger dokumentreferens (?t=4&d={id}&n=STBYGG). Använd Playwright/Selenium för att läsa renderad DOM.",
     "confidence": "high",
     "approved": false
   },
@@ -39,9 +57,9 @@
   "candidate_url": "https://anslagstavla.helsingborg.se/",
   "final_url": "https://anslagstavla.helsingborg.se/#!/billboard/",
   "tokens": {
-    "input": 141078,
-    "output": 1563,
-    "cost_usd": 0.446679
+    "input": 60916,
+    "output": 1468,
+    "cost_usd": 0.204768
   },
   "failure_reason": null
 }

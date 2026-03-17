@@ -1,16 +1,43 @@
 {
   "municipality": "Karlstad",
   "municipality_id": "karlstad",
-  "success": false,
+  "success": true,
   "needs_manual_url": false,
-  "config": null,
-  "navigations_used": 4,
+  "config": {
+    "municipality": "Karlstad",
+    "platform_guess": "sitevision",
+    "listing_url": "https://karlstad.se/kommun-och-politik/delta-och-paverka/anslagstavla",
+    "listing_type": "unknown",
+    "pagination": {
+      "has_pagination": false,
+      "type": "none",
+      "mechanism": "Ingen paginering observerad. Alla aktuella kungörelser verkar listas på en sida under rubriken 'Aktuella kungörelser och meddelanden'.",
+      "estimated_total_pages": null
+    },
+    "requires_subpages": {
+      "required": true,
+      "reason": "Sidan är en generell anslagstavla som publicerar fullmäktiges sammanträden, justerade protokoll och kungörelser. Detaljerad ärendeinformation om bygglov eller specifika kungörelser finns troligen på länkade undersidor eller dokument (PDF). HTML är trunkerad och innehållssektionen 'Aktuella kungörelser och meddelanden' är inte fullt synlig.",
+      "link_selector_hint": "#svid94_67d083131827bd64ed71e7 a, .sv-text-portlet-content a"
+    },
+    "selectors_hint": {
+      "container": "#svid94_67d083131827bd64ed71e7",
+      "item": ".sv-text-portlet-content",
+      "case_number": null,
+      "address": null,
+      "date": null,
+      "description": ".sv-font-ingress"
+    },
+    "notes": "Sidan är Karlstads kommuns officiella anslagstavla. Innehåller tre sektioner enligt innehållsförteckningen: 'Personuppgifter och sekretess', 'Överklagande', och 'Aktuella kungörelser och meddelanden'. HTML är trunkerad innan kungörelselistan visas - det är oklart om kungörelserna listas inline eller som länkar till undersidor/PDF-dokument. Plattformen är SiteVision (sv-template-nyttosida). Sidan täcker generella kommunala kungörelser, inte enbart bygglov. Rekommendation: hämta fullständig HTML för sektionen med ankar #h-Aktuellakungorelserochmeddelanden för att kartlägga exakt struktur.",
+    "confidence": "low",
+    "approved": false
+  },
+  "navigations_used": 3,
   "candidate_url": "https://karlstad.se/kommun-och-politik/delta-och-paverka/anslagstavla",
   "final_url": "https://karlstad.se/kommun-och-politik/delta-och-paverka/anslagstavla",
   "tokens": {
-    "input": 80538,
-    "output": 813,
-    "cost_usd": 0.253809
+    "input": 109610,
+    "output": 1807,
+    "cost_usd": 0.355935
   },
-  "failure_reason": "Could not generate valid config after analysis"
+  "failure_reason": null
 }

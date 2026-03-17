@@ -11,12 +11,12 @@
     "pagination": {
       "has_pagination": false,
       "type": "none",
-      "mechanism": "Alla poster verkar listas på en och samma sida utan paginering. Sidan innehåller minst 30+ poster synliga i HTML.",
+      "mechanism": "Alla anslag visas i en enda lista utan paginering. Sidan verkar visa samtliga aktuella anslag direkt.",
       "estimated_total_pages": null
     },
     "requires_subpages": {
       "required": true,
-      "reason": "Listsidan visar endast titel, datum och en kort beskrivning. Detaljerad information om fastigheter, ärendenummer och beslut finns på respektive undersida.",
+      "reason": "Listsidan visar endast titel, datum och kort beskrivning. Fastighetsdetaljer, ärendenummer och fullständig information finns enbart på respektive undersida.",
       "link_selector_hint": "a.sv-font-artikel-rubrik-startsida[href*='kungorelse-bygglov']"
     },
     "selectors_hint": {
@@ -28,7 +28,7 @@
       "description": "span.normal",
       "title": "a.sv-font-artikel-rubrik-startsida span"
     },
-    "notes": "Anslagstavlan innehåller blandade ärendetyper: bygglov (inkomna ansökningar och beviljade beslut), protokoll från nämnder, kungörelser om detaljplaner m.m. Filtrering bör ske på länk-href eller titel för att plocka ut enbart bygglovsrelaterade kungörelser. Relevanta href-mönster: 'kungorelse-bygglov---inkomna-ansokningar' och 'kungorelse-bygglov---beviljade-beslut'. Base URL för relativa länkar är https://www.jonkoping.se. Notera att ett fåtal äldre poster har avvikande URL-format (långa hash-baserade URL:er) vilket kan tyda på plattformsmigration.",
+    "notes": "Anslagstavlan innehåller blandade anslag: bygglov (inkomna ansökningar och beviljade beslut), protokoll, kungörelser om detaljplaner och kallelser. Filtrera på länkar som innehåller 'kungorelse-bygglov' i href för att isolera bygglovsärenden. Datum finns i <time datetime='...'> med ISO-format. Bas-URL för undersidor är https://www.jonkoping.se. Sidan publicerar nya anslag dagligen och listan är kronologiskt sorterad med senaste först.",
     "confidence": "high",
     "approved": false
   },
@@ -36,9 +36,9 @@
   "candidate_url": "https://www.jonkoping.se/kommun--politik/anslagstavla-for-jonkopings-kommun",
   "final_url": "https://www.jonkoping.se/kommun--politik/anslagstavla-for-jonkopings-kommun",
   "tokens": {
-    "input": 54619,
-    "output": 793,
-    "cost_usd": 0.175752
+    "input": 54509,
+    "output": 718,
+    "cost_usd": 0.174297
   },
   "failure_reason": null
 }

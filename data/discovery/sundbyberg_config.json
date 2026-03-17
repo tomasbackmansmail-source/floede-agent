@@ -1,0 +1,30 @@
+{
+  "municipality": "Sundbyberg",
+  "platform_guess": "sitevision",
+  "listing_url": "https://www.sundbyberg.se/kommun-och-politik/politik-och-demokrati/anslagstavla",
+  "listing_type": "cards",
+  "pagination": {
+    "has_pagination": false,
+    "type": "none",
+    "mechanism": "Sidan har ett år/månad-filter via dropdowns samt kategori-checkboxar. Alla poster för valt år laddas direkt utan paginering. Filtrering sker client-side via select-element med id 'filter_12_2f1fe4c418f0f7b412b1e9b9_year' och 'filter_12_2f1fe4c418f0f7b412b1e9b9_month'.",
+    "estimated_total_pages": null
+  },
+  "requires_subpages": {
+    "required": true,
+    "reason": "Listsidan visar titel, datum, kategori och kort beskrivning. Fullständiga detaljer om fastighet, diarienummer och beslut finns på individuella undersidor.",
+    "link_selector_hint": "ul#result_12_2f1fe4c418f0f7b412b1e9b9 article.sol-block-link a[href*='kungorelse']"
+  },
+  "selectors_hint": {
+    "container": "ul#result_12_2f1fe4c418f0f7b412b1e9b9",
+    "item": "li article.sol-block-link",
+    "case_number": null,
+    "address": "article p.item-gl8q6n:last-of-type",
+    "date": "article time",
+    "description": "article p.item-gl8q6n:last-of-type",
+    "title": "article h2 a",
+    "category": "article p.category"
+  },
+  "notes": "Anslagstavlan innehåller flera kategorier: Protokoll, Kungörelse, Övrigt, Tillkännagivande. Bygglovsrelaterade poster återfinns under kategorierna 'Kungörelse' med titlar som 'Kungörelse: Ansökan om bygglov' och 'Kungörelse enligt plan- och bygglagen'. Adressen visas ofta direkt i beskrivningstexten på listsidan (t.ex. 'PUDELN 2, Vinthundsgatan 113, Sundbyberg'). Filtrera på kategori-checkbox värde 'Kungörelse' för att begränsa till relevanta poster. År 2026 har 22 poster, 2025 har 1 poster enligt dropdown-filtret.",
+  "confidence": "high",
+  "approved": true
+}

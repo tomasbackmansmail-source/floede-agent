@@ -1,16 +1,43 @@
 {
   "municipality": "Östersund",
   "municipality_id": "ostersund",
-  "success": false,
+  "success": true,
   "needs_manual_url": false,
-  "config": null,
-  "navigations_used": 4,
-  "candidate_url": "https://www.ostersund.se/kommun-och-politik/beslut-insyn-och-rattssakerhet/officiell-anslagstavla-plan--och-bygglagen-pbl/anslagstavla-pbl/",
-  "final_url": "https://www.ostersund.se/",
-  "tokens": {
-    "input": 27273,
-    "output": 719,
-    "cost_usd": 0.092604
+  "config": {
+    "municipality": "Östersund",
+    "platform_guess": "sitevision",
+    "listing_url": "https://www.ostersund.se/kommun-och-politik/beslut-insyn-och-rattssakerhet/officiell-anslagstavla-plan--och-bygglagen-pbl.html",
+    "listing_type": "unknown",
+    "pagination": {
+      "has_pagination": false,
+      "type": "none",
+      "mechanism": "Ingen paginering observerad. Sidan verkar lista alla aktuella anslag på en sida.",
+      "estimated_total_pages": null
+    },
+    "requires_subpages": {
+      "required": true,
+      "reason": "HTML är trunkerad och huvudinnehållet (anslagslistan) syns inte i den tillgängliga koden. Sidan använder SiteVision-portlets (sv-text-portlet, sv-archive-portlet) som troligen renderar ärendelänkar som leder till undersidor med detaljinfo om respektive ärende.",
+      "link_selector_hint": ".sv-text-portlet-content a, .sv-archive-portlet a"
+    },
+    "selectors_hint": {
+      "container": ".sv-text-portlet-content, .sv-archive-portlet",
+      "item": ".sv-text-portlet-content li, .sv-archive-portlet .sv-entry",
+      "case_number": null,
+      "address": null,
+      "date": ".sv-entry-date, time",
+      "description": ".sv-entry-description, .sv-text-portlet-content p"
+    },
+    "notes": "Sidan är Östersunds officiella PBL-anslagstavla på SiteVision-plattformen. Huvudinnehållet med anslag syntes inte i den trunkerade HTML:en – innehållet renderas troligen via sv-archive-portlet eller sv-text-portlet i huvudkolumnen (lp-content-column). Notera att korrekt URL verkar vara med .html-suffix: officiell-anslagstavla-plan--och-bygglagen-pbl.html. Dubbelstreck i URL:en (plan--och) är korrekt och ska behållas. Scraper bör hämta hela sidan och leta efter anslagens rubrik, diarienummer, fastighetsbeteckning och datum i portlet-innehållet.",
+    "confidence": "low",
+    "approved": false
   },
-  "failure_reason": "Could not generate valid config after analysis"
+  "navigations_used": 2,
+  "candidate_url": "https://www.ostersund.se/kommun-och-politik/beslut-insyn-och-rattssakerhet/officiell-anslagstavla-plan--och-bygglagen-pbl/anslagstavla-pbl/",
+  "final_url": "https://www.ostersund.se/kommun-och-politik/beslut-insyn-och-rattssakerhet/officiell-anslagstavla-plan--och-bygglagen-pbl/",
+  "tokens": {
+    "input": 40998,
+    "output": 1374,
+    "cost_usd": 0.143604
+  },
+  "failure_reason": null
 }

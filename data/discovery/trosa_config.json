@@ -6,29 +6,34 @@
   "pagination": {
     "has_pagination": false,
     "type": "none",
-    "mechanism": "Alla poster visas på en och samma sida i ett accordion-element. Ingen paginering förekommer.",
+    "mechanism": "All notices are rendered on a single page as accordion sections",
     "estimated_total_pages": null
   },
   "requires_subpages": {
     "required": false,
-    "reason": "All relevant information (titel, datum för anslag, datum för nedtagning, förvaringsplats, länk till protokoll) finns inline i varje accordion-sektion på listsidan. Vissa poster innehåller externa länkar till protokoll men all metadata finns redan på sidan.",
-    "link_selector_hint": ".c-accordion__content .prose a[href]"
+    "reason": "All content including dates, descriptions and links to documents is embedded directly in each accordion section on the listing page. No navigation to subpages is needed.",
+    "link_selector_hint": null
   },
   "selectors_hint": {
-    "container": ".c-accordion",
-    "item": ".c-accordion__section",
+    "container": "div.c-accordion",
+    "item": "div.c-accordion__section",
     "case_number": null,
     "address": null,
-    "date": null,
-    "title": ".c-accordion__button-wrapper .c-typography__variant--h4",
-    "content": ".c-accordion__content .prose",
-    "date_anslag": "text_regex:(Anslås|Publicerades på anslagstavlan|Datum då anslaget sätts upp):\\s*(\\d{4}-\\d{2}-\\d{2})",
-    "date_nedtas": "text_regex:(Nedtas|Publiceringen upphör|Datum då anslaget tas ned):\\s*(\\d{4}-\\d{2}-\\d{2})",
-    "forvaringsplats": "text_regex:Förvar[a-zåäö]+:\\s*(.+)",
-    "description": ".c-accordion__content .prose p",
-    "external_link": ".c-accordion__content .prose a[href]"
+    "date": "div.c-accordion__content div.prose p",
+    "description": "div.c-accordion__content div.prose",
+    "title": "div.c-accordion__button-wrapper h2.c-typography, div.c-accordion__button-wrapper h3.c-typography"
   },
-  "notes": "Sidan är Trosa kommuns officiella digitala anslagstavla byggd på WordPress med Municipio-temat. Innehållet renderas server-side och är fullt tillgängligt i HTML utan JavaScript-rendering. Accordion-sektionerna är dolda via aria-hidden men HTML-innehållet finns i DOM. Sidan innehåller blandade ärendetyper: kallelser, justerade protokoll, kungörelser (t.ex. flyttade fordon). Datumformat varierar mellan poster: vissa använder 'Anslås/Nedtas', andra 'Publicerades på anslagstavlan/Publiceringen upphör', ytterligare andra 'Datum då anslaget sätts upp/tas ned'. Regex-extraktion rekommenderas för datumfält. Ingen bygglov-specifik sektion identifierad men kungörelser och protokoll från bygglov-relaterade nämnder (t.ex. miljönämnden, kommunstyrelsens planutskott) förekommer.",
+  "date_extraction": {
+    "anslagsdate_pattern": "Anslås:\\s*(\\d{4}-\\d{2}-\\d{2})",
+    "nedtagningsdate_pattern": "Nedtas:\\s*(\\d{4}-\\d{2}-\\d{2})",
+    "alternative_patterns": [
+      "Publicerades på anslagstavlan:\\s*(\\d{4}-\\d{2}-\\d{2})",
+      "Publiceringen upphör:\\s*(\\d{4}-\\d{2}-\\d{2})",
+      "Datum då anslaget sätts upp:\\s*(\\d{4}-\\d{2}-\\d{2})",
+      "Datum då anslaget tas ned:\\s*(\\d{4}-\\d{2}-\\d{2})"
+    ]
+  },
+  "notes": "Anslagstavlan använder Municipio/WordPress med Modularity-moduler. Alla anslag listas som accordion-sektioner (div.c-accordion__section) direkt på sidan utan paginering. Titlar finns i h2/h3 med klass c-typography__variant--h4. Innehållet är ostrukturerat fritext i div.prose - datumfält varierar i format och etikett beroende på avsändande nämnd (t.ex. 'Anslås'/'Nedtas', 'Publicerades på anslagstavlan'/'Publiceringen upphör', 'Datum då anslaget sätts upp'/'Datum då anslaget tas ned'). Sidan innehåller anslag från både kommunen och externa nämnder (Region Sörmland, gemensamma nämnder). Accordion-innehåll är inbakat i HTML och kräver ingen JavaScript-interaktion för att extraheras.",
   "confidence": "high",
-  "approved": true
+  "approved": false
 }

@@ -11,7 +11,7 @@
   },
   "requires_subpages": {
     "required": false,
-    "reason": "All information finns inbäddad direkt i listobjekten via expanderbara accordion-element. Varje list-item innehåller instans, paragrafer, förvaringsplats, sekreterare, publiceringsperiod och eventuell dokumentlänk i en dold tabell som renderas i DOM:en utan att navigera till undersida.",
+    "reason": "All information finns inline på listsidan. Varje listelement är ett expanderbart accordion-element (lp-bulletin-board__list-item) som innehåller instans, paragrafer, förvaringsplats, sekreterare, publiceringsperiod och eventuell dokumentlänk direkt i DOM:en. Inga separata undersidor behövs.",
     "link_selector_hint": null
   },
   "selectors_hint": {
@@ -19,19 +19,19 @@
     "item": "li.lp-bulletin-board__list-item",
     "title": "li.lp-bulletin-board__list-item button",
     "tag_type": "li.lp-bulletin-board__list-item__tag",
-    "data_table": "table.lp-bulletin-board__list-item__data tbody tr",
-    "table_key": "table.lp-bulletin-board__list-item__data tbody tr th",
-    "table_value": "table.lp-bulletin-board__list-item__data tbody tr td",
-    "date_start": "time[datetime]:first-of-type",
-    "date_end": "time[datetime]:last-of-type",
-    "document_link": "td a[href*='/download/']",
+    "data_table": "table.lp-bulletin-board__list-item__data",
+    "instans": "table.lp-bulletin-board__list-item__data tr th:contains('Instans') + td",
+    "paragrafer": "table.lp-bulletin-board__list-item__data tr th:contains('Paragrafer') + td",
+    "date_start": "table.lp-bulletin-board__list-item__data time:first-of-type",
+    "date_end": "table.lp-bulletin-board__list-item__data time:last-of-type",
+    "document_link": "table.lp-bulletin-board__list-item__data tr td a[href*='/download/']",
     "description": "div.lp-bulletin-board__list-item__description",
-    "data_string": "li.lp-bulletin-board__list-item[data-string-representation]",
+    "string_representation": "li.lp-bulletin-board__list-item[data-string-representation]",
     "case_number": null,
     "address": null,
     "date": "time[datetime]"
   },
-  "notes": "Sidan använder SiteVision med en inbyggd 'lp-bulletin-board'-komponent. Alla anslag renderas i DOM:en från start som dolda accordion-rader – ingen JavaScript-hämtning krävs efter sidladdning. Varje list-item har ett 'data-string-representation'-attribut med hela postens text i lowercase, användbart för snabb textmatchning. Taggar (t.ex. 'Justerat protokoll', 'Kungörelse') finns i data-list-values-attributet på ul.lp-bulletin-board__list-item__tags. Detaljdata ligger i en tabell med th/td-par: nycklar varierar per post (Instans, Paragrafer, Förvaringsplats, Sekreterare, Dokument eller extern anslagstavla, Anslagets publiceringsperiod). Bygglov och plan-relaterade ärenden har taggen 'Kungörelse' och instans innehåller ofta 'samhällsbyggnads'. Publiceringsperiod uttrycks med två ISO 8601-tidsstämplar i time[datetime]-element.",
+  "notes": "Sidan använder SiteVision med en inbyggd anslagstavla-komponent (lp-bulletin-board). Alla anslag renderas i DOM vid sidladdning som dolda accordion-element – inget JavaScript-anrop till externt API behövs. Fullständig data finns i data-string-representation-attributet på varje li-element som en platt textsträng, men strukturerad data finns även i tabellen inuti varje item. Anslag kategoriseras med taggar: 'Justerat protokoll', 'Kungörelse', 'Tillkännagivande'. För bygglov och planärenden, filtrera på tag 'Kungörelse' och sök efter nyckelord som 'detaljplan', 'bygglov', 'planprogram' i titeln. Publiceringsperiod anges med ISO 8601-datum i datetime-attribut på time-element. Dokumentlänkar pekar på /download/-sökvägar på samma domän.",
   "confidence": "high",
-  "approved": true
+  "approved": false
 }

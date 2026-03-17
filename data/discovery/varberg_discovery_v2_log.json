@@ -5,12 +5,12 @@
   "needs_manual_url": false,
   "config": null,
   "navigations_used": 5,
-  "candidate_url": "https://varberg.se/kommun-och-politik/overklaga-beslut-rattssakerhet/kommunens-anslagstavla",
-  "final_url": "https://varberg.se/bygga-bo-och-miljo/bygga-nytt-andra-eller-riva/bygglovsprocessen",
+  "candidate_url": "https://www.varberg.se/byggaboochmiljo/bygglov/anslagstavla.html",
+  "final_url": "https://varberg.se/byggaboochmiljo",
   "tokens": {
-    "input": 105998,
-    "output": 658,
-    "cost_usd": 0.327864
+    "input": 88035,
+    "output": 823,
+    "cost_usd": 0.27645000000000003
   },
   "failure_reason": "Could not generate valid config after analysis"
 }

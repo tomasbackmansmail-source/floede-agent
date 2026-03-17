@@ -1,28 +1,28 @@
 {
   "municipality": "Nyköping",
   "platform_guess": "sitevision",
-  "listing_url": "https://www.nykoping.se/e-tavla/",
+  "listing_url": "https://www.nykoping.se/bo-bygga--miljo/bygga-nytt-andra-eller-riva/bygglovsprocessen/kungorelse-om-bygglov/",
   "listing_type": "unknown",
   "pagination": {
     "has_pagination": false,
     "type": "none",
-    "mechanism": "Ingen paginering observerad i tillgänglig HTML",
+    "mechanism": "Ingen pagination identifierad i tillgänglig HTML - sidan verkar visa allt innehåll på en sida",
     "estimated_total_pages": null
   },
   "requires_subpages": {
-    "required": false,
-    "reason": "Elektronisk anslagstavla (e-tavla) visar alla anslag. Startar med inline-extraction.",
-    "link_selector_hint": null
+    "required": true,
+    "reason": "HTML-trunkering gör att huvudinnehållet (kungörelselistan) inte är synligt i det tillhandahållna utdraget. Baserat på sidtiteln och URL-struktur är det troligt att ärenden listas med länkar till undersidor eller visas i ett inbäddat innehållsblock under huvudnavigationen.",
+    "link_selector_hint": "main a, #pageContent a, .sv-portlet a, article a"
   },
   "selectors_hint": {
-    "container": "#pageContent, .sv-portlet, main",
-    "item": ".sv-portlet-content li, .content-area li, article",
+    "container": "#pageContent, .sv-portlet, main, .page-content",
+    "item": "article, .sv-portlet-content li, .content-block",
     "case_number": null,
     "address": null,
-    "date": null,
-    "description": null
+    "date": "time, .date, .sv-date",
+    "description": ".sv-portlet-content p, article p"
   },
-  "notes": "Den tillhandahållna HTML-koden är kraftigt trunkerad och innehåller huvudsakligen navigationsmenyn. Sidans faktiska innehåll (kungörelselistan) syns inte i fragmentet. Plattformen bedöms vara SiteVision baserat på CSS-klasser (sv-portlet är vanligt i SiteVision). Rekommendation: hämta sidan på nytt med fokus på #pageContent eller main-elementet för att se ärendestrukturen. Sidan kan vara en statisk informationssida som publicerar kungörelser som text eller PDF-filer snarare än en dynamisk lista med strukturerade ärendedata.",
-  "confidence": "medium",
-  "approved": true
+  "notes": "Det tillhandahållna HTML-utdraget är kraftigt trunkerat och innehåller nästan uteslutande navigationsmenyn. Själva kungörelseinnehållet under #pageContent är inte synligt. Sidan körs på SiteVision-plattformen (indikerat av klassnamn som sv-portlet samt URL-struktur). Rekommendation: hämta fullständig HTML för att identifiera exakta selektorer för kungörelselistan. Sidan kan innehålla en statisk lista med PDF-länkar eller dynamiskt inlästa ärenden.",
+  "confidence": "low",
+  "approved": false
 }

@@ -1,28 +1,28 @@
 {
   "municipality": "Haninge",
   "platform_guess": "custom",
-  "listing_url": "https://utskick.haninge.se/kungorelse",
-  "listing_type": "list",
+  "listing_url": "https://www.haninge.se/kommun-och-politik/politik-och-organisation/anslagstavla/",
+  "listing_type": "links_to_subpages",
   "pagination": {
     "has_pagination": false,
     "type": "none",
-    "mechanism": null,
+    "mechanism": "Ingen paginering. Allt innehåll på en sida, uppdelat i expanderbara FAQ-block (accordion).",
     "estimated_total_pages": null
   },
   "requires_subpages": {
-    "required": false,
-    "reason": "Kungörelsesidan visar veckovisa bygglovskungörelser med detaljer inline.",
-    "link_selector_hint": null
+    "required": true,
+    "reason": "Bygglovskungörelser länkas till extern tjänst: https://utskick.haninge.se/kungorelse. Detaljplaner visas inline i accordion med PDF-länkar och interna länkar till projektsidor. Protokoll länkas till extern Ciceron-tjänst: https://haninge-anslagstavla.ciceron.cloud/#!/billboard/",
+    "link_selector_hint": "a[href*='utskick.haninge.se/kungorelse']"
   },
   "selectors_hint": {
-    "container": "main, body",
-    "item": null,
+    "container": ".faq-block",
+    "item": ".faq-block__body",
     "case_number": null,
-    "address": null,
-    "date": null,
-    "description": null
+    "address": "h3",
+    "date": "li",
+    "description": ".faq-block__body p"
   },
-  "notes": "Separat kungörelsesystem på utskick.haninge.se. Visar veckovisa kungörelser. Korrekt URL men kan vara tom veckovis om inga nya ärenden finns. Hämtad 2026-03-17 vecka 12: Inga sökresultat.",
+  "notes": "Anslagstavlan är uppdelad i tre huvudsektioner via accordion-block: (1) Justerade protokoll – länk till extern Ciceron-plattform (haninge-anslagstavla.ciceron.cloud). (2) Kungörelser – innehåller underaccordions för Bygglov (extern länk: utskick.haninge.se/kungorelse), Detaljplaner (inline HTML med PDF-bilagor och projektlänkar), Flyttade fordon (extern länk), Flyttade båtar (tom), Vatten och avlopp (tom), Lantmäterimyndigheten (tom). (3) Överklagan – informationstext. Bygglovskungörelser finns på separat extern tjänst utskick.haninge.se/kungorelse – denna URL bör crawlas separat för faktiska bygglovsbeslut. Detaljplanekungörelser finns inline på denna sida med datum för granskning/överklagandeperiod. Accordion-block är kollapsade som standard (aria-expanded=false, faq-block__body har klass 'hide') – kräver JavaScript-rendering eller direktparsning av dold HTML.",
   "confidence": "medium",
-  "approved": true
+  "approved": false
 }

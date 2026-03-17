@@ -1,0 +1,43 @@
+{
+  "municipality": "Mölndal",
+  "municipality_id": "molndal",
+  "success": true,
+  "needs_manual_url": false,
+  "config": {
+    "municipality": "Mölndal",
+    "platform_guess": "sitevision",
+    "listing_url": "https://www.molndal.se/4.75b7e0e9194d832c8bb379c/12.75b7e0e9194d832c8bbc4f1.htm?state=ajaxQuery&isRenderingAjaxResult=true&query=*%3A*&100.7bdab48918c624d207d392=Byggnadsnämnden",
+    "listing_type": "list",
+    "pagination": {
+      "has_pagination": true,
+      "type": "unknown",
+      "mechanism": "SiteVision faceted search portlet laddar resultat via AJAX. Base URL: /4.75b7e0e9194d832c8bb379c/12.75b7e0e9194d832c8bbc4f1.htm?state=ajaxQuery&isRenderingAjaxResult=true&query=*%3A*. Paginering kan ske via offset-parameter i AJAX-anrop. Behöver undersökas vidare.",
+      "estimated_total_pages": null
+    },
+    "requires_subpages": {
+      "required": true,
+      "reason": "Listningssidan visar ärendetitlar och datum via SiteVision facetsökning. Detaljerad information om fastighetsbeteckning, ärendenummer och beslut finns troligen på undersidor.",
+      "link_selector_hint": ".sv-search-hit a, .con-archive a"
+    },
+    "selectors_hint": {
+      "container": "#search12_75b7e0e9194d832c8bbc4f1result",
+      "item": ".sv-search-hit, .con-archive__item",
+      "case_number": null,
+      "address": null,
+      "date": ".sv-search-hit__date, .con-archive__date",
+      "description": ".sv-search-hit__description"
+    },
+    "notes": "SiteVision digital anslagstavla med facetterad sökning. Byggnadsnämnden har 31 ärenden. Filtrera via URL-parameter 100.7bdab48918c624d207d392=Byggnadsnämnden. AJAX-endpoint identifierad: /4.75b7e0e9194d832c8bb379c/12.75b7e0e9194d832c8bbc4f1.htm. Sidan använder JavaScript-rendering för resultatlistan, vilket kräver antingen AJAX-anrop direkt mot endpoint eller en JS-kapabel scraper. Övriga nämnder på anslagstavlan: Kommunfullmäktige, Kommunstyrelsen, Miljönämnden m.fl.",
+    "confidence": "medium",
+    "approved": false
+  },
+  "navigations_used": 1,
+  "candidate_url": "https://www.molndal.se/kommun-och-politik/insyn-och-paverkan/anslagstavla.html",
+  "final_url": "https://www.molndal.se/kommun-och-politik/insyn-och-paverkan/anslagstavla.html#query/*%3A*",
+  "tokens": {
+    "input": 44500,
+    "output": 949,
+    "cost_usd": 0.147735
+  },
+  "failure_reason": null
+}

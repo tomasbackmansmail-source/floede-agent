@@ -6,38 +6,38 @@
   "config": {
     "municipality": "Kristianstad",
     "platform_guess": "sitevision",
-    "listing_url": "https://www.kristianstad.se/kommunochpolitik/overklagabeslutrattssakerhet/anslagstavla.5816.html",
+    "listing_url": "https://www.kristianstad.se/anslagstavla",
     "listing_type": "unknown",
     "pagination": {
-      "has_pagination": false,
-      "type": "none",
-      "mechanism": "Ingen pagination observerad – anslagstavlan bedöms vara en enda sida med samtliga aktuella anslag",
+      "has_pagination": null,
+      "type": "unknown",
+      "mechanism": "Kunde ej fastställa - sidinnehåll dolt bakom Cookiebot-dialog i HTML-utdraget",
       "estimated_total_pages": null
     },
     "requires_subpages": {
-      "required": false,
-      "reason": "Kristianstads anslagstavla i SiteVision visar typiskt alla relevanta fält direkt i listan (titel, datum anslaget, datum nedtaget, diarienummer). Kan behöva revideras om faktiskt sidinnehåll visar sig innehålla bara rubriker.",
-      "link_selector_hint": ".sv-portlet-content a, .pagecontent a"
+      "required": null,
+      "reason": "Kunde ej fastställa - sidinnehåll trunkerat. Sidan använder live.mediaflow.com för publicering vilket typiskt renderar en inbäddad lista med kungörelser direkt på sidan utan undersidor.",
+      "link_selector_hint": null
     },
     "selectors_hint": {
-      "container": ".sv-portlet-content, .sv-text-portlet-content, .pagecontent, main",
-      "item": "table tr, .sv-portlet, ul li, dl",
-      "case_number": "td:nth-child(1), .diarienummer, dt",
-      "address": "td:nth-child(2), .adress",
-      "date": "td, time, .datum",
-      "description": "td, .beskrivning, dd"
+      "container": null,
+      "item": null,
+      "case_number": null,
+      "address": null,
+      "date": null,
+      "description": null
     },
-    "notes": "Sidans faktiska innehåll är aldrig synligt i den tillhandahållna HTML – Cookiebot-dialogen dominerar hela den trunkerade HTML-källkoden. Plattformen är SiteVision (bekräftat via cookie SiteVisionLTM och JSESSIONID). Selektorer är baserade på typiskt SiteVision-mönster för anslagstavlor och måste verifieras mot verklig renderad HTML. Sidan ligger under /kommunochpolitik/overklagabeslutrattssakerhet/ vilket indikerar kommunal anslagstavla för överklagbara beslut, ej specifikt bygglov. Kan innehålla blandade ärendetyper.",
+    "notes": "Sidan är Kristianstads kommuns officiella anslagstavla (titel bekräftad: 'Anslagstavla | Kristianstads kommun'). Webbplatsen körs på SiteVision. Cookiebot-dialogen dominerar HTML-utdraget och döljer det faktiska sidinnehållet. Cookie-registret bekräftar tredjepartsleverantören live.mediaflow.com (4 cookies) samt mfstatic.com - Mediaflow är ett vanligt system för kommunala kungörelser i Sverige. Scraper bör rendera sidan med JavaScript aktiverat och vänta på att Mediaflow-komponenten laddas. Mediaflow-iframe eller embed bör sökas efter i det renderade DOM:et.",
     "confidence": "low",
     "approved": false
   },
   "navigations_used": 3,
-  "candidate_url": "https://www.kristianstad.se/kommunochpolitik/overklagabeslutrattssakerhet/anslagstavla.5816.html",
-  "final_url": "https://www.kristianstad.se/kommunochpolitik/overklagabeslutrattssakerhet/anslagstavla.5816.html",
+  "candidate_url": "https://www.kristianstad.se/anslagstavla",
+  "final_url": "https://www.kristianstad.se/anslagstavla",
   "tokens": {
-    "input": 272099,
-    "output": 2562,
-    "cost_usd": 0.854727
+    "input": 120855,
+    "output": 1966,
+    "cost_usd": 0.39205500000000004
   },
   "failure_reason": null
 }

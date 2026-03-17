@@ -2,27 +2,27 @@
   "municipality": "Umeå",
   "platform_guess": "sitevision",
   "listing_url": "https://www.umea.se/kommunochpolitik/overklagabeslutrattssakerhet/anslagstavlaofficiell.4.88db09b1724ee319ca4b0.html",
-  "listing_type": "links_to_subpages",
+  "listing_type": "unknown",
   "pagination": {
-    "has_pagination": true,
-    "type": "category_links",
-    "mechanism": "Sidan visar kategoriserade listor med 3 poster per kategori. Varje kategori har en 'Fler anslag'-länk som leder till en utökad listning. Kategorin 'Bygglov' är den relevanta.",
+    "has_pagination": false,
+    "type": "none",
+    "mechanism": "No pagination observed - content appears to be a single page listing",
     "estimated_total_pages": null
   },
   "requires_subpages": {
-    "required": true,
-    "reason": "Listsidan visar endast datum och titel. Fastighetsbeteckning, ärendenummer och detaljer finns på respektive undersida.",
-    "link_selector_hint": "a[href*='bygglov'], a[href*='anslag']"
+    "required": false,
+    "reason": "Anslagstavlan förväntas lista anslag direkt på sidan. Innehållet renderas via JavaScript (SiteVision-portlets) och är inte synligt i statisk HTML. Huvudinnehållet injiceras troligen i div#page_content eller i sol-subpage-wrapper.",
+    "link_selector_hint": null
   },
   "selectors_hint": {
-    "container": ".sol-collapsible",
-    "item": "li",
+    "container": ".sol-subpage-wrapper, #page_content, .sv-text-portlet-content",
+    "item": "table tr, .sol-article-item, ul.sol-ul li",
     "case_number": null,
     "address": null,
-    "date": "li time, li .date",
-    "description": "li a"
+    "date": null,
+    "description": null
   },
-  "notes": "Sidan är Umeå kommuns officiella anslagstavla med kategoriserade sektioner: Möten och protokoll, Bygglov, Detaljplaner, Miljö- och hälsoskydd, Övriga anslag, Flyttade fordon. Bygglovssektionen visar 3 senaste poster med en 'Fler anslag'-länk för att se alla. Varje post är en länk med datum till en detaljsida. Sidan använder sol-collapsible/sol-toolbar CSS-klasser (SiteVision). Flyttade fordon-sektionen använder tabellformat. Manuellt upptäckt URL efter att automatisk discovery misslyckades.",
-  "confidence": "high",
-  "approved": true
+  "notes": "Sidan är byggd i SiteVision. Det faktiska innehållet på anslagstavlan är inte synligt i den statiska HTML-källkoden - det renderas via JavaScript-portlets. Innehållet injiceras troligen dynamiskt i div#page_content eller i .sol-subpage-wrapper. Kräver JavaScript-rendering (t.ex. Playwright/Puppeteer) för att hämta faktiska anslag. Anslagstavlan kan innehålla blandade nämnders anslag - filtrering på byggnadsnämnden/plan- och byggnadsnämnden kan behövas. Plattformen SiteVision är vanlig bland svenska kommuner och levererar ofta innehåll via AJAX efter sidladdning.",
+  "confidence": "low",
+  "approved": false
 }

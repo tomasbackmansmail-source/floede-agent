@@ -1,49 +1,14 @@
 {
   "municipality": "Trosa",
   "municipality_id": "trosa",
-  "success": true,
-  "needs_manual_url": false,
-  "config": {
-    "municipality": "Trosa",
-    "platform_guess": "wordpress",
-    "listing_url": "https://www.trosa.se/anslagstavla/",
-    "listing_type": "list",
-    "pagination": {
-      "has_pagination": false,
-      "type": "none",
-      "mechanism": "Alla poster visas på en och samma sida i ett accordion-element. Ingen paginering förekommer.",
-      "estimated_total_pages": null
-    },
-    "requires_subpages": {
-      "required": false,
-      "reason": "All relevant information (titel, datum för anslag, datum för nedtagning, förvaringsplats, länk till protokoll) finns inline i varje accordion-sektion på listsidan. Vissa poster innehåller externa länkar till protokoll men all metadata finns redan på sidan.",
-      "link_selector_hint": ".c-accordion__content .prose a[href]"
-    },
-    "selectors_hint": {
-      "container": ".c-accordion",
-      "item": ".c-accordion__section",
-      "case_number": null,
-      "address": null,
-      "date": null,
-      "title": ".c-accordion__button-wrapper .c-typography__variant--h4",
-      "content": ".c-accordion__content .prose",
-      "date_anslag": "text_regex:(Anslås|Publicerades på anslagstavlan|Datum då anslaget sätts upp):\\s*(\\d{4}-\\d{2}-\\d{2})",
-      "date_nedtas": "text_regex:(Nedtas|Publiceringen upphör|Datum då anslaget tas ned):\\s*(\\d{4}-\\d{2}-\\d{2})",
-      "forvaringsplats": "text_regex:Förvar[a-zåäö]+:\\s*(.+)",
-      "description": ".c-accordion__content .prose p",
-      "external_link": ".c-accordion__content .prose a[href]"
-    },
-    "notes": "Sidan är Trosa kommuns officiella digitala anslagstavla byggd på WordPress med Municipio-temat. Innehållet renderas server-side och är fullt tillgängligt i HTML utan JavaScript-rendering. Accordion-sektionerna är dolda via aria-hidden men HTML-innehållet finns i DOM. Sidan innehåller blandade ärendetyper: kallelser, justerade protokoll, kungörelser (t.ex. flyttade fordon). Datumformat varierar mellan poster: vissa använder 'Anslås/Nedtas', andra 'Publicerades på anslagstavlan/Publiceringen upphör', ytterligare andra 'Datum då anslaget sätts upp/tas ned'. Regex-extraktion rekommenderas för datumfält. Ingen bygglov-specifik sektion identifierad men kungörelser och protokoll från bygglov-relaterade nämnder (t.ex. miljönämnden, kommunstyrelsens planutskott) förekommer.",
-    "confidence": "high",
-    "approved": false
-  },
-  "navigations_used": 1,
-  "candidate_url": "https://www.trosa.se/anslagstavla/",
-  "final_url": "https://www.trosa.se/anslagstavla/",
+  "success": false,
+  "needs_manual_url": true,
+  "config": null,
+  "navigations_used": 0,
   "tokens": {
-    "input": 102175,
-    "output": 1806,
-    "cost_usd": 0.333615
+    "input": 20322,
+    "output": 581,
+    "cost_usd": 0.06968099999999999
   },
-  "failure_reason": null
+  "failure_reason": "Web search could not find anslagstavla URL after 2 attempts"
 }

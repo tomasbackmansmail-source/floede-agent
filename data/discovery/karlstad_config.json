@@ -1,33 +1,28 @@
 {
   "municipality": "Karlstad",
-  "platform_guess": "netpub",
+  "platform_guess": "sitevision",
   "listing_url": "https://karlstad.se/kommun-och-politik/delta-och-paverka/anslagstavla",
-  "listing_type": "dynamic_list",
+  "listing_type": "unknown",
   "pagination": {
     "has_pagination": false,
     "type": "none",
-    "mechanism": "Sidan använder React-baserad Netpub Bulletin Board (v0.0.3) som laddar anslag dynamiskt via JavaScript. Filtrering via dropdown för nämnd och anslagstyp. Ingen traditionell paginering synlig.",
+    "mechanism": "Ingen paginering observerad. Alla aktuella kungörelser verkar listas på en sida under rubriken 'Aktuella kungörelser och meddelanden'.",
     "estimated_total_pages": null
   },
   "requires_subpages": {
     "required": true,
-    "reason": "Listsidan visar grundläggande info via dynamisk rendering. Fullständiga detaljer om fastighetsbeteckning och ärendenummer kräver besök på individuella anslagssidor.",
-    "link_selector_hint": null
+    "reason": "Sidan är en generell anslagstavla som publicerar fullmäktiges sammanträden, justerade protokoll och kungörelser. Detaljerad ärendeinformation om bygglov eller specifika kungörelser finns troligen på länkade undersidor eller dokument (PDF). HTML är trunkerad och innehållssektionen 'Aktuella kungörelser och meddelanden' är inte fullt synlig.",
+    "link_selector_hint": "#svid94_67d083131827bd64ed71e7 a, .sv-text-portlet-content a"
   },
   "selectors_hint": {
-    "container": "#netpub-bulletinboard",
-    "item": null,
+    "container": "#svid94_67d083131827bd64ed71e7",
+    "item": ".sv-text-portlet-content",
     "case_number": null,
     "address": null,
     "date": null,
-    "description": null
+    "description": ".sv-font-ingress"
   },
-  "filter_hint": {
-    "relevant_types": ["Kungörelse"],
-    "relevant_committee": "Stadsbyggnadsnämnden",
-    "type_selector": null
-  },
-  "notes": "Sidan använder Netpub Bulletin Board (netpub-bulletinboard v0.0.3), en React-baserad komponent som renderar anslag client-side via JavaScript. Dropdown-filter finns för nämnd och anslagstyp. Kräver browser-rendering (Playwright/headless) för att hämta innehåll. Filtrering på bygglovsrelaterade kungörelser via nämnd 'Stadsbyggnadsnämnden' rekommenderas. Vissa handlingar publiceras inte i sin helhet pga sekretess. Manuellt upptäckt URL efter att automatisk discovery misslyckades.",
-  "confidence": "medium",
-  "approved": true
+  "notes": "Sidan är Karlstads kommuns officiella anslagstavla. Innehåller tre sektioner enligt innehållsförteckningen: 'Personuppgifter och sekretess', 'Överklagande', och 'Aktuella kungörelser och meddelanden'. HTML är trunkerad innan kungörelselistan visas - det är oklart om kungörelserna listas inline eller som länkar till undersidor/PDF-dokument. Plattformen är SiteVision (sv-template-nyttosida). Sidan täcker generella kommunala kungörelser, inte enbart bygglov. Rekommendation: hämta fullständig HTML för sektionen med ankar #h-Aktuellakungorelserochmeddelanden för att kartlägga exakt struktur.",
+  "confidence": "low",
+  "approved": false
 }

@@ -5,12 +5,12 @@
   "needs_manual_url": false,
   "config": null,
   "navigations_used": 5,
-  "candidate_url": "https://www.skelleftea.se/kommun/anslagstavla",
-  "final_url": "https://skelleftea.se/invanare/startsida/kommun-och-politik/anslagstavla/kung%D0%BE%D1%80elser",
+  "candidate_url": "https://skelleftea.se/invanare/startsida/kommun-och-politik/anslagstavla",
+  "final_url": "https://skelleftea.se/invanare/startsida/kommun-och-politik/anslagstavla/bygglov",
   "tokens": {
-    "input": 100627,
-    "output": 892,
-    "cost_usd": 0.315261
+    "input": 96586,
+    "output": 1045,
+    "cost_usd": 0.305433
   },
   "failure_reason": "Could not generate valid config after analysis"
 }

@@ -1,0 +1,33 @@
+{
+  "municipality": "Eslöv",
+  "platform_guess": "wordpress",
+  "listing_url": "https://eslov.se/anslag/?anslagstyp[]=bygg-och-rivningslov",
+  "listing_type": "table",
+  "pagination": {
+    "has_pagination": false,
+    "type": "none",
+    "mechanism": "All items appear to be listed on a single page. No pagination controls observed in the HTML.",
+    "estimated_total_pages": null
+  },
+  "requires_subpages": {
+    "required": true,
+    "reason": "Listing table shows only title, date and anslagstyp. Full permit details such as case number, address, applicant and decision are on individual subpages.",
+    "link_selector_hint": "ul.grid li a.typography-link[href*='/anslag/']"
+  },
+  "selectors_hint": {
+    "container": "div.archive.s-archive ul.grid",
+    "item": "ul.grid li",
+    "case_number": null,
+    "address": null,
+    "date": "dl dd:first-of-type",
+    "description": "div.font-medium a.typography-link",
+    "anslagstyp": "dl dd:last-of-type"
+  },
+  "filter_params": {
+    "anslagstyp": "bygg-och-rivningslov",
+    "url_example": "https://eslov.se/anslag/?anslagstyp[]=bygg-och-rivningslov"
+  },
+  "notes": "Sidan är byggd i WordPress med temat Municipio (Helsingborg-familjen). Anslagstypen 'Bygg- och rivningslov' kan filtreras direkt via URL-parametern anslagstyp[]=bygg-och-rivningslov. Listan renderas som en tabell-liknande ul/li-struktur med CSS grid. Varje post har en länk till en undersida. Totalt 20 bygg- och rivningslov synliga vid analystillfället. Paginering verkar saknas men bör verifieras vid fler poster.",
+  "confidence": "high",
+  "approved": true
+}

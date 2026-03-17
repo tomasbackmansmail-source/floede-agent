@@ -1,43 +1,16 @@
 {
   "municipality": "Västerås",
   "municipality_id": "vasteras",
-  "success": true,
+  "success": false,
   "needs_manual_url": false,
-  "config": {
-    "municipality": "Västerås",
-    "platform_guess": "sitevision",
-    "listing_url": "https://www.vasteras.se/kommun-och-politik/moten-handlingar-och-protokoll/anslagstavla.html",
-    "listing_type": "list",
-    "pagination": {
-      "has_pagination": false,
-      "type": "none",
-      "mechanism": "Alla tillkännagivanden listas på en och samma sida utan paginering.",
-      "estimated_total_pages": null
-    },
-    "requires_subpages": {
-      "required": false,
-      "reason": "All relevant data finns inline på listsidan. Varje post har ett expanderbart block (.appropriaton-more-info) som innehåller organ, dokumenttyp, ärendenummer, fastighetsbeteckning, anslagsdatum och datum för nedtagande direkt i HTML:en – inga separata undersidor behövs.",
-      "link_selector_hint": null
-    },
-    "selectors_hint": {
-      "container": "div.appropriation-list",
-      "item": "div.meeting-container",
-      "case_number": "div.appropriaton-more-info div.sv-text-portlet-content p.normal",
-      "address": "div.meeting-header h4",
-      "date": "div.appropriaton-more-info p:contains('Anslagsdatum')",
-      "description": "div.appropriaton-more-info div.sv-text-portlet-content"
-    },
-    "notes": "Innehållet är inbäddat direkt i sidan som dold HTML (display:none) i .appropriaton-more-info per post – ingen JavaScript-rendering krävs för att hämta data, allt finns i källkoden. Varje .meeting-container innehåller: rubrik i h4 (med typ, organ och fastighetsbeteckning), ärendenummer i brödtext (format BY YYYY-XXXXXX), organ/dokumenttyp/anslagsdatum/nedtagandedatum som rena <p>-taggar. Filtrera på 'Byggnadsnämnden' i organ-fältet för att isolera bygglovärenden. Posten kan vara antingen 'Kungörelse' (beslut/underrättelse) eller 'Tillkännagivande' (protokoll). Ärendenummer extraheras ur brödtexten med regex-mönster BY \\d{4}-\\d{6}.",
-    "confidence": "high",
-    "approved": false
-  },
-  "navigations_used": 1,
-  "candidate_url": "https://www.vasteras.se/kommun-och-politik/moten-handlingar-och-protokoll/anslagstavla.html",
+  "config": null,
+  "navigations_used": 5,
+  "candidate_url": "https://www.vasteras.se/byggaboochmiljo/anslagstavla",
   "final_url": "https://www.vasteras.se/kommun-och-politik/moten-handlingar-och-protokoll/anslagstavla.html",
   "tokens": {
-    "input": 81910,
-    "output": 1085,
-    "cost_usd": 0.262005
+    "input": 22517,
+    "output": 858,
+    "cost_usd": 0.08042099999999999
   },
-  "failure_reason": null
+  "failure_reason": "Could not generate valid config after analysis"
 }

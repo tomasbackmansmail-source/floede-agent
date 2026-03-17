@@ -1,0 +1,16 @@
+{
+  "municipality": "Svedala",
+  "municipality_id": "svedala",
+  "success": false,
+  "needs_manual_url": false,
+  "config": null,
+  "navigations_used": 4,
+  "candidate_url": "https://www.svedala.se/paverka/politik-och-demokrati/digital-anslagstavla/ovriga-meddelande/",
+  "final_url": "https://www.svedala.se/paverka/politik-och-demokrati/digital-anslagstavla/plan-och-bygglov/",
+  "tokens": {
+    "input": 67315,
+    "output": 650,
+    "cost_usd": 0.21169500000000002
+  },
+  "failure_reason": "Could not generate valid config after analysis"
+}

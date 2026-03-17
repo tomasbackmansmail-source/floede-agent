@@ -1,0 +1,22 @@
+{
+  "run_id": "2026-03-17T15-59-51",
+  "run_at": "2026-03-17T16:00:27.400Z",
+  "elapsed_ms": 36299,
+  "configs_count": 1,
+  "total_permits": 0,
+  "total_inserted": 0,
+  "total_cost_usd": 0.0075848,
+  "cost_per_permit_usd": 0,
+  "results": [
+    {
+      "municipality": "Burlöv",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0075848,
+      "html_hash": "7d96068c674e2a4a"
+    }
+  ]
+}

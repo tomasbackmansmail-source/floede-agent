@@ -2,32 +2,27 @@
   "municipality": "Gävle",
   "platform_guess": "wordpress",
   "listing_url": "https://www.gavle.se/tyck-till-och-paverka-gavle/kommunal-anslagstavla/",
-  "listing_type": "list",
+  "listing_type": "unknown",
   "pagination": {
     "has_pagination": false,
     "type": "none",
-    "mechanism": "Ingen paginering observerad - sidan är en statisk WordPress-sida (page-id-43846)",
+    "mechanism": "No pagination detected - content likely on single page",
     "estimated_total_pages": null
   },
   "requires_subpages": {
-    "required": false,
-    "reason": "Sidans innehåll kunde inte extraheras ur det tillhandahållna HTML-utdraget eftersom det trunkerades efter navigationsmenyn. Rekommendation: hämta via WordPress REST API endpoint istället.",
-    "link_selector_hint": ".entry-content a, .wp-block-group a, article a"
+    "required": true,
+    "reason": "HTML content was truncated and dominated by navigation menu - actual notice content not visible. WordPress theme (wp-theme-gavle) suggests content is in entry-content area with likely links to individual notice subpages.",
+    "link_selector_hint": "div.entry-content a"
   },
   "selectors_hint": {
-    "container": "#page-wrapper .entry-content, #page-wrapper .wp-block-group",
-    "item": "p, li, .wp-block-table tr",
+    "container": "div.entry-content",
+    "item": "div.entry-content p, div.entry-content li",
     "case_number": null,
     "address": null,
-    "date": "time, .entry-date, .published",
-    "description": ".entry-content p"
+    "date": "time, .date, p",
+    "description": "div.entry-content p"
   },
-  "api_fallback": {
-    "endpoint": "https://www.gavle.se/wp-json/wp/v2/pages/43846",
-    "content_field": "content.rendered",
-    "note": "Föredragen insamlingsmetod då HTML trunkeras p.g.a. lång navigationsmeny"
-  },
-  "notes": "Sidan är en WordPress-sida (page-id-43846, parent-pageid-3697). HTML-utdraget innehåller enbart navigationsmenyn och sidans faktiska innehåll är inte synligt. WordPress REST API-endpoint bör användas som primär insamlingsmetod för att hämta anslagsinnehållet direkt. Innehållet är sannolikt statisk text med anslag, kungörelser och beslut utan strukturerade CSS-klasser.",
-  "confidence": "medium",
-  "approved": true
+  "notes": "Page HTML was truncated before main content area was reached in all attempts. Site uses WordPress (wp-theme-gavle, page-id-43846). URL and page title confirm this is the official municipal notice board. Selectors are best-guess based on standard WordPress theme structure and must be verified against actual rendered content. Page may contain bygglov, detaljplan and other municipal notices. Recommend filtering by keywords: bygglov, detaljplan, kungörelse, byggnadsnämnd.",
+  "confidence": "low",
+  "approved": false
 }

@@ -6,23 +6,23 @@
   "pagination": {
     "has_pagination": false,
     "type": "none",
-    "mechanism": "Ingen paginering identifierad. Allt innehåll förväntas laddas på en sida via JavaScript.",
+    "mechanism": "Ingen paginering observerad - alla anslag visas på en sida",
     "estimated_total_pages": null
   },
   "requires_subpages": {
     "required": true,
-    "reason": "Bygglov och grannhöranden finns som individuella undersidor under /kungorelserbygglov/ och /grannhorandenbygglov/.",
-    "link_selector_hint": "a[href*='kungorelserbygglov'], a[href*='grannhorandenbygglov']"
+    "reason": "Anslagstavlan listar ärenden som länkar till undersidor där detaljer som diarienummer, adress och beslutsinformation finns.",
+    "link_selector_hint": "a[href*='officiellaanslagstavlan'], .sol-main a, .sv-text-portlet-content a"
   },
   "selectors_hint": {
-    "container": ".sol-main, #svid94_592cfecd176fc0db87832a9",
-    "item": ".sol-notice, .sv-portlet-content, article, table tr",
+    "container": "main.sol-main, #svid10_592cfecd176fc0db87811a4",
+    "item": ".sv-text-portlet-content li, .sv-text-portlet-content p",
     "case_number": null,
     "address": null,
-    "date": "time, .sol-notice-date, .date",
-    "description": ".sol-notice-title, h2, h3"
+    "date": null,
+    "description": null
   },
-  "notes": "Sidan använder Sitevision CMS och kräver JavaScript för att rendera innehållet. Den statiska HTML:en innehåller endast navigations- och layoutelement. Huvudinnehållet laddas dynamiskt i elementet #svid94_592cfecd176fc0db87832a9 / .sol-main. En headless browser (Playwright eller Selenium) krävs för att hämta faktiska anslag. ReadSpeaker-konfigurationen pekar på readclass=sol-main som primär innehållscontainer.",
-  "confidence": "high",
-  "approved": true
+  "notes": "Sidan är byggd i SiteVision med Soleil-tema. Huvudinnehållet renderas i .sol-main. HTML var trunkerad så exakt innehållsstruktur för anslagens listning är inte fullt verifierad. Innehållet kan vara delvis JavaScript-renderat. Sidans ReadSpeaker-konfiguration pekar på id svid94_592cfecd176fc0db87832a9 som läsbart innehållsblock - detta är troligen rätt container för anslagens text. Inga separata undersidor för plan- och bygglov hittades som fungerade - anslagen verkar listas direkt på denna sida.",
+  "confidence": "low",
+  "approved": false
 }

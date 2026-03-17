@@ -1,52 +1,16 @@
 {
   "municipality": "Halmstad",
   "municipality_id": "halmstad",
-  "success": true,
+  "success": false,
   "needs_manual_url": false,
-  "config": {
-    "municipality": "Halmstad",
-    "platform_guess": "sitevision",
-    "listing_url": "https://www.halmstad.se/kommunochpolitik/overklagabeslutrattssakerhet/anslagstavla.n330.html",
-    "listing_type": "list",
-    "pagination": {
-      "has_pagination": false,
-      "type": "none",
-      "mechanism": "Alla aktiva anslag visas på en och samma sida i en expanderbar lista. Ingen paginering förekommer.",
-      "estimated_total_pages": null
-    },
-    "requires_subpages": {
-      "required": false,
-      "reason": "All information finns inbäddad direkt i listobjekten via expanderbara accordion-element. Varje list-item innehåller instans, paragrafer, förvaringsplats, sekreterare, publiceringsperiod och eventuell dokumentlänk i en dold tabell som renderas i DOM:en utan att navigera till undersida.",
-      "link_selector_hint": null
-    },
-    "selectors_hint": {
-      "container": "ol.lp-bulletin-board__list",
-      "item": "li.lp-bulletin-board__list-item",
-      "title": "li.lp-bulletin-board__list-item button",
-      "tag_type": "li.lp-bulletin-board__list-item__tag",
-      "data_table": "table.lp-bulletin-board__list-item__data tbody tr",
-      "table_key": "table.lp-bulletin-board__list-item__data tbody tr th",
-      "table_value": "table.lp-bulletin-board__list-item__data tbody tr td",
-      "date_start": "time[datetime]:first-of-type",
-      "date_end": "time[datetime]:last-of-type",
-      "document_link": "td a[href*='/download/']",
-      "description": "div.lp-bulletin-board__list-item__description",
-      "data_string": "li.lp-bulletin-board__list-item[data-string-representation]",
-      "case_number": null,
-      "address": null,
-      "date": "time[datetime]"
-    },
-    "notes": "Sidan använder SiteVision med en inbyggd 'lp-bulletin-board'-komponent. Alla anslag renderas i DOM:en från start som dolda accordion-rader – ingen JavaScript-hämtning krävs efter sidladdning. Varje list-item har ett 'data-string-representation'-attribut med hela postens text i lowercase, användbart för snabb textmatchning. Taggar (t.ex. 'Justerat protokoll', 'Kungörelse') finns i data-list-values-attributet på ul.lp-bulletin-board__list-item__tags. Detaljdata ligger i en tabell med th/td-par: nycklar varierar per post (Instans, Paragrafer, Förvaringsplats, Sekreterare, Dokument eller extern anslagstavla, Anslagets publiceringsperiod). Bygglov och plan-relaterade ärenden har taggen 'Kungörelse' och instans innehåller ofta 'samhällsbyggnads'. Publiceringsperiod uttrycks med två ISO 8601-tidsstämplar i time[datetime]-element.",
-    "confidence": "high",
-    "approved": false
-  },
-  "navigations_used": 1,
-  "candidate_url": "https://www.halmstad.se/kommunochpolitik/overklagabeslutrattssakerhet/anslagstavla.n330.html",
-  "final_url": "https://www.halmstad.se/kommunochpolitik/overklagabeslutrattssakerhet/anslagstavla.n330.html",
+  "config": null,
+  "navigations_used": 5,
+  "candidate_url": "https://www.halmstad.se/byggaboochmiljo/bygglov/anslagstavla",
+  "final_url": "https://www.halmstad.se/byggaboochmiljo/bygglov/anslagstavla.12786.html",
   "tokens": {
-    "input": 48176,
-    "output": 1192,
-    "cost_usd": 0.162408
+    "input": 87079,
+    "output": 850,
+    "cost_usd": 0.273987
   },
-  "failure_reason": null
+  "failure_reason": "Could not generate valid config after analysis"
 }

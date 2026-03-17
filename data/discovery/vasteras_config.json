@@ -6,23 +6,23 @@
   "pagination": {
     "has_pagination": false,
     "type": "none",
-    "mechanism": "Alla tillkännagivanden listas på en och samma sida utan paginering.",
+    "mechanism": "Alla tillkännagivanden visas på en och samma sida utan paginering",
     "estimated_total_pages": null
   },
   "requires_subpages": {
     "required": false,
-    "reason": "All relevant data finns inline på listsidan. Varje post har ett expanderbart block (.appropriaton-more-info) som innehåller organ, dokumenttyp, ärendenummer, fastighetsbeteckning, anslagsdatum och datum för nedtagande direkt i HTML:en – inga separata undersidor behövs.",
+    "reason": "All data finns inline på listsidan. Varje post expanderas via toggle (accordion) och innehåller organ, dokumenttyp, ärendenummer, fastighetsbeteckning, anslagsdatum, nedtagningsdatum och beskrivning direkt i DOM:en även om det är dolt med display:none.",
     "link_selector_hint": null
   },
   "selectors_hint": {
     "container": "div.appropriation-list",
     "item": "div.meeting-container",
-    "case_number": "div.appropriaton-more-info div.sv-text-portlet-content p.normal",
+    "case_number": "div.appropriaton-more-info p.normal",
     "address": "div.meeting-header h4",
     "date": "div.appropriaton-more-info p:contains('Anslagsdatum')",
-    "description": "div.appropriaton-more-info div.sv-text-portlet-content"
+    "description": "div.appropriaton-more-info div.sv-text-portlet-content p.normal"
   },
-  "notes": "Innehållet är inbäddat direkt i sidan som dold HTML (display:none) i .appropriaton-more-info per post – ingen JavaScript-rendering krävs för att hämta data, allt finns i källkoden. Varje .meeting-container innehåller: rubrik i h4 (med typ, organ och fastighetsbeteckning), ärendenummer i brödtext (format BY YYYY-XXXXXX), organ/dokumenttyp/anslagsdatum/nedtagandedatum som rena <p>-taggar. Filtrera på 'Byggnadsnämnden' i organ-fältet för att isolera bygglovärenden. Posten kan vara antingen 'Kungörelse' (beslut/underrättelse) eller 'Tillkännagivande' (protokoll). Ärendenummer extraheras ur brödtexten med regex-mönster BY \\d{4}-\\d{6}.",
+  "notes": "Alla ärenden ligger i div.appropriation-list som en platt lista av div.meeting-container. Titeln finns i h4 inuti meeting-header och innehåller typ (Kungörelse/Tillkännagivande), organ och fastighetsbeteckning. Detaljerna finns i div.appropriaton-more-info (display:none men fullt renderad i HTML). Fält att extrahera: Organ (p:contains Organ), Dokumenttyp, Anslagsdatum, Datum för nedtagande, ärendenummer (från brödtext på format BY YYYY-XXXXXX), fastighetsbeteckning (från rubrik/brödtext). Filtrera på Byggnadsnämnden och nyckelord som bygglov, underrättelse, meddelande om beslut för att hitta bygglovsrelaterade poster. Sidan kräver ingen JavaScript-interaktion för att hämta data då allt är renderat i HTML.",
   "confidence": "high",
-  "approved": true
+  "approved": false
 }

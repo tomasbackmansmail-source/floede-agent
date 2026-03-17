@@ -1,0 +1,16 @@
+{
+  "municipality": "Laholm",
+  "municipality_id": "laholm",
+  "success": false,
+  "needs_manual_url": false,
+  "config": null,
+  "navigations_used": 5,
+  "candidate_url": "https://www.laholm.se/kommun-och-politik/anslagstavla",
+  "final_url": "https://www.laholm.se/kommun-och-politik/anslagstavla/anslag-bygglov",
+  "tokens": {
+    "input": 91174,
+    "output": 775,
+    "cost_usd": 0.285147
+  },
+  "failure_reason": "Could not generate valid config after analysis"
+}

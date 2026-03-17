@@ -1,0 +1,45 @@
+{
+  "municipality": "Nacka",
+  "municipality_id": "nacka",
+  "success": true,
+  "needs_manual_url": false,
+  "config": {
+    "municipality": "Nacka",
+    "platform_guess": "custom",
+    "listing_url": "https://www.nacka.se/kommun--politik/delta-och-paverka/anslagstavla-officiell/kungorelser/",
+    "listing_type": "links_to_subpages",
+    "pagination": {
+      "has_pagination": true,
+      "type": "load_more_button",
+      "mechanism": "Klicka på länk med texten 'Fler Nyheter' med URL-mönster ?page=2#page-2, ?page=3#page-3 osv. Länken har klassen .c-get-more__button och attributet data-list='list'.",
+      "estimated_total_pages": null
+    },
+    "requires_subpages": {
+      "required": true,
+      "reason": "Listsidan visar endast titel och publiceringsdatum. Ärendenummer, adress, status och detaljer om bygglovet finns enbart på respektive undersida.",
+      "link_selector_hint": ".c-news-list-item__content a[href*='kungorelser']"
+    },
+    "selectors_hint": {
+      "container": "#list",
+      "item": ".c-news-list-item",
+      "case_number": null,
+      "address": null,
+      "date": "time.c-timestamp__date",
+      "description": ".c-news-list-item__text",
+      "title": ".c-news-list-item__title",
+      "link": ".c-news-list-item__content a"
+    },
+    "notes": "Listsidan visar generiska titlar som 'Kungörelse bygglov' utan adress eller ärendenummer. Alla detaljer kräver besök på undersida. Sidan innehåller även andra kungörelsetyper (t.ex. 'Kommunfullmäktige sammanträder', 'Kungörelse om flyttade fordon', 'Underrättelse om antagande') – filtrera på titel för att isolera bygglovsrelaterade ärenden. URL-mönster för bygglov: /kungorelser/YYYY/MM/kungorelse-bygglov*/. Paginering sker via länk med klass .c-get-more__button som pekar på ?page=N#page-N. Plattformen liknar ett anpassat CMS, möjligen EPiServer/Optimizely baserat på URL-struktur och HTML-mönster.",
+    "confidence": "high",
+    "approved": false
+  },
+  "navigations_used": 1,
+  "candidate_url": "https://www.nacka.se/kommun--politik/delta-och-paverka/anslagstavla-officiell/kungorelser/",
+  "final_url": "https://www.nacka.se/kommun--politik/delta-och-paverka/anslagstavla-officiell/kungorelser/",
+  "tokens": {
+    "input": 56703,
+    "output": 930,
+    "cost_usd": 0.184059
+  },
+  "failure_reason": null
+}

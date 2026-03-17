@@ -6,12 +6,12 @@
   "pagination": {
     "has_pagination": false,
     "type": "none",
-    "mechanism": "Alla poster visas i tabeller på en och samma sida utan paginering",
+    "mechanism": "Alla ärenden visas direkt i tabeller på sidan utan paginering",
     "estimated_total_pages": null
   },
   "requires_subpages": {
     "required": true,
-    "reason": "Tabellen visar anslagsdatum, rubrik, typ och ansvarig nämnd. Detaljerad information om fastighetsbeteckning, ärendenummer, beslutsdatum och övriga ärendedetaljer finns på individuella undersidor via länkarna i rubriken.",
+    "reason": "Tabellen visar anslagsdatum, rubrik, typ och ansvarig nämnd men ärendedetaljer (fastighetsbeteckning, diarienummer, beslutsdatum etc.) finns på individuella undersidor.",
     "link_selector_hint": "table.digital-pinboard tbody tr td a"
   },
   "selectors_hint": {
@@ -21,10 +21,21 @@
     "address": "table.digital-pinboard tbody tr td:nth-child(2) a",
     "date": "table.digital-pinboard tbody tr td:nth-child(1) p",
     "description": "table.digital-pinboard tbody tr td:nth-child(3) p",
-    "responsible_unit": "table.digital-pinboard tbody tr td:nth-child(4) p",
-    "section_heading": "h2.subheading"
+    "responsible_unit": "table.digital-pinboard tbody tr td:nth-child(4) p"
   },
-  "notes": "Sidan innehåller flera separata tabeller med klassen 'digital-pinboard', en per ärendekategori: 'Beviljade bygglov', 'Bygglov grannehörande', samt möjligen fler. Varje tabell har kolumnerna Anslagsdatum, Rubrik, Typ, Ansvarig nämnd. Rubriklänkarna leder till undersidor under /digital-anslagstavla/anslag-beviljade-bygglov/ respektive /anslag-bygglov-grannehorande/. Fastighetsadress/beteckning ingår i rubriktexten, t.ex. 'Bygglov, Nikolai 3:286'. Typ är genomgående 'Kungörelse'. Ansvarig nämnd är genomgående 'Bygg- och miljönämnden'. Plattformen är SiteVision baserat på CSS-klasser och div-id-mönster.",
+  "table_sections": [
+    {
+      "section_heading": "Beviljade bygglov",
+      "heading_selector": "h2.subheading",
+      "table_index": 0
+    },
+    {
+      "section_heading": "Bygglov grannehörande",
+      "heading_selector": "h2.subheading",
+      "table_index": 1
+    }
+  ],
+  "notes": "Sidan innehåller flera separata tabeller med klassen 'digital-pinboard', en per ärendekategori (Beviljade bygglov, Bygglov grannehörande, troligen fler). Varje tabell har kolumnerna Anslagsdatum, Rubrik, Typ, Ansvarig nämnd. Tabellerna sorteras som standard på Anslagsdatum fallande. Rubriken i Rubrik-kolumnen innehåller ärendetyp + fastighetsbeteckning t.ex. 'Bygglov, Leverantören 1'. Länkarna leder till undersidor under /digital-anslagstavla/anslag-beviljade-bygglov/. Navigationsmenyn visar även en länk till 'Kungörelse om flytt av fordon till uppställningsplats' som en separat undersida. Plattformen är SiteVision baserat på sv-* CSS-klasser och URL-struktur.",
   "confidence": "high",
-  "approved": true
+  "approved": false
 }

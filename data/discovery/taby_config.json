@@ -1,28 +1,28 @@
 {
   "municipality": "Täby",
-  "platform_guess": "unknown",
+  "platform_guess": "custom",
   "listing_url": "https://www.taby.se/anslagstavla/",
-  "listing_type": "list",
+  "listing_type": "unknown",
   "pagination": {
     "has_pagination": null,
     "type": "unknown",
-    "mechanism": "Okänd - HTML-innehållet var dominerat av cookie-banner och trunkerades innan anslagslistans struktur blev synlig",
+    "mechanism": "Kunde inte fastställa – sidans faktiska innehåll var inte synligt i HTML-utdraget, enbart cookie-banner renderades",
     "estimated_total_pages": null
   },
   "requires_subpages": {
-    "required": false,
-    "reason": "Anslagstavlan visar grannhöranden och beslut inline med BN-ärendenummer och datum. PDF-filer på doc.taby.se kan ej scrapas men inline-texten innehåller tillräcklig data.",
-    "link_selector_hint": null
+    "required": null,
+    "reason": "Kunde inte avgöra – sidinnehållet var dolt bakom cookie-banner i det tillgängliga HTML-utdraget. Sidan använder ASP.NET (Microsoft Azure) vilket antyder server-renderat innehåll.",
+    "link_selector_hint": "main a[href*='anslag'], main a[href*='bygglov'], main a[href*='kungörelse']"
   },
   "selectors_hint": {
-    "container": ".anslag-lista, .listing, main",
-    "item": ".anslag-item, .listing-item, article",
-    "case_number": ".diarienummer, .dnr, [class*='case']",
-    "address": "[class*='address'], [class*='adress']",
-    "date": "time, .date, [class*='datum']",
-    "description": ".description, .ingress, p"
+    "container": "main, .main-content, #main",
+    "item": "table tr, ul li, .anslag-item, article",
+    "case_number": "td:first-child, .diarienummer",
+    "address": "td:nth-child(2), .adress",
+    "date": "td:last-child, time, .datum",
+    "description": "td, .beskrivning"
   },
-  "notes": "Sidan använder EPiServer/Optimizely-liknande CMS på Microsoft Azure-infrastruktur. HTML-innehållet trunkerades och anslagslistans faktiska struktur kunde inte verifieras. Cookie-bannern från Cookie Information dominerade den tillgängliga HTML:en. Selektorer är uppskattade och behöver verifieras. Teknisk stack: ASP.NET, Microsoft Azure, BIG-IP F5. Rekommendation: hämta sidan med User-Agent och verifiera att anslagsinnehållet renderas server-side och inte kräver JavaScript.",
-  "confidence": "medium",
-  "approved": true
+  "notes": "HTML-utdraget innehöll enbart cookie-consent-bannern (Cookie Information CMP). Sidans faktiska anslagstavle-innehåll var trunkerat/ej synligt. Teknisk stack: ASP.NET + Microsoft Azure + BIG-IP F5. Sidan refererar även till public.paloma.se vilket kan indikera att anslags­data hämtas från Paloma (ärendehanteringssystem). Rekommendation: hämta sidan med cookie-header satt eller JavaScript-rendering för att se faktiskt innehåll. Selektorer är kvalificerade gissningar och måste verifieras.",
+  "confidence": "low",
+  "approved": false
 }

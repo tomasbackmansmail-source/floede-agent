@@ -1,28 +1,28 @@
 {
   "municipality": "Huddinge",
   "platform_guess": "episerver",
-  "listing_url": "https://www.huddinge.se/organisation-och-styrning/huddinge-kommuns-anslagstavla/anslag/",
-  "listing_type": "list",
+  "listing_url": "https://www.huddinge.se/anslagstavla/",
+  "listing_type": "unknown",
   "pagination": {
     "has_pagination": null,
     "type": "unknown",
-    "mechanism": "Okänd - huvudinnehållet var inte synligt i HTML:en",
+    "mechanism": "Kunde inte fastställas – sidinnehållet blockerades av cookie-banner i all tillgänglig HTML",
     "estimated_total_pages": null
   },
   "requires_subpages": {
-    "required": true,
-    "reason": "Individuella kungörelser finns som subpages under /anslag/2026/. Listningen visar bara titlar utan adressdata.",
-    "link_selector_hint": "a[href*='/anslag/2026/kungorelse'], a[href*='/anslag/2026/andring']"
+    "required": null,
+    "reason": "Kunde inte fastställas – sidans faktiska innehåll var inte synligt i den tillhandahållna HTML:en",
+    "link_selector_hint": "a[href*='anslagstavla'], a[href*='bygglov'], a[href*='kungörelse']"
   },
   "selectors_hint": {
-    "container": "main, .page-content, .anslag-container",
-    "item": "article, .anslag-item, table tr, li",
+    "container": "main, #main-content, .main-content",
+    "item": "article, .anslag, .listing-item, tr",
     "case_number": null,
     "address": null,
-    "date": "time, .date, td",
-    "description": null
+    "date": "time, .date, .anslaget-datum",
+    "description": ".description, .ingress, p"
   },
-  "notes": "Sidan använder Episerver/Optimizely som plattform. HTML:en var genomgående trunkerad och dominerades av cookie-banner (Cookie Information). Det faktiska anslagstavleinnehållet var inte synligt. Sidan kan kräva JavaScript-rendering för att visa innehållet. Rekommendation: scrapa med headless browser (Playwright/Puppeteer) och inspektera DOM efter cookie-banner stängts. Titeln 'Huddinge kommuns anslagstavla' bekräftar att URL:en är korrekt.",
-  "confidence": "medium",
-  "approved": true
+  "notes": "Sidan använder Episerver/Optimizely som CMS (bekräftat via cookie-namn .EPiForm_BID och .EPiForm_VisitorIdentifier). Cookie-bannern från Cookie Information dominerar hela den tillgängliga HTML:en vid varje hämtningsförsök – sidans faktiska innehåll nås aldrig i trunkerad output. Scraper måste ignorera eller hoppa över #cookie-information-template-wrapper och extrahera innehåll ur main-elementet. Rekommendation: hämta sidan med requests/httpx (server-side rendering) snarare än browser – Episerver-sidor renderar ofta innehåll utan JavaScript.",
+  "confidence": "low",
+  "approved": false
 }

@@ -1,16 +1,43 @@
 {
   "municipality": "Umeå",
   "municipality_id": "umea",
-  "success": false,
+  "success": true,
   "needs_manual_url": false,
-  "config": null,
-  "navigations_used": 5,
-  "candidate_url": "https://www.umea.se/kommunochpolitik/overklagabeslutrattssakerhet/anslagstavlaofficiell.4.88db09b1724ee319ca4b0.html",
-  "final_url": "https://www.umea.se/byggaboochmiljo/bygganyttandraellerriva/bygglovsguide/bygglovsprocessen.4.1c16b00a1742340e02e5fd.html",
-  "tokens": {
-    "input": 105740,
-    "output": 748,
-    "cost_usd": 0.32844
+  "config": {
+    "municipality": "Umeå",
+    "platform_guess": "sitevision",
+    "listing_url": "https://www.umea.se/kommunochpolitik/overklagabeslutrattssakerhet/anslagstavlaofficiell.4.88db09b1724ee319ca4b0.html",
+    "listing_type": "unknown",
+    "pagination": {
+      "has_pagination": false,
+      "type": "none",
+      "mechanism": "No pagination observed - content appears to be a single page listing",
+      "estimated_total_pages": null
+    },
+    "requires_subpages": {
+      "required": false,
+      "reason": "Anslagstavlan förväntas lista anslag direkt på sidan. Innehållet renderas via JavaScript (SiteVision-portlets) och är inte synligt i statisk HTML. Huvudinnehållet injiceras troligen i div#page_content eller i sol-subpage-wrapper.",
+      "link_selector_hint": null
+    },
+    "selectors_hint": {
+      "container": ".sol-subpage-wrapper, #page_content, .sv-text-portlet-content",
+      "item": "table tr, .sol-article-item, ul.sol-ul li",
+      "case_number": null,
+      "address": null,
+      "date": null,
+      "description": null
+    },
+    "notes": "Sidan är byggd i SiteVision. Det faktiska innehållet på anslagstavlan är inte synligt i den statiska HTML-källkoden - det renderas via JavaScript-portlets. Innehållet injiceras troligen dynamiskt i div#page_content eller i .sol-subpage-wrapper. Kräver JavaScript-rendering (t.ex. Playwright/Puppeteer) för att hämta faktiska anslag. Anslagstavlan kan innehålla blandade nämnders anslag - filtrering på byggnadsnämnden/plan- och byggnadsnämnden kan behövas. Plattformen SiteVision är vanlig bland svenska kommuner och levererar ofta innehåll via AJAX efter sidladdning.",
+    "confidence": "low",
+    "approved": false
   },
-  "failure_reason": "Could not generate valid config after analysis"
+  "navigations_used": 1,
+  "candidate_url": "https://www.umea.se/kommunochpolitik/overklagabeslutrattssakerhet/anslagstavlaofficiell.4.88db09b1724ee319ca4b0.html",
+  "final_url": "https://www.umea.se/kommunochpolitik/overklagabeslutrattssakerhet/anslagstavlaofficiell.4.88db09b1724ee319ca4b0.html",
+  "tokens": {
+    "input": 61073,
+    "output": 1681,
+    "cost_usd": 0.208434
+  },
+  "failure_reason": null
 }

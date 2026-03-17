@@ -6,32 +6,23 @@
   "pagination": {
     "has_pagination": null,
     "type": "unknown",
-    "mechanism": "Okänt - innehåll är dynamiskt laddat via JavaScript efter cookie-consent. Paginering kan ej observeras i statisk HTML.",
+    "mechanism": "SiteVision anslagsarkiv-mall (sv-template-anslagsarkiv). Paginering kan förekomma via inbyggd SiteVision-komponent, troligen load_more_button eller numbered_pages baserat på plattformsmönster.",
     "estimated_total_pages": null
   },
   "requires_subpages": {
-    "required": null,
-    "reason": "Kan ej avgöras - sidans anslags-innehåll är inte synligt i statisk HTML. Sidan använder SiteVision sv-template-anslagsarkiv-mall som laddar anslag dynamiskt via JavaScript. Cookie-consent måste accepteras och JS renderas innan innehållsstruktur kan analyseras.",
-    "link_selector_hint": ".sv-template-anslagsarkiv"
+    "required": true,
+    "reason": "SiteVisions anslagsarkiv-mall visar typiskt en lista med anslag där varje anslag är en länk till en undersida med fullständiga detaljer såsom ärendenummer, adress, nämnd, anslagsdatum och sista överklagningsdag.",
+    "link_selector_hint": ".sv-anslag a, .sv-anslagsarkiv a, .sv-anslag-list a"
   },
   "selectors_hint": {
-    "container": ".sv-template-anslagsarkiv",
-    "item": null,
-    "case_number": null,
-    "address": null,
-    "date": null,
-    "description": null
+    "container": ".sv-anslagsarkiv, .sv-anslag-list, [class*='anslag']",
+    "item": ".sv-anslag, .sv-anslag-item, [class*='anslag-item']",
+    "case_number": "[class*='diarienummer'], [class*='arendenummer']",
+    "address": "[class*='adress'], [class*='fastighet']",
+    "date": "[class*='anslags-datum'], [class*='datum'], time",
+    "description": "[class*='beskrivning'], [class*='rubrik']"
   },
-  "cookie_handling": {
-    "required": true,
-    "method": "POST",
-    "action_url": "https://sundsvall.se/kommun/kommun-och-politik/overklaga-beslut-rattssakerhet/sundsvalls-kommuns-officiella-anslagstavla?sv.target=12.235b114b198e57425bc376aa&sv.12.235b114b198e57425bc376aa.route=/consent-settings",
-    "post_fields": {
-      "necessary": "necessary"
-    },
-    "note": "Skicka POST med endast necessary-cookie för att acceptera nödvändiga kakor och komma åt innehållet"
-  },
-  "notes": "Sidan kräver JavaScript-rendering (Playwright/Puppeteer). HTML-klassen sv-template-anslagsarkiv bekräftar att detta är en SiteVision anslagsarkiv-mall. Allt anslags-innehåll laddas dynamiskt efter cookie-accept. Rekommenderat tillvägagångssätt: (1) Acceptera nödvändiga kakor via POST, (2) Rendera sidan med headless browser, (3) Vänta på att anslagsarkivet laddas, (4) Inspektera nätverkstrafik för att identifiera underliggande REST/JSON API-anrop från SiteVision-portleten, (5) Anropa API direkt för strukturerad data. Node-ID för anslagsarkivet är troligen 4.235b114b198e57425bc3694a baserat på meny-strukturen.",
+  "notes": "Sidan använder SiteVisions inbyggda anslagsarkiv-mall (html-klass sv-template-anslagsarkiv). Huvudinnehållet renderas dynamiskt och var ej synligt i tillgänglig HTML. Selektorer är baserade på kända SiteVision-anslagsarkivmönster från andra kommuner på samma plattform och behöver verifieras vid faktisk insamling. Sidan kräver troligen att cookie-banner hanteras innan innehåll laddas korrekt. Anslag kan inkludera bygglov, detaljplaner, kommunfullmäktigebeslut m.m. – filtrering på ärendetyp kan behövas.",
   "confidence": "low",
-  "approved": true
+  "approved": false
 }

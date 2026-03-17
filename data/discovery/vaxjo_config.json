@@ -1,28 +1,28 @@
 {
   "municipality": "Växjö",
-  "platform_guess": "ciceron",
-  "listing_url": "https://vaxjo-anslagstavla.ciceron.cloud/#!/billboard/",
-  "listing_type": "no_building_permits_on_board",
+  "platform_guess": "sitevision",
+  "listing_url": "https://www.vaxjo.se/sidor/politik-och-demokrati/anslagstavla.html",
+  "listing_type": "unknown",
   "pagination": {
     "has_pagination": false,
     "type": "none",
-    "mechanism": null,
+    "mechanism": "No pagination detected in available HTML",
     "estimated_total_pages": null
   },
   "requires_subpages": {
-    "required": false,
-    "reason": "Ciceron-plattformen visar anslag inline. Bygglovspost finns under Övriga anslag.",
-    "link_selector_hint": null
+    "required": true,
+    "reason": "Sidan är JavaScript-renderad via SiteVision. Innehållet laddas dynamiskt och syns inte i statisk HTML. Anslagens detaljer finns troligen på undersidor eller renderas via JS-komponenter.",
+    "link_selector_hint": "a[href*='anslagstavla'], a[href*='anslag'], a[href*='bygglov'], a[href*='kungörelse']"
   },
   "selectors_hint": {
-    "container": "body",
-    "item": null,
+    "container": ".sv-portlet, .sv-layout",
+    "item": ".sv-portlet-content, .sol-article-item",
     "case_number": null,
     "address": null,
-    "date": null,
-    "description": null
+    "date": "time, .sol-published-date, .sv-portlet-date",
+    "description": ".sv-portlet-content p"
   },
-  "notes": "PARKERAD: Ciceron-plattformen visar en enda samlad bygglovspost under Övriga anslag. Detaljerad info om individuella ärenden är ej åtkomlig via innerText/scraping. Kräver API-integration eller klick-simulering.",
-  "confidence": "medium",
+  "notes": "Sidan körs på SiteVision och kräver JavaScript för att rendera innehåll. Statisk HTML-hämtning ger endast sidhuvud och navigation. Scraping kräver Playwright eller Selenium med JS-stöd. Vänta på selector '.sv-portlet-content' eller liknande innan extraktion. Cookie-banner kan blockera innehåll och behöver hanteras. Selektorer är uppskattade och måste verifieras mot renderat DOM.",
+  "confidence": "low",
   "approved": false
 }

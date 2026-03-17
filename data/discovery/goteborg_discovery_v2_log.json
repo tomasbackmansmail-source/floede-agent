@@ -1,66 +1,16 @@
 {
   "municipality": "Göteborg",
   "municipality_id": "goteborg",
-  "success": true,
+  "success": false,
   "needs_manual_url": false,
-  "config": {
-    "municipality": "Göteborg",
-    "platform_guess": "custom",
-    "listing_url": "https://goteborg.se/wps/portal/start/kommun-och-politik/goteborgs-stads-anslagstavla/grannehorande-fore-beslut",
-    "listing_type": "cards",
-    "pagination": {
-      "has_pagination": false,
-      "type": "none",
-      "mechanism": "Alla aktuella ärenden visas på en och samma sida utan paginering",
-      "estimated_total_pages": null
-    },
-    "requires_subpages": {
-      "required": false,
-      "reason": "Alla relevanta fält (diarienummer, fastighetsbeteckning, adress, beskrivning, deadline för synpunkter, uppsatt- och nedtagningsdatum) finns direkt i listningen på sidan",
-      "link_selector_hint": null
-    },
-    "selectors_hint": {
-      "container": "div#bygglov-lista ul.c-list",
-      "item": "li",
-      "case_number": "h2.c-snippet__title",
-      "address": null,
-      "date": "div.c-snippet__sub",
-      "description": "div.c-snippet__content p:first-of-type"
-    },
-    "extraction_hints": {
-      "property_and_address": {
-        "source": "div.c-snippet__content p:first-of-type",
-        "regex": "fastigheten ([\\w\\s:åäöÅÄÖ]+?)(?:\\s+\\(([^)]+)\\))?\\s+med diarienummer"
-      },
-      "deadline": {
-        "source": "div.c-snippet__content",
-        "regex": "senast (\\d{4}-\\d{2}-\\d{2})\\.?"
-      },
-      "posted_date": {
-        "source": "div.c-snippet__sub",
-        "regex": "sätts upp:\\s*(\\d+ \\w+ \\d{4})"
-      },
-      "removal_date": {
-        "source": "div.c-snippet__sub",
-        "regex": "tas ned:\\s*(\\d+ \\w+ \\d{4})"
-      },
-      "permit_type": {
-        "source": "div.c-snippet__content p:first-of-type",
-        "regex": "har skickat ut (.+?) på fastigheten",
-        "note": "Innehåller t.ex. 'bygglov för nybyggnad av enbostadshus' eller 'tidsbegränsat bygglov för tillbyggnad av restaurang'"
-      }
-    },
-    "notes": "IBM WebSphere Portal-baserad sajt (WPS). URL innehåller dynamiskt genererat suffix efter /grannehorande-fore-beslut/ men bas-URL fungerar. Alla ärenden är grannehöranden enligt PBL. Fastighetsbeteckning extraheras med regex ur beskrivningstexten, adress finns ibland inom parentes direkt efter fastighetsbeteckningen. Datumformat i c-snippet__sub är svenska ord (t.ex. '17 mars 2026') medan deadline-datum i brödtexten är ISO-format (YYYY-MM-DD). Observera att ett OneNote-länkfel finns i en länk på informationssidan – påverkar ej denna sida.",
-    "confidence": "high",
-    "approved": false
-  },
-  "navigations_used": 2,
-  "candidate_url": "https://goteborg.se/wps/portal?uri=gbglnk%3A2025103112293198",
-  "final_url": "https://goteborg.se/wps/portal/start/kommun-och-politik/goteborgs-stads-anslagstavla/grannehorande-fore-beslut",
+  "config": null,
+  "navigations_used": 4,
+  "candidate_url": "https://www.goteborg.se/anslagstavla",
+  "final_url": "https://goteborg.se/wps/portal/start/bygglov-och-lantmateri",
   "tokens": {
-    "input": 297691,
-    "output": 2922,
-    "cost_usd": 0.936903
+    "input": 12572,
+    "output": 673,
+    "cost_usd": 0.047811
   },
-  "failure_reason": null
+  "failure_reason": "Could not generate valid config after analysis"
 }

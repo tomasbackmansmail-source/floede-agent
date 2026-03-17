@@ -6,12 +6,12 @@
   "pagination": {
     "has_pagination": false,
     "type": "none",
-    "mechanism": "Ingen synlig paginering identifierad. Alla ärenden verkar listas på en sida via sv-archive-portlet.",
+    "mechanism": "All items appear to be listed on a single page without pagination controls visible in the HTML",
     "estimated_total_pages": null
   },
   "requires_subpages": {
     "required": true,
-    "reason": "Listsidan visar endast titel och datum per ärende. Detaljer som fastighetsbeteckning, ärendenummer och beslutsinformation finns på respektive undersida.",
+    "reason": "Listsidan visar endast datum och titel per ärende. Fastighetsbeteckning, diarienummer, ärendestatus och beslutsinformation finns på respektive undersida.",
     "link_selector_hint": "a.hiq-bulletin-board-item__link"
   },
   "selectors_hint": {
@@ -22,7 +22,7 @@
     "date": "p.hiq-bulletin-board-item__date",
     "description": "p.hiq-bulletin-board-item__preamble"
   },
-  "notes": "Sidan är byggd i SiteVision med en sv-archive-portlet som listar kungörelser. Varje post innehåller datum, titel (som ofta inkluderar fastighetsbeteckning) och kategori 'Kungörelser'. Titlarna innehåller ofta fastighetsbeteckning direkt, t.ex. 'Bergnäset 3:55', vilket kan extraheras med regex från listningssidan. Undersidor bör följas för fullständig information. URL-mönster för undersidor: /anslagstavla/kungorelser-om-bygglov/anslagstavla-bygglov/[datum-slug].html",
+  "notes": "Sidan listar kungörelser om bygglov i en SiteVision-arkivportlet (sv-archive-portlet). Varje post har datum, titel och kategorin 'Kungörelser'. Titeln innehåller ofta fastighetsbeteckning och ärendetyp (bygglov, rivningslov, marklov, tidsbegränsat bygglov). URL-sluggen innehåller också fastighetsbeteckning vilket kan användas för filtrering. Undersidor bör hämtas för fullständiga detaljer. Inga pagineringskontroller synliga i HTML.",
   "confidence": "high",
-  "approved": true
+  "approved": false
 }

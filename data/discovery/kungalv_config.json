@@ -1,0 +1,28 @@
+{
+  "municipality": "Kungälv",
+  "platform_guess": "unknown",
+  "listing_url": "https://www.kungalv.se/kommun--politik/officiell-anslagstavla/",
+  "listing_type": "list",
+  "pagination": {
+    "has_pagination": false,
+    "type": "none",
+    "mechanism": null,
+    "estimated_total_pages": null
+  },
+  "requires_subpages": {
+    "required": false,
+    "reason": "Inline extraction. Kungörelser och protokoll visas som text+PDF-länkar direkt på sidan.",
+    "link_selector_hint": null
+  },
+  "selectors_hint": {
+    "container": "main, article, [role=main]",
+    "item": null,
+    "case_number": null,
+    "address": null,
+    "date": null,
+    "description": null
+  },
+  "notes": "Azure/.NET CMS. Anslagstavlan har detaljplaner, kungörelser och protokoll inline. Mestadels PDFs men text finns. Inga individuella bygglov-beslut synliga - främst detaljplaner och protokoll.",
+  "confidence": "medium",
+  "approved": true
+}
