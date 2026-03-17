@@ -1,0 +1,28 @@
+{
+  "municipality": "Trollhättan",
+  "platform_guess": "netpublicator",
+  "listing_url": "https://www.trollhattan.se/startsida/kommun-och-politik/moten-handlingar-och-protokoll/anslagstavla2/",
+  "listing_type": "links_to_subpages",
+  "pagination": {
+    "has_pagination": false,
+    "type": "none",
+    "mechanism": "Ingen paginering observerad - anslagstavlan verkar lista alla aktiva anslag på en sida",
+    "estimated_total_pages": null
+  },
+  "requires_subpages": {
+    "required": true,
+    "reason": "Denna sida är en landningssida som redirectar till den faktiska anslagstavlan via länken 'Gå till kommunens anslagstavla' som pekar på /anslagstavla2/. Detaljer om enskilda ärenden finns troligen på undersidor därifrån.",
+    "link_selector_hint": "a.service-link[href*='anslagstavla2']"
+  },
+  "selectors_hint": {
+    "container": ".tightUpRowlength",
+    "item": null,
+    "case_number": null,
+    "address": null,
+    "date": null,
+    "description": null
+  },
+  "notes": "OBS: Den faktiska anslagstavlan ligger på /anslagstavla2/ - inte på denna sida. Denna sida (/anslagstavla/) är enbart en informationssida med en länk vidare. Scraping bör ske mot https://www.trollhattan.se/startsida/kommun-och-politik/moten-handlingar-och-protokoll/anslagstavla2/ istället. Innehåller även länk till extern anslagstavla för Kunskapsförbundet väst. Plattformen liknar EpiServer/Optimizely snarare än SiteVision baserat på URL-struktur och CSS-klasser.",
+  "confidence": "low",
+  "approved": true
+}

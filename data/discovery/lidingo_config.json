@@ -1,0 +1,47 @@
+{
+  "municipality": "Lidingö",
+  "platform_guess": "netpublicator",
+  "listing_url": "https://www.lidingo.se/ovrigasidor/stadensanslagstavla.4.7a7e170815fc29ac5e455a5.html",
+  "listing_type": "list",
+  "pagination": {
+    "has_pagination": false,
+    "type": "none",
+    "mechanism": "Alla aktuella anslag laddas direkt i en React-renderad lista via Netpublicator bulletinboard-widget. Ingen paginering synlig, hela listan renderas på en sida.",
+    "estimated_total_pages": null
+  },
+  "requires_subpages": {
+    "required": false,
+    "reason": "All relevant data (titel, nämnd, publicerat-datum, giltighetsdatum, ärendenummer, dokumentlänkar) finns direkt i list-itemsen på anslagstavlesidan. Dokument länkas direkt till Netpublicator PDF-endpoint.",
+    "link_selector_hint": "a[href*='netpublicator.com/bulletinboard/public']"
+  },
+  "selectors_hint": {
+    "container": "ul.bbl-list",
+    "item": "li.bbl-item",
+    "case_number": "span.bbl-item-title",
+    "address": "span.bbl-item-title",
+    "date": "div.bbl-subitem-col",
+    "description": "span.bbl-item-title",
+    "nämnd": "div.bbl-item-title-small",
+    "dokument_link": "div.bbl-subitem-col a[href*='netpublicator.com']",
+    "publicerat": "data-published",
+    "item_id": "data-npid"
+  },
+  "filter_hints": {
+    "bygglov_type_ids": [
+      "3728",
+      "3731"
+    ],
+    "bygglov_category_id": "c3d23f6b-cc29-4b8f-ac63-aed16b16fef8",
+    "relevant_nämnder": [
+      "Miljö- och stadsbyggnadsnämnden"
+    ],
+    "relevant_anslagstyper": [
+      "Kungörelse om beviljat bygglov",
+      "Grannhörande i bygglovsärende"
+    ],
+    "netpublicator_board_id": "700c95ca-d78b-4a23-8e95-bffa7d8b43cf"
+  },
+  "notes": "Sidan använder Netpublicator bulletinboard inbäddad som React-app. Data renderas klient-sidan via JavaScript. Scraping kräver JS-rendering (t.ex. Playwright/Puppeteer). Varje list-item har data-npid (UUID), data-published och data-title som attribut direkt på li-elementet. Ärendenummer (t.ex. MSN-B 2025-000938) och adress finns inbäddade i titelfältet och behöver parsas med regex. Dokumentlänkar pekar direkt på Netpublicator PDF-endpoint med notice_id och document_id som query-parametrar. Board-ID är 700c95ca-d78b-4a23-8e95-bffa7d8b43cf vilket kan möjliggöra direkt API-anrop mot Netpublicator om ett sådant API finns tillgängligt.",
+  "confidence": "high",
+  "approved": true
+}

@@ -1,0 +1,43 @@
+{
+  "municipality": "Botkyrka",
+  "municipality_id": "botkyrka",
+  "success": true,
+  "needs_manual_url": false,
+  "config": {
+    "municipality": "Botkyrka",
+    "platform_guess": "sitevision",
+    "listing_url": "https://www.botkyrka.se/kommun-och-politik/digital-anslagstavla",
+    "listing_type": "unknown",
+    "pagination": {
+      "has_pagination": null,
+      "type": "unknown",
+      "mechanism": "Okänt – sidans huvudinnehåll renderas via JavaScript och syns inte i statisk HTML-hämtning",
+      "estimated_total_pages": null
+    },
+    "requires_subpages": {
+      "required": null,
+      "reason": "Kan ej avgöras – innehållet på anslagstavlan är ej synligt i statisk HTML. Sitevision-mallen sv-template-anslagsarkiv indikerar ett inbyggt anslagsarkiv som troligen renderar anslag dynamiskt.",
+      "link_selector_hint": ".sv-anslagsarkiv a, .sv-portlet a"
+    },
+    "selectors_hint": {
+      "container": ".sv-anslagsarkiv, .sv-portlet-anslagsarkiv",
+      "item": ".sv-anslagsarkiv-item, table tbody tr",
+      "case_number": "td:nth-child(1), .sv-anslagsarkiv-diarienummer",
+      "address": null,
+      "date": "td:nth-child(2), .sv-anslagsarkiv-date",
+      "description": "td:nth-child(1) a, .sv-anslagsarkiv-title"
+    },
+    "notes": "Sidan använder Sitevision-mallen sv-template-anslagsarkiv vilket bekräftar att detta är rätt sida. Sidans body har style='overflow:hidden; position:fixed' vilket tyder på att JS-rendering krävs för att se innehållet. Playwright eller liknande headless-browser rekommenderas starkt. Prova även REST-endpoint: /kommun-och-politik/digital-anslagstavla.json eller Sitevisions REST-API för anslagsarkiv.",
+    "confidence": "low",
+    "approved": false
+  },
+  "navigations_used": 2,
+  "candidate_url": "https://www.botkyrka.se/kommun-och-politik/digital-anslagstavla",
+  "final_url": "https://www.botkyrka.se/kommun-och-politik/digital-anslagstavla",
+  "tokens": {
+    "input": 95054,
+    "output": 1814,
+    "cost_usd": 0.31237200000000004
+  },
+  "failure_reason": null
+}

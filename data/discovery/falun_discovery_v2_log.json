@@ -1,0 +1,43 @@
+{
+  "municipality": "Falun",
+  "municipality_id": "falun",
+  "success": true,
+  "needs_manual_url": false,
+  "config": {
+    "municipality": "Falun",
+    "platform_guess": "sitevision",
+    "listing_url": "https://www.falun.se/kommun--demokrati/officiell-anslagstavla.html",
+    "listing_type": "unknown",
+    "pagination": {
+      "has_pagination": null,
+      "type": "unknown",
+      "mechanism": "Kunde ej fastställa - huvudinnehållet renderas via JavaScript och trunkerades bort av scraper innan innehållsblocket nåddes",
+      "estimated_total_pages": null
+    },
+    "requires_subpages": {
+      "required": null,
+      "reason": "Kunde ej fastställa struktur - innehållsdelen av sidan har inte varit synlig i något av scraping-försöken. Sitevision-sidor har ofta anslag presenterade som tabeller eller kanallistningar med länkar till detaljsidor.",
+      "link_selector_hint": ".sv-channel-item a, .sv-text-portlet a, table tr td a"
+    },
+    "selectors_hint": {
+      "container": ".lp-main, main#content, .sv-text-portlet, .sv-channel-portlet",
+      "item": "table tr, .sv-channel-item, .sv-list-item",
+      "case_number": "td:first-child",
+      "address": "td:nth-child(2)",
+      "date": "td:nth-child(3), time, .sv-channel-item-date",
+      "description": "td:last-child, .sv-channel-item-title"
+    },
+    "notes": "VARNING: Innehållsdelen av anslagstavlan har inte kunnat scrapas - HTML trunkeras konsekvent i mobilmeny-blocket innan #content nås. Sidan är byggd i Sitevision och kräver JavaScript-rendering (Playwright/Selenium). Selektorer är uppskattningar baserade på Sitevision-standard och kan behöva justeras. Kräver manuell verifiering av faktisk DOM-struktur efter fullständig JS-rendering.",
+    "confidence": "low",
+    "approved": false
+  },
+  "navigations_used": 3,
+  "candidate_url": "https://www.falun.se/kommun--demokrati/officiell-anslagstavla.html",
+  "final_url": "https://www.falun.se/kommun--demokrati/officiell-anslagstavla.html#content",
+  "tokens": {
+    "input": 135620,
+    "output": 2032,
+    "cost_usd": 0.43734
+  },
+  "failure_reason": null
+}

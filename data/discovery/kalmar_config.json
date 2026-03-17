@@ -1,0 +1,33 @@
+{
+  "municipality": "Kalmar",
+  "platform_guess": "sitevision",
+  "listing_url": "https://kalmar.se/kalmar-kommuns-anslagstavla.html",
+  "listing_type": "list",
+  "pagination": {
+    "has_pagination": false,
+    "type": "none",
+    "mechanism": "All content appears on a single page, organized in collapsible sections per organ/nämnd",
+    "estimated_total_pages": null
+  },
+  "requires_subpages": {
+    "required": false,
+    "reason": "All relevant data (organ, sammanträdesdatum, justerat datum, anslaget sattes upp, anslaget tas ned, protokolllänk, förvaras hos) finns direkt på anslagstavlesidan inom respektive kollapserbar sektion. Protokolllänkar pekar till externa sidor men är ej nödvändiga för grunddata.",
+    "link_selector_hint": ".sv-text-portlet-content a[href*='protokoll'], .sv-text-portlet-content a[href*='opengov']"
+  },
+  "selectors_hint": {
+    "container": ".sol-collapsible-decoration .sv-decoration-content",
+    "item": ".sv-vertical.sv-layout.sv-skip-spacer[id^='svid10_']",
+    "case_number": null,
+    "address": null,
+    "date": ".sv-text-portlet-content p.font-normal",
+    "description": ".sv-text-portlet-content h2.font-heading-2",
+    "organ": "h2.font-heading-2",
+    "justerat": "#Justerat ~ .sv-clear-both + .sv-text-portlet-content p",
+    "anslaget_sattes_upp": "[id^='Anslagetsattesupp'] ~ .sv-clear-both + .sv-text-portlet-content p",
+    "anslaget_tas_ned": "[id^='Anslagettasned'] ~ .sv-clear-both + .sv-text-portlet-content p",
+    "protokoll_link": "[id^='Lanktillprotokollet'] ~ .sv-clear-both + .sv-text-portlet-content a"
+  },
+  "notes": "Sidan är Kalmar kommuns officiella digitala anslagstavla på SiteVision-plattformen. Innehållet är strukturerat i kollapsbara sektioner (sol-collapsible-decoration) per ärendetyp: 'Justerade protokoll' innehåller poster för kommunfullmäktige, kommunstyrelsen, kommunstyrelsens arbetsutskott samt nämnder. Varje post har fälten: organ+datum (h2), Justerat, Anslaget sattes upp, Anslaget tas ned, Länk till protokollet, Justerat protokoll finns hos. Innehållet är statiskt HTML, ingen JavaScript-rendering krävs för grunddata. Sektionerna är initialt kollapsade (aria-hidden=true) men all HTML finns i DOM. Ingen paginering. Sidan innehåller ej specifika bygglovskungörelser – dessa hanteras troligen inom nämndprotokoll (t.ex. byggnadsnämnden) som länkas vidare till opengov.360online.com.",
+  "confidence": "high",
+  "approved": true
+}

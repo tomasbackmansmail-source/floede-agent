@@ -1,0 +1,48 @@
+{
+  "municipality": "Gävle",
+  "municipality_id": "gavle",
+  "success": true,
+  "needs_manual_url": false,
+  "config": {
+    "municipality": "Gävle",
+    "platform_guess": "wordpress",
+    "listing_url": "https://www.gavle.se/tyck-till-och-paverka-gavle/kommunal-anslagstavla/",
+    "listing_type": "unknown",
+    "pagination": {
+      "has_pagination": false,
+      "type": "none",
+      "mechanism": "Ingen paginering observerad - sidan är en statisk WordPress-sida (page-id-43846)",
+      "estimated_total_pages": null
+    },
+    "requires_subpages": {
+      "required": false,
+      "reason": "Sidans innehåll kunde inte extraheras ur det tillhandahållna HTML-utdraget eftersom det trunkerades efter navigationsmenyn. Rekommendation: hämta via WordPress REST API endpoint istället.",
+      "link_selector_hint": ".entry-content a, .wp-block-group a, article a"
+    },
+    "selectors_hint": {
+      "container": "#page-wrapper .entry-content, #page-wrapper .wp-block-group",
+      "item": "p, li, .wp-block-table tr",
+      "case_number": null,
+      "address": null,
+      "date": "time, .entry-date, .published",
+      "description": ".entry-content p"
+    },
+    "api_fallback": {
+      "endpoint": "https://www.gavle.se/wp-json/wp/v2/pages/43846",
+      "content_field": "content.rendered",
+      "note": "Föredragen insamlingsmetod då HTML trunkeras p.g.a. lång navigationsmeny"
+    },
+    "notes": "Sidan är en WordPress-sida (page-id-43846, parent-pageid-3697). HTML-utdraget innehåller enbart navigationsmenyn och sidans faktiska innehåll är inte synligt. WordPress REST API-endpoint bör användas som primär insamlingsmetod för att hämta anslagsinnehållet direkt. Innehållet är sannolikt statisk text med anslag, kungörelser och beslut utan strukturerade CSS-klasser.",
+    "confidence": "low",
+    "approved": false
+  },
+  "navigations_used": 2,
+  "candidate_url": "https://www.gavle.se/tyck-till-och-paverka-gavle/kommunal-anslagstavla/",
+  "final_url": "https://www.gavle.se/tyck-till-och-paverka-gavle/kommunal-anslagstavla/",
+  "tokens": {
+    "input": 92464,
+    "output": 1648,
+    "cost_usd": 0.30211200000000005
+  },
+  "failure_reason": null
+}

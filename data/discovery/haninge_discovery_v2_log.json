@@ -1,0 +1,16 @@
+{
+  "municipality": "Haninge",
+  "municipality_id": "haninge",
+  "success": false,
+  "needs_manual_url": false,
+  "config": null,
+  "navigations_used": 5,
+  "candidate_url": "https://www.haninge.se/bygga-bo-och-miljo/bygga-nytt-andra-eller-riva/kungorelse-bygglov/",
+  "final_url": "https://www.haninge.se/kommun-och-politik/politik-och-organisation/anslagstavla/",
+  "tokens": {
+    "input": 87041,
+    "output": 952,
+    "cost_usd": 0.275403
+  },
+  "failure_reason": "Could not generate valid config after analysis"
+}

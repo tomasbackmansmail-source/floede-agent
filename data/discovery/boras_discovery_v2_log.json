@@ -1,0 +1,83 @@
+{
+  "municipality": "Borås",
+  "municipality_id": "boras",
+  "success": true,
+  "needs_manual_url": false,
+  "config": {
+    "municipality": "Borås",
+    "platform_guess": "sitevision",
+    "listing_url": "https://www.boras.se/anslagstavlan",
+    "listing_type": "list",
+    "pagination": {
+      "has_pagination": false,
+      "type": "none",
+      "mechanism": "All items appear to be listed directly on the page with no pagination controls observed.",
+      "estimated_total_pages": null
+    },
+    "requires_subpages": {
+      "required": false,
+      "reason": "All relevant fields (ärendetyp, titel, anslaget datum, beslutsdatum, fastighet, diarienummer) are present directly in each list item on the listing page. Subpages exist but are not required for data extraction.",
+      "link_selector_hint": "div#Anslagnakungorelser ul.sv-channel li.sv-channel-item a.sv-font-brodtext-fet-ny"
+    },
+    "selectors_hint": {
+      "container": "div#Anslagnakungorelser ul.sv-channel",
+      "item": "li.sv-channel-item",
+      "case_number": "span.sv-font-ny-brodtext",
+      "address": "span.sv-font-ny-brodtext",
+      "date": "time[datetime]",
+      "description": "span.sv-font-uppdaterad-info-ny:first-child",
+      "title": "a.sv-font-brodtext-fet-ny span",
+      "link": "a.sv-font-brodtext-fet-ny"
+    },
+    "extra_sections": {
+      "detaljplaner_samrad": {
+        "container": "div#Detaljplanerpasamrad ul.sv-channel",
+        "item": "li.sv-channel-item",
+        "date": "time[datetime]",
+        "title": "a.sv-font-brodtext-fet-ny span",
+        "link": "a.sv-font-brodtext-fet-ny"
+      },
+      "detaljplaner_granskning": {
+        "container": "div#Detaljplanerpagranskning ul.sv-channel",
+        "item": "li.sv-channel-item",
+        "date": "time[datetime]",
+        "title": "a.sv-font-brodtext-fet-ny span",
+        "link": "a.sv-font-brodtext-fet-ny"
+      },
+      "detaljplaner_antagna": {
+        "container": "div#Detaljplanerantagna ul.sv-channel",
+        "item": "li.sv-channel-item",
+        "date": "time[datetime]",
+        "title": "a.sv-font-brodtext-fet-ny span",
+        "link": "a.sv-font-brodtext-fet-ny"
+      },
+      "allmanna_kungorelser": {
+        "container": "div#AnslagnakungorelserAllmanna ul.sv-channel",
+        "item": "li.sv-channel-item",
+        "date": "time[datetime]",
+        "title": "a.sv-font-brodtext-fet-ny span",
+        "link": "a.sv-font-brodtext-fet-ny"
+      }
+    },
+    "field_parsing": {
+      "anslaget_datum": "time[datetime] attribute 'datetime', ISO 8601 format",
+      "beslutsdatum": "regex from span.sv-font-ny-brodtext: 'Beslutsdatum: (\\d{4}-\\d{2}-\\d{2})'",
+      "fastighet": "regex from span.sv-font-ny-brodtext: 'Fastighet: ([^<\\n]+)'",
+      "diarienummer": "regex from span.sv-font-ny-brodtext: 'Diarienummer: ([^<\\n]+)'",
+      "arende_typ": "span.sv-font-uppdaterad-info-ny:first-child text content"
+    },
+    "url_prefix": "https://www.boras.se",
+    "notes": "Alla bygglovsärenden listas direkt med fullständig data i li.sv-channel-item under div#Anslagnakungorelser. Fälten beslutsdatum, fastighet och diarienummer finns som fritext i span.sv-font-ny-brodtext och behöver parsas med regex. URL:er i href är relativa och behöver prefixas med https://www.boras.se. Sidan innehåller även detaljplaner (samråd/granskning/antagna) och allmänna kungörelser i separata sektioner med identisk HTML-struktur. Ärendetyp varierar: 'Kungörelse av beslut att bevilja bygglov', 'Underrättelse om bygglovsansökan' m.fl.",
+    "confidence": "high",
+    "approved": false
+  },
+  "navigations_used": 2,
+  "candidate_url": "https://www.boras.se/kommunochpolitik/anslagstavla",
+  "final_url": "https://www.boras.se/anslagstavlan",
+  "tokens": {
+    "input": 264963,
+    "output": 3655,
+    "cost_usd": 0.8497140000000001
+  },
+  "failure_reason": null
+}

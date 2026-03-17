@@ -1,0 +1,357 @@
+{
+  "run_at": "2026-03-17T11:27:31.615Z",
+  "summary": {
+    "total_permits_extracted": 560,
+    "total_municipalities": 42,
+    "total_flagged_permits": 4,
+    "stale_sources": 0,
+    "anomalies": 0
+  },
+  "per_municipality": [
+    {
+      "municipality": "boras",
+      "permits_today": 41,
+      "baseline": null,
+      "issues": [],
+      "issue_count": 0
+    },
+    {
+      "municipality": "botkyrka",
+      "permits_today": 0,
+      "baseline": null,
+      "issues": [],
+      "issue_count": 0
+    },
+    {
+      "municipality": "eskilstuna",
+      "permits_today": 0,
+      "baseline": null,
+      "issues": [],
+      "issue_count": 0
+    },
+    {
+      "municipality": "falun",
+      "permits_today": 0,
+      "baseline": null,
+      "issues": [],
+      "issue_count": 0
+    },
+    {
+      "municipality": "gavle",
+      "permits_today": 0,
+      "baseline": null,
+      "issues": [],
+      "issue_count": 0
+    },
+    {
+      "municipality": "goteborg",
+      "permits_today": 29,
+      "baseline": null,
+      "issues": [],
+      "issue_count": 0
+    },
+    {
+      "municipality": "gotland",
+      "permits_today": 18,
+      "baseline": null,
+      "issues": [],
+      "issue_count": 0
+    },
+    {
+      "municipality": "halmstad",
+      "permits_today": 14,
+      "baseline": null,
+      "issues": [],
+      "issue_count": 0
+    },
+    {
+      "municipality": "helsingborg",
+      "permits_today": 5,
+      "baseline": null,
+      "issues": [],
+      "issue_count": 0
+    },
+    {
+      "municipality": "hoor",
+      "permits_today": 10,
+      "baseline": null,
+      "issues": [],
+      "issue_count": 0
+    },
+    {
+      "municipality": "huddinge",
+      "permits_today": 0,
+      "baseline": null,
+      "issues": [],
+      "issue_count": 0
+    },
+    {
+      "municipality": "jarfalla",
+      "permits_today": 0,
+      "baseline": null,
+      "issues": [],
+      "issue_count": 0
+    },
+    {
+      "municipality": "jonkoping",
+      "permits_today": 60,
+      "baseline": null,
+      "issues": [],
+      "issue_count": 0
+    },
+    {
+      "municipality": "kalmar",
+      "permits_today": 0,
+      "baseline": null,
+      "issues": [],
+      "issue_count": 0
+    },
+    {
+      "municipality": "karlstad",
+      "permits_today": 31,
+      "baseline": null,
+      "issues": [],
+      "issue_count": 0
+    },
+    {
+      "municipality": "kiruna",
+      "permits_today": 4,
+      "baseline": null,
+      "issues": [],
+      "issue_count": 0
+    },
+    {
+      "municipality": "kristianstad",
+      "permits_today": 0,
+      "baseline": null,
+      "issues": [],
+      "issue_count": 0
+    },
+    {
+      "municipality": "landskrona",
+      "permits_today": 28,
+      "baseline": null,
+      "issues": [],
+      "issue_count": 0
+    },
+    {
+      "municipality": "lidingo",
+      "permits_today": 19,
+      "baseline": null,
+      "issues": [],
+      "issue_count": 0
+    },
+    {
+      "municipality": "linkoping",
+      "permits_today": 0,
+      "baseline": null,
+      "issues": [],
+      "issue_count": 0
+    },
+    {
+      "municipality": "lulea",
+      "permits_today": 40,
+      "baseline": null,
+      "issues": [],
+      "issue_count": 0
+    },
+    {
+      "municipality": "lund",
+      "permits_today": 60,
+      "baseline": null,
+      "issues": [
+        {
+          "case_number": null,
+          "address": "Stångby 17:40",
+          "issues": [
+            "future date: 2026-03-20"
+          ]
+        },
+        {
+          "case_number": null,
+          "address": "Östra torn 27:2 (Odarslövsvägen 20)",
+          "issues": [
+            "future date: 2026-03-20"
+          ]
+        },
+        {
+          "case_number": null,
+          "address": "Fäladen 5 (Vångavägen 24)",
+          "issues": [
+            "future date: 2026-03-25"
+          ]
+        },
+        {
+          "case_number": null,
+          "address": "Östra torn 27:2",
+          "issues": [
+            "future date: 2026-03-26"
+          ]
+        }
+      ],
+      "issue_count": 4
+    },
+    {
+      "municipality": "malmo",
+      "permits_today": 4,
+      "baseline": null,
+      "issues": [],
+      "issue_count": 0
+    },
+    {
+      "municipality": "molndal",
+      "permits_today": 10,
+      "baseline": null,
+      "issues": [],
+      "issue_count": 0
+    },
+    {
+      "municipality": "nacka",
+      "permits_today": 17,
+      "baseline": null,
+      "issues": [],
+      "issue_count": 0
+    },
+    {
+      "municipality": "norrkoping",
+      "permits_today": 67,
+      "baseline": null,
+      "issues": [],
+      "issue_count": 0
+    },
+    {
+      "municipality": "nykoping",
+      "permits_today": 0,
+      "baseline": null,
+      "issues": [],
+      "issue_count": 0
+    },
+    {
+      "municipality": "orebro",
+      "permits_today": 26,
+      "baseline": null,
+      "issues": [],
+      "issue_count": 0
+    },
+    {
+      "municipality": "osteraker",
+      "permits_today": 0,
+      "baseline": null,
+      "issues": [],
+      "issue_count": 0
+    },
+    {
+      "municipality": "sodertalje",
+      "permits_today": 0,
+      "baseline": null,
+      "issues": [],
+      "issue_count": 0
+    },
+    {
+      "municipality": "stockholm",
+      "permits_today": 10,
+      "baseline": null,
+      "issues": [],
+      "issue_count": 0
+    },
+    {
+      "municipality": "sundsvall",
+      "permits_today": 10,
+      "baseline": null,
+      "issues": [],
+      "issue_count": 0
+    },
+    {
+      "municipality": "taby",
+      "permits_today": 0,
+      "baseline": null,
+      "issues": [],
+      "issue_count": 0
+    },
+    {
+      "municipality": "tibro",
+      "permits_today": 0,
+      "baseline": null,
+      "issues": [],
+      "issue_count": 0
+    },
+    {
+      "municipality": "trollhattan",
+      "permits_today": 0,
+      "baseline": null,
+      "issues": [],
+      "issue_count": 0
+    },
+    {
+      "municipality": "trosa",
+      "permits_today": 8,
+      "baseline": null,
+      "issues": [],
+      "issue_count": 0
+    },
+    {
+      "municipality": "tyreso",
+      "permits_today": 0,
+      "baseline": null,
+      "issues": [],
+      "issue_count": 0
+    },
+    {
+      "municipality": "umea",
+      "permits_today": 4,
+      "baseline": null,
+      "issues": [],
+      "issue_count": 0
+    },
+    {
+      "municipality": "upplands-vasby",
+      "permits_today": 0,
+      "baseline": null,
+      "issues": [],
+      "issue_count": 0
+    },
+    {
+      "municipality": "uppsala",
+      "permits_today": 3,
+      "baseline": null,
+      "issues": [],
+      "issue_count": 0
+    },
+    {
+      "municipality": "vallentuna",
+      "permits_today": 0,
+      "baseline": null,
+      "issues": [],
+      "issue_count": 0
+    },
+    {
+      "municipality": "vasteras",
+      "permits_today": 42,
+      "baseline": null,
+      "issues": [],
+      "issue_count": 0
+    }
+  ],
+  "stale_sources": [],
+  "anomalies": [],
+  "population_flags": [
+    "Botkyrka (95k inv): 0.0 ärenden/mån, förväntat >= 5",
+    "Eskilstuna (108k inv): 0.0 ärenden/mån, förväntat >= 10",
+    "Falun (60k inv): 0.0 ärenden/mån, förväntat >= 5",
+    "Gävle (103k inv): 0.0 ärenden/mån, förväntat >= 10",
+    "Huddinge (115k inv): 0.0 ärenden/mån, förväntat >= 10",
+    "Järfälla (80k inv): 0.0 ärenden/mån, förväntat >= 5",
+    "Kalmar (70k inv): 0.0 ärenden/mån, förväntat >= 5",
+    "Kristianstad (87k inv): 0.0 ärenden/mån, förväntat >= 5",
+    "Linköping (165k inv): 0.0 ärenden/mån, förväntat >= 10",
+    "Nyköping (57k inv): 0.0 ärenden/mån, förväntat >= 5",
+    "Södertälje (100k inv): 0.0 ärenden/mån, förväntat >= 5",
+    "Täby (75k inv): 0.0 ärenden/mån, förväntat >= 5",
+    "Trollhättan (59k inv): 0.0 ärenden/mån, förväntat >= 5"
+  ],
+  "cost": {
+    "extraction_usd": 0.5128648,
+    "cost_per_permit_usd": 0.0030710467065868264,
+    "qc_usd": 0
+  }
+}

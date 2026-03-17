@@ -156,12 +156,22 @@ function detectAnomalies(baselines, todayCounts) {
 }
 
 const POPULATION = {
+  // Fas A+B (kommun 1-20)
   "Malmö": 351749, "Uppsala": 233839, "Linköping": 164616, "Örebro": 155696,
   "Västerås": 154049, "Norrköping": 143171, "Helsingborg": 149280,
   "Jönköping": 144489, "Umeå": 132004, "Lund": 128036, "Halmstad": 105295,
   "Nacka": 109525, "Sundsvall": 99785, "Karlstad": 96466, "Mölndal": 69517,
   "Gotland": 60124, "Kiruna": 22915, "Höör": 17046, "Trosa": 13527,
   "Tibro": 11089,
+  // Fas C (kommun 21-50)
+  "Stockholm": 984748, "Göteborg": 594732, "Borås": 114000, "Huddinge": 115000,
+  "Eskilstuna": 108000, "Södertälje": 100000, "Gävle": 103000, "Växjö": 96000,
+  "Botkyrka": 95000, "Haninge": 95000, "Trollhättan": 59000, "Nyköping": 57000,
+  "Lidingö": 48000, "Österåker": 47000, "Kristianstad": 87000, "Solna": 85000,
+  "Järfälla": 80000, "Luleå": 78000, "Täby": 75000, "Skellefteå": 73000,
+  "Kalmar": 70000, "Varberg": 66000, "Östersund": 64000, "Norrtälje": 64000,
+  "Falun": 60000, "Landskrona": 47000, "Upplands Väsby": 47000, "Tyresö": 50000,
+  "Vallentuna": 34000,
 };
 
 function populationFlags(todayCounts, baselines) {

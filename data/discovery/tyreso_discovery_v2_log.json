@@ -1,0 +1,44 @@
+{
+  "municipality": "Tyresö",
+  "municipality_id": "tyreso",
+  "success": true,
+  "needs_manual_url": false,
+  "config": {
+    "municipality": "Tyresö",
+    "platform_guess": "custom",
+    "listing_url": "https://lexext.tyreso.se/Lex2PinBoardWasm",
+    "listing_type": "list",
+    "pagination": {
+      "has_pagination": false,
+      "type": "none",
+      "mechanism": "All items displayed on single page grouped by category",
+      "estimated_total_pages": null
+    },
+    "requires_subpages": {
+      "required": true,
+      "reason": "Varje anslag visas endast som en rubriktext i en <div class='notetext'>. Detaljer som ärendenummer, adress, beslut och datum finns troligen bakom klick på respektive post. Länkelementet är ett <a>-element utan synlig href i HTML:en, vilket tyder på Blazor WebAssembly-routing som hanterar navigation dynamiskt.",
+      "link_selector_hint": ".lex-table_body .notetext"
+    },
+    "selectors_hint": {
+      "container": ".lex-table.cust-table",
+      "item": ".lex-table_body .notetext",
+      "case_number": null,
+      "address": null,
+      "date": null,
+      "description": ".notetext.cust-notetext",
+      "category_heading": ".lex-table_heading .lex-table_cell"
+    },
+    "notes": "Sidan är byggd med Blazor WebAssembly (.NET WASM). Innehållet renderas klient-sidan och kräver att JavaScript körs fullt ut innan DOM är tillgänglig. Kungörelser och tillkännagivanden för bygglov finns under kategorin 'Kungörelser och tillkännagivanden' med poster som matchar mönstret BYGG ÅÅÅÅ-XXXXXX eller BNS ÅÅÅÅ-XXXXXX. Inga href-attribut syns i råa HTML:en på listsidan - klick måste simuleras via Blazor-interaktion. Rekommenderas att använda Playwright eller liknande headless-browser med väntetid för WASM-laddning. Filtrera på kategorin 'Kungörelser och tillkännagivanden' och matcha textsträngar innehållande 'BYGG' eller 'BNS'.",
+    "confidence": "medium",
+    "approved": false
+  },
+  "navigations_used": 2,
+  "candidate_url": "https://www.tyreso.se/arkiv/anslagstavla.html",
+  "final_url": "https://lexext.tyreso.se/Lex2PinBoardWasm",
+  "tokens": {
+    "input": 61010,
+    "output": 1188,
+    "cost_usd": 0.20085
+  },
+  "failure_reason": null
+}

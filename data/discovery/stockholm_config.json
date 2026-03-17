@@ -1,0 +1,35 @@
+{
+  "municipality": "Stockholm",
+  "platform_guess": "meetingsplus",
+  "listing_url": "https://meetingspublic.stockholm.se/digital-bulletin-board",
+  "listing_type": "table",
+  "pagination": {
+    "has_pagination": true,
+    "type": "numbered_pages",
+    "mechanism": "Numbered page links in ul.pagination. Also supports page size selector (10/20/30/100 per page). Navigate by clicking page number li.page-item > a.page-link. Estimated 25 pages at 10 items/page.",
+    "estimated_total_pages": 25
+  },
+  "requires_subpages": {
+    "required": true,
+    "reason": "Listing table shows nämnd, typ, datum och titel men inga detaljerade ärendeuppgifter. Fullständig information finns på individuella undersidor via UUID-baserade länkar.",
+    "link_selector_hint": "div.dbb-published-announcements-table-title-column a[href*='/digital-bulletin-board/announcements/']"
+  },
+  "selectors_hint": {
+    "container": "div.dbb-list div.dbb-list-items",
+    "item": "div.dbb-list-items-row",
+    "case_number": null,
+    "address": "div.dbb-published-announcements-table-title-column a",
+    "date": "div.dbb-published-announcements-table-dates-column span:first-child",
+    "description": "div.dbb-published-announcements-table-title-column a",
+    "committee": "div.dbb-published-announcements-table-committee-column a",
+    "type": "div.dbb-published-announcements-table-type-column span"
+  },
+  "relevant_types": [
+    "Underrättelse om lovbeslut SBK",
+    "Kungörelse vid samråd SBK"
+  ],
+  "filter_hint": "Filtrera på nämnd 'Stadsbyggnadsnämnden' och anslagstyper 'Underrättelse om lovbeslut SBK' samt 'Kungörelse vid samråd SBK' för att begränsa till bygglov och detaljplaner. Övriga typer (Justerat Protokoll KS/TK etc.) är ej relevanta.",
+  "notes": "MeetingsPlus-plattform (eDok Meetings, Stockholms Stad). Tabellen renderas av React vilket innebär att innehållet laddas dynamiskt - kräver JavaScript-rendering. Varje rad har en unik UUID-länk till detaljsida. Fastighetsbeteckning och ärendenummer finns ofta inbakade i titeln (ex: 'Inglasning av balkong, Ljussaxen 12, 2026-03334'). Sidstorlek kan sättas till 100/sida för effektivare insamling.",
+  "confidence": "high",
+  "approved": true
+}

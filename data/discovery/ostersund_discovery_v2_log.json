@@ -1,0 +1,16 @@
+{
+  "municipality": "Östersund",
+  "municipality_id": "ostersund",
+  "success": false,
+  "needs_manual_url": false,
+  "config": null,
+  "navigations_used": 4,
+  "candidate_url": "https://www.ostersund.se/kommun-och-politik/beslut-insyn-och-rattssakerhet/officiell-anslagstavla-plan--och-bygglagen-pbl/anslagstavla-pbl/",
+  "final_url": "https://www.ostersund.se/",
+  "tokens": {
+    "input": 27273,
+    "output": 719,
+    "cost_usd": 0.092604
+  },
+  "failure_reason": "Could not generate valid config after analysis"
+}

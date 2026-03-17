@@ -1,0 +1,16 @@
+{
+  "municipality": "Solna",
+  "municipality_id": "solna",
+  "success": false,
+  "needs_manual_url": false,
+  "config": null,
+  "navigations_used": 4,
+  "candidate_url": "https://www.solna.se/om-solna-stad/arenden-beslut-och-protokoll/anslagstavla",
+  "final_url": "https://www.solna.se/om-solna-stad/arenden-beslut-och-protokoll/anslagstavla",
+  "tokens": {
+    "input": 96987,
+    "output": 1130,
+    "cost_usd": 0.30791100000000005
+  },
+  "failure_reason": "Could not generate valid config after analysis"
+}

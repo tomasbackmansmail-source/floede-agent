@@ -1,0 +1,16 @@
+{
+  "municipality": "Norrtälje",
+  "municipality_id": "norrtalje",
+  "success": false,
+  "needs_manual_url": false,
+  "config": null,
+  "navigations_used": 5,
+  "candidate_url": "https://www.norrtalje.se/info/kommun-och-politik/handlingar-och-protokoll/anslagstavla/",
+  "final_url": "https://www.norrtalje.se/api/noticeboard/getnotices",
+  "tokens": {
+    "input": 63463,
+    "output": 819,
+    "cost_usd": 0.202674
+  },
+  "failure_reason": "Could not generate valid config after analysis"
+}

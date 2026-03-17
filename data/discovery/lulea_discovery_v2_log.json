@@ -1,0 +1,43 @@
+{
+  "municipality": "Luleå",
+  "municipality_id": "lulea",
+  "success": true,
+  "needs_manual_url": false,
+  "config": {
+    "municipality": "Luleå",
+    "platform_guess": "sitevision",
+    "listing_url": "https://www.lulea.se/kommun--politik/insyn-och-rattssakerhet/anslagstavla/kungorelser-om-bygglov.html",
+    "listing_type": "links_to_subpages",
+    "pagination": {
+      "has_pagination": false,
+      "type": "none",
+      "mechanism": "Ingen synlig paginering identifierad. Alla ärenden verkar listas på en sida via sv-archive-portlet.",
+      "estimated_total_pages": null
+    },
+    "requires_subpages": {
+      "required": true,
+      "reason": "Listsidan visar endast titel och datum per ärende. Detaljer som fastighetsbeteckning, ärendenummer och beslutsinformation finns på respektive undersida.",
+      "link_selector_hint": "a.hiq-bulletin-board-item__link"
+    },
+    "selectors_hint": {
+      "container": "ul.sv-channel",
+      "item": "li.sv-channel-item",
+      "case_number": null,
+      "address": "h2.hiq-bulletin-board-item__title",
+      "date": "p.hiq-bulletin-board-item__date",
+      "description": "p.hiq-bulletin-board-item__preamble"
+    },
+    "notes": "Sidan är byggd i SiteVision med en sv-archive-portlet som listar kungörelser. Varje post innehåller datum, titel (som ofta inkluderar fastighetsbeteckning) och kategori 'Kungörelser'. Titlarna innehåller ofta fastighetsbeteckning direkt, t.ex. 'Bergnäset 3:55', vilket kan extraheras med regex från listningssidan. Undersidor bör följas för fullständig information. URL-mönster för undersidor: /anslagstavla/kungorelser-om-bygglov/anslagstavla-bygglov/[datum-slug].html",
+    "confidence": "high",
+    "approved": false
+  },
+  "navigations_used": 2,
+  "candidate_url": "https://www.lulea.se/kommun--politik/insyn-och-rattssakerhet/anslagstavla.html",
+  "final_url": "https://www.lulea.se/kommun--politik/insyn-och-rattssakerhet/anslagstavla/kungorelser-om-bygglov.html",
+  "tokens": {
+    "input": 74059,
+    "output": 1099,
+    "cost_usd": 0.238662
+  },
+  "failure_reason": null
+}

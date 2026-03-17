@@ -1,0 +1,28 @@
+{
+  "municipality": "Österåker",
+  "platform_guess": "sitevision",
+  "listing_url": "https://www.osteraker.se/kommunpolitik/arendenochhandlingar/officiellaanslagstavlan.4.592cfecd176fc0db87832a2.html",
+  "listing_type": "unknown",
+  "pagination": {
+    "has_pagination": false,
+    "type": "none",
+    "mechanism": "Ingen paginering identifierad. Allt innehåll förväntas laddas på en sida via JavaScript.",
+    "estimated_total_pages": null
+  },
+  "requires_subpages": {
+    "required": true,
+    "reason": "Huvudinnehållet renderas dynamiskt via JavaScript i Sitevision CMS. Sidans faktiska anslag är inte synliga i den statiska HTML-källkoden. Anslag kan finnas som länkar till undersidor.",
+    "link_selector_hint": ".sol-main a, .sv-portlet-content a"
+  },
+  "selectors_hint": {
+    "container": ".sol-main, #svid94_592cfecd176fc0db87832a9",
+    "item": ".sol-notice, .sv-portlet-content, article, table tr",
+    "case_number": null,
+    "address": null,
+    "date": "time, .sol-notice-date, .date",
+    "description": ".sol-notice-title, h2, h3"
+  },
+  "notes": "Sidan använder Sitevision CMS och kräver JavaScript för att rendera innehållet. Den statiska HTML:en innehåller endast navigations- och layoutelement. Huvudinnehållet laddas dynamiskt i elementet #svid94_592cfecd176fc0db87832a9 / .sol-main. En headless browser (Playwright eller Selenium) krävs för att hämta faktiska anslag. ReadSpeaker-konfigurationen pekar på readclass=sol-main som primär innehållscontainer.",
+  "confidence": "low",
+  "approved": true
+}

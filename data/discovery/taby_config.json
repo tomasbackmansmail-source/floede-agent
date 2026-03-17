@@ -1,0 +1,28 @@
+{
+  "municipality": "Täby",
+  "platform_guess": "unknown",
+  "listing_url": "https://www.taby.se/anslagstavla/",
+  "listing_type": "unknown",
+  "pagination": {
+    "has_pagination": null,
+    "type": "unknown",
+    "mechanism": "Okänd - HTML-innehållet var dominerat av cookie-banner och trunkerades innan anslagslistans struktur blev synlig",
+    "estimated_total_pages": null
+  },
+  "requires_subpages": {
+    "required": true,
+    "reason": "Anslagstavlor av denna typ på svenska kommunsajter listar typiskt titlar och datum med länkar till detaljsidor där ärendenummer, adress och beslutsinformation finns.",
+    "link_selector_hint": "a[href*='anslag'], a[href*='bygglov'], a[href*='kungörelse']"
+  },
+  "selectors_hint": {
+    "container": ".anslag-lista, .listing, main",
+    "item": ".anslag-item, .listing-item, article",
+    "case_number": ".diarienummer, .dnr, [class*='case']",
+    "address": "[class*='address'], [class*='adress']",
+    "date": "time, .date, [class*='datum']",
+    "description": ".description, .ingress, p"
+  },
+  "notes": "Sidan använder EPiServer/Optimizely-liknande CMS på Microsoft Azure-infrastruktur. HTML-innehållet trunkerades och anslagslistans faktiska struktur kunde inte verifieras. Cookie-bannern från Cookie Information dominerade den tillgängliga HTML:en. Selektorer är uppskattade och behöver verifieras. Teknisk stack: ASP.NET, Microsoft Azure, BIG-IP F5. Rekommendation: hämta sidan med User-Agent och verifiera att anslagsinnehållet renderas server-side och inte kräver JavaScript.",
+  "confidence": "low",
+  "approved": true
+}

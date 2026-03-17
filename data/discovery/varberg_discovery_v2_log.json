@@ -1,0 +1,16 @@
+{
+  "municipality": "Varberg",
+  "municipality_id": "varberg",
+  "success": false,
+  "needs_manual_url": false,
+  "config": null,
+  "navigations_used": 5,
+  "candidate_url": "https://varberg.se/kommun-och-politik/overklaga-beslut-rattssakerhet/kommunens-anslagstavla",
+  "final_url": "https://varberg.se/bygga-bo-och-miljo/bygga-nytt-andra-eller-riva/bygglovsprocessen",
+  "tokens": {
+    "input": 105998,
+    "output": 658,
+    "cost_usd": 0.327864
+  },
+  "failure_reason": "Could not generate valid config after analysis"
+}

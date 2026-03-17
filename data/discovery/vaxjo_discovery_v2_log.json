@@ -1,0 +1,16 @@
+{
+  "municipality": "Växjö",
+  "municipality_id": "vaxjo",
+  "success": false,
+  "needs_manual_url": false,
+  "config": null,
+  "navigations_used": 4,
+  "candidate_url": "https://www.vaxjo.se/sidor/politik-och-demokrati/anslagstavla.html",
+  "final_url": "https://www.vaxjo.se/sidor/politik-och-demokrati/anslagstavla.html",
+  "tokens": {
+    "input": 159061,
+    "output": 1222,
+    "cost_usd": 0.49551300000000004
+  },
+  "failure_reason": "Could not generate valid config after analysis"
+}
