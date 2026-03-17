@@ -189,30 +189,48 @@ async function insertToSupabase(supabase, permits, extractionRun) {
       raw_html_hash: null
     };
 
-    // Use different conflict target depending on whether case_number exists
-    const conflictTarget = row.case_number
-      ? "municipality,case_number"
-      : "idx_permits_v2_dedup_fallback";
+    if (row.case_number) {
+      // Standard upsert on municipality + case_number
+      const { error } = await withRetry(
+        () => supabase
+          .from("permits_v2")
+          .upsert(row, {
+            onConflict: "municipality,case_number",
+            ignoreDuplicates: true
+          }),
+        { maxRetries: 3, baseDelay: 5000, label: `DB ${row.case_number}` }
+      );
 
-    const { error } = await withRetry(
-      () => supabase
-        .from("permits_v2")
-        .upsert(row, {
-          onConflict: conflictTarget,
-          ignoreDuplicates: true
-        }),
-      { maxRetries: 3, baseDelay: 5000, label: `DB ${row.case_number || row.address}` }
-    );
-
-    if (error) {
-      if (error.code === "23505") { // Unique violation = duplicate
-        skipped++;
+      if (error) {
+        if (error.code === "23505") { skipped++; }
+        else { errors++; console.log(`  [DB] Error inserting ${row.case_number}: ${error.message}`); }
       } else {
-        errors++;
-        console.log(`  [DB] Error inserting ${p.case_number}: ${error.message}`);
+        inserted++;
       }
     } else {
-      inserted++;
+      // For null case_number: check if duplicate exists by municipality + address + date
+      const query = supabase
+        .from("permits_v2")
+        .select("id", { count: "exact", head: true })
+        .is("case_number", null)
+        .eq("municipality", row.municipality);
+      if (row.address) query.eq("address", row.address);
+      else query.is("address", null);
+      if (row.date) query.eq("date", row.date);
+      else query.is("date", null);
+
+      const { count } = await withRetry(() => query, { maxRetries: 3, baseDelay: 5000, label: `DB check ${row.address}` });
+
+      if (count > 0) {
+        skipped++;
+      } else {
+        const { error } = await withRetry(
+          () => supabase.from("permits_v2").insert(row),
+          { maxRetries: 3, baseDelay: 5000, label: `DB insert ${row.address}` }
+        );
+        if (error) { errors++; console.log(`  [DB] Error inserting null/${row.address}: ${error.message}`); }
+        else { inserted++; }
+      }
     }
   }
 

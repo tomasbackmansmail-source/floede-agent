@@ -1,0 +1,212 @@
+{
+  "run_id": "2026-03-17T05-29-03",
+  "run_at": "2026-03-17T05:44:59.911Z",
+  "elapsed_ms": 956758,
+  "configs_count": 20,
+  "total_permits": 156,
+  "total_inserted": 111,
+  "total_cost_usd": 0.6157552,
+  "cost_per_permit_usd": 0.003947148717948718,
+  "results": [
+    {
+      "municipality": "Gotland",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0339696,
+      "html_hash": "ff816f75d86fb035"
+    },
+    {
+      "municipality": "Halmstad",
+      "status": "ok",
+      "permits": 14,
+      "inserted": 14,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0397088,
+      "html_hash": "7182bd7044a7a7ba"
+    },
+    {
+      "municipality": "Helsingborg",
+      "status": "ok",
+      "permits": 4,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 4,
+      "cost_usd": 0.0126632,
+      "html_hash": "a666ed5755c0a57d"
+    },
+    {
+      "municipality": "Höör",
+      "status": "ok",
+      "permits": 5,
+      "inserted": 5,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.033673600000000005,
+      "html_hash": "6b725abfb15bccf9"
+    },
+    {
+      "municipality": "Jönköping",
+      "status": "ok",
+      "permits": 11,
+      "inserted": 11,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.037668,
+      "html_hash": "7ce04740febf1117"
+    },
+    {
+      "municipality": "Karlstad",
+      "status": "ok",
+      "permits": 26,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 26,
+      "cost_usd": 0.045054399999999994,
+      "html_hash": "488f717d32534a3f"
+    },
+    {
+      "municipality": "Kiruna",
+      "status": "ok",
+      "permits": 4,
+      "inserted": 4,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.016846399999999997,
+      "html_hash": "64c67e672c16e9e8"
+    },
+    {
+      "municipality": "Linköping",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.009975999999999999,
+      "html_hash": "ab8f638e20c993b4"
+    },
+    {
+      "municipality": "Lund",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0181752,
+      "html_hash": "e4380a32cbb06f53"
+    },
+    {
+      "municipality": "Malmö",
+      "status": "ok",
+      "permits": 4,
+      "inserted": 4,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.022716,
+      "html_hash": "2eb5df54838c3b3e"
+    },
+    {
+      "municipality": "Mölndal",
+      "status": "ok",
+      "permits": 10,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 10,
+      "cost_usd": 0.0382464,
+      "html_hash": "90ab495a0c7965f1"
+    },
+    {
+      "municipality": "Nacka",
+      "status": "ok",
+      "permits": 6,
+      "inserted": 6,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.035612,
+      "html_hash": "5fd3db94387fc4ff"
+    },
+    {
+      "municipality": "Norrköping",
+      "status": "ok",
+      "permits": 3,
+      "inserted": 3,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.034912,
+      "html_hash": "f134cc6cee1afba0"
+    },
+    {
+      "municipality": "Örebro",
+      "status": "ok",
+      "permits": 3,
+      "inserted": 2,
+      "skipped": 0,
+      "errors": 1,
+      "cost_usd": 0.0348472,
+      "html_hash": "4e7684d50b6854ad"
+    },
+    {
+      "municipality": "Sundsvall",
+      "status": "ok",
+      "permits": 10,
+      "inserted": 9,
+      "skipped": 0,
+      "errors": 1,
+      "cost_usd": 0.0327512,
+      "html_hash": "8abcbd8aa63e4abf"
+    },
+    {
+      "municipality": "Tibro",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0337008,
+      "html_hash": "887169e57160b21b"
+    },
+    {
+      "municipality": "Trosa",
+      "status": "ok",
+      "permits": 8,
+      "inserted": 8,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0366496,
+      "html_hash": "42a724fa5bb38472"
+    },
+    {
+      "municipality": "Umeå",
+      "status": "ok",
+      "permits": 3,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 3,
+      "cost_usd": 0.034304799999999996,
+      "html_hash": "9f7ecfbe1854f0ef"
+    },
+    {
+      "municipality": "Uppsala",
+      "status": "ok",
+      "permits": 3,
+      "inserted": 3,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.011939199999999999,
+      "html_hash": "c2d7be6349a92add"
+    },
+    {
+      "municipality": "Västerås",
+      "status": "ok",
+      "permits": 42,
+      "inserted": 42,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.05234079999999999,
+      "html_hash": "9f7032c7a91cf89e"
+    }
+  ]
+}
