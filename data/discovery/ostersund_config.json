@@ -1,0 +1,28 @@
+{
+  "municipality": "Östersund",
+  "platform_guess": "sitevision",
+  "listing_url": "https://www.ostersund.se/kommun-och-politik/beslut-insyn-och-rattssakerhet/officiell-anslagstavla-plan--och-bygglagen-pbl.html",
+  "listing_type": "list",
+  "pagination": {
+    "has_pagination": false,
+    "type": "none",
+    "mechanism": null,
+    "estimated_total_pages": null
+  },
+  "requires_subpages": {
+    "required": false,
+    "reason": "Dedikerad PBL-anslagstavla visar grannhöranden och bygglov inline med fastighet och ärendetyp.",
+    "link_selector_hint": null
+  },
+  "selectors_hint": {
+    "container": "main, .lp-main",
+    "item": null,
+    "case_number": null,
+    "address": null,
+    "date": null,
+    "description": null
+  },
+  "notes": "Östersund har en separat PBL-anslagstavla för bygglovsärenden. Visar aktuella kungörelser och underrättelser (grannhörande) med fastighetsbeteckning och ärendetyp inline.",
+  "confidence": "high",
+  "approved": true
+}

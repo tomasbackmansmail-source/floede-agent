@@ -1,0 +1,28 @@
+{
+  "municipality": "Norrtälje",
+  "platform_guess": "ciceron",
+  "listing_url": "https://forum.norrtalje.se/#!/billboard",
+  "listing_type": "no_building_permits_on_board",
+  "pagination": {
+    "has_pagination": false,
+    "type": "none",
+    "mechanism": null,
+    "estimated_total_pages": null
+  },
+  "requires_subpages": {
+    "required": false,
+    "reason": "Ciceron-plattform med digital anslagstavla. Bygglov kan finnas under anslagstavla-fliken.",
+    "link_selector_hint": null
+  },
+  "selectors_hint": {
+    "container": "body",
+    "item": null,
+    "case_number": null,
+    "address": null,
+    "date": null,
+    "description": null
+  },
+  "notes": "PARKERAD: forum.norrtalje.se (Ciceron) visar bara mötes-/sammanträdeskalender. Ingen bygglovsdata på digital anslagstavla-fliken. Bygglovskungörelser kan finnas bakom inloggning eller annan URL.",
+  "confidence": "low",
+  "approved": false
+}

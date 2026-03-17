@@ -2,7 +2,7 @@
   "municipality": "Kristianstad",
   "platform_guess": "sitevision",
   "listing_url": "https://www.kristianstad.se/kommunochpolitik/overklagabeslutrattssakerhet/anslagstavla.5816.html",
-  "listing_type": "unknown",
+  "listing_type": "no_building_permits_on_board",
   "pagination": {
     "has_pagination": false,
     "type": "none",
@@ -22,7 +22,7 @@
     "date": "td, time, .datum",
     "description": "td, .beskrivning, dd"
   },
-  "notes": "Sidans faktiska innehåll är aldrig synligt i den tillhandahållna HTML – Cookiebot-dialogen dominerar hela den trunkerade HTML-källkoden. Plattformen är SiteVision (bekräftat via cookie SiteVisionLTM och JSESSIONID). Selektorer är baserade på typiskt SiteVision-mönster för anslagstavlor och måste verifieras mot verklig renderad HTML. Sidan ligger under /kommunochpolitik/overklagabeslutrattssakerhet/ vilket indikerar kommunal anslagstavla för överklagbara beslut, ej specifikt bygglov. Kan innehålla blandade ärendetyper.",
+  "notes": "PARKERAD: Bygglovsbeslut och grannhöranden visas enbart på interaktiv karta (kartor.kristianstad.se). Anslagstavlan innehåller mestadels justerade protokoll och generella kungörelser. Kart-appen kan ej scrapas med nuvarande pipeline.",
   "confidence": "low",
-  "approved": true
+  "approved": false
 }

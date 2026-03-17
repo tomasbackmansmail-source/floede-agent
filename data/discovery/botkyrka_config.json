@@ -2,7 +2,7 @@
   "municipality": "Botkyrka",
   "platform_guess": "sitevision",
   "listing_url": "https://www.botkyrka.se/kommun-och-politik/digital-anslagstavla",
-  "listing_type": "unknown",
+  "listing_type": "list",
   "pagination": {
     "has_pagination": null,
     "type": "unknown",
@@ -10,9 +10,9 @@
     "estimated_total_pages": null
   },
   "requires_subpages": {
-    "required": null,
-    "reason": "Kan ej avgöras – innehållet på anslagstavlan är ej synligt i statisk HTML. Sitevision-mallen sv-template-anslagsarkiv indikerar ett inbyggt anslagsarkiv som troligen renderar anslag dynamiskt.",
-    "link_selector_hint": ".sv-anslagsarkiv a, .sv-portlet a"
+    "required": false,
+    "reason": "Bygglov-kungörelser visas inline på anslagstavlan med titel, organ och datum. Subpages ej nödvändiga.",
+    "link_selector_hint": null
   },
   "selectors_hint": {
     "container": ".sv-anslagsarkiv, .sv-portlet-anslagsarkiv",
@@ -23,6 +23,6 @@
     "description": "td:nth-child(1) a, .sv-anslagsarkiv-title"
   },
   "notes": "Sidan använder Sitevision-mallen sv-template-anslagsarkiv vilket bekräftar att detta är rätt sida. Sidans body har style='overflow:hidden; position:fixed' vilket tyder på att JS-rendering krävs för att se innehållet. Playwright eller liknande headless-browser rekommenderas starkt. Prova även REST-endpoint: /kommun-och-politik/digital-anslagstavla.json eller Sitevisions REST-API för anslagsarkiv.",
-  "confidence": "low",
+  "confidence": "medium",
   "approved": true
 }

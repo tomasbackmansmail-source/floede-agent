@@ -110,7 +110,7 @@ async function fetchPage(page, config) {
   }
 
   // Handle subpages if required
-  let html = await page.content();
+  let html;
 
   if (config.requires_subpages && config.requires_subpages.required) {
     const linkSelector = config.requires_subpages.link_selector_hint || "a[href*='bygglov'], a[href*='kungorelse']";
@@ -144,6 +144,12 @@ async function fetchPage(page, config) {
 
     console.log(`  [Fetch] Fetched ${subpageTexts.length} subpages`);
     html = subpageTexts.join("\n\n");
+  } else {
+    // For inline pages: extract text content only (avoids navigation/header/footer noise)
+    html = await page.evaluate(() => {
+      const main = document.querySelector("main, article, .pagecontent, [role='main'], #pageContent");
+      return (main || document.body).innerText;
+    });
   }
 
   return html;

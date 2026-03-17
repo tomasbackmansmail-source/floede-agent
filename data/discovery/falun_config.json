@@ -2,7 +2,7 @@
   "municipality": "Falun",
   "platform_guess": "sitevision",
   "listing_url": "https://www.falun.se/kommun--demokrati/officiell-anslagstavla.html",
-  "listing_type": "unknown",
+  "listing_type": "links_to_subpages",
   "pagination": {
     "has_pagination": null,
     "type": "unknown",
@@ -10,9 +10,9 @@
     "estimated_total_pages": null
   },
   "requires_subpages": {
-    "required": null,
-    "reason": "Kunde ej fastställa struktur - innehållsdelen av sidan har inte varit synlig i något av scraping-försöken. Sitevision-sidor har ofta anslag presenterade som tabeller eller kanallistningar med länkar till detaljsidor.",
-    "link_selector_hint": ".sv-channel-item a, .sv-text-portlet a, table tr td a"
+    "required": true,
+    "reason": "Anslagstavlan listar Bygglov vecka X som länkar till detaljsidor med individuella bygglov.",
+    "link_selector_hint": ".sv-channel-item a, .sv-text-portlet a"
   },
   "selectors_hint": {
     "container": ".lp-main, main#content, .sv-text-portlet, .sv-channel-portlet",
@@ -23,6 +23,6 @@
     "description": "td:last-child, .sv-channel-item-title"
   },
   "notes": "VARNING: Innehållsdelen av anslagstavlan har inte kunnat scrapas - HTML trunkeras konsekvent i mobilmeny-blocket innan #content nås. Sidan är byggd i Sitevision och kräver JavaScript-rendering (Playwright/Selenium). Selektorer är uppskattningar baserade på Sitevision-standard och kan behöva justeras. Kräver manuell verifiering av faktisk DOM-struktur efter fullständig JS-rendering.",
-  "confidence": "low",
+  "confidence": "medium",
   "approved": true
 }

@@ -10,9 +10,9 @@
     "estimated_total_pages": null
   },
   "requires_subpages": {
-    "required": true,
-    "reason": "Huvudsidan visar endast 7 senaste anslag med titel, kort beskrivning och datum. Bygglov-relaterade anslag länkar till undersidor under /anslagstavla-officiell/anslag/ med fullständiga detaljer. PDF-anslag (protokoll) länkar direkt till dok.vallentuna.se och kräver PDF-parsning.",
-    "link_selector_hint": "ul.newsselectionblock__newslist li.newsselectionblock__newslist__item a.block__link[href*='/anslagstavla-officiell/anslag/']"
+    "required": false,
+    "reason": "Anslagstavlan visar bygglov inline med fastighetsbeteckning, åtgärd, beslutsdatum i titlar/beskrivningar. Subpage-selektor matchade ej - inline-extraction är säkrare.",
+    "link_selector_hint": null
   },
   "selectors_hint": {
     "container": "ul.newsselectionblock__newslist",

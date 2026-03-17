@@ -1,7 +1,7 @@
 {
   "municipality": "Nyköping",
   "platform_guess": "sitevision",
-  "listing_url": "https://www.nykoping.se/bo-bygga--miljo/bygga-nytt-andra-eller-riva/bygglovsprocessen/kungorelse-om-bygglov/",
+  "listing_url": "https://www.nykoping.se/e-tavla/",
   "listing_type": "unknown",
   "pagination": {
     "has_pagination": false,
@@ -10,9 +10,9 @@
     "estimated_total_pages": null
   },
   "requires_subpages": {
-    "required": true,
-    "reason": "HTML-trunkering innebär att sidans faktiska innehållsstruktur (ärendelista) inte är synlig i det tillhandahållna fragmentet. Sidan är troligen en statisk informationssida med inbäddad ärendelista eller länkar till enskilda kungörelser. Undersidor krävs sannolikt för detaljerad ärendeinformation.",
-    "link_selector_hint": "a[href*='kungorelse'], a[href*='bygglov'], .sv-portlet a, #pageContent a"
+    "required": false,
+    "reason": "Elektronisk anslagstavla (e-tavla) visar alla anslag. Startar med inline-extraction.",
+    "link_selector_hint": null
   },
   "selectors_hint": {
     "container": "#pageContent, .sv-portlet, main",
@@ -23,6 +23,6 @@
     "description": null
   },
   "notes": "Den tillhandahållna HTML-koden är kraftigt trunkerad och innehåller huvudsakligen navigationsmenyn. Sidans faktiska innehåll (kungörelselistan) syns inte i fragmentet. Plattformen bedöms vara SiteVision baserat på CSS-klasser (sv-portlet är vanligt i SiteVision). Rekommendation: hämta sidan på nytt med fokus på #pageContent eller main-elementet för att se ärendestrukturen. Sidan kan vara en statisk informationssida som publicerar kungörelser som text eller PDF-filer snarare än en dynamisk lista med strukturerade ärendedata.",
-  "confidence": "low",
+  "confidence": "medium",
   "approved": true
 }

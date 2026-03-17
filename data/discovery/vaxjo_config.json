@@ -1,0 +1,28 @@
+{
+  "municipality": "Växjö",
+  "platform_guess": "ciceron",
+  "listing_url": "https://vaxjo-anslagstavla.ciceron.cloud/#!/billboard/",
+  "listing_type": "no_building_permits_on_board",
+  "pagination": {
+    "has_pagination": false,
+    "type": "none",
+    "mechanism": null,
+    "estimated_total_pages": null
+  },
+  "requires_subpages": {
+    "required": false,
+    "reason": "Ciceron-plattformen visar anslag inline. Bygglovspost finns under Övriga anslag.",
+    "link_selector_hint": null
+  },
+  "selectors_hint": {
+    "container": "body",
+    "item": null,
+    "case_number": null,
+    "address": null,
+    "date": null,
+    "description": null
+  },
+  "notes": "PARKERAD: Ciceron-plattformen visar en enda samlad bygglovspost under Övriga anslag. Detaljerad info om individuella ärenden är ej åtkomlig via innerText/scraping. Kräver API-integration eller klick-simulering.",
+  "confidence": "medium",
+  "approved": false
+}

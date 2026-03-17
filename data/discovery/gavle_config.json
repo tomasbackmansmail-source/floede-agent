@@ -2,7 +2,7 @@
   "municipality": "Gävle",
   "platform_guess": "wordpress",
   "listing_url": "https://www.gavle.se/tyck-till-och-paverka-gavle/kommunal-anslagstavla/",
-  "listing_type": "unknown",
+  "listing_type": "list",
   "pagination": {
     "has_pagination": false,
     "type": "none",
@@ -28,6 +28,6 @@
     "note": "Föredragen insamlingsmetod då HTML trunkeras p.g.a. lång navigationsmeny"
   },
   "notes": "Sidan är en WordPress-sida (page-id-43846, parent-pageid-3697). HTML-utdraget innehåller enbart navigationsmenyn och sidans faktiska innehåll är inte synligt. WordPress REST API-endpoint bör användas som primär insamlingsmetod för att hämta anslagsinnehållet direkt. Innehållet är sannolikt statisk text med anslag, kungörelser och beslut utan strukturerade CSS-klasser.",
-  "confidence": "low",
+  "confidence": "medium",
   "approved": true
 }

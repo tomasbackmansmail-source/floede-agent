@@ -1,8 +1,8 @@
 {
   "municipality": "Huddinge",
   "platform_guess": "episerver",
-  "listing_url": "https://www.huddinge.se/anslagstavla/",
-  "listing_type": "unknown",
+  "listing_url": "https://www.huddinge.se/organisation-och-styrning/huddinge-kommuns-anslagstavla/anslag/",
+  "listing_type": "list",
   "pagination": {
     "has_pagination": null,
     "type": "unknown",
@@ -10,9 +10,9 @@
     "estimated_total_pages": null
   },
   "requires_subpages": {
-    "required": null,
-    "reason": "Kunde inte avgöra - sidans faktiska innehåll (main/article) var inte synligt i den trunkerade HTML:en. Endast cookie-banner renderades.",
-    "link_selector_hint": "main a, .anslag a, article a"
+    "required": true,
+    "reason": "Individuella kungörelser finns som subpages under /anslag/2026/. Listningen visar bara titlar utan adressdata.",
+    "link_selector_hint": "a[href*='/anslag/2026/kungorelse'], a[href*='/anslag/2026/andring']"
   },
   "selectors_hint": {
     "container": "main, .page-content, .anslag-container",
@@ -23,6 +23,6 @@
     "description": null
   },
   "notes": "Sidan använder Episerver/Optimizely som plattform. HTML:en var genomgående trunkerad och dominerades av cookie-banner (Cookie Information). Det faktiska anslagstavleinnehållet var inte synligt. Sidan kan kräva JavaScript-rendering för att visa innehållet. Rekommendation: scrapa med headless browser (Playwright/Puppeteer) och inspektera DOM efter cookie-banner stängts. Titeln 'Huddinge kommuns anslagstavla' bekräftar att URL:en är korrekt.",
-  "confidence": "low",
+  "confidence": "medium",
   "approved": true
 }

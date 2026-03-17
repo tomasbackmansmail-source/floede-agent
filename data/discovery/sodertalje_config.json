@@ -2,7 +2,7 @@
   "municipality": "Södertälje",
   "platform_guess": "custom",
   "listing_url": "https://www.sodertalje.se/kommun-och-politik/anslagstavla/",
-  "listing_type": "unknown",
+  "listing_type": "list",
   "pagination": {
     "has_pagination": false,
     "type": "none",
@@ -10,8 +10,8 @@
     "estimated_total_pages": null
   },
   "requires_subpages": {
-    "required": null,
-    "reason": "Kunde ej fastställas - sidans huvudinnehåll var ej synligt i den trunkerade HTML:en",
+    "required": false,
+    "reason": "Anslagstavlan visar protokoll, kungörelser och detaljplaner inline. Playwright renderar innehållet korrekt.",
     "link_selector_hint": null
   },
   "selectors_hint": {
@@ -23,6 +23,6 @@
     "description": null
   },
   "notes": "Sidan är Södertälje kommuns officiella anslagstavla på www.sodertalje.se. All tillgänglig HTML domineras av Cookiebot-dialog och inget av sidans faktiska innehåll är synligt. Webbplatsen använder Azure (ARRAffinity-cookies) vilket antyder ASP.NET-baserad plattform. Sidan refererar även till sodertalje.fri-go.se och karta.sodertalje.se som delsystem. Konfigurationen bör verifieras manuellt innan användning. Möjlig selektor att testa: main, .content, article, .anslagstavla.",
-  "confidence": "low",
+  "confidence": "medium",
   "approved": true
 }

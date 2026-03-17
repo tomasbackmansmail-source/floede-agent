@@ -1,8 +1,8 @@
 {
   "municipality": "Kalmar",
   "platform_guess": "sitevision",
-  "listing_url": "https://kalmar.se/kalmar-kommuns-anslagstavla.html",
-  "listing_type": "list",
+  "listing_url": "https://karta.kalmar.se/KommunInfo/Kungorelser",
+  "listing_type": "table",
   "pagination": {
     "has_pagination": false,
     "type": "none",
@@ -11,8 +11,8 @@
   },
   "requires_subpages": {
     "required": false,
-    "reason": "All relevant data (organ, sammanträdesdatum, justerat datum, anslaget sattes upp, anslaget tas ned, protokolllänk, förvaras hos) finns direkt på anslagstavlesidan inom respektive kollapserbar sektion. Protokolllänkar pekar till externa sidor men är ej nödvändiga för grunddata.",
-    "link_selector_hint": ".sv-text-portlet-content a[href*='protokoll'], .sv-text-portlet-content a[href*='opengov']"
+    "reason": "Kungörelsesidan visar en tabell med diarienummer, kungörelsedatum, fastighet och ärende direkt.",
+    "link_selector_hint": null
   },
   "selectors_hint": {
     "container": ".sol-collapsible-decoration .sv-decoration-content",

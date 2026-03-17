@@ -1,8 +1,8 @@
 {
   "municipality": "Järfälla",
   "platform_guess": "sitevision",
-  "listing_url": "https://www.jarfalla.se/byggaboochmiljo/byggaochbo/bygglov/kungorelse.4.2de531e0151549bd68276585.html",
-  "listing_type": "unknown",
+  "listing_url": "https://www.jarfalla.se/kommunochpolitik/politikochnamnder/anslagstavla.4.3cbad1981604650ddf392cc7.html",
+  "listing_type": "no_building_permits_on_board",
   "pagination": {
     "has_pagination": false,
     "type": "none",
@@ -10,9 +10,9 @@
     "estimated_total_pages": null
   },
   "requires_subpages": {
-    "required": true,
-    "reason": "Sidans huvudinnehåll renderas dynamiskt via JavaScript i en div med id='HTML1'. Det faktiska ärendeinnehållet är inte synligt i den statiska HTML-källkoden. Undersidor eller dynamiskt laddat innehåll krävs för att extrahera ärendedata.",
-    "link_selector_hint": "div#HTML1 a"
+    "required": false,
+    "reason": "Anslagstavlan visar alla anslag inline. Bygglov kungörs på anslagstavlan sedan 1 december 2025.",
+    "link_selector_hint": null
   },
   "selectors_hint": {
     "container": "div#HTML1",
@@ -22,7 +22,7 @@
     "date": null,
     "description": null
   },
-  "notes": "Sidan använder SiteVision som CMS. Kungörelseinnehållet renderas inuti div#HTML1 via JavaScript och är inte tillgängligt i statisk HTML. En JavaScript-kapabel scraper (t.ex. Playwright/Puppeteer) krävs för att hämta det faktiska innehållet. Sidstrukturen och selektorerna för enskilda ärenden kan inte fastställas utan att köra JavaScript. Innehållet kan vara en lista med länkar till undersidor eller ett inline-rendered dokument.",
-  "confidence": "low",
-  "approved": true
+  "notes": "PARKERAD: Anslagstavlan innehåller bara justerade protokoll och flyttade fordon. Bygglov kungörs sedan dec 2025 enligt sidan, men inga individuella bygglovskungörelser syns. Behöver djupare undersökning.",
+  "confidence": "medium",
+  "approved": false
 }

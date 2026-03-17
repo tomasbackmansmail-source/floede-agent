@@ -1,0 +1,28 @@
+{
+  "municipality": "Skellefteå",
+  "platform_guess": "custom",
+  "listing_url": "https://anslagstavla.skelleftea.se/",
+  "listing_type": "list",
+  "pagination": {
+    "has_pagination": false,
+    "type": "none",
+    "mechanism": null,
+    "estimated_total_pages": null
+  },
+  "requires_subpages": {
+    "required": false,
+    "reason": "Anslagstavlan visar kungörelser om bygglov inline med fastighet, diarienummer och ärendetyp.",
+    "link_selector_hint": null
+  },
+  "selectors_hint": {
+    "container": "body",
+    "item": null,
+    "case_number": null,
+    "address": null,
+    "date": null,
+    "description": null
+  },
+  "notes": "Separat subdomän anslagstavla.skelleftea.se. JavaScript-renderad SPA (Angular/React). Kräver Playwright. Visar Justerade protokoll och Övriga anslag (inkl bygglov) inline.",
+  "confidence": "medium",
+  "approved": true
+}

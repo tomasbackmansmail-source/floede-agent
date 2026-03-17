@@ -1,0 +1,152 @@
+{
+  "run_id": "2026-03-17T11-47-12",
+  "run_at": "2026-03-17T11:55:04.963Z",
+  "elapsed_ms": 472342,
+  "configs_count": 14,
+  "total_permits": 121,
+  "total_inserted": 121,
+  "total_cost_usd": 0.3683792000000001,
+  "cost_per_permit_usd": 0.003044456198347108,
+  "results": [
+    {
+      "municipality": "Botkyrka",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.034928,
+      "html_hash": "92d5efeb43babfd8"
+    },
+    {
+      "municipality": "Eskilstuna",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.026319999999999996,
+      "html_hash": "429c9a45a6e70c09"
+    },
+    {
+      "municipality": "Falun",
+      "status": "ok",
+      "permits": 43,
+      "inserted": 43,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0427312,
+      "html_hash": "5c1641710d856da8"
+    },
+    {
+      "municipality": "Gävle",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0318592,
+      "html_hash": "de4faab6e5de3d63"
+    },
+    {
+      "municipality": "Huddinge",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0254848,
+      "html_hash": "01b5fd225083fa32"
+    },
+    {
+      "municipality": "Järfälla",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0351976,
+      "html_hash": "0ca8f6f93b19d9ec"
+    },
+    {
+      "municipality": "Kalmar",
+      "status": "ok",
+      "permits": 28,
+      "inserted": 28,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0205184,
+      "html_hash": "c7e76e6ca35b2655"
+    },
+    {
+      "municipality": "Nyköping",
+      "status": "ok",
+      "permits": 5,
+      "inserted": 5,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0098296,
+      "html_hash": "15136fb70abeade7"
+    },
+    {
+      "municipality": "Österåker",
+      "status": "ok",
+      "permits": 26,
+      "inserted": 26,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0247008,
+      "html_hash": "95cb23d9ea6b8e7d"
+    },
+    {
+      "municipality": "Södertälje",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.028971999999999998,
+      "html_hash": "f872150b7af7c27b"
+    },
+    {
+      "municipality": "Täby",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.028169599999999996,
+      "html_hash": "6bd016fea14d6466"
+    },
+    {
+      "municipality": "Trollhättan",
+      "status": "ok",
+      "permits": 16,
+      "inserted": 16,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.039171199999999996,
+      "html_hash": "1c1e985adc144e0e"
+    },
+    {
+      "municipality": "Tyresö",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0034119999999999997,
+      "html_hash": "51247fde9a7eba2d"
+    },
+    {
+      "municipality": "Vallentuna",
+      "status": "ok",
+      "permits": 3,
+      "inserted": 3,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0170848,
+      "html_hash": "ac6e6baff2debff3"
+    }
+  ]
+}

@@ -2,7 +2,7 @@
   "municipality": "Upplands Väsby",
   "platform_guess": "sitevision",
   "listing_url": "https://www.upplandsvasby.se/kommun-och-politik/overklaga-beslut-rattssakerhet/anslagstavla-officiell",
-  "listing_type": "unknown",
+  "listing_type": "no_building_permits_on_board",
   "pagination": {
     "has_pagination": null,
     "type": "unknown",
@@ -22,7 +22,7 @@
     "date": null,
     "description": null
   },
-  "notes": "Den analyserade sidan (kungorelser-och-delgivning) är en informationssida, inte själva anslagstavlan. Den verkliga listningssidan finns på /kommun-och-politik/overklaga-beslut-rattssakerhet/anslagstavla-officiell och kunde inte hämtas. Sidan anger att man ska filtrera på nämnd 'Bygg- och miljönämnden' och anslagstyp 'Kungörelse om bygglov'. Externt e-tjänstesystem används för grannhörande (ekontoret.upplandsvasby.se/UVK-BYGG-GRAN) och beslut (ekontoret.upplandsvasby.se/UVK-BYGG-BESLG). Konfigurationen behöver kompletteras efter att anslagstavlans HTML har hämtats.",
+  "notes": "PARKERAD: Anslagstavlan har inga bygglovskungörelser. Sidan listar bara tillkännagivanden om justerade protokoll och fullmäktigesammanträden. Bygglov kungörs eventuellt via annan kanal (ekontoret.upplandsvasby.se).",
   "confidence": "low",
-  "approved": true
+  "approved": false
 }

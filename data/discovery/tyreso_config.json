@@ -10,9 +10,9 @@
     "estimated_total_pages": null
   },
   "requires_subpages": {
-    "required": true,
-    "reason": "Varje anslag visas endast som en rubriktext i en <div class='notetext'>. Detaljer som ärendenummer, adress, beslut och datum finns troligen bakom klick på respektive post. Länkelementet är ett <a>-element utan synlig href i HTML:en, vilket tyder på Blazor WebAssembly-routing som hanterar navigation dynamiskt.",
-    "link_selector_hint": ".lex-table_body .notetext"
+    "required": false,
+    "reason": "Blazor WASM renderar allt innehåll inline. Kungörelse-poster med BYGG-ärendenummer syns i innerText. Subpage-navigation via Blazor-routing fungerar ej med standard-scraping.",
+    "link_selector_hint": null
   },
   "selectors_hint": {
     "container": ".lex-table.cust-table",

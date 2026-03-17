@@ -1,0 +1,28 @@
+{
+  "municipality": "Solna",
+  "platform_guess": "custom",
+  "listing_url": "https://www.solna.se/om-solna-stad/arenden-beslut-och-protokoll/anslagstavla",
+  "listing_type": "list",
+  "pagination": {
+    "has_pagination": false,
+    "type": "none",
+    "mechanism": null,
+    "estimated_total_pages": null
+  },
+  "requires_subpages": {
+    "required": true,
+    "reason": "Anslagstavlan har expanderbara sektioner. Beviljade lov och underrättelser finns som subpage-länkar.",
+    "link_selector_hint": "a[href*='anslagstavla/']"
+  },
+  "selectors_hint": {
+    "container": "main",
+    "item": null,
+    "case_number": null,
+    "address": null,
+    "date": null,
+    "description": null
+  },
+  "notes": "Solna stads anslagstavla med expanderbara sektioner. Beviljade bygg-, mark- och rivningslov finns under egen rubrik. Byggnadsnämnden underrättar om ansökningar med avvikelser. Playwright renderar sidan fullständigt.",
+  "confidence": "medium",
+  "approved": true
+}
