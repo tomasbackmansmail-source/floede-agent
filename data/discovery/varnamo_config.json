@@ -22,7 +22,7 @@
     "date": null,
     "description": "a.normalblack span"
   },
-  "notes": "Bygglovskungörelser finns på pollux.varnamo.se/kungorelse (extern tjänst). Kan vara tom vissa veckor. Anslagstavlan kommun.varnamo.se visar bara protokoll.",
+  "notes": "PARKERAD 2026-03-17: pollux.varnamo.se/kungorelse visar 'Inga sökresultat' vecka 12 2026. Systemet fungerar (Pollux) men inga ärenden publicerade just nu. Behåll och återaktivera vid nästa körning — kan ha data andra veckor.",
   "confidence": "high",
-  "approved": true
+  "approved": false
 }

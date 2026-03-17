@@ -22,7 +22,7 @@
     "date": null,
     "description": null
   },
-  "notes": "Tierp har en Sitevision-baserad anslagstavla med sektionen 'Kungörelser, tillkännagivanden och annan information' som innehåller bygglov. URL-mönstret inkluderar '/tierp.se/' prefix. Manuellt skapad config baserad på WebFetch-analys.",
-  "confidence": "high",
-  "approved": true
+  "notes": "PARKERAD 2026-03-17: Huvudsidan är en navigeringshub med länkar till undersektioner ('Justerade protokoll', 'Kungörelser'). Ingen bygglovsdata inline. Kräver subpage-fetching till kungörelsesidan. URL-mönstret inkluderar '/tierp.se/' prefix.",
+  "confidence": "low",
+  "approved": false
 }

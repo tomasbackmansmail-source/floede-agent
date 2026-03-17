@@ -22,7 +22,7 @@
     "date": "table.sol-table-decoration td p",
     "description": "button.sol-collapsible__header span.sol-collapsible__header__text"
   },
-  "notes": "Anslagstavlan listar justerade protokoll från kommunens nämnder. Varje anslag är en collapsible-sektion med rubriken i en <button>-tagg (sol-collapsible__header__text) som innehåller nämnd och datum. Inuti varje sektion finns två tabeller: en med Anslagen/Anslagen-till-datum och en med Anslagen-av/Justerade-paragrafer. Innehållet är server-renderat och kräver inte JavaScript för att läsas. Inga bygglovsspecifika ärenden syns - detta är protokollanslag för kommunfullmäktige och nämnder.",
-  "confidence": "high",
-  "approved": true
+  "notes": "PARKERAD 2026-03-17: Sidan har en sektion 'Kungörelser – meddelande om grannehörande, lov eller förhandsbesked' men den är tom (inga ärenden listade). Sektionen 'Beviljade lov och förhandsbesked' hänvisar till Miljö- och byggförvaltningen men visar inga ärenden inline. Kräver att collapsible-sektioner expanderas eller att data publiceras. Bevaka — kan ha data framöver.",
+  "confidence": "medium",
+  "approved": false
 }

@@ -55,7 +55,7 @@
     "fallback": "regex_from_url_timestamp"
   },
   "base_url": "https://www.osby.se",
-  "notes": "Anslagstavlan är uppdelad i fyra sektioner: Anslagsbevis/Justerade protokoll, Tillkännagivanden, Aktförvaring samt Grann- och sakhörande. Samtliga poster är direktlänkar till PDF- eller DOCX-filer. Datum extraheras via regex från titeltexten (format YYYY-MM-DD). Inga undersidor krävs. Sektion för Delegationsbeslut verkade tom i denna HTML. Tillkännagivanden-sektionen innehåller även icke-filportlet-länkar (sv-text-portlet) som bör hanteras separat med selektor div#svid12_323c9f5718499796ce13ec0 a och div#svid12_3a5502c918494c2349d203fd a.",
+  "notes": "PARKERAD 2026-03-17: Rik data finns (19 bygglovsärenden: 2 grannhöranden, 15 meddelande om beslut, 2 besvärshänvisningar) men all detalj finns i PDF-filer. Titlarna (t.ex. 'Meddelande om beslut, marklov') saknar ärendenummer och adress. Kräver PDF-extraction för att få ut strukturerad data. Prioritera om PDF-stöd läggs till.",
   "confidence": "high",
-  "approved": true
+  "approved": false
 }

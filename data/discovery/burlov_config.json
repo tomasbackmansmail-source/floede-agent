@@ -24,7 +24,7 @@
     "description": "span.normal",
     "link": "a.normal[href*='anslagstavlakansli']"
   },
-  "notes": "Officiell anslagstavla för Burlövs kommun. Innehåller blandade anslag: sammanträdesprotokoll, detaljplaner och kungörelser. Relevanta poster för bygglov och detaljplaner identifieras via rubriktext innehållande t.ex. 'bygglov', 'detaljplan', 'underrättelse', 'granskning'. Datumfältet har ISO-format i datetime-attributet på time-elementet vilket är pålitligt för parsing. Plattformen är SiteVision med sv-archive-portlet som listningskomponent.",
-  "confidence": "high",
-  "approved": true
+  "notes": "PARKERAD 2026-03-17: Anslagstavlan innehåller enbart sammanträdesprotokoll (14 subpages hämtade, alla protokoll). Inga individuella bygglovsärenden publiceras här. Burlöv publicerar troligen bygglovsbeslut via Post- och Inrikes Tidningar (PoIT) istället. Behöver alternativ källa.",
+  "confidence": "low",
+  "approved": false
 }

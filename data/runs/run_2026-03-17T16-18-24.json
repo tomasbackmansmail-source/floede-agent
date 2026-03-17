@@ -1,0 +1,22 @@
+{
+  "run_id": "2026-03-17T16-18-24",
+  "run_at": "2026-03-17T16:18:48.764Z",
+  "elapsed_ms": 24101,
+  "configs_count": 1,
+  "total_permits": 21,
+  "total_inserted": 21,
+  "total_cost_usd": 0.0178552,
+  "cost_per_permit_usd": 0.0008502476190476191,
+  "results": [
+    {
+      "municipality": "Kungälv",
+      "status": "ok",
+      "permits": 21,
+      "inserted": 21,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0178552,
+      "html_hash": "96795152b9bbd9d8"
+    }
+  ]
+}

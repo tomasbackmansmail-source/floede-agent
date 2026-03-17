@@ -22,7 +22,7 @@
     "date": null,
     "description": null
   },
-  "notes": "Azure/.NET CMS. Anslagstavlan har detaljplaner, kungörelser och protokoll inline. Mestadels PDFs men text finns. Inga individuella bygglov-beslut synliga - främst detaljplaner och protokoll.",
-  "confidence": "medium",
+  "notes": "Azure/.NET CMS. Anslagstavlan har rik bygglovsdata inline: grannehöranden (med diarienummer, fastighet, beskrivning, datum) och beslut enligt PBL (med diarienummer, fastighet, typ av lov, beslutsdatum). FIXAD 2026-03-17: ändrade requires_subpages till false, var tidigare true vilket fetchade 108 PDF-länkar istället för inline-text.",
+  "confidence": "high",
   "approved": true
 }
