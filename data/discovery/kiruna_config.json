@@ -4,14 +4,14 @@
   "listing_url": "https://anslagstavla.kiruna.se/#!/billboard/",
   "listing_type": "dynamic_list",
   "pagination": {
-    "has_pagination": false,
-    "type": "none",
-    "mechanism": "Single-page application som renderar alla anslag via JavaScript. Kräver browser-rendering.",
+    "has_pagination": true,
+    "type": "load_more_button",
+    "mechanism": "div.show-more.more-results",
     "estimated_total_pages": null
   },
   "requires_subpages": {
-    "required": true,
-    "reason": "SPA-baserad anslagstavla – alla detaljer laddas dynamiskt. Fastighetsbeteckning och ärendenummer kräver troligen navigering till individuella poster.",
+    "required": false,
+    "reason": "All data (fastighetsbeteckning, ärendenummer, åtgärd) finns inline i Ciceron SPA:t under 'Övrigt anslagen information'. Inga undersidor behövs.",
     "link_selector_hint": null
   },
   "selectors_hint": {
