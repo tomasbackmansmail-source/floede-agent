@@ -1,0 +1,28 @@
+{
+  "municipality": "Mora",
+  "platform_guess": "sitevision",
+  "listing_url": "https://morakommun.se/arkiv/digital-anslagstavla.html",
+  "listing_type": "unknown",
+  "pagination": {
+    "has_pagination": false,
+    "type": "none",
+    "mechanism": "Ingen paginering observerad",
+    "estimated_total_pages": null
+  },
+  "requires_subpages": {
+    "required": true,
+    "reason": "HTML-innehållet var trunkerat och sidans faktiska anslags-innehåll ej synligt i dumpen. Baserat på Sitevision-mönster förväntas anslag visas som länkar till undersidor.",
+    "link_selector_hint": "a[href*='bygglov'], a[href*='kungorelse'], a[href*='anslag']"
+  },
+  "selectors_hint": {
+    "container": ".pagecontent, .sol-subpage-wrapper, .sv-text-portlet-content",
+    "item": "ul li, article, .sv-portlet",
+    "case_number": null,
+    "address": null,
+    "date": "time, .sv-portlet-date, .date",
+    "description": "p"
+  },
+  "notes": "Sidan är Mora kommuns officiella digitala anslagstavla på Sitevision-plattformen. HTML-dumpen var trunkerad och sidans faktiska innehåll (anslag/kungörelser) ej synligt. Selektorer är uppskattade utifrån typisk Sitevision-struktur. Kräver verifiering mot faktiskt sidinnehåll. Menyn innehåller 'Bygga, bo och miljö' > 'Bygga nytt, ändra eller riva' vilket bekräftar att bygglovsärenden hanteras av kommunen.",
+  "confidence": "low",
+  "approved": false
+}

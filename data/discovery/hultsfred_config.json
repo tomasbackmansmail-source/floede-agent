@@ -1,0 +1,28 @@
+{
+  "municipality": "Hultsfred",
+  "platform_guess": "wordpress",
+  "listing_url": "https://www.hultsfred.se/artikel/anslagstavla/",
+  "listing_type": "unknown",
+  "pagination": {
+    "has_pagination": false,
+    "type": "none",
+    "mechanism": "Sidan är en enstaka WordPress-artikel (postid-63265) utan pagination",
+    "estimated_total_pages": null
+  },
+  "requires_subpages": {
+    "required": false,
+    "reason": "Anslagstavlan är en enstaka artikel-sida. Innehållet (kungörelser/anslag) förväntas finnas direkt i article#post-63265 .entry-content, men HTML-innehållet har konsekvent trunkeras innan article-elementet nåtts i alla försök.",
+    "link_selector_hint": "article#post-63265 .entry-content a"
+  },
+  "selectors_hint": {
+    "container": "article#post-63265 .entry-content",
+    "item": "article#post-63265 .entry-content table tr, article#post-63265 .entry-content ul li, article#post-63265 .entry-content p",
+    "case_number": null,
+    "address": null,
+    "date": "article#post-63265 .entry-content td, time",
+    "description": "article#post-63265 .entry-content td, article#post-63265 .entry-content p"
+  },
+  "notes": "HTML-innehållet har trunkeras i samtliga hämtningsförsök och article-elementets innehåll har aldrig kunnat verifieras. Sidans faktiska struktur (tabell, lista, fritext) är okänd. WordPress REST API kan användas som alternativ: https://www.hultsfred.se/wp-json/wp/v2/posts/63265. Selektorer är kvalificerade gissningar baserade på WordPress-standardstruktur och måste verifieras vid faktisk scraping.",
+  "confidence": "low",
+  "approved": false
+}

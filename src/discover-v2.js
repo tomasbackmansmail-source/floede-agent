@@ -136,6 +136,18 @@ const DISCOVERY_TARGETS = [
   { id: "lysekil", name: "Lysekil", homepage: "https://www.lysekil.se" },
   { id: "osby", name: "Osby", homepage: "https://www.osby.se" },
   { id: "tierp", name: "Tierp", homepage: "https://www.tierp.se" },
+
+  // Fas G (10 nya, kommun 101-110)
+  { id: "oxelosund", name: "Oxelösund", homepage: "https://www.oxelosund.se" },
+  { id: "leksand", name: "Leksand", homepage: "https://www.leksand.se" },
+  { id: "mora", name: "Mora", homepage: "https://www.mora.se" },
+  { id: "avesta", name: "Avesta", homepage: "https://www.avesta.se" },
+  { id: "hedemora", name: "Hedemora", homepage: "https://www.hedemora.se" },
+  { id: "almhult", name: "Älmhult", homepage: "https://www.almhult.se" },
+  { id: "hultsfred", name: "Hultsfred", homepage: "https://www.hultsfred.se" },
+  { id: "vetlanda", name: "Vetlanda", homepage: "https://www.vetlanda.se" },
+  { id: "gislaved", name: "Gislaved", homepage: "https://www.gislaved.se" },
+  { id: "vaggeryd", name: "Vaggeryd", homepage: "https://www.vaggeryd.se" },
 ];
 
 // Parse --only=nacka,malmo CLI argument

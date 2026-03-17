@@ -1,0 +1,16 @@
+{
+  "municipality": "Avesta",
+  "municipality_id": "avesta",
+  "success": false,
+  "needs_manual_url": false,
+  "config": null,
+  "navigations_used": 5,
+  "candidate_url": "https://avesta.se/anslagstavla/",
+  "final_url": "https://www.avesta.se/kommun-och-politik/anslagstavla",
+  "tokens": {
+    "input": 87461,
+    "output": 653,
+    "cost_usd": 0.27217800000000003
+  },
+  "failure_reason": "Could not generate valid config after analysis"
+}

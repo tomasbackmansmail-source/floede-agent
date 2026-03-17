@@ -1,0 +1,29 @@
+{
+  "municipality": "Vetlanda",
+  "platform_guess": "sitevision",
+  "listing_url": "https://vetlanda.se/kommun-och-politik/beslut-och-styrning/anslagstavla",
+  "listing_type": "links_to_subpages",
+  "pagination": {
+    "has_pagination": false,
+    "type": "none",
+    "mechanism": "Alla poster visas direkt på sidan i kollapsibara sektioner. Ingen paginering.",
+    "estimated_total_pages": null
+  },
+  "requires_subpages": {
+    "required": true,
+    "reason": "Sektionen 'Kungörelser och underrättelser enligt plan- och bygglagen' innehåller en inbäddad iframe från https://karta-doc.nassjo.se/kungorelse/vetlanda_kungorelser_extern_webb.html som troligen listar bygglovsärenden. Detaljplaner och kungörelser länkas till undersidor. Detaljerna finns på respektive undersida eller i iframe-källan.",
+    "link_selector_hint": "#svid10_521bf6bf19aa45d58ad889 iframe.embed-iframe, #svid10_345318c718e64f0220dad16 a.font-normal"
+  },
+  "selectors_hint": {
+    "container": "#svid10_521bf6bf19aa45d58ad889",
+    "item": ".sv-channel-item",
+    "case_number": null,
+    "address": null,
+    "date": "time.font-normal",
+    "description": "span.sv-font-nyhetsrubrik"
+  },
+  "iframe_source": "https://karta-doc.nassjo.se/kungorelse/vetlanda_kungorelser_extern_webb.html",
+  "notes": "Bygglovskungörelserna hämtas via en extern iframe från karta-doc.nassjo.se (Nässjö kommuns kartportal). Denna iframe är den primära källan för PBL-kungörelser och bör skrapas separat. Detaljplaner listas under 'Kungörelser och detaljplaner' med länkar till undersidor under /bygga-bo-och-miljo/planer-och-utveckling/detaljplanering/. Sektionerna är kollapsibara (env-collapse) men innehållet finns i DOM:en. Sidans innehåll är statiskt renderat av SiteVision.",
+  "confidence": "medium",
+  "approved": true
+}

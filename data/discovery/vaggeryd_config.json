@@ -1,0 +1,28 @@
+{
+  "municipality": "Vaggeryd",
+  "platform_guess": "sitevision",
+  "listing_url": "https://www.vaggeryd.se/kommun-och-politik/beslut-insyn-och-rattssakerhet/anslagstavla-officiell.html",
+  "listing_type": "unknown",
+  "pagination": {
+    "has_pagination": false,
+    "type": "none",
+    "mechanism": "Ingen paginering observerad - anslagstavlan visar troligen alla aktuella anslag på en sida",
+    "estimated_total_pages": null
+  },
+  "requires_subpages": {
+    "required": false,
+    "reason": "Sitevision-anslagstavlor presenterar typiskt all information direkt på listsidan i tabellform. Huvudinnehållet var trunkerat i HTML-utsnittet men sidstrukturen indikerar inline-presentation.",
+    "link_selector_hint": ".sv-text-portlet-content a, #sidans-innehall a"
+  },
+  "selectors_hint": {
+    "container": "#sidans-innehall, .sv-text-portlet-content",
+    "item": "table tr, .sv-portlet-content tr",
+    "case_number": "td:nth-child(1)",
+    "address": "td:nth-child(2)",
+    "date": "td:nth-child(3), td:nth-child(4)",
+    "description": "td"
+  },
+  "notes": "Huvudinnehållet på sidan var trunkerat i alla HTML-utdrag vilket förhindrar exakt selektor-analys. Sidan är byggd på Sitevision (sv-template-standardmall). Anslagstavlan är korrekt identifierad via URL och sidtitel. Sitevision-anslagstavlor använder typiskt en HTML-tabell med kolumner för ärendetyp, ärendenummer, anslagsdatum och anslags-nedtagningsdatum. Selektorerna är uppskattningar baserade på Sitevision-standard och behöver verifieras mot renderad sida. Rekommenderar rendering med JavaScript aktiverat för att säkerställa att allt innehåll laddas.",
+  "confidence": "low",
+  "approved": false
+}

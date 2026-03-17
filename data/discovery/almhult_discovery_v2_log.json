@@ -1,0 +1,47 @@
+{
+  "municipality": "Älmhult",
+  "municipality_id": "almhult",
+  "success": true,
+  "needs_manual_url": false,
+  "config": {
+    "municipality": "Älmhult",
+    "platform_guess": "sitevision",
+    "listing_url": "https://www.almhult.se/kommunpolitik/motenhandlingarprotokoll/anslagstavla.930.html",
+    "listing_type": "list",
+    "pagination": {
+      "has_pagination": false,
+      "type": "none",
+      "mechanism": "Alla anslag visas på en och samma sida i en ol-lista. Ingen paginering förekommer.",
+      "estimated_total_pages": null
+    },
+    "requires_subpages": {
+      "required": false,
+      "reason": "All information finns inbäddad direkt i listan via expanderbara list-items. Titel, ärendetyp, instans, publiceringsperiod, fastighetsbeteckning, diarienummer, beslutsnummer och beskrivning finns i data-string-representation samt i den dolda lp-bulletin-board__list-item__content-diven för varje post.",
+      "link_selector_hint": null
+    },
+    "selectors_hint": {
+      "container": "ol.lp-bulletin-board__list",
+      "item": "li.lp-bulletin-board__list-item",
+      "case_number": "li.lp-bulletin-board__list-item[data-string-representation]",
+      "address": "li.lp-bulletin-board__list-item .lp-bulletin-board__list-item__description p.normal",
+      "date": ".lp-bulletin-board__list-item__data tbody tr time",
+      "description": ".lp-bulletin-board__list-item__description .sv-text-portlet-content",
+      "title": ".lp-bulletin-board__list-item__heading button",
+      "type_tag": "li.lp-bulletin-board__list-item__tag",
+      "instance": "data-place-value",
+      "raw_text": "data-string-representation"
+    },
+    "notes": "Alla ärendedata finns i data-string-representation-attributet på varje li-element som en lång sträng med all information i lowercase. Strukturerad data finns även i den expanderbara innehållsdiven (display:none) med tabell för instans och publiceringsperiod samt beskrivningsdiv med fastighet, diarienummer och beslutsnummer. Filtrering sker klient-side via JS. Ärendetyper: Övriga tillkännagivande, Underrättelse, Tillkännagivande av sammanträde, Tillkännagivande av protokoll. Instanser inkluderar Miljö- och byggnämnden, Kommunstyrelsen m.fl. För bygglovsrelaterade ärenden bör man filtrera på instans Miljö- och byggnämnden och typerna Underrättelse samt Övriga tillkännagivande. Eftersom innehållet är renderat i statisk HTML (trots display:none) behövs ingen JS-interaktion för att extrahera data.",
+    "confidence": "high",
+    "approved": false
+  },
+  "navigations_used": 1,
+  "candidate_url": "https://www.almhult.se/kommunpolitik/motenhandlingarprotokoll/anslagstavla.930.html",
+  "final_url": "https://www.almhult.se/kommunpolitik/motenhandlingarprotokoll/anslagstavla.930.html",
+  "tokens": {
+    "input": 41467,
+    "output": 1115,
+    "cost_usd": 0.141126
+  },
+  "failure_reason": null
+}

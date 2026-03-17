@@ -1,0 +1,43 @@
+{
+  "municipality": "Leksand",
+  "municipality_id": "leksand",
+  "success": true,
+  "needs_manual_url": false,
+  "config": {
+    "municipality": "Leksand",
+    "platform_guess": "sitevision",
+    "listing_url": "https://leksand.se/kommun-och-politik/politik-och-demokrati/digital-anslagstavla",
+    "listing_type": "unknown",
+    "pagination": {
+      "has_pagination": false,
+      "type": "none",
+      "mechanism": "Ingen paginering observerad",
+      "estimated_total_pages": null
+    },
+    "requires_subpages": {
+      "required": true,
+      "reason": "HTML-innehållet trunkerades innan huvudinnehållet kunde observeras. Baserat på SiteVision-mönster för kommunala anslagstavlor förväntas varje anslag vara en länk till en undersida med fullständiga detaljer.",
+      "link_selector_hint": "div#content a, .sv-text-portlet-content a, .sv-channel-item a"
+    },
+    "selectors_hint": {
+      "container": "div#content, .sv-text-portlet-content, .sv-portlet-content",
+      "item": ".sv-channel-item, article, li",
+      "case_number": null,
+      "address": null,
+      "date": ".sv-channel-item-date, time, .date",
+      "description": ".sv-channel-item-description, p"
+    },
+    "notes": "HTML trunkerades innan sidans huvudinnehåll visades. Sidan är byggd i SiteVision och använder samma struktur som andra svenska kommuners digitala anslagstavlor. Selektorer är baserade på typiska SiteVision-mönster och måste valideras mot faktiskt sidinnehåll vid körning. Sidan kan kräva JavaScript-rendering för att visa anslagens innehåll.",
+    "confidence": "low",
+    "approved": false
+  },
+  "navigations_used": 2,
+  "candidate_url": "https://leksand.se/kommun-och-politik/politik-och-demokrati/digital-anslagstavla",
+  "final_url": "https://leksand.se/kommun-och-politik/politik-och-demokrati/digital-anslagstavla",
+  "tokens": {
+    "input": 96854,
+    "output": 1617,
+    "cost_usd": 0.314817
+  },
+  "failure_reason": null
+}
