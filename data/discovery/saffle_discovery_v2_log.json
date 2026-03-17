@@ -1,0 +1,43 @@
+{
+  "municipality": "Säffle",
+  "municipality_id": "saffle",
+  "success": true,
+  "needs_manual_url": false,
+  "config": {
+    "municipality": "Säffle",
+    "platform_guess": "sitevision",
+    "listing_url": "https://saffle.se/kommun-och-politik/moten-handlingar-protokoll/digital-anslagstavla.html",
+    "listing_type": "list",
+    "pagination": {
+      "has_pagination": false,
+      "type": "none",
+      "mechanism": "Alla anslag visas på en och samma sida som collapsible-sektioner",
+      "estimated_total_pages": null
+    },
+    "requires_subpages": {
+      "required": false,
+      "reason": "All relevant data (anslagsdatum, anslagen-till-datum, anslagen-av, justerade paragrafer, nämnd och datum) finns direkt i kollapsibla sektioner på listsidan. Inga undersidor behövs.",
+      "link_selector_hint": null
+    },
+    "selectors_hint": {
+      "container": ".sv-vertical.sv-layout.sol-collapsible",
+      "item": ".sv-vertical.sv-layout.sol-collapsible",
+      "case_number": null,
+      "address": null,
+      "date": "table.sol-table-decoration td p",
+      "description": "button.sol-collapsible__header span.sol-collapsible__header__text"
+    },
+    "notes": "Anslagstavlan listar justerade protokoll från kommunens nämnder. Varje anslag är en collapsible-sektion med rubriken i en <button>-tagg (sol-collapsible__header__text) som innehåller nämnd och datum. Inuti varje sektion finns två tabeller: en med Anslagen/Anslagen-till-datum och en med Anslagen-av/Justerade-paragrafer. Innehållet är server-renderat och kräver inte JavaScript för att läsas. Inga bygglovsspecifika ärenden syns - detta är protokollanslag för kommunfullmäktige och nämnder.",
+    "confidence": "high",
+    "approved": false
+  },
+  "navigations_used": 1,
+  "candidate_url": "https://saffle.se/kommun-och-politik/moten-handlingar-protokoll/digital-anslagstavla.html",
+  "final_url": "https://saffle.se/kommun-och-politik/moten-handlingar-protokoll/digital-anslagstavla.html",
+  "tokens": {
+    "input": 50263,
+    "output": 1465,
+    "cost_usd": 0.172764
+  },
+  "failure_reason": null
+}

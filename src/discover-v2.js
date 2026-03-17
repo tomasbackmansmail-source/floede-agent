@@ -112,6 +112,30 @@ const DISCOVERY_TARGETS = [
   { id: "staffanstorp", name: "Staffanstorp", homepage: "https://www.staffanstorp.se" },
   { id: "habo", name: "Håbo", homepage: "https://www.habo.se" },
   { id: "kumla", name: "Kumla", homepage: "https://www.kumla.se" },
+
+  // Fas E (10 nya, kommun 81-90)
+  { id: "kungalv", name: "Kungälv", homepage: "https://www.kungalv.se" },
+  { id: "sundbyberg", name: "Sundbyberg", homepage: "https://www.sundbyberg.se" },
+  { id: "hassleholm", name: "Hässleholm", homepage: "https://www.hassleholm.se" },
+  { id: "ornskoldsvik", name: "Örnsköldsvik", homepage: "https://www.ornskoldsvik.se" },
+  { id: "falkenberg", name: "Falkenberg", homepage: "https://www.falkenberg.se" },
+  { id: "lidkoping", name: "Lidköping", homepage: "https://www.lidkoping.se" },
+  { id: "burlov", name: "Burlöv", homepage: "https://www.burlov.se" },
+  { id: "svedala", name: "Svedala", homepage: "https://www.svedala.se" },
+  { id: "eslov", name: "Eslöv", homepage: "https://www.eslov.se" },
+  { id: "laholm", name: "Laholm", homepage: "https://www.laholm.se" },
+
+  // Fas F (10 nya, kommun 91-100)
+  { id: "mariestad", name: "Mariestad", homepage: "https://www.mariestad.se" },
+  { id: "oskarshamn", name: "Oskarshamn", homepage: "https://www.oskarshamn.se" },
+  { id: "sala", name: "Sala", homepage: "https://www.sala.se" },
+  { id: "koping", name: "Köping", homepage: "https://www.koping.se" },
+  { id: "arvika", name: "Arvika", homepage: "https://www.arvika.se" },
+  { id: "tranas", name: "Tranås", homepage: "https://www.tranas.se" },
+  { id: "saffle", name: "Säffle", homepage: "https://www.saffle.se" },
+  { id: "lysekil", name: "Lysekil", homepage: "https://www.lysekil.se" },
+  { id: "osby", name: "Osby", homepage: "https://www.osby.se" },
+  { id: "tierp", name: "Tierp", homepage: "https://www.tierp.se" },
 ];
 
 // Parse --only=nacka,malmo CLI argument

@@ -1,0 +1,28 @@
+{
+  "municipality": "Lysekil",
+  "platform_guess": "sitevision",
+  "listing_url": "https://www.lysekil.se/kommun-och-politik/overklaga-beslut-rattssakerhet/kommunal-anslagstavla",
+  "listing_type": "links_to_subpages",
+  "pagination": {
+    "has_pagination": false,
+    "type": "none",
+    "mechanism": "Alla poster visas på en sida utan paginering. Listan verkar visa samtliga aktuella ärenden direkt.",
+    "estimated_total_pages": null
+  },
+  "requires_subpages": {
+    "required": true,
+    "reason": "Listsidan visar endast datum och titel per post. Ärendedetaljer (fastighetsbeteckning, ärendenummer, beslutstyp etc.) finns på respektive undersida.",
+    "link_selector_hint": "#svid12_56b6801719b0ef588839fc00 li.sv-channel-item a.normal"
+  },
+  "selectors_hint": {
+    "container": "#svid12_56b6801719b0ef588839fc00 ul.sv-channel",
+    "item": "#svid12_56b6801719b0ef588839fc00 li.sv-channel-item",
+    "case_number": null,
+    "address": "span.normal:nth-of-type(2)",
+    "date": "time.normal",
+    "description": "span.normal:nth-of-type(2)"
+  },
+  "notes": "Sidan har två separata listsektioner: 'Tillkännagivanden och kungörelser' (#svid12_d2882701845994adaf98eef) med allmänna protokoll/kallelser, samt 'Kungörelser enligt plan- och bygglagen' (#svid12_56b6801719b0ef588839fc00) som är relevant för bygglov. Endast den senare sektionen bör skrapas för bygglovsändamål. Titlar innehåller fastighetsbeteckning direkt i rubriken (ex. 'Kungörelse enligt plan- och bygglagen, Sivik 1:20' och 'Underrättelse om grannehörande, Tuntorp 15:1'). Det finns även en extern anslagstavla på https://lysekil-anslagstavla.ciceron.cloud som kan innehålla kompletterande information. Datum är maskinläsbart via datetime-attributet på time-elementet.",
+  "confidence": "high",
+  "approved": true
+}

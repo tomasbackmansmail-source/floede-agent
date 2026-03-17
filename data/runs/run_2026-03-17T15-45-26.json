@@ -1,0 +1,102 @@
+{
+  "run_id": "2026-03-17T15-45-26",
+  "run_at": "2026-03-17T15:50:21.004Z",
+  "elapsed_ms": 294879,
+  "configs_count": 9,
+  "total_permits": 44,
+  "total_inserted": 12,
+  "total_cost_usd": 0.07695039999999999,
+  "cost_per_permit_usd": 0.001748872727272727,
+  "results": [
+    {
+      "municipality": "Burlöv",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0075848,
+      "html_hash": "7d96068c674e2a4a"
+    },
+    {
+      "municipality": "Haninge",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.001872,
+      "html_hash": "9224379017951304"
+    },
+    {
+      "municipality": "Kungälv",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0294008,
+      "html_hash": "f888dfa5c2fdbdd5"
+    },
+    {
+      "municipality": "Laholm",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0041888,
+      "html_hash": "e284f3339ba16e9f"
+    },
+    {
+      "municipality": "Lidköping",
+      "status": "ok",
+      "permits": 21,
+      "inserted": 0,
+      "skipped": 21,
+      "errors": 0,
+      "cost_usd": 0.0117056,
+      "html_hash": "b1f355482935c581"
+    },
+    {
+      "municipality": "Örnsköldsvik",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0021663999999999997,
+      "html_hash": "0725a7ca7180d110"
+    },
+    {
+      "municipality": "Sundbyberg",
+      "status": "ok",
+      "permits": 12,
+      "inserted": 12,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.010531200000000001,
+      "html_hash": "8a120704f7016b74"
+    },
+    {
+      "municipality": "Svedala",
+      "status": "ok",
+      "permits": 11,
+      "inserted": 0,
+      "skipped": 11,
+      "errors": 0,
+      "cost_usd": 0.007632799999999999,
+      "html_hash": "b918a11212a2fc9a"
+    },
+    {
+      "municipality": "Värnamo",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0018679999999999999,
+      "html_hash": "ae70f16a5e66c5aa"
+    }
+  ]
+}

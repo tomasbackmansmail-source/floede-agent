@@ -1,0 +1,76 @@
+{
+  "municipality": "Osby",
+  "municipality_id": "osby",
+  "success": true,
+  "needs_manual_url": false,
+  "config": {
+    "municipality": "Osby",
+    "platform_guess": "sitevision",
+    "listing_url": "https://www.osby.se/diverse/anslagstavla.html",
+    "listing_type": "pdf_list",
+    "pagination": {
+      "has_pagination": false,
+      "type": "none",
+      "mechanism": "Alla poster visas på en och samma sida utan paginering",
+      "estimated_total_pages": null
+    },
+    "requires_subpages": {
+      "required": false,
+      "reason": "Alla dokument är direktlänkar till PDF-filer. Ingen undersida behövs – titel och URL finns direkt i listningen.",
+      "link_selector_hint": "div.sv-file-portlet-file a"
+    },
+    "selectors_hint": {
+      "container_anslagsbevis": "div#svid12_675cb673160e4dcdcf268 div.sv-file-portlet ul",
+      "container_tillkannagivanden": "div#svid12_675cb673160e4dcdcf256 div.sv-file-portlet ul",
+      "container_aktforvaring": "div#svid12_2f64973519499bf795a5bf69 div.sv-file-portlet ul",
+      "container_grannsakhorande": "div#svid12_2e6f30a619a6c4f18b461f27 div.sv-file-portlet ul",
+      "item": "li",
+      "title": "div.sv-file-portlet-file a",
+      "url": "div.sv-file-portlet-file a[href]",
+      "case_number": null,
+      "address": null,
+      "date": null,
+      "description": null
+    },
+    "sections": [
+      {
+        "name": "Anslagsbevis / Justerade protokoll",
+        "anchor": "h-AnslagsbevisJusteradeprotokoll",
+        "container_selector": "div#svid12_675cb673160e4dcdcf268 div.sv-file-portlet ul"
+      },
+      {
+        "name": "Tillkännagivanden",
+        "anchor": "h-Tillkannagivanden",
+        "container_selector": "div#svid12_675cb673160e4dcdcf256 div.sv-file-portlet ul"
+      },
+      {
+        "name": "Aktförvaring",
+        "anchor": "h-Aktforvaring",
+        "container_selector": "div#svid12_2f64973519499bf795a5bf69 div.sv-file-portlet ul"
+      },
+      {
+        "name": "Grann- och sakhörande",
+        "anchor": "h-Grannochsakhorande",
+        "container_selector": "div#svid12_2e6f30a619a6c4f18b461f27 div.sv-file-portlet ul"
+      }
+    ],
+    "date_extraction": {
+      "strategy": "regex_from_title",
+      "pattern": "\\d{4}-\\d{2}-\\d{2}",
+      "fallback": "regex_from_url_timestamp"
+    },
+    "base_url": "https://www.osby.se",
+    "notes": "Anslagstavlan är uppdelad i fyra sektioner: Anslagsbevis/Justerade protokoll, Tillkännagivanden, Aktförvaring samt Grann- och sakhörande. Samtliga poster är direktlänkar till PDF- eller DOCX-filer. Datum extraheras via regex från titeltexten (format YYYY-MM-DD). Inga undersidor krävs. Sektion för Delegationsbeslut verkade tom i denna HTML. Tillkännagivanden-sektionen innehåller även icke-filportlet-länkar (sv-text-portlet) som bör hanteras separat med selektor div#svid12_323c9f5718499796ce13ec0 a och div#svid12_3a5502c918494c2349d203fd a.",
+    "confidence": "high",
+    "approved": false
+  },
+  "navigations_used": 1,
+  "candidate_url": "https://www.osby.se/diverse/anslagstavla.html",
+  "final_url": "https://www.osby.se/diverse/anslagstavla.html",
+  "tokens": {
+    "input": 54129,
+    "output": 1922,
+    "cost_usd": 0.191217
+  },
+  "failure_reason": null
+}

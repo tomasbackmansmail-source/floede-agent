@@ -1,0 +1,38 @@
+{
+  "municipality": "Tranås",
+  "platform_guess": "meetingsplus",
+  "listing_url": "https://tranaskommun.ondemand.formpipe.com/digital-bulletin-board",
+  "listing_type": "table",
+  "pagination": {
+    "has_pagination": true,
+    "type": "numbered_pages",
+    "mechanism": "Klickbara sidnummer i pagination-lista, 4 sidor totalt synliga. Sidan visar 10 poster per sida som standard, kan ökas till 100 via dropdown.",
+    "estimated_total_pages": 4
+  },
+  "requires_subpages": {
+    "required": true,
+    "reason": "Listsidan visar typ, datum och titel men inga detaljer om ärendenummer, fastighet eller beslutsmotivering. Fullständig information finns på respektive undersida via UUID-baserad länk.",
+    "link_selector_hint": "div.dbb-published-announcements-table-title-column a.accessible-table-cell[href*='/digital-bulletin-board/announcements/']"
+  },
+  "selectors_hint": {
+    "container": "div.dbb-list div.dbb-list-items",
+    "item": "div.dbb-list-items-row",
+    "case_number": null,
+    "address": "div.dbb-published-announcements-table-title-column a.accessible-table-cell",
+    "date": "div.dbb-published-announcements-table-dates-column span:first-child",
+    "date_end": "div.dbb-published-announcements-table-dates-column span:last-child",
+    "type": "div.dbb-published-announcements-table-type-column span",
+    "description": null
+  },
+  "filter_hint": {
+    "relevant_types": [
+      "Kungörelse om bygglov enligt plan- och bygglagen",
+      "Kungörelse om marklov enligt plan- och bygglagen",
+      "Kungörelse om rivningslov enligt plan- och bygglagen"
+    ],
+    "filter_method": "Filtrera på typkolumnen i tabellen eller använd dropdown-filtret 'Anslagstyper' på sidan"
+  },
+  "notes": "Sidan är byggd med MeetingPlus/Formpipe-plattformen och renderas med React. Paginering och filtrering sker troligen klientside via JavaScript. Bas-URL för undersidor är https://tranaskommun.ondemand.formpipe.com/digital-bulletin-board/announcements/<uuid>. Titeln innehåller vanligtvis fastighetsbeteckning och åtgärdstyp. Nämnd/styrelse-kolumnen är tom för bygglovsärenden. Rekommenderas att sätta page_size till 100 via dropdown för att minimera antal requests.",
+  "confidence": "high",
+  "approved": true
+}

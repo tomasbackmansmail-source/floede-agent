@@ -1,0 +1,82 @@
+{
+  "run_id": "2026-03-17T15-43-44",
+  "run_at": "2026-03-17T15:47:39.404Z",
+  "elapsed_ms": 234600,
+  "configs_count": 7,
+  "total_permits": 51,
+  "total_inserted": 51,
+  "total_cost_usd": 0.0557128,
+  "cost_per_permit_usd": 0.001092407843137255,
+  "results": [
+    {
+      "municipality": "Arvika",
+      "status": "ok",
+      "permits": 10,
+      "inserted": 10,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0077800000000000005,
+      "html_hash": "88aeb666f3f7b346"
+    },
+    {
+      "municipality": "Lysekil",
+      "status": "ok",
+      "permits": 16,
+      "inserted": 16,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0142896,
+      "html_hash": "fd5d8475a6d4e489"
+    },
+    {
+      "municipality": "Osby",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0033759999999999997,
+      "html_hash": "cd21c66fe09005f2"
+    },
+    {
+      "municipality": "Oskarshamn",
+      "status": "ok",
+      "permits": 11,
+      "inserted": 11,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0099128,
+      "html_hash": "b237a0e29948eda8"
+    },
+    {
+      "municipality": "Säffle",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0028439999999999997,
+      "html_hash": "e809a467c60e302b"
+    },
+    {
+      "municipality": "Sala",
+      "status": "ok",
+      "permits": 4,
+      "inserted": 4,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0112768,
+      "html_hash": "c2afecdcb1f565a2"
+    },
+    {
+      "municipality": "Tranås",
+      "status": "ok",
+      "permits": 10,
+      "inserted": 10,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.006233599999999999,
+      "html_hash": "a413a5d6c77f205b"
+    }
+  ]
+}
