@@ -35,11 +35,11 @@ async function main() {
       .select("id", { count: "exact", head: true })
       .ilike("municipality", `%${muni}%`);
 
-    // Count legacy permits
+    // Count legacy permits (legacy table uses "kommun" not "municipality")
     const { count: legacyCount, error: legacyErr } = await supabase
       .from("permits")
       .select("id", { count: "exact", head: true })
-      .ilike("municipality", `%${muni}%`);
+      .ilike("kommun", `%${muni}%`);
 
     const agent = agentErr ? 0 : (agentCount || 0);
     const legacy = legacyErr ? 0 : (legacyCount || 0);
