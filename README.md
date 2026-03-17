@@ -55,6 +55,29 @@ Output per permit:
 
 Fields that cannot be extracted = null. Never guess.
 
+## Deploy to Railway (cron job)
+
+The pipeline runs daily at 14:00 CET (13:00 UTC) via Railway cron.
+
+```bash
+# 1. Install Railway CLI and log in
+railway login
+
+# 2. Create a NEW project (do not use the production project)
+railway init
+
+# 3. Deploy
+railway up
+
+# 4. Set environment variables in Railway dashboard:
+#    - ANTHROPIC_API_KEY
+#    - SUPABASE_URL
+#    - SUPABASE_SERVICE_KEY
+#    - COST_BUDGET_MONTHLY_USD (optional, default 150)
+```
+
+The cron schedule is configured in `railway.toml`. No credentials are baked into the Docker image.
+
 ## Budget
 
 Max $150/month LLM calls during Phase A.
