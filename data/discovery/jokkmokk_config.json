@@ -1,0 +1,28 @@
+{
+  "municipality": "Jokkmokk",
+  "platform_guess": "sitevision",
+  "listing_url": "https://www.jokkmokk.se/kommun-och-politik/anslagstavla/",
+  "listing_type": "unknown",
+  "pagination": {
+    "has_pagination": false,
+    "type": "none",
+    "mechanism": "Ingen paginering observerad",
+    "estimated_total_pages": null
+  },
+  "requires_subpages": {
+    "required": true,
+    "reason": "Huvudinnehållet på anslagstavlan kunde inte extraheras ur den tillgängliga HTML-koden då sidan trunkerades innan main-elementet. Sannolikt visas ärenden som länkar till undersidor, baserat på SiteVision-plattformens typiska struktur.",
+    "link_selector_hint": "main a, #main a, .page-content a"
+  },
+  "selectors_hint": {
+    "container": "#main",
+    "item": ".content-block, .notice-item, .anslag-item",
+    "case_number": null,
+    "address": null,
+    "date": ".date, time",
+    "description": null
+  },
+  "notes": "HTML trunkerades konsekvent före main-elementet i båda hämtningsförsöken, vilket omöjliggjorde analys av faktiskt innehåll. Konfigurationen är baserad på SiteVision-plattformens typiska anslagstavlestruktur. Behöver verifieras manuellt. Sidan är Jokkmokk kommuns officiella digitala anslagstavla enligt URL och sidtitel.",
+  "confidence": "low",
+  "approved": false
+}

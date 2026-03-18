@@ -1,0 +1,28 @@
+{
+  "municipality": "Karlshamn",
+  "platform_guess": "wordpress",
+  "listing_url": "https://www.karlshamn.se/anslagstavla/",
+  "listing_type": "unknown",
+  "pagination": {
+    "has_pagination": false,
+    "type": "none",
+    "mechanism": "Ingen pagination observerad",
+    "estimated_total_pages": null
+  },
+  "requires_subpages": {
+    "required": true,
+    "reason": "Sidans faktiska innehåll har inte kunnat observeras då Cookiebot-dialogen dominerar hela HTML-outputen. Sannolikt finns anslag som länkar till undersidor baserat på WordPress-strukturen.",
+    "link_selector_hint": "main a, .entry-content a, article a"
+  },
+  "selectors_hint": {
+    "container": "main, .entry-content, article",
+    "item": "table tr, ul li, .wp-block-group",
+    "case_number": null,
+    "address": null,
+    "date": "td, time",
+    "description": null
+  },
+  "notes": "Sidan använder WordPress med template_fullbredd (page-id-10823). Cookiebot-dialogen blockerar synlighet av sidans faktiska innehåll i alla hämtningsförsök. Scraper MÅSTE skicka Cookie-header: CookieConsent={stamp:'na',necessary:true,preferences:true,statistics:true,marketing:true,ver:1} för att kringgå dialogen och nå <main>-innehållet. Selektorer är spekulativa och måste valideras när innehållet väl är tillgängligt.",
+  "confidence": "low",
+  "approved": false
+}

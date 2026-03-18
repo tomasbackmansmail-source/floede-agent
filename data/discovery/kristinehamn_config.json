@@ -1,0 +1,28 @@
+{
+  "municipality": "Kristinehamn",
+  "platform_guess": "custom",
+  "listing_url": "https://www.kristinehamn.se/kommun-och-politik/anslagstavla/",
+  "listing_type": "unknown",
+  "pagination": {
+    "has_pagination": false,
+    "type": "none",
+    "mechanism": "Ingen paginering observerad",
+    "estimated_total_pages": null
+  },
+  "requires_subpages": {
+    "required": true,
+    "reason": "Sidans innehållsdel (main/content) var trunkerad i all HTML som mottagits. Navigationsmenyn dominerar hela HTML-svaret. Det går inte att fastställa exakt struktur på anslagens listning eller om bygglov/kungörelser finns direkt på sidan eller på undersidor.",
+    "link_selector_hint": "a[href*='anslagstavla'], a[href*='bygglov'], a[href*='kungörelse'], a[href*='kungorelse']"
+  },
+  "selectors_hint": {
+    "container": "main, #content, .main-content, article",
+    "item": null,
+    "case_number": null,
+    "address": null,
+    "date": null,
+    "description": null
+  },
+  "notes": "HTML-innehållet har konsekvent trunkerats i alla navigeringsförsök, vilket gör det omöjligt att se sidans faktiska innehåll (brödtext/ärendelista). Endast navigationsmenyn är synlig. Rekommendation: Hämta sidan med en HTTP-klient som returnerar fullständig HTML inklusive main-elementet. Det är möjligt att bygglov/kungörelser publiceras som undersidor under /kommun-och-politik/anslagstavla/ liknande mönstret som syns i menyn för övriga sektioner på webbplatsen.",
+  "confidence": "low",
+  "approved": false
+}

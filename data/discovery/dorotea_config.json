@@ -1,0 +1,28 @@
+{
+  "municipality": "Dorotea",
+  "platform_guess": "sitevision",
+  "listing_url": "https://www.dorotea.se/anslagstavla/",
+  "listing_type": "unknown",
+  "pagination": {
+    "has_pagination": false,
+    "type": "none",
+    "mechanism": "Ingen paginering observerad",
+    "estimated_total_pages": null
+  },
+  "requires_subpages": {
+    "required": true,
+    "reason": "Huvudinnehållet i <main> var aldrig synligt i den trunkerade HTML-utskriften. Body-klassen 'page noticeboard' och URL /anslagstavla/ bekräftar rätt sida, men anslagens faktiska struktur och detaljer är okända. Undersidor krävs troligen för fullständiga ärendeuppgifter.",
+    "link_selector_hint": "main a[href*='anslagstavla'], .noticeboard a, .notice a"
+  },
+  "selectors_hint": {
+    "container": ".noticeboard, .notice-list, main",
+    "item": ".notice, .noticeboard__item, li",
+    "case_number": null,
+    "address": null,
+    "date": "time, .date, .notice__date",
+    "description": ".notice__description, .notice__title, p"
+  },
+  "notes": "HTML trunkerades konsekvent före <main>-innehållet i alla tre navigeringsförsök. Konfigurationen är baserad på body-klassen 'page noticeboard' och URL-mönstret, inte på faktiskt observerat anslags-innehåll. Plattformen liknar SiteVision baserat på HTML-struktur och CSS-klassnamn. Selektorer måste verifieras mot renderad sida innan produktionssättning. Rekommendation: kör scrapern med headless browser för att fånga dynamiskt renderat innehåll.",
+  "confidence": "low",
+  "approved": false
+}

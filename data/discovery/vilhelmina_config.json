@@ -1,0 +1,28 @@
+{
+  "municipality": "Vilhelmina",
+  "platform_guess": "custom",
+  "listing_url": "https://www.vilhelmina.se/anslagstavla/",
+  "listing_type": "list",
+  "pagination": {
+    "has_pagination": true,
+    "type": "numbered_pages",
+    "mechanism": "Query parameter ?page=N, t.ex. https://www.vilhelmina.se/anslagstavla/?page=2",
+    "estimated_total_pages": 2
+  },
+  "requires_subpages": {
+    "required": true,
+    "reason": "Listsidan visar titel och datum men detaljer om ärendet finns på undersidor via länk med ?k=ID (kungörelser) eller ?p=ID (protokoll).",
+    "link_selector_hint": "ul.list.news li.block a[href*='?k=']"
+  },
+  "selectors_hint": {
+    "container": "div.block.teaser.text ul.list.news",
+    "item": "ul.list.news li.block",
+    "case_number": null,
+    "address": null,
+    "date": "li.block span.date",
+    "description": "li.block a"
+  },
+  "notes": "Sidan har två sektioner: 'Justerade protokoll' (flex-table, länkparameter ?p=ID) och 'Tillkännagivanden/kungörelser' (ul.list.news, länkparameter ?k=ID). Endast kungörelsesektionen är relevant för bygglov/detaljplaner. Titlarna innehåller ärendetyp och fastighetsbeteckning direkt i texten, t.ex. 'Kungörelse om beviljat bygglov för ... på fastigheten NORDANSJÖ 1:14'. Paginering gäller troligen enbart kungörelselistan. Filtrera på nyckelord som 'bygglov', 'rivningslov', 'förhandsbesked', 'detaljplan' för relevanta ärenden.",
+  "confidence": "high",
+  "approved": false
+}

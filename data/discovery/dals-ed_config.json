@@ -1,0 +1,28 @@
+{
+  "municipality": "Dals-Ed",
+  "platform_guess": "custom",
+  "listing_url": "https://www.dalsed.se/kommun-och-politik/anslagstavla/",
+  "listing_type": "pdf_list",
+  "pagination": {
+    "has_pagination": false,
+    "type": "none",
+    "mechanism": "Alla dokument listas direkt på sidan i kollapsade accordion-sektioner. Ingen paginering förekommer.",
+    "estimated_total_pages": null
+  },
+  "requires_subpages": {
+    "required": false,
+    "reason": "Alla bygglov- och PBL-relaterade dokument är direktlänkar till PDF-filer. Inga undersidor behövs – titel och PDF-URL finns direkt i HTML:en på anslagstavlan.",
+    "link_selector_hint": "div.collapse p a[href$='.pdf']"
+  },
+  "selectors_hint": {
+    "container": "div.row.border.p-2.rounded-2.mx-0",
+    "item": "div.collapse.p-2 p",
+    "case_number": null,
+    "address": null,
+    "date": null,
+    "description": "div.collapse.p-2 p a"
+  },
+  "notes": "Anslagstavlan är uppbyggd med Bootstrap accordion-komponenter (collapse). Relevanta sektioner för bygglov är: 'Kungörelser, samråd etc.' som innehåller undersektionerna 'Meddelande grannehörande enligt 9 kap 96 § 2p. PBL' och 'Meddelande - Beslut om lov/förhandsbesked enligt 9 kap 109 § PBL'. Även 'Anslag byggnadsnämnden' och 'Kallelser byggnadsnämnden' under sektionen Byggnadsnämnden är relevanta. Dokumentlänkarna är relativa till https://www.dalsed.se. Titel på länken innehåller fastighetsbeteckning och ärendetyp (t.ex. 'Bygglov Hedmarken 1:8'). Datum finns inte explicit i HTML men framgår ofta av filnamnet eller länktexten. OBS: Sidan kräver att JavaScript renderar collapse-sektionerna – en headless browser eller direkt HTML-hämtning räcker dock då innehållet finns i källkoden.",
+  "confidence": "high",
+  "approved": false
+}

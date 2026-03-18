@@ -1,0 +1,28 @@
+{
+  "municipality": "Lycksele",
+  "platform_guess": "netpublicator",
+  "listing_url": "https://www.lycksele.se/kommun/kommun-och-politik/anslagstavla/bygglov/",
+  "listing_type": "links_to_subpages",
+  "pagination": {
+    "has_pagination": false,
+    "type": "none",
+    "mechanism": "Ingen paginering synlig. Sidan visar en länk 'Visa fler inkomna bygglov' som pekar tillbaka till anslagstavlan, ej till fler sidor.",
+    "estimated_total_pages": null
+  },
+  "requires_subpages": {
+    "required": true,
+    "reason": "Listningssidan visar endast titel och datum. Ärendedetaljer såsom fastighetsbeteckning, adress, ärendenummer och beslut finns på individuella undersidor.",
+    "link_selector_hint": "article h2.newsHeadingSmall a"
+  },
+  "selectors_hint": {
+    "container": "div.blockcontainer-pagelistblock",
+    "item": "article",
+    "case_number": null,
+    "address": null,
+    "date": "p.date",
+    "description": null
+  },
+  "notes": "Anslagstavlan har två sektioner: 'Anslag och tillkännagivelser' (protokoll m.m.) och 'Anslag bygglov'. Bygglovsanslag listas under h2 'Anslag bygglov' och länkar till /kommun/kommun-och-politik/anslagstavla/bygglov/. Denna undersida bör skrapas separat för att hämta individuella bygglovsärenden. Plattformen liknar Sitevision eller äldre .NET-baserat CMS (aspx-länkar i navigationen tyder på .NET). Datumformatet är svensk long-form t.ex. '27 februari 2026'.",
+  "confidence": "medium",
+  "approved": false
+}

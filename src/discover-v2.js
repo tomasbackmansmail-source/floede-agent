@@ -173,6 +173,54 @@ const DISCOVERY_TARGETS = [
   { id: "vara", name: "Vara", homepage: "https://www.vara.se" },
   { id: "mark", name: "Mark", homepage: "https://www.mark.se" },
   { id: "ulricehamn", name: "Ulricehamn", homepage: "https://www.ulricehamn.se" },
+
+  // Fas J — EPiServer kommuner utan config
+  { id: "bromolla", name: "Bromölla", homepage: "https://www.bromolla.se" },
+  { id: "hjo", name: "Hjo", homepage: "https://www.hjo.se" },
+  { id: "karlsborg", name: "Karlsborg", homepage: "https://www.karlsborg.se" },
+  { id: "kristinehamn", name: "Kristinehamn", homepage: "https://www.kristinehamn.se" },
+  { id: "soderkoping", name: "Söderköping", homepage: "https://www.soderkoping.se" },
+
+  // Fas K — Municipio kommuner utan config
+  { id: "arboga", name: "Arboga", homepage: "https://www.arboga.se" },
+  { id: "sater", name: "Säter", homepage: "https://www.sater.se" },
+  { id: "skinnskatteberg", name: "Skinnskatteberg", homepage: "https://www.skinnskatteberg.se" },
+  { id: "tingsryd", name: "Tingsryd", homepage: "https://www.tingsryd.se" },
+  { id: "valdemarsvik", name: "Valdemarsvik", homepage: "https://www.valdemarsvik.se" },
+
+  // Fas L — WordPress kommuner utan config
+  { id: "alvesta", name: "Alvesta", homepage: "https://www.alvesta.se" },
+  { id: "alvsbyn", name: "Älvsbyn", homepage: "https://www.alvsbyn.se" },
+  { id: "arjeplog", name: "Arjeplog", homepage: "https://www.arjeplog.se" },
+  { id: "borgholm", name: "Borgholm", homepage: "https://www.borgholm.se" },
+  { id: "gagnef", name: "Gagnef", homepage: "https://www.gagnef.se" },
+  { id: "karlshamn", name: "Karlshamn", homepage: "https://www.karlshamn.se" },
+  { id: "monsteras", name: "Mönsterås", homepage: "https://www.monsteras.se" },
+  { id: "munkfors", name: "Munkfors", homepage: "https://www.munkfors.se" },
+  { id: "norsjo", name: "Norsjö", homepage: "https://www.norsjo.se" },
+  { id: "nybro", name: "Nybro", homepage: "https://www.nybro.se" },
+  { id: "overtornea", name: "Övertorneå", homepage: "https://www.overtornea.se" },
+  { id: "torsas", name: "Torsås", homepage: "https://www.torsas.se" },
+
+  // Fas M — Unknown/Other plattformar
+  { id: "avesta", name: "Avesta", homepage: "https://www.avesta.se" },
+  { id: "dals-ed", name: "Dals-Ed", homepage: "https://www.dalsed.se" },
+  { id: "eda", name: "Eda", homepage: "https://www.eda.se" },
+  { id: "hogsby", name: "Högsby", homepage: "https://www.hogsby.se" },
+  { id: "jokkmokk", name: "Jokkmokk", homepage: "https://www.jokkmokk.se" },
+  { id: "kalix", name: "Kalix", homepage: "https://www.kalix.se" },
+  { id: "lycksele", name: "Lycksele", homepage: "https://www.lycksele.se" },
+  { id: "mala", name: "Malå", homepage: "https://www.mala.se" },
+  { id: "mellerud", name: "Mellerud", homepage: "https://www.mellerud.se" },
+  { id: "osthammar", name: "Östhammar", homepage: "https://www.osthammar.se" },
+  { id: "overkalix", name: "Överkalix", homepage: "https://www.overkalix.se" },
+  { id: "pajala", name: "Pajala", homepage: "https://www.pajala.se" },
+  { id: "storuman", name: "Storuman", homepage: "https://www.storuman.se" },
+  { id: "sunne", name: "Sunne", homepage: "https://www.sunne.se" },
+  { id: "dorotea", name: "Dorotea", homepage: "https://www.dorotea.se" },
+  { id: "vilhelmina", name: "Vilhelmina", homepage: "https://www.vilhelmina.se" },
+  { id: "hallefors", name: "Hällefors", homepage: "https://www.hallefors.se" },
+  { id: "upplandsbro", name: "Upplands-Bro", homepage: "https://www.upplandsbro.se" },
 ];
 
 // Parse --only=nacka,malmo CLI argument

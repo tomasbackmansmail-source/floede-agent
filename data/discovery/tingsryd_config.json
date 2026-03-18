@@ -1,0 +1,28 @@
+{
+  "municipality": "Tingsryd",
+  "platform_guess": "wordpress",
+  "listing_url": "https://tingsryd.se/anslagstavlan/",
+  "listing_type": "list",
+  "pagination": {
+    "has_pagination": false,
+    "type": "none",
+    "mechanism": "Alla anslag visas på en och samma sida i ett accordion-baserat gränssnitt. Ingen paginering finns.",
+    "estimated_total_pages": null
+  },
+  "requires_subpages": {
+    "required": true,
+    "reason": "Varje accordion-sektion innehåller grundläggande metadata (beslutsinstans, sammanträdesdatum, anslag publicerades, anslag tas ner) direkt i expanderat innehåll, men protokollet/anslaget självt finns på en separat undersida via länk märkt 'Protokoll' eller 'Anslag'.",
+    "link_selector_hint": ".c-accordion__content a[href*='/protokoll/']"
+  },
+  "selectors_hint": {
+    "container": ".c-accordion",
+    "item": ".c-accordion__section",
+    "case_number": null,
+    "address": null,
+    "date": ".c-accordion__button-column",
+    "description": ".c-accordion__content p"
+  },
+  "notes": "Sidan är byggd med WordPress och Municipio-temat. Anslag presenteras som ett accordion där rubriken innehåller datum och beslutsinstans (t.ex. '2026-02-10 Teknik- och fritidsnämnden'). Det expanderade innehållet visar: Beslutsinstans, Sammanträdesdatum, Anslag publicerades, Anslag tas ner, samt länk till protokoll/anslag på undersida. Inga bygglovsspecifika kungörelser är synliga i listningen – innehållet är justerade protokoll från nämnder och bolag. Bygglovsärenden kan förekomma inbäddade i protokollen på undersidorna. Alla accordion-sektioner är kollapsade som standard (aria-hidden=true) vilket kräver antingen JS-rendering eller att man läser rå HTML.",
+  "confidence": "high",
+  "approved": false
+}

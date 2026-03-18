@@ -1,0 +1,28 @@
+{
+  "municipality": "Älvsbyn",
+  "platform_guess": "wordpress",
+  "listing_url": "https://www.alvsbyn.se/bygga-bo-och-miljo/kungorelse-enligt-plan-och-bygglagen/",
+  "listing_type": "unknown",
+  "pagination": {
+    "has_pagination": false,
+    "type": "none",
+    "mechanism": "Ingen paginering observerad - sidan är en enkel WordPress-innehållssida (postid-19143, custom post type bygga-bo-och-miljo)",
+    "estimated_total_pages": null
+  },
+  "requires_subpages": {
+    "required": false,
+    "reason": "Innehållet verkar finnas direkt på sidan som löpande text/HTML-innehåll i WordPress-editorn. Inga strukturerade ärende-undersidor identifierade i navigationen.",
+    "link_selector_hint": ".entry-content a, .page-content a, .content a"
+  },
+  "selectors_hint": {
+    "container": ".entry-content, .page-content, .content-area, main .content",
+    "item": "p, .wp-block-paragraph, table tr",
+    "case_number": null,
+    "address": null,
+    "date": null,
+    "description": "p"
+  },
+  "notes": "Sidan är en WordPress custom post type (bygga-bo-och-miljo, postid-19143) under Bygga bo och miljö > Bygga ändra eller riva. Huvudinnehållet var trunkerat i HTML-underlaget och exakt struktur på kungörelserna kunde inte fastställas. Sannolikt publiceras kungörelser som fritext i WordPress-editorn utan fast struktur. Kan innehålla PDF-länkar eller löpande text med ärendeinfo. Rekommendation: verifiera faktiskt sidinnehåll (main-sektionen) innan extraktion konfigureras. Konfidensen är låg på grund av saknad synlighet i innehållssektionen.",
+  "confidence": "low",
+  "approved": false
+}

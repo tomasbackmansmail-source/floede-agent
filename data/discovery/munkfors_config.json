@@ -1,0 +1,28 @@
+{
+  "municipality": "Munkfors",
+  "platform_guess": "wordpress",
+  "listing_url": "https://www.munkfors.se/kommun-och-politik/politik/digital-anslagstavla/",
+  "listing_type": "unknown",
+  "pagination": {
+    "has_pagination": false,
+    "type": "none",
+    "mechanism": "Ingen pagination observerad - sidan verkar vara en statisk WordPress-sida",
+    "estimated_total_pages": null
+  },
+  "requires_subpages": {
+    "required": false,
+    "reason": "Oklart - main-innehållets struktur ej fullt synlig i HTML-utdraget. Sidan är en WordPress-sida med body-klass 'digital-anslagstavla' men anslagens detaljstruktur kunde ej bekräftas.",
+    "link_selector_hint": ".entry-content a, .page-content a, main a[href*='anslagstavla']"
+  },
+  "selectors_hint": {
+    "container": ".entry-content, .page-content, main .main-left",
+    "item": "p, li, .anslag, .notice",
+    "case_number": null,
+    "address": null,
+    "date": "time, .date, p strong, span[class*='date']",
+    "description": ".entry-content p, .page-content p"
+  },
+  "notes": "WordPress-tema 'munkfors-kommun' med dedikerad body-klass 'digital-anslagstavla'. Sidan ligger under Kommun och politik > Politik och demokrati. Main-innehållets exakta HTML-struktur var ej synlig i de trunkerade HTML-utdragen - selektorer är uppskattade och måste verifieras vid körning. Sidan kan innehålla både bygglov, detaljplaner och andra kommunala kungörelser blandat.",
+  "confidence": "low",
+  "approved": false
+}
