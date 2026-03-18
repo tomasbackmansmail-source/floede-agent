@@ -4,7 +4,7 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { createClient } from "@supabase/supabase-js";
 import { chromium } from "playwright";
-import { readFile, readdir, writeFile, mkdir } from "fs/promises";
+import { writeFile, mkdir } from "fs/promises";
 import { join } from "path";
 import { createHash } from "crypto";
 import { EXTRACTION_PROMPT_V2 } from "./config/extraction-prompt-v2.js";
@@ -35,21 +35,22 @@ async function ensureDirs() {
   }
 }
 
-async function loadApprovedConfigs() {
-  const configDir = join(process.cwd(), "data", "discovery");
-  try {
-    const files = (await readdir(configDir)).filter((f) => f.endsWith("_config.json"));
-    const configs = [];
-    for (const file of files) {
-      const config = JSON.parse(await readFile(join(configDir, file), "utf-8"));
-      if (config.approved) {
-        configs.push({ ...config, _file: file });
-      }
-    }
-    return configs;
-  } catch {
+async function loadApprovedConfigs(supabase) {
+  const { data, error } = await supabase
+    .from("discovery_configs")
+    .select("*")
+    .eq("approved", true);
+
+  if (error) {
+    console.error(`Failed to load configs from Supabase: ${error.message}`);
     return [];
   }
+
+  return data.map((row) => ({
+    ...row.config,
+    approved: row.approved,
+    _file: `${row.municipality}_config.json`,
+  }));
 }
 
 function stripNonContent(html) {
@@ -284,7 +285,9 @@ async function main() {
 
   console.log(`=== Floede Agent - Daily Run ${runId} ===\n`);
 
-  let configs = await loadApprovedConfigs();
+  const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_KEY);
+
+  let configs = await loadApprovedConfigs(supabase);
   if (onlyMunis) {
     configs = configs.filter((c) =>
       onlyMunis.some((m) => c.municipality.toLowerCase().includes(m) ||
@@ -294,14 +297,13 @@ async function main() {
   }
 
   if (configs.length === 0) {
-    console.error("No approved configs found. Run Discovery first and approve configs.");
+    console.error("No approved configs found in Supabase. Run Discovery first and approve configs.");
     process.exit(1);
   }
 
   console.log(`Found ${configs.length} approved configs\n`);
 
   const client = new Anthropic();
-  const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_KEY);
   const browser = await chromium.launch({ headless: true });
   const context = await browser.newContext({
     userAgent: "FloedAgent/0.1 (byggsignal.se; datainsamling fran offentliga anslagstavlor)"

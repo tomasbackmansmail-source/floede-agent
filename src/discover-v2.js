@@ -1,4 +1,5 @@
 import Anthropic from "@anthropic-ai/sdk";
+import { createClient } from "@supabase/supabase-js";
 import { chromium } from "playwright";
 import { writeFile, mkdir } from "fs/promises";
 import { join } from "path";
@@ -522,6 +523,10 @@ async function main() {
     process.exit(1);
   }
 
+  const supabase = (process.env.SUPABASE_URL && process.env.SUPABASE_SERVICE_KEY)
+    ? createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_KEY)
+    : null;
+
   const client = new Anthropic();
   const browser = await chromium.launch({ headless: true });
 
@@ -542,11 +547,31 @@ async function main() {
     totalCost += result.tokens.cost_usd;
 
     if (result.config) {
+      // Local backup
       await writeFile(
         join(CONFIG_DIR, `${result.municipality_id}_config.json`),
         JSON.stringify(result.config, null, 2),
         "utf-8"
       );
+
+      // Primary: Supabase
+      if (supabase) {
+        const { error } = await supabase
+          .from("discovery_configs")
+          .upsert({
+            municipality: result.config.municipality,
+            config: result.config,
+            approved: false,
+            confidence: result.config.confidence || null,
+            updated_at: new Date().toISOString(),
+          }, { onConflict: "municipality" });
+
+        if (error) {
+          console.log(`  [Supabase] Error saving config: ${error.message}`);
+        } else {
+          console.log(`  [Supabase] Config saved for ${result.config.municipality}`);
+        }
+      }
     }
 
     await writeFile(
