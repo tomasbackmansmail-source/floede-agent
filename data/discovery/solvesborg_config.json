@@ -1,0 +1,28 @@
+{
+  "municipality": "Sölvesborg",
+  "platform_guess": "sitevision",
+  "listing_url": "https://solvesborg.se/kommun-och-politik-/arenden-och-handlingar/anslagstavla-officiell.html",
+  "listing_type": "list",
+  "pagination": {
+    "has_pagination": false,
+    "type": "none",
+    "mechanism": null,
+    "estimated_total_pages": null
+  },
+  "requires_subpages": {
+    "required": false,
+    "reason": "Inline extraction. Sektionen 'Kungörelse bygglov' har rik data med grannehöranden och beslut (fastighetsbeteckning, diarienr, beslutsdatum). OBS: Sektionerna är accordion-H2 som behöver expanderas.",
+    "link_selector_hint": null
+  },
+  "selectors_hint": {
+    "container": "main, article, [role=main]",
+    "item": null,
+    "case_number": null,
+    "address": null,
+    "date": null,
+    "description": null
+  },
+  "notes": "SiteVision. Accordion-sektioner: Kungörelse, Detaljplanering, Kungörelse bygglov, Anslagsbevis. Bygglov-sektionen kräver klick för att expandera. Om innerText inte fångar dold text behövs pre-extraction klick på H2-elementet.",
+  "confidence": "medium",
+  "approved": true
+}

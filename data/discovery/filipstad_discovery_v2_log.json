@@ -1,0 +1,50 @@
+{
+  "municipality": "Filipstad",
+  "municipality_id": "filipstad",
+  "success": true,
+  "needs_manual_url": false,
+  "config": {
+    "municipality": "Filipstad",
+    "platform_guess": "sitevision",
+    "listing_url": "https://www.filipstad.se/toppmeny/kommunochpolitik/politikochdemokrati/digitalanslagstavla.3344.html",
+    "listing_type": "links_to_subpages",
+    "pagination": {
+      "has_pagination": false,
+      "type": "none",
+      "mechanism": "Alla aktuella poster visas direkt på sidan utan paginering",
+      "estimated_total_pages": null
+    },
+    "requires_subpages": {
+      "required": true,
+      "reason": "Kungörelser-listan visar endast titel och kort beskrivning. Detaljer om fastighet, ärendenummer, datum och beslut finns på respektive undersida. Anslag-listan däremot visar alla relevanta fält (anslagsdatum, nedtagningsdatum, förvaringsplats) direkt i listningen utan att kräva undersidor.",
+      "link_selector_hint": "#svid12_fa653fd15feceb10ad34d ul.sv-channel li.sv-channel-item h3.underrubrik3 a[href*='bygglovanslag']"
+    },
+    "selectors_hint": {
+      "container_kungorelser": "#svid12_fa653fd15feceb10ad34d ul.sv-channel",
+      "container_anslag": "#svid12_fa653fd15feceb10ad20b ul.sv-channel",
+      "item": "li.sv-channel-item",
+      "title": "h3.underrubrik3 a span",
+      "link": "h3.underrubrik3 a",
+      "description": "span.brodtext",
+      "meeting_date": "h3.underrubrik3 time:first-of-type",
+      "posting_date": "time.brodtext[datetime]",
+      "removal_date": "span.brodtext + time.brodtext",
+      "storage_location": "span.brodtext:last-of-type",
+      "case_number": null,
+      "address": null,
+      "date": "time[datetime]"
+    },
+    "notes": "Sidan innehåller två separata listor: (1) 'Aktuella kungörelser' (#Kungorelser) med bygglov-anslag och övriga kungörelser - dessa är länkar till undersidor där detaljerna finns. Bygglov-länkarna följer mönstret /bogataochmiljo/byggaforvaltaochriva/bygglovanslag/bygglovanslag/anslagbygglov.XXXXX.html. (2) 'Aktuella anslag' (#Anslag) med justerade protokoll - dessa visar alla fält direkt i listan (nämnd, sammanträdesdatum, anslagsdatum, nedtagningsdatum, förvaringsplats) utan krav på undersidor. Anslag-posterna saknar href-länk. Datumfält använder machine-readable datetime-attribut på <time>-element vilket underlättar parsing. Plattformen är SiteVision.",
+    "confidence": "high",
+    "approved": false
+  },
+  "navigations_used": 1,
+  "candidate_url": "https://www.filipstad.se/toppmeny/kommunochpolitik/politikochdemokrati/digitalanslagstavla.3344.html",
+  "final_url": "https://www.filipstad.se/toppmeny/kommunochpolitik/politikochdemokrati/digitalanslagstavla.3344.html",
+  "tokens": {
+    "input": 51058,
+    "output": 1111,
+    "cost_usd": 0.16983900000000002
+  },
+  "failure_reason": null
+}

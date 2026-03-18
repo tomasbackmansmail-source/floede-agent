@@ -4,13 +4,13 @@
   "success": false,
   "needs_manual_url": false,
   "config": null,
-  "navigations_used": 5,
-  "candidate_url": "https://tibro.se/kommun-och-politik/sa-styrs-tibro-kommun/anslagstavla",
-  "final_url": "https://tibro.se/sitemap.xml",
+  "navigations_used": 2,
+  "candidate_url": "https://www.tibro.se/bygglov-och-planering/anslagstavla",
+  "final_url": "https://www.tibro.se/bygglov-och-planering/",
   "tokens": {
-    "input": 27076,
-    "output": 302,
-    "cost_usd": 0.08575800000000001
+    "input": 8399,
+    "output": 711,
+    "cost_usd": 0.035862000000000005
   },
   "failure_reason": "Could not generate valid config after analysis"
 }

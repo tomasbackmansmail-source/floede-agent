@@ -11,33 +11,33 @@
     "pagination": {
       "has_pagination": false,
       "type": "none",
-      "mechanism": "No pagination observed - content appears to be a single page listing",
+      "mechanism": "Ingen paginering synlig - allt innehåll troligen på en sida",
       "estimated_total_pages": null
     },
     "requires_subpages": {
       "required": false,
-      "reason": "Anslagstavlan förväntas lista anslag direkt på sidan. Innehållet renderas via JavaScript (SiteVision-portlets) och är inte synligt i statisk HTML. Huvudinnehållet injiceras troligen i div#page_content eller i sol-subpage-wrapper.",
+      "reason": "Innehållet är JavaScript-renderat och laddas dynamiskt in i #page_content. Strukturen är okänd utan JavaScript-exekvering.",
       "link_selector_hint": null
     },
     "selectors_hint": {
-      "container": ".sol-subpage-wrapper, #page_content, .sv-text-portlet-content",
-      "item": "table tr, .sol-article-item, ul.sol-ul li",
+      "container": "#page_content",
+      "item": null,
       "case_number": null,
       "address": null,
       "date": null,
       "description": null
     },
-    "notes": "Sidan är byggd i SiteVision. Det faktiska innehållet på anslagstavlan är inte synligt i den statiska HTML-källkoden - det renderas via JavaScript-portlets. Innehållet injiceras troligen dynamiskt i div#page_content eller i .sol-subpage-wrapper. Kräver JavaScript-rendering (t.ex. Playwright/Puppeteer) för att hämta faktiska anslag. Anslagstavlan kan innehålla blandade nämnders anslag - filtrering på byggnadsnämnden/plan- och byggnadsnämnden kan behövas. Plattformen SiteVision är vanlig bland svenska kommuner och levererar ofta innehåll via AJAX efter sidladdning.",
+    "notes": "Sidan använder SiteVision och renderar allt innehåll via JavaScript. Det statiska HTML-dokumentet innehåller endast skal och navigation - anslagens faktiska innehåll injiceras dynamiskt i div#page_content. Scraping kräver JavaScript-exekvering (Playwright/Puppeteer). Sidans struktur och selektorer för anslag kan inte fastställas utan att se det renderade DOM-trädet. Rekommendation: kör headless browser och extrahera innerHTML från #page_content efter sidladdning.",
     "confidence": "low",
     "approved": false
   },
-  "navigations_used": 1,
-  "candidate_url": "https://www.umea.se/kommunochpolitik/overklagabeslutrattssakerhet/anslagstavlaofficiell.4.88db09b1724ee319ca4b0.html",
+  "navigations_used": 2,
+  "candidate_url": "https://www.umea.se/anslagstavla",
   "final_url": "https://www.umea.se/kommunochpolitik/overklagabeslutrattssakerhet/anslagstavlaofficiell.4.88db09b1724ee319ca4b0.html",
   "tokens": {
-    "input": 61073,
-    "output": 1681,
-    "cost_usd": 0.208434
+    "input": 90451,
+    "output": 1368,
+    "cost_usd": 0.291873
   },
   "failure_reason": null
 }

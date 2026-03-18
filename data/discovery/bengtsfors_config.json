@@ -1,0 +1,28 @@
+{
+  "municipality": "Bengtsfors",
+  "platform_guess": "sitevision",
+  "listing_url": "https://www.bengtsfors.se/kommun-och-politik/anslagstavla",
+  "listing_type": "list",
+  "pagination": {
+    "has_pagination": false,
+    "type": "none",
+    "mechanism": null,
+    "estimated_total_pages": null
+  },
+  "requires_subpages": {
+    "required": false,
+    "reason": "Inline extraction. Anslagstavlan har expanderbara sektioner (Anslag, Kallelser, Protokoll, Kungörelser).",
+    "link_selector_hint": null
+  },
+  "selectors_hint": {
+    "container": "main, article, [role=main]",
+    "item": null,
+    "case_number": null,
+    "address": null,
+    "date": null,
+    "description": null
+  },
+  "notes": "PARKERAD: Anslagstavlan innehåller bara förklarande text om vad anslag/kallelser/protokoll/kungörelser är - inga faktiska poster med bygglovsärenden.",
+  "confidence": "low",
+  "approved": false
+}

@@ -1,0 +1,16 @@
+{
+  "municipality": "Svalöv",
+  "municipality_id": "svalov",
+  "success": false,
+  "needs_manual_url": false,
+  "config": null,
+  "navigations_used": 5,
+  "candidate_url": "https://www.svalov.se/kommun--politik/digital-anslagstavla",
+  "final_url": "https://www.svalov.se/kommun--politik/demokrati--paverkan/anslagstavla",
+  "tokens": {
+    "input": 132900,
+    "output": 1140,
+    "cost_usd": 0.4158
+  },
+  "failure_reason": "Could not generate valid config after analysis"
+}

@@ -11,33 +11,33 @@
     "pagination": {
       "has_pagination": false,
       "type": "none",
-      "mechanism": "Ingen paginering observerad. Alla aktuella kungörelser verkar listas på en sida under rubriken 'Aktuella kungörelser och meddelanden'.",
+      "mechanism": "No pagination observed - all notices appear on single page",
       "estimated_total_pages": null
     },
     "requires_subpages": {
       "required": true,
-      "reason": "Sidan är en generell anslagstavla som publicerar fullmäktiges sammanträden, justerade protokoll och kungörelser. Detaljerad ärendeinformation om bygglov eller specifika kungörelser finns troligen på länkade undersidor eller dokument (PDF). HTML är trunkerad och innehållssektionen 'Aktuella kungörelser och meddelanden' är inte fullt synlig.",
-      "link_selector_hint": "#svid94_67d083131827bd64ed71e7 a, .sv-text-portlet-content a"
+      "reason": "Page intro confirms notices include fullmäktige info, justerade protokoll and kungörelser. Main content area (#main-content inside .ks-main-content) was empty in rendered HTML, suggesting content may load dynamically or links lead to subpages for details.",
+      "link_selector_hint": "div#svid94_67d083131827bd64ed71e7 a"
     },
     "selectors_hint": {
-      "container": "#svid94_67d083131827bd64ed71e7",
-      "item": ".sv-text-portlet-content",
+      "container": "div#svid94_67d083131827bd64ed71e7",
+      "item": "div.sv-text-portlet-content p, ul li",
       "case_number": null,
       "address": null,
-      "date": null,
-      "description": ".sv-font-ingress"
+      "date": "time, .date",
+      "description": "p.sv-font-ingress"
     },
-    "notes": "Sidan är Karlstads kommuns officiella anslagstavla. Innehåller tre sektioner enligt innehållsförteckningen: 'Personuppgifter och sekretess', 'Överklagande', och 'Aktuella kungörelser och meddelanden'. HTML är trunkerad innan kungörelselistan visas - det är oklart om kungörelserna listas inline eller som länkar till undersidor/PDF-dokument. Plattformen är SiteVision (sv-template-nyttosida). Sidan täcker generella kommunala kungörelser, inte enbart bygglov. Rekommendation: hämta fullständig HTML för sektionen med ankar #h-Aktuellakungorelserochmeddelanden för att kartlägga exakt struktur.",
+    "notes": "Sidan är byggd i SiteVision. Huvudinnehållet finns under h1 'Anslagstavla' i div#svid94_67d083131827bd64ed71e7. Innehållsförteckning listar tre sektioner: 'Personuppgifter och sekretess', 'Överklagande', 'Aktuella kungörelser och meddelanden'. Den relevanta sektionen för insamling är '#h-Aktuellakungorelserochmeddelanden'. HTML för själva anslagslistan var trunkerad och kunde inte analyseras fullt ut - selektorer behöver verifieras mot live-sida. #main-content div var tom vilket kan indikera att anslag laddas via JavaScript eller ligger längre ned i DOM.",
     "confidence": "low",
     "approved": false
   },
-  "navigations_used": 3,
+  "navigations_used": 2,
   "candidate_url": "https://karlstad.se/kommun-och-politik/delta-och-paverka/anslagstavla",
-  "final_url": "https://karlstad.se/kommun-och-politik/delta-och-paverka/anslagstavla",
+  "final_url": "https://karlstad.se/kommun-och-politik/delta-och-paverka/anslagstavla#main-content",
   "tokens": {
-    "input": 109610,
-    "output": 1807,
-    "cost_usd": 0.355935
+    "input": 89958,
+    "output": 2070,
+    "cost_usd": 0.300924
   },
   "failure_reason": null
 }

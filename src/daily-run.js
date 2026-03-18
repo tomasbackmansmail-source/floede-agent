@@ -145,6 +145,12 @@ async function fetchPage(page, config) {
     console.log(`  [Fetch] Fetched ${subpageTexts.length} subpages`);
     html = subpageTexts.join("\n\n");
   } else {
+    // Expand accordion/details sections before extracting text
+    await page.evaluate(() => {
+      document.querySelectorAll("details").forEach(d => d.open = true);
+      document.querySelectorAll("[aria-expanded='false']").forEach(el => el.click());
+    });
+    await page.waitForTimeout(500);
     // For inline pages: extract text content only (avoids navigation/header/footer noise)
     html = await page.evaluate(() => {
       const main = document.querySelector("main, article, .pagecontent, [role='main'], #pageContent");

@@ -6,12 +6,12 @@
   "pagination": {
     "has_pagination": false,
     "type": "none",
-    "mechanism": "Alla anslag visas i en enda lista utan paginering. Sidan verkar visa samtliga aktuella anslag direkt.",
+    "mechanism": "All items appear on a single page in a sv-channel list. No pagination controls observed.",
     "estimated_total_pages": null
   },
   "requires_subpages": {
     "required": true,
-    "reason": "Listsidan visar endast titel, datum och kort beskrivning. Fastighetsdetaljer, ärendenummer och fullständig information finns enbart på respektive undersida.",
+    "reason": "Listing page shows only title, date and a brief description snippet. Full permit details (case numbers, addresses, fastigheter) are on individual subpages.",
     "link_selector_hint": "a.sv-font-artikel-rubrik-startsida[href*='kungorelse-bygglov']"
   },
   "selectors_hint": {
@@ -20,10 +20,9 @@
     "case_number": null,
     "address": null,
     "date": "time.sv-font-aktuellt-datum-startsida",
-    "description": "span.normal",
-    "title": "a.sv-font-artikel-rubrik-startsida span"
+    "description": "span.normal"
   },
-  "notes": "Anslagstavlan innehåller blandade anslag: bygglov (inkomna ansökningar och beviljade beslut), protokoll, kungörelser om detaljplaner och kallelser. Filtrera på länkar som innehåller 'kungorelse-bygglov' i href för att isolera bygglovsärenden. Datum finns i <time datetime='...'> med ISO-format. Bas-URL för undersidor är https://www.jonkoping.se. Sidan publicerar nya anslag dagligen och listan är kronologiskt sorterad med senaste först.",
+  "notes": "Anslagstavlan innehåller blandade ärenden: bygglov (inkomna ansökningar och beviljade beslut), protokoll från nämnder, kungörelser om detaljplaner m.m. Filtrera på länkar vars href innehåller 'kungorelse-bygglov' för att enbart hämta bygglovsrelaterade kungörelser. Datum finns i <time datetime='...'> med ISO-format. Sidans struktur är klassisk SiteVision sv-channel-lista. Inga tecken på paginering – hela listan verkar laddas på en sida.",
   "confidence": "high",
   "approved": false
 }

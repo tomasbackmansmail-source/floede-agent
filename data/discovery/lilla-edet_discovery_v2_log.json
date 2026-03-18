@@ -1,0 +1,43 @@
+{
+  "municipality": "Lilla Edet",
+  "municipality_id": "lilla-edet",
+  "success": true,
+  "needs_manual_url": false,
+  "config": {
+    "municipality": "Lilla Edet",
+    "platform_guess": "sitevision",
+    "listing_url": "https://www.lillaedet.se/kommun-och-politik/moten-handlingar-och-protokoll/anslagstavla",
+    "listing_type": "links_to_subpages",
+    "pagination": {
+      "has_pagination": false,
+      "type": "none",
+      "mechanism": "Alla aktuella anslag och kungörelser visas på en och samma sida utan paginering.",
+      "estimated_total_pages": null
+    },
+    "requires_subpages": {
+      "required": true,
+      "reason": "Listsidan visar endast fastighetsnamn/titel och ärendetyp (t.ex. 'Bygglov'). Fullständiga detaljer som fastighetsbeteckning, ärendenummer, beslut och handlingar finns på respektive undersida.",
+      "link_selector_hint": "div#Bygglovlistakopiaavkun ul.sv-channel li.sv-channel-item a.normal[href*='/anslagstavla/bygglov/']"
+    },
+    "selectors_hint": {
+      "container": "div#Bygglovlistakopiaavkun ul.sv-channel",
+      "item": "li.sv-channel-item",
+      "case_number": null,
+      "address": "li.sv-channel-item span.tableheading",
+      "date": "li.sv-channel-item time.sv-font-kategori-etc",
+      "description": "li.sv-channel-item span.normal"
+    },
+    "notes": "Sidan innehåller tre separata sektioner: (1) Anslag/bevis för justerade protokoll i div#Anslaglista, (2) Kungörelser för detaljplaner i div#Kungorelserlista, (3) Bygglovskungörelser, prövningar och grannhöranden i div#Bygglovlistakopiaavkun. Endast sektion 3 är relevant för bygglov. Varje bygglovspost har titel (fastighetsnamn), ärendetyp 'Bygglov', publiceringsdatum och avpubliceringsdatum. Länkarna följer mönstret /anslagstavla/bygglov/YYYY-MM-DD-fastighetsnamn. Kungörelser för detaljplaner i sektion 2 kan också vara relevanta (länkar med /anslagstavla/kungorelser/).",
+    "confidence": "high",
+    "approved": false
+  },
+  "navigations_used": 1,
+  "candidate_url": "https://www.lillaedet.se/kommun-och-politik/moten-handlingar-och-protokoll/anslagstavla",
+  "final_url": "https://www.lillaedet.se/kommun-och-politik/moten-handlingar-och-protokoll/anslagstavla",
+  "tokens": {
+    "input": 73270,
+    "output": 1436,
+    "cost_usd": 0.24135
+  },
+  "failure_reason": null
+}

@@ -4,13 +4,13 @@
   "success": false,
   "needs_manual_url": false,
   "config": null,
-  "navigations_used": 5,
-  "candidate_url": "https://skelleftea.se/invanare/startsida/kommun-och-politik/anslagstavla",
-  "final_url": "https://skelleftea.se/invanare/startsida/kommun-och-politik/anslagstavla/bygglov",
+  "navigations_used": 1,
+  "candidate_url": "https://skelleftea.se/kommun-och-politik/anslagstavla",
+  "final_url": "https://skelleftea.se/kommun-och-politik/anslagstavla",
   "tokens": {
-    "input": 96586,
-    "output": 1045,
-    "cost_usd": 0.305433
+    "input": 74928,
+    "output": 945,
+    "cost_usd": 0.238959
   },
   "failure_reason": "Could not generate valid config after analysis"
 }

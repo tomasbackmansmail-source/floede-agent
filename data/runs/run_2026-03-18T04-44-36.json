@@ -1,0 +1,52 @@
+{
+  "run_id": "2026-03-18T04-44-36",
+  "run_at": "2026-03-18T04:45:16.028Z",
+  "elapsed_ms": 39134,
+  "configs_count": 4,
+  "total_permits": 13,
+  "total_inserted": 13,
+  "total_cost_usd": 0.0193336,
+  "cost_per_permit_usd": 0.0014872,
+  "results": [
+    {
+      "municipality": "Bengtsfors",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0023648,
+      "html_hash": "2fa85b4ebd883fd9"
+    },
+    {
+      "municipality": "Lilla Edet",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0018424,
+      "html_hash": "e3b0c44298fc1c14"
+    },
+    {
+      "municipality": "Sölvesborg",
+      "status": "ok",
+      "permits": 13,
+      "inserted": 13,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.013109599999999999,
+      "html_hash": "68de2c52b06543cc"
+    },
+    {
+      "municipality": "Svalöv",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0020168,
+      "html_hash": "5e4538c98fb5c9dc"
+    }
+  ]
+}
