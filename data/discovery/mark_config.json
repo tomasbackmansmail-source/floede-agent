@@ -1,0 +1,30 @@
+{
+  "municipality": "Mark",
+  "platform_guess": "sitevision",
+  "listing_url": "https://pollux.mark.se/kungorelse",
+  "listing_type": "list",
+  "pagination": {
+    "has_pagination": false,
+    "type": "none",
+    "mechanism": "Alla anslag visas på en sida (23 träffar). Filtrering sker via facett-länkar som uppdaterar resultatlistan dynamiskt via JavaScript utan sidladdning.",
+    "estimated_total_pages": null
+  },
+  "requires_subpages": {
+    "required": false,
+    "reason": null,
+    "link_selector_hint": null
+  },
+  "selectors_hint": {
+    "container": "div.mar-archive.mar-protocol-listing__all-search-hits",
+    "item": "div.sv-search-hit",
+    "case_number": null,
+    "address": null,
+    "date": ".sv-search-hit-date",
+    "description": ".sv-search-hit-summary",
+    "title": ".sv-search-hit-title a",
+    "facet_organisation": "ul.sv-search-facet-items--Organisation li a.mar-archive-facet-tags__link"
+  },
+  "notes": "SiteVision-baserad digital anslagstavla med facetterad sökning. Totalt 23 aktiva anslag. Organisationer inkluderar bl.a. 'Bygg- och miljönämnden' (3 träffar) vilket är relevant för bygglov. Facett-filter via URL-parameter '100.7bdab48918c624d207d392=Bygg-+och+milj%C3%B6n%C3%A4mnden' kan användas för att filtrera ut relevanta ärenden. Sidan använder JavaScript för att rendera resultat – Selenium/Playwright krävs troligen. Cookie-dialog visas vid inladdning men blockerar inte innehållet.",
+  "confidence": "medium",
+  "approved": true
+}

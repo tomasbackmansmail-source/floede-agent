@@ -1,0 +1,102 @@
+{
+  "run_id": "2026-03-17T19-32-37",
+  "run_at": "2026-03-17T19:35:37.562Z",
+  "elapsed_ms": 180210,
+  "configs_count": 9,
+  "total_permits": 71,
+  "total_inserted": 71,
+  "total_cost_usd": 0.0609976,
+  "cost_per_permit_usd": 0.0008591211267605633,
+  "results": [
+    {
+      "municipality": "Bengtsfors",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.002088,
+      "html_hash": "bb2b22925fe69a8d"
+    },
+    {
+      "municipality": "Bollebygd",
+      "status": "ok",
+      "permits": 6,
+      "inserted": 6,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.008851999999999999,
+      "html_hash": "37da9efa59b50533"
+    },
+    {
+      "municipality": "Filipstad",
+      "status": "ok",
+      "permits": 16,
+      "inserted": 16,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.01112,
+      "html_hash": "9a580e61711a7369"
+    },
+    {
+      "municipality": "Hörby",
+      "status": "ok",
+      "permits": 4,
+      "inserted": 4,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0040616,
+      "html_hash": "418135023e647550"
+    },
+    {
+      "municipality": "Klippan",
+      "status": "ok",
+      "permits": 13,
+      "inserted": 13,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.011022399999999998,
+      "html_hash": "61d2b1895e4f58d2"
+    },
+    {
+      "municipality": "Lilla Edet",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0018424,
+      "html_hash": "e3b0c44298fc1c14"
+    },
+    {
+      "municipality": "Simrishamn",
+      "status": "ok",
+      "permits": 32,
+      "inserted": 32,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0173704,
+      "html_hash": "e7419278d3fde0d3"
+    },
+    {
+      "municipality": "Sölvesborg",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0025648,
+      "html_hash": "5ef09912bf060295"
+    },
+    {
+      "municipality": "Svalöv",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0020759999999999997,
+      "html_hash": "ed0897489fcde36b"
+    }
+  ]
+}

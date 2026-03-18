@@ -1,0 +1,22 @@
+{
+  "run_id": "2026-03-17T19-37-22",
+  "run_at": "2026-03-17T19:37:30.031Z",
+  "elapsed_ms": 7750,
+  "configs_count": 1,
+  "total_permits": 0,
+  "total_inserted": 0,
+  "total_cost_usd": 0.0018904,
+  "cost_per_permit_usd": 0,
+  "results": [
+    {
+      "municipality": "Mark",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0018904,
+      "html_hash": "9224379017951304"
+    }
+  ]
+}

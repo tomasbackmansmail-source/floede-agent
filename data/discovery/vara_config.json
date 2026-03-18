@@ -1,0 +1,33 @@
+{
+  "municipality": "Vara",
+  "platform_guess": "sitevision",
+  "listing_url": "https://vara.se/kommunochpolitik/politikochsammantraden/anslagstavla.1112.html",
+  "listing_type": "list",
+  "pagination": {
+    "has_pagination": false,
+    "type": "none",
+    "mechanism": "Alla aktuella arenden visas pa en och samma sida utan paginering",
+    "estimated_total_pages": null
+  },
+  "requires_subpages": {
+    "required": false,
+    "reason": "All relevant data (titel, amne, instans, datum for tillkannagivande, datum tas ner, fdrvaringsplats, beskrivning/beslutsnummer) finns inbakat direkt i listans HTML som dolda expand-sektioner. Inga undersidor behover foljas.",
+    "link_selector_hint": null
+  },
+  "selectors_hint": {
+    "container": "ul.limepark-notice-board__list",
+    "item": "li.limepark-notice-board__item",
+    "case_number": ".limepark-notice-board__item__description p.normal",
+    "address": null,
+    "date": "dd.limepark-notice-board__item__meta-value",
+    "description": ".limepark-notice-board__item__description",
+    "title": "span.limepark-notice-board__item__name",
+    "topic_badge": "span.limepark-notice-board__item__topic",
+    "meta_label": "dt.limepark-notice-board__item__meta-label",
+    "meta_value": "dd.limepark-notice-board__item__meta-value",
+    "expanded_content": "div.limepark-notice-board__item__content"
+  },
+  "notes": "Sidan anvander Sitevision med limepark-notice-board-komponenten. Varje arende ar ett li-element med en knapp som expanderar dolt innehall (aria-hidden=true, hidden-attribut). HTML-koden innehaller dock all data redan i DOM:en utan att JS behover koras for att hamta data - den ar bara dold visuellt. Filtrera pa amne 'Kungörelse' och instans 'Miljö- och byggnadsnämnden' for bygglovsrelaterade poster. Beslutsnummer finns i beskrivningsfältet (t.ex. 'VABY-2026-100'). Datum-falten heter 'Datum för tillkännagivandet' (publiceringsdatum) och 'Datum tillkännagivandet tas ner från anslagstavlan' (utgangsdatum). Filterparametrar i GET-anropet: topic=173.3022e018186e4039561c42f for Kungörelse, authority=173.3022e018186e4039561c424 for Miljö- och byggnadsnämnden.",
+  "confidence": "high",
+  "approved": true
+}

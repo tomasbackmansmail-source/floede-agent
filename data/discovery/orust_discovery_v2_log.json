@@ -1,0 +1,44 @@
+{
+  "municipality": "Orust",
+  "municipality_id": "orust",
+  "success": true,
+  "needs_manual_url": false,
+  "config": {
+    "municipality": "Orust",
+    "platform_guess": "sitevision",
+    "listing_url": "https://www.orust.se/kommun-och-politik/beslut-insyn-och-rattssakerhet/anslagstavla",
+    "listing_type": "links_to_subpages",
+    "pagination": {
+      "has_pagination": false,
+      "type": "none",
+      "mechanism": "Ingen paginering synlig. Alla aktuella anslag listas direkt på sidan.",
+      "estimated_total_pages": null
+    },
+    "requires_subpages": {
+      "required": true,
+      "reason": "Listsidan visar endast datum, rubrik och kort beskrivning. Fullständiga detaljer om ärendet finns på respektive undersida.",
+      "link_selector_hint": ".sv-newslist ul.env-list li article a"
+    },
+    "selectors_hint": {
+      "container": ".sv-newslist ul.env-list",
+      "item": "li.env-list__item article",
+      "case_number": null,
+      "address": null,
+      "date": "header small.normal",
+      "description": "div a.normal",
+      "title": "h3.sv-newslist-header a"
+    },
+    "notes": "Anslagstavlan använder SiteVision newslist-komponent (data-cid='bbe61da9-e87e-3920-05d5-b4d0d823526f'). Listan innehåller blandade anslag – justerade protokoll, meddelanden inför antagande, bygglov m.m. Exemplet i HTML visar 'Meddelande inför antagande' gällande ändring av byggnadsplan. Filtrering på rubrik/beskrivning rekommenderas för att identifiera bygglovsrelaterade anslag. Anslag sitter uppe tre veckor enligt sidans text.",
+    "confidence": "high",
+    "approved": false
+  },
+  "navigations_used": 1,
+  "candidate_url": "https://www.orust.se/kommun-och-politik/beslut-insyn-och-rattssakerhet/anslagstavla",
+  "final_url": "https://www.orust.se/kommun-och-politik/beslut-insyn-och-rattssakerhet/anslagstavla",
+  "tokens": {
+    "input": 68846,
+    "output": 1089,
+    "cost_usd": 0.222873
+  },
+  "failure_reason": null
+}

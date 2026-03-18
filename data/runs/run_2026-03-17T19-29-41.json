@@ -1,0 +1,72 @@
+{
+  "run_id": "2026-03-17T19-29-41",
+  "run_at": "2026-03-17T19:33:38.495Z",
+  "elapsed_ms": 236732,
+  "configs_count": 6,
+  "total_permits": 37,
+  "total_inserted": 29,
+  "total_cost_usd": 0.0490008,
+  "cost_per_permit_usd": 0.001324345945945946,
+  "results": [
+    {
+      "municipality": "Herrljunga",
+      "status": "ok",
+      "permits": 2,
+      "inserted": 1,
+      "skipped": 1,
+      "errors": 0,
+      "cost_usd": 0.002732,
+      "html_hash": "6e90aa358c2c7142"
+    },
+    {
+      "municipality": "Mark",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0114424,
+      "html_hash": "4a88eaa16b69ee48"
+    },
+    {
+      "municipality": "Munkedal",
+      "status": "ok",
+      "permits": 2,
+      "inserted": 2,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0048968,
+      "html_hash": "03ae69db78cf8bd1"
+    },
+    {
+      "municipality": "Orust",
+      "status": "ok",
+      "permits": 25,
+      "inserted": 25,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0224528,
+      "html_hash": "6e8019133119dc48"
+    },
+    {
+      "municipality": "Ulricehamn",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0020712,
+      "html_hash": "2326698e7ca0548f"
+    },
+    {
+      "municipality": "Vara",
+      "status": "ok",
+      "permits": 8,
+      "inserted": 1,
+      "skipped": 7,
+      "errors": 0,
+      "cost_usd": 0.0054056,
+      "html_hash": "36e8227c97aa55c2"
+    }
+  ]
+}

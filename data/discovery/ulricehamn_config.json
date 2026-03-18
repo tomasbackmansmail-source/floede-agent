@@ -1,0 +1,28 @@
+{
+  "municipality": "Ulricehamn",
+  "platform_guess": "sitevision",
+  "listing_url": "https://www.ulricehamn.se/kommun-och-politik/overklaga-beslut-rattssakerhet/anslagstavla",
+  "listing_type": "list",
+  "pagination": {
+    "has_pagination": false,
+    "type": "none",
+    "mechanism": "All items listed on single page within collapsible sections",
+    "estimated_total_pages": null
+  },
+  "requires_subpages": {
+    "required": false,
+    "reason": "All relevant data (fastighet, dnr, beskrivning, överklagandedatum, länk till handlingar) finns direkt på anslagstavlesidan under sektionen 'Kungörelse om lovbeslut'. Handlingar länkas via filskick.samkom.se men kärndata finns inline.",
+    "link_selector_hint": "#svid12_1964f27f19ad3ac36734a4e0 a[href*='filskick.samkom.se']"
+  },
+  "selectors_hint": {
+    "container": "#svid12_1964f27f19ad3ac36734a4e0 .sv-text-portlet-content",
+    "item": "#svid12_1964f27f19ad3ac36734a4e0 .sv-text-portlet-content h3.env-text-heading-03",
+    "case_number": "h3.env-text-heading-03",
+    "address": "h3.env-text-heading-03",
+    "date": "p.env-text-body-01",
+    "description": "p.env-text-body-01"
+  },
+  "notes": "Lovbeslut finns i kollapsbar sektion 'Kungörelse om lovbeslut' (div#svid12_1964f27f19ad3ac36734a4e0). Varje ärende består av en h3 med fastighet+dnr följt av ett p-element med beslutsbeskrivning, länk till handlingar på filskick.samkom.se, samt överklagandedatum i formatet 'Beslutet kan överklagas till och med YYYY-MM-DD'. Sektionen är kollapsbar via JS men innehållet finns i DOM. Även sektionen 'Underrättelse om lovansökan' (div#svid12_1964f27f19ad3ac36734a508) innehåller relevanta bygglovärenden under handläggning. Parsing behöver extrahera fastighet och dnr från h3-text (format: 'Fastighet X:Y, dnr YYYY.NNN') samt överklagandedatum från p-text via regex.",
+  "confidence": "high",
+  "approved": true
+}

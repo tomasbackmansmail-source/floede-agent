@@ -148,6 +148,30 @@ const DISCOVERY_TARGETS = [
   { id: "vetlanda", name: "Vetlanda", homepage: "https://www.vetlanda.se" },
   { id: "gislaved", name: "Gislaved", homepage: "https://www.gislaved.se" },
   { id: "vaggeryd", name: "Vaggeryd", homepage: "https://www.vaggeryd.se" },
+
+  // Fas H (10 nya, kommun 111-120)
+  { id: "horby", name: "Hörby", homepage: "https://www.horby.se" },
+  { id: "lilla-edet", name: "Lilla Edet", homepage: "https://www.lillaedet.se" },
+  { id: "bollebygd", name: "Bollebygd", homepage: "https://www.bollebygd.se" },
+  { id: "solvesborg", name: "Sölvesborg", homepage: "https://www.solvesborg.se" },
+  { id: "filipstad", name: "Filipstad", homepage: "https://www.filipstad.se" },
+  { id: "bengtsfors", name: "Bengtsfors", homepage: "https://www.bengtsfors.se" },
+  { id: "simrishamn", name: "Simrishamn", homepage: "https://www.simrishamn.se" },
+  { id: "svalov", name: "Svalöv", homepage: "https://www.svalov.se" },
+  { id: "klippan", name: "Klippan", homepage: "https://www.klippan.se" },
+  { id: "hoganas", name: "Höganäs", homepage: "https://www.hoganas.se" },
+
+  // Fas I (10 nya, kommun 121-130)
+  { id: "bastad", name: "Båstad", homepage: "https://www.bastad.se" },
+  { id: "orust", name: "Orust", homepage: "https://www.orust.se" },
+  { id: "munkedal", name: "Munkedal", homepage: "https://www.munkedal.se" },
+  { id: "tanum", name: "Tanum", homepage: "https://www.tanum.se" },
+  { id: "stenungsund", name: "Stenungsund", homepage: "https://www.stenungsund.se" },
+  { id: "tjorn", name: "Tjörn", homepage: "https://www.tjorn.se" },
+  { id: "herrljunga", name: "Herrljunga", homepage: "https://www.herrljunga.se" },
+  { id: "vara", name: "Vara", homepage: "https://www.vara.se" },
+  { id: "mark", name: "Mark", homepage: "https://www.mark.se" },
+  { id: "ulricehamn", name: "Ulricehamn", homepage: "https://www.ulricehamn.se" },
 ];
 
 // Parse --only=nacka,malmo CLI argument

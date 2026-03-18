@@ -1,0 +1,43 @@
+{
+  "municipality": "Tanum",
+  "municipality_id": "tanum",
+  "success": true,
+  "needs_manual_url": false,
+  "config": {
+    "municipality": "Tanum",
+    "platform_guess": "sitevision",
+    "listing_url": "https://www.tanum.se/byggabomiljoinfrastruktur/forenkladdelgivning.4.58a1213116a1838cc7c82788.html",
+    "listing_type": "unknown",
+    "pagination": {
+      "has_pagination": false,
+      "type": "none",
+      "mechanism": "Sidan bedöms visa alla aktuella anslag på en och samma sida utan paginering",
+      "estimated_total_pages": null
+    },
+    "requires_subpages": {
+      "required": false,
+      "reason": "Förenklad delgivning i Sitevision publiceras typiskt som löpande text/lista direkt på sidan utan länkning till undersidor. Innehållet är trunkerat i tillgänglig HTML och kan inte bekräftas fullt ut.",
+      "link_selector_hint": null
+    },
+    "selectors_hint": {
+      "container": ".sv-text-portlet-content, .sv-editor-content, [id*='svid'] .sv-portlet-content",
+      "item": "p, li",
+      "case_number": null,
+      "address": null,
+      "date": null,
+      "description": "p"
+    },
+    "notes": "Sidan använder Sitevision CMS. Innehållssektionen (main) var trunkerad i tillgänglig HTML - faktisk innehållsstruktur för anslagslistningen är okänd. Förenklad delgivning innebär att bygglovsbeslut anslås här för att räknas som delgivna. Anslag innehåller typiskt: ärendenummer, fastighetsbeteckning, åtgärdstyp, anslagsdatum och sista överklagandedatum. Selektorer behöver verifieras mot live-renderad sida. Sidan kan kräva JavaScript-rendering via Sitevision-portlets.",
+    "confidence": "low",
+    "approved": false
+  },
+  "navigations_used": 3,
+  "candidate_url": "https://www.tanum.se/kommunpolitik/beslutinsynochrattssakerhet/anslagstavla.4.4f88636115fe7bbde0a7c027.html",
+  "final_url": "https://www.tanum.se/byggabomiljoinfrastruktur/forenkladdelgivning.4.58a1213116a1838cc7c82788.html",
+  "tokens": {
+    "input": 116683,
+    "output": 1790,
+    "cost_usd": 0.376899
+  },
+  "failure_reason": null
+}
