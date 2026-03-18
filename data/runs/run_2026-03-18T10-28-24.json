@@ -1,0 +1,22 @@
+{
+  "run_id": "2026-03-18T10-28-24",
+  "run_at": "2026-03-18T10:29:50.447Z",
+  "elapsed_ms": 86206,
+  "configs_count": 1,
+  "total_permits": 0,
+  "total_inserted": 0,
+  "total_cost_usd": 0.0416768,
+  "cost_per_permit_usd": 0,
+  "results": [
+    {
+      "municipality": "Uppsala",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0416768,
+      "html_hash": "1100877aa0d42f71"
+    }
+  ]
+}
