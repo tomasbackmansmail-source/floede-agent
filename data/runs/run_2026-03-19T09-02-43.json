@@ -1,0 +1,2409 @@
+{
+  "run_id": "2026-03-19T09-02-43",
+  "run_at": "2026-03-19T10:45:08.767Z",
+  "elapsed_ms": 6145510,
+  "configs_count": 274,
+  "total_permits": 972,
+  "total_inserted": 764,
+  "total_cost_usd": 1.0384728000000008,
+  "cost_per_permit_usd": 0.0010683876543209885,
+  "results": [
+    {
+      "municipality": "Älmhult",
+      "status": "ok",
+      "permits": 1,
+      "inserted": 1,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0035376,
+      "html_hash": "f5695e83a9ebdd71"
+    },
+    {
+      "municipality": "Ängelholm",
+      "status": "ok",
+      "permits": 5,
+      "inserted": 0,
+      "skipped": 5,
+      "errors": 0,
+      "cost_usd": 0.0040224,
+      "html_hash": "565322986e647596"
+    },
+    {
+      "municipality": "Arvika",
+      "status": "ok",
+      "permits": 10,
+      "inserted": 10,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0077792,
+      "html_hash": "88aeb666f3f7b346"
+    },
+    {
+      "municipality": "Aneby",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.001844,
+      "html_hash": "862f7f30418364c2"
+    },
+    {
+      "municipality": "Hjo",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0018503999999999999,
+      "html_hash": "b271b95e9427d364"
+    },
+    {
+      "municipality": "Sunne",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0020943999999999997,
+      "html_hash": "5d7959ef4e9be7de"
+    },
+    {
+      "municipality": "Bjuv",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0019432,
+      "html_hash": "0286198fe235ea14"
+    },
+    {
+      "municipality": "Borås",
+      "status": "ok",
+      "permits": 48,
+      "inserted": 48,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0329816,
+      "html_hash": "e8d64c1ae7ea74e6"
+    },
+    {
+      "municipality": "Berg",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0025336,
+      "html_hash": "7ec1c9532f9c385c"
+    },
+    {
+      "municipality": "Boden",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.002056,
+      "html_hash": "6b39bf4144c7eb47"
+    },
+    {
+      "municipality": "Arvidsjaur",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0019383999999999998,
+      "html_hash": "f984bca33be83099"
+    },
+    {
+      "municipality": "Bjurholm",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0018992,
+      "html_hash": "8d0fa0b9436daaaa"
+    },
+    {
+      "municipality": "Ekerö",
+      "status": "ok",
+      "permits": 22,
+      "inserted": 0,
+      "skipped": 22,
+      "errors": 0,
+      "cost_usd": 0.0129096,
+      "html_hash": "debd2a91c12a9d72"
+    },
+    {
+      "municipality": "Eslöv",
+      "status": "ok",
+      "permits": 20,
+      "inserted": 8,
+      "skipped": 12,
+      "errors": 0,
+      "cost_usd": 0.012260799999999999,
+      "html_hash": "6d0f22f08bc0440b"
+    },
+    {
+      "municipality": "Eskilstuna",
+      "status": "ok",
+      "permits": 8,
+      "inserted": 8,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.008128,
+      "html_hash": "f5c6325b984cac45"
+    },
+    {
+      "municipality": "Bollnas",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0018679999999999999,
+      "html_hash": "24b67959dab27661"
+    },
+    {
+      "municipality": "Boxholm",
+      "status": "ok",
+      "permits": 1,
+      "inserted": 0,
+      "skipped": 1,
+      "errors": 0,
+      "cost_usd": 0.0033767999999999997,
+      "html_hash": "3992e36afddbdbb6"
+    },
+    {
+      "municipality": "Degerfors",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0018896,
+      "html_hash": "fe9f097d3da7e1b7"
+    },
+    {
+      "municipality": "Karlsborg",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0019896,
+      "html_hash": "58297f16f9dd9351"
+    },
+    {
+      "municipality": "Torsås",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0020152,
+      "html_hash": "6614fb9f787e62f7"
+    },
+    {
+      "municipality": "Filipstad",
+      "status": "ok",
+      "permits": 16,
+      "inserted": 16,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0111192,
+      "html_hash": "9a580e61711a7369"
+    },
+    {
+      "municipality": "Fagersta",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0019127999999999999,
+      "html_hash": "7d3da218ce96bddd"
+    },
+    {
+      "municipality": "Kumla",
+      "status": "ok",
+      "permits": 10,
+      "inserted": 10,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.007685599999999999,
+      "html_hash": "4d3017f989004bfc"
+    },
+    {
+      "municipality": "Emmaboda",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0019471999999999998,
+      "html_hash": "a352838f4ccdb5e4"
+    },
+    {
+      "municipality": "Essunga",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0018831999999999998,
+      "html_hash": "a9141f1d2285bf58"
+    },
+    {
+      "municipality": "Falkoping",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0021952,
+      "html_hash": "ca43c548128c3b2f"
+    },
+    {
+      "municipality": "Skinnskatteberg",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0018407999999999999,
+      "html_hash": "e3b0c44298fc1c14"
+    },
+    {
+      "municipality": "Bränås",
+      "status": "error",
+      "error": "page.goto: net::ERR_NAME_NOT_RESOLVED at https://www.brantorp.se/anslagstavla\nCall log:\n\u001b[2m  - navigating to \"https://www.brantorp.se/anslagstavla\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Håbo",
+      "status": "ok",
+      "permits": 9,
+      "inserted": 4,
+      "skipped": 5,
+      "errors": 0,
+      "cost_usd": 0.008958399999999998,
+      "html_hash": "c0c159fe05024fb6"
+    },
+    {
+      "municipality": "Gotland",
+      "status": "ok",
+      "permits": 17,
+      "inserted": 17,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.016219199999999996,
+      "html_hash": "d31ddc2fcc1bc71d"
+    },
+    {
+      "municipality": "Halmstad",
+      "status": "ok",
+      "permits": 42,
+      "inserted": 1,
+      "skipped": 41,
+      "errors": 0,
+      "cost_usd": 0.0200616,
+      "html_hash": "323b6a9bdb3e8b2e"
+    },
+    {
+      "municipality": "Flen",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0028208,
+      "html_hash": "6ae336ece0d9f3f9"
+    },
+    {
+      "municipality": "Forshaga",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0022064,
+      "html_hash": "286086f766632f6b"
+    },
+    {
+      "municipality": "Gnesta",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0026479999999999997,
+      "html_hash": "914c01eb4ab9a6d5"
+    },
+    {
+      "municipality": "Gnosjo",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0018911999999999998,
+      "html_hash": "298eb5b991f7955e"
+    },
+    {
+      "municipality": "Hässleholm",
+      "status": "ok",
+      "permits": 23,
+      "inserted": 23,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.018546399999999998,
+      "html_hash": "9ca8ffacff0381e2"
+    },
+    {
+      "municipality": "Haparanda",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0018671999999999998,
+      "html_hash": "05847f8615096cc7"
+    },
+    {
+      "municipality": "Kungälv",
+      "status": "ok",
+      "permits": 30,
+      "inserted": 30,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.023104799999999998,
+      "html_hash": "6dc7de098ff5adab"
+    },
+    {
+      "municipality": "Gullspang",
+      "status": "ok",
+      "permits": 2,
+      "inserted": 0,
+      "skipped": 2,
+      "errors": 0,
+      "cost_usd": 0.0035215999999999997,
+      "html_hash": "2433cdf8748c046f"
+    },
+    {
+      "municipality": "Heby",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0018808,
+      "html_hash": "271505502f22ad2a"
+    },
+    {
+      "municipality": "Grastorp",
+      "status": "ok",
+      "permits": 4,
+      "inserted": 0,
+      "skipped": 4,
+      "errors": 0,
+      "cost_usd": 0.0045144,
+      "html_hash": "29fc8c19ba8936a4"
+    },
+    {
+      "municipality": "Hagfors",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0019383999999999998,
+      "html_hash": "2c766f3af2cf025f"
+    },
+    {
+      "municipality": "Hörby",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0018559999999999998,
+      "html_hash": "e8d61a47e0fa1dc8"
+    },
+    {
+      "municipality": "Harjedalen",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0024624,
+      "html_hash": "4b6cfaeb4fd646b6"
+    },
+    {
+      "municipality": "Hofors",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0018896,
+      "html_hash": "ff012e3c5a67d9bf"
+    },
+    {
+      "municipality": "Harryda",
+      "status": "ok",
+      "permits": 12,
+      "inserted": 8,
+      "skipped": 4,
+      "errors": 0,
+      "cost_usd": 0.008230399999999999,
+      "html_hash": "062cf79397ccd542"
+    },
+    {
+      "municipality": "Hudiksvall",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0019504,
+      "html_hash": "e4985ef0256be179"
+    },
+    {
+      "municipality": "Höganäs",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0032535999999999997,
+      "html_hash": "d0992ceae4a49035"
+    },
+    {
+      "municipality": "Kil",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0019064,
+      "html_hash": "42e960949acd2687"
+    },
+    {
+      "municipality": "Kalmar",
+      "status": "ok",
+      "permits": 32,
+      "inserted": 32,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0174016,
+      "html_hash": "0bac1ce5a70e8543"
+    },
+    {
+      "municipality": "Karlskrona",
+      "status": "ok",
+      "permits": 25,
+      "inserted": 25,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.01766,
+      "html_hash": "7ec36152517d031f"
+    },
+    {
+      "municipality": "Hallstahammar",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0022136,
+      "html_hash": "954c2dbaaa44cd3b"
+    },
+    {
+      "municipality": "Karlskoga",
+      "status": "ok",
+      "permits": 9,
+      "inserted": 0,
+      "skipped": 9,
+      "errors": 0,
+      "cost_usd": 0.005632,
+      "html_hash": "28bb05dc147d518b"
+    },
+    {
+      "municipality": "Kinda",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0022511999999999996,
+      "html_hash": "eb12df1e11e00019"
+    },
+    {
+      "municipality": "Katrineholm",
+      "status": "ok",
+      "permits": 21,
+      "inserted": 21,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.017211999999999998,
+      "html_hash": "b9dec695dae9d107"
+    },
+    {
+      "municipality": "Kiruna",
+      "status": "ok",
+      "permits": 5,
+      "inserted": 5,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0040744,
+      "html_hash": "7fa7078d38801985"
+    },
+    {
+      "municipality": "Klippan",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0018399999999999998,
+      "html_hash": "58fcb45bd3bbfa7e"
+    },
+    {
+      "municipality": "Kramfors",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0021319999999999998,
+      "html_hash": "72377daaa44365d1"
+    },
+    {
+      "municipality": "Krokom",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0021544,
+      "html_hash": "5dd0ccbb9240c5ab"
+    },
+    {
+      "municipality": "Laxå",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0019816,
+      "html_hash": "2c3f8b799e6b7f60"
+    },
+    {
+      "municipality": "Lekeberg",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0020096,
+      "html_hash": "d16c55b10621bbc6"
+    },
+    {
+      "municipality": "Lerum",
+      "status": "ok",
+      "permits": 7,
+      "inserted": 0,
+      "skipped": 7,
+      "errors": 0,
+      "cost_usd": 0.0053679999999999995,
+      "html_hash": "21984e3055518541"
+    },
+    {
+      "municipality": "Lessebo",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.00224,
+      "html_hash": "7a183cabbbcabd79"
+    },
+    {
+      "municipality": "Koping",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.001852,
+      "html_hash": "579318d9c30c2b23"
+    },
+    {
+      "municipality": "Laholm",
+      "status": "ok",
+      "permits": 21,
+      "inserted": 21,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0158536,
+      "html_hash": "28bd703f365ad805"
+    },
+    {
+      "municipality": "Lidköping",
+      "status": "ok",
+      "permits": 21,
+      "inserted": 0,
+      "skipped": 21,
+      "errors": 0,
+      "cost_usd": 0.0117952,
+      "html_hash": "b38698b76f62ddef"
+    },
+    {
+      "municipality": "Lomma",
+      "status": "ok",
+      "permits": 15,
+      "inserted": 15,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0095008,
+      "html_hash": "fb89f96b1ef3a58e"
+    },
+    {
+      "municipality": "Linköping",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0018399999999999998,
+      "html_hash": "e3b0c44298fc1c14"
+    },
+    {
+      "municipality": "Lindesberg",
+      "status": "ok",
+      "permits": 7,
+      "inserted": 6,
+      "skipped": 1,
+      "errors": 0,
+      "cost_usd": 0.0076992,
+      "html_hash": "7a63d4b21cc0b2db"
+    },
+    {
+      "municipality": "Ljusnarsberg",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.002528,
+      "html_hash": "ed75b64e52b9f5a8"
+    },
+    {
+      "municipality": "Ludvika",
+      "status": "ok",
+      "permits": 20,
+      "inserted": 0,
+      "skipped": 20,
+      "errors": 0,
+      "cost_usd": 0.0159672,
+      "html_hash": "fcc2ffd7676646a7"
+    },
+    {
+      "municipality": "Malung Salen",
+      "status": "ok",
+      "permits": 39,
+      "inserted": 39,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0291048,
+      "html_hash": "24b90664938c4f95"
+    },
+    {
+      "municipality": "Ljusdal",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0020288,
+      "html_hash": "f5fed0c506425165"
+    },
+    {
+      "municipality": "Lysekil",
+      "status": "ok",
+      "permits": 20,
+      "inserted": 20,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.017896,
+      "html_hash": "54ed0759582412db"
+    },
+    {
+      "municipality": "Norberg",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0018847999999999998,
+      "html_hash": "a2f88a529c86d66c"
+    },
+    {
+      "municipality": "Nora",
+      "status": "ok",
+      "permits": 2,
+      "inserted": 2,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.004739999999999999,
+      "html_hash": "1fca8ce705432378"
+    },
+    {
+      "municipality": "Nordanstig",
+      "status": "ok",
+      "permits": 2,
+      "inserted": 0,
+      "skipped": 2,
+      "errors": 0,
+      "cost_usd": 0.0028576,
+      "html_hash": "a37aea68c6abed73"
+    },
+    {
+      "municipality": "Mullsjo",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0018448,
+      "html_hash": "862f7f30418364c2"
+    },
+    {
+      "municipality": "Nordmaling",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0018839999999999998,
+      "html_hash": "b3075083e657efd3"
+    },
+    {
+      "municipality": "Ragunda",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.001924,
+      "html_hash": "9c99c4fd971511c5"
+    },
+    {
+      "municipality": "Ovanaker",
+      "status": "ok",
+      "permits": 1,
+      "inserted": 1,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0033359999999999996,
+      "html_hash": "14fc6543c5fc39b0"
+    },
+    {
+      "municipality": "Perstorp",
+      "status": "ok",
+      "permits": 1,
+      "inserted": 1,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0056296,
+      "html_hash": "744c7ba992566056"
+    },
+    {
+      "municipality": "Ronneby",
+      "status": "ok",
+      "permits": 8,
+      "inserted": 8,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0081152,
+      "html_hash": "596fd86ae0e005ab"
+    },
+    {
+      "municipality": "Ockelbo",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0018863999999999999,
+      "html_hash": "900bc46c34b3faf1"
+    },
+    {
+      "municipality": "Olofstrom",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0018872,
+      "html_hash": "8e4b7e6ed20bb43e"
+    },
+    {
+      "municipality": "Orsa",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.001916,
+      "html_hash": "e3aa6924d54e37f0"
+    },
+    {
+      "municipality": "Robertsfors",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0019471999999999998,
+      "html_hash": "3f081e8f62be25a7"
+    },
+    {
+      "municipality": "Skurup",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0021807999999999997,
+      "html_hash": "41b1e9929d099668"
+    },
+    {
+      "municipality": "Norrköping",
+      "status": "error",
+      "error": "Municipality timeout: 300s exceeded",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Rattvik",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0019648,
+      "html_hash": "bfcb40bbbb1dddc1"
+    },
+    {
+      "municipality": "SjöBo",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0018456,
+      "html_hash": "862f7f30418364c2"
+    },
+    {
+      "municipality": "Norrköping",
+      "status": "ok",
+      "permits": 66,
+      "inserted": 66,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.06427839999999999,
+      "html_hash": "3a347708aac82873"
+    },
+    {
+      "municipality": "Skara",
+      "status": "error",
+      "error": "Municipality timeout: 60s exceeded",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Smedjebacken",
+      "status": "error",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://www.smedjebacken.se/kommun-och-politik/anslagstavla\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Söderköping",
+      "status": "error",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://www.soderkoping.se/officiell-anslagstavla/digital-anslagstavla/\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Nynäshamn",
+      "status": "error",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://nynashamn.se/Anslagstavlan\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Orust",
+      "status": "error",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://www.orust.se/kommun-och-politik/beslut-insyn-och-rattssakerhet/anslagstavla\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Örebro",
+      "status": "error",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://www.orebro.se/kommun--politik/politik--beslut/digital-anslagstavla.html\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Solleftea",
+      "status": "error",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://www.solleftea.se/kommun--politik/anslagstavla\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Sorsele",
+      "status": "error",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://www.sorsele.se/kommun-och-politik/anslagstavla\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Örnsköldsvik",
+      "status": "error",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://www.ornskoldsvik.se/om-kommunen/politiska-beslut-och-handlingar/anslagstavla\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Stromsund",
+      "status": "error",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://www.stromsund.se/kommun-och-politik/anslagstavla\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Oxelösund",
+      "status": "error",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://www.oxelosund.se/ovrigt/digital-anslagstavla\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Uddevalla",
+      "status": "error",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://www.uddevalla.se/kommun-och-politik/overklaga-beslut-rattsakerhet/uddevalla-kommuns-anslagstavla/\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Surahammar",
+      "status": "error",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://www.surahammar.se/anslagstavla\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Storfors",
+      "status": "error",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://www.storfors.se/kommun-och-politik/anslagstavla\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Piteå",
+      "status": "error",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://www.pitea.se/site/kommunal-anslagstavla/officiell-anslagstavla-plan--och-bygglagen-pbl/\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Sala",
+      "status": "error",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://www.sala.se/info/14344\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Säffle",
+      "status": "error",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://saffle.se/kommun-och-politik/moten-handlingar-protokoll/digital-anslagstavla.html\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Savenas",
+      "status": "error",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://www.savsjo.se/kommun-och-politik/anslagstavla\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Sigtuna",
+      "status": "error",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://www.sigtuna.se/kommun-och-politik/handlingar-beslut-och-rattssakerhet/anslagstavla.html\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Skellefteå",
+      "status": "error",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://anslagstavla.skelleftea.se/\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Skövde",
+      "status": "error",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://www.skovde.se/sv/kommun-och-politik/anslagstavla/anslagtavlan/\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Tomelilla",
+      "status": "error",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://www.tomelilla.se/kommunochpolitik/anslagstavla\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Torsby",
+      "status": "error",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://www.torsby.se/anslagstavla\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Timra",
+      "status": "error",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://www.timra.se/kommun-och-politik/anslagstavla\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Tranemo",
+      "status": "error",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://www.tranemo.se/kommun-och-politik/anslagstavla\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Sölvesborg",
+      "status": "error",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://solvesborg.se/kommun-och-politik-/arenden-och-handlingar/anslagstavla-officiell.html\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Staffanstorp",
+      "status": "error",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://www.netpublicator.com/bulletinboard/public/a1169ce3-29c0-42ba-a3d9-58bde01ef9b1\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Vansbro",
+      "status": "error",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://www.vansbro.se/kommun-och-politik/anslagstavla\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Vanersborg",
+      "status": "error",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://www.vanersborg.se/kommun-och-politik/kommunens-anslagstavla\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Uppvidinge",
+      "status": "error",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://www.uppvidinge.se/kommun-och-politik/anslagstavla\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Sundbyberg",
+      "status": "error",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://www.sundbyberg.se/kommun-och-politik/politik-och-demokrati/anslagstavla\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Svalöv",
+      "status": "error",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://anslagstavlan.svalov.se/#!/billboard/\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Svedala",
+      "status": "error",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://www.svedala.se/paverka/politik-och-demokrati/digital-anslagstavla/\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Vaxholm",
+      "status": "error",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://www.vaxholm.se/kommun-och-politik/anslagstavla\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Vingaker",
+      "status": "error",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://www.vingaker.se/kommun-och-politik/anslagstavla\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Tibro",
+      "status": "error",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://tibro.se/anslagstavla\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Tjörn",
+      "status": "error",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://www.tjorn.se/kommun-och-politik/motestider-protokoll-och-anslagstavla/anslagstavlan\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "VåRgåRda",
+      "status": "error",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://www.vargarda.se/kommun-och-politik/anslagstavla\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Ydre",
+      "status": "error",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://www.ydre.se/kommun-och-politik/anslagstavla\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Vannas",
+      "status": "error",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://www.vannas.se/anslagstavla\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Tierp",
+      "status": "error",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://www.tierp.se/tierp.se/kommun-och-politik/politik-och-beslut/anslagstavlan.html\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Trelleborg",
+      "status": "error",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://www.trelleborg.se/kommun-politik/beslut-insyn-och-rattssakerhet/anslagstavla/\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "åNge",
+      "status": "error",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://www.ange.se/kommun-och-politik/anslagstavla\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Tyresö",
+      "status": "error",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://lexext.tyreso.se/Lex2PinBoardWasm\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Trosa",
+      "status": "error",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://www.trosa.se/anslagstavla/\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Upplands Väsby",
+      "status": "error",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://www.upplandsvasby.se/kommun-och-politik/overklaga-beslut-rattssakerhet/anslagstavla-officiell\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "åRe",
+      "status": "error",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://www.are.se/anslagstavla\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "åTvidaberg",
+      "status": "error",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://www.atvidaberg.se/anslagstavla\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Alvkarleby",
+      "status": "error",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://www.alvkarleby.se/anslagstavla\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Ostra Goinge",
+      "status": "error",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://www.ostragoinge.se/kommun-och-politik/anslagstavla\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Alvdalen",
+      "status": "error",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://www.alvdalen.se/kommun-och-politik/anslagstavla\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Orkelljunga",
+      "status": "error",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://www.orkelljunga.se/kommun-och-politik/anslagstavla\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Askersund",
+      "status": "error",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://www.askersund.se/anslagstavla\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Vara",
+      "status": "error",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://vara.se/kommunochpolitik/politikochsammantraden/anslagstavla.1112.html\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Varberg",
+      "status": "error",
+      "error": "page.goto: net::ERR_ABORTED at https://varberg.se/kommun-och-politik/overklaga-beslut-rattssakerhet/kommunens-anslagstavla\nCall log:\n\u001b[2m  - navigating to \"https://varberg.se/kommun-och-politik/overklaga-beslut-rattssakerhet/kommunens-anslagstavla\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Värmdö",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Grums",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Värnamo",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Knivsta",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Borlange",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Vellinge",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Vetlanda",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Hylte",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Eksjo",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Alingsås",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Bollebygd",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Uppsala",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Soderhamn",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Toreboda",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Danderyd",
+      "status": "ok",
+      "permits": 8,
+      "inserted": 8,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.006772,
+      "html_hash": "dc4a21b25b47ebd4"
+    },
+    {
+      "municipality": "Enköping",
+      "status": "ok",
+      "permits": 8,
+      "inserted": 0,
+      "skipped": 8,
+      "errors": 0,
+      "cost_usd": 0.021848799999999998,
+      "html_hash": "eacf8f16f91255b9"
+    },
+    {
+      "municipality": "Falkenberg",
+      "status": "ok",
+      "permits": 26,
+      "inserted": 26,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.017612,
+      "html_hash": "92a74c3ef6a87c09"
+    },
+    {
+      "municipality": "Falun",
+      "status": "ok",
+      "permits": 48,
+      "inserted": 48,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0514632,
+      "html_hash": "28b6e7d39e5e1d79"
+    },
+    {
+      "municipality": "Gislaved",
+      "status": "ok",
+      "permits": 9,
+      "inserted": 7,
+      "skipped": 2,
+      "errors": 0,
+      "cost_usd": 0.010256,
+      "html_hash": "2718ae7cf5cc6b81"
+    },
+    {
+      "municipality": "Hallsberg",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0025008,
+      "html_hash": "c432018c8e7a8095"
+    },
+    {
+      "municipality": "Härnösand",
+      "status": "ok",
+      "permits": 2,
+      "inserted": 2,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0033896,
+      "html_hash": "74a20b46e47ee5e9"
+    },
+    {
+      "municipality": "Göteborg",
+      "status": "ok",
+      "permits": 133,
+      "inserted": 133,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0889616,
+      "html_hash": "e6275c5aadc00a82"
+    },
+    {
+      "municipality": "Kungsor",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0029976,
+      "html_hash": "43dd37fd66d06fc8"
+    },
+    {
+      "municipality": "Herrljunga",
+      "status": "ok",
+      "permits": 4,
+      "inserted": 1,
+      "skipped": 3,
+      "errors": 0,
+      "cost_usd": 0.0034327999999999997,
+      "html_hash": "344b7a3c7c644768"
+    },
+    {
+      "municipality": "Hultsfred",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0023728,
+      "html_hash": "bec4846ba9d81a7e"
+    },
+    {
+      "municipality": "Mönsterås",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0024288,
+      "html_hash": "cadcdcebd355cc1d"
+    },
+    {
+      "municipality": "Markaryd",
+      "status": "ok",
+      "permits": 8,
+      "inserted": 8,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.007712,
+      "html_hash": "87c494aa417c6b33"
+    },
+    {
+      "municipality": "Kungsbacka",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0018663999999999998,
+      "html_hash": "5f6dc6f18c36ed26"
+    },
+    {
+      "municipality": "Landskrona",
+      "status": "ok",
+      "permits": 33,
+      "inserted": 0,
+      "skipped": 33,
+      "errors": 0,
+      "cost_usd": 0.020735999999999997,
+      "html_hash": "157524a8a24e8ffd"
+    },
+    {
+      "municipality": "Vindeln",
+      "status": "error",
+      "error": "Municipality timeout: 60s exceeded",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Lidingö",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0023791999999999997,
+      "html_hash": "696ba2b84639375c"
+    },
+    {
+      "municipality": "Nassjo",
+      "status": "ok",
+      "permits": 25,
+      "inserted": 25,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.012629600000000001,
+      "html_hash": "f8e66408d5152651"
+    },
+    {
+      "municipality": "Svenljunga",
+      "status": "ok",
+      "permits": 10,
+      "inserted": 10,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.00792,
+      "html_hash": "c919716e2eb3be52"
+    },
+    {
+      "municipality": "Mark",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0018896,
+      "html_hash": "9224379017951304"
+    },
+    {
+      "municipality": "Mjölby",
+      "status": "ok",
+      "permits": 8,
+      "inserted": 8,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0150016,
+      "html_hash": "97e7cc61b6c1ba67"
+    },
+    {
+      "municipality": "Munkfors",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0029671999999999997,
+      "html_hash": "035a90e686a4f5ed"
+    },
+    {
+      "municipality": "Munkedal",
+      "status": "ok",
+      "permits": 2,
+      "inserted": 2,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.004686399999999999,
+      "html_hash": "88da4eef1fc38462"
+    },
+    {
+      "municipality": "Salem",
+      "status": "ok",
+      "permits": 3,
+      "inserted": 3,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0040111999999999995,
+      "html_hash": "cd4223fb42ce9578"
+    },
+    {
+      "municipality": "Oskarshamn",
+      "status": "ok",
+      "permits": 12,
+      "inserted": 11,
+      "skipped": 1,
+      "errors": 0,
+      "cost_usd": 0.0107048,
+      "html_hash": "79055bb20091ec22"
+    },
+    {
+      "municipality": "Valdemarsvik",
+      "status": "ok",
+      "permits": 7,
+      "inserted": 7,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0066648,
+      "html_hash": "9b268b090c2cdf8f"
+    },
+    {
+      "municipality": "Nyköping",
+      "status": "error",
+      "error": "Municipality timeout: 300s exceeded",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Sotenas",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0036368,
+      "html_hash": "86b71ed2f211e117"
+    },
+    {
+      "municipality": "Sandviken",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0038071999999999997,
+      "html_hash": "337fcbc6778eeb88"
+    },
+    {
+      "municipality": "Simrishamn",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0039648,
+      "html_hash": "fd5b14d85a680ada"
+    },
+    {
+      "municipality": "Sollentuna",
+      "status": "error",
+      "error": "page.evaluate: Execution context was destroyed, most likely because of a navigation",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Vimmerby",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0039328,
+      "html_hash": "405436c1b980d51e"
+    },
+    {
+      "municipality": "Tidaholm",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.004172,
+      "html_hash": "a9e88c99424cef97"
+    },
+    {
+      "municipality": "Strängnäs",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0018415999999999999,
+      "html_hash": "e3b0c44298fc1c14"
+    },
+    {
+      "municipality": "Tranås",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0018391999999999998,
+      "html_hash": "e3b0c44298fc1c14"
+    },
+    {
+      "municipality": "Eda",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0040536,
+      "html_hash": "023a840fcb2e165e"
+    },
+    {
+      "municipality": "Nyköping",
+      "status": "ok",
+      "permits": 4,
+      "inserted": 2,
+      "skipped": 2,
+      "errors": 0,
+      "cost_usd": 0.034404,
+      "html_hash": "9e0b9522653a96eb"
+    },
+    {
+      "municipality": "Ulricehamn",
+      "status": "ok",
+      "permits": 14,
+      "inserted": 14,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.011483199999999999,
+      "html_hash": "27fc4af4c2fd396f"
+    },
+    {
+      "municipality": "Vallentuna",
+      "status": "ok",
+      "permits": 3,
+      "inserted": 0,
+      "skipped": 3,
+      "errors": 0,
+      "cost_usd": 0.0040479999999999995,
+      "html_hash": "e552fce804fee0aa"
+    },
+    {
+      "municipality": "Bromölla",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0024687999999999997,
+      "html_hash": "87c548e61dcdbdc8"
+    },
+    {
+      "municipality": "Övertorneå",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0041608,
+      "html_hash": "a4c1f7d290aa6ce8"
+    },
+    {
+      "municipality": "Ystad",
+      "status": "error",
+      "error": "Municipality timeout: 60s exceeded",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Luleå",
+      "status": "error",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://www.lulea.se/kommun--politik/insyn-och-rattssakerhet/anslagstavla/kungorelser-om-bygglov.html\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Malmö",
+      "status": "error",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://motenmedborgarportal.malmo.se/digital-bulletin-board\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Mölndal",
+      "status": "error",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://www.molndal.se/4.75b7e0e9194d832c8bb379c/12.75b7e0e9194d832c8bbc4f1.htm?state=ajaxQuery&isRenderingAjaxResult=true&query=*%3A*&100.7bdab48918c624d207d392=Byggnadsn%C3%A4mnden\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Finspang",
+      "status": "error",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://www.finspang.se/kommunochpolitik/anslagstavla\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Motala",
+      "status": "error",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://anslagstavlan.motala.se/\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Osby",
+      "status": "error",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://www.osby.se/diverse/anslagstavla.html\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Haninge",
+      "status": "error",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://www.haninge.se/kommun-och-politik/politik-och-organisation/anslagstavla/\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Helsingborg",
+      "status": "error",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://anslagstavla.helsingborg.se/#!/billboard/\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Ale",
+      "status": "error",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://www.ale.se/kommun-och-politik/anslagstavla\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Jönköping",
+      "status": "error",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://www.jonkoping.se/kommun--politik/anslagstavla-for-jonkopings-kommun\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Lilla Edet",
+      "status": "error",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://www.lillaedet.se/kommun-och-politik/moten-handlingar-och-protokoll/anslagstavla\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Lund",
+      "status": "error",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://lund.se/kommun-och-politik/anslagstavla/kungorelser-bygglov\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Nacka",
+      "status": "error",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://www.nacka.se/kommun--politik/delta-och-paverka/anslagstavla-officiell/kungorelser/\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Partille",
+      "status": "error",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://lex.partille.se/Lex2PinBoardWasm\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Stockholm",
+      "status": "error",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://meetingspublic.stockholm.se/digital-bulletin-board\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Västerås",
+      "status": "error",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://www.vasteras.se/kommun-och-politik/moten-handlingar-och-protokoll/anslagstavla.html\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Älvsbyn",
+      "status": "error",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://www.alvsbyn.se/bygga-bo-och-miljo/kungorelse-enligt-plan-och-bygglagen/\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Arjeplog",
+      "status": "error",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://arjeplog.se/kommun-och-politik/overklaga-beslut-rattssakerhet/anslagstavla-officiell/\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Norsjö",
+      "status": "error",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://norsjo.se/kommun-politik/beslut-insyn-och-rattssakerhet/digital-anslagstavla/\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Borgholm",
+      "status": "error",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://www.borgholm.se/anslagstavla/\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Nybro",
+      "status": "error",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://nybro.se/kommun-politik/politik/anslagstavlan/\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Dals-Ed",
+      "status": "error",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://www.dalsed.se/kommun-och-politik/anslagstavla/\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Karlshamn",
+      "status": "error",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://www.karlshamn.se/anslagstavla/\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Pajala",
+      "status": "error",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://www.pajala.se/kommun-politik-och-service/anslagstavla/kungorelser-bygglov/\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Högsby",
+      "status": "error",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://www.hogsby.se/Kommun-och-politik/Anslagstavla-officiell\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Jokkmokk",
+      "status": "error",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://www.jokkmokk.se/kommun-och-politik/anslagstavla/\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Hedemora",
+      "status": "error",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://hedemora.se/kommun-och-demokrati/moten-handlingar-och-protokoll/anslagstavla/\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Kristianstad",
+      "status": "error",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://www.kristianstad.se/anslagstavla\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Leksand",
+      "status": "error",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://leksand.se/kommun-och-politik/politik-och-demokrati/digital-anslagstavla\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Gagnef",
+      "status": "error",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://www.gagnef.se/kommun-och-politik/officiell-anslagstavla/\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Arboga",
+      "status": "error",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://arboga.se/anslagstavla/anslagstavla.html\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Alvesta",
+      "status": "error",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://anslagstavla.alvesta.se/#!/billboard/\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Tingsryd",
+      "status": "error",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://tingsryd.se/anslagstavlan/\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "åMåL",
+      "status": "error",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://www.amal.se/kommun-och-politik/anslagstavla\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Vilhelmina",
+      "status": "error",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://www.vilhelmina.se/anslagstavla/\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Hällefors",
+      "status": "error",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://www.hellefors.se/anslagstavla.html\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Kalix",
+      "status": "error",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://www.kalix.se/anslagstavla/Beslut-om-lov/\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Lycksele",
+      "status": "error",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://www.lycksele.se/kommun/kommun-och-politik/anslagstavla/bygglov/\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Malå",
+      "status": "error",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://www.mala.se/anslagstavla/\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Mellerud",
+      "status": "ok",
+      "permits": 3,
+      "inserted": 3,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0040784,
+      "html_hash": "138ca78457ae8ac1"
+    },
+    {
+      "municipality": "Östhammar",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0065712,
+      "html_hash": "7cf38bb11116119f"
+    },
+    {
+      "municipality": "Båstad",
+      "status": "error",
+      "error": "Municipality timeout: 300s exceeded",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Burlöv",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.002544,
+      "html_hash": "c390daf6f100ab49"
+    },
+    {
+      "municipality": "Gävle",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0018399999999999998,
+      "html_hash": "e3b0c44298fc1c14"
+    },
+    {
+      "municipality": "Huddinge",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0025951999999999998,
+      "html_hash": "ef7f33c0a2091cbc"
+    },
+    {
+      "municipality": "Järfälla",
+      "status": "error",
+      "error": "page.goto: Navigation to \"https://www.jarfalla.se/kommunochpolitik/politikochnamnder/anslagstavla.4.3cbad1981604650ddf392cc7.html\" is interrupted by another navigation to \"https://www.bastad.se/forskola-skola-och-utbildning/forskola/allman-forskola.html\"\nCall log:\n\u001b[2m  - navigating to \"https://www.jarfalla.se/kommunochpolitik/politikochnamnder/anslagstavla.4.3cbad1981604650ddf392cc7.html\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Ljungby",
+      "status": "error",
+      "error": "page.evaluate: TypeError: Cannot read properties of null (reading 'innerText')\n    at eval (eval at evaluate (:290:30), <anonymous>:3:38)\n    at UtilityScript.evaluate (<anonymous>:292:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Mora",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0018384,
+      "html_hash": "e3b0c44298fc1c14"
+    },
+    {
+      "municipality": "Sundsvall",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0018399999999999998,
+      "html_hash": "e3b0c44298fc1c14"
+    },
+    {
+      "municipality": "Avesta",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0029455999999999996,
+      "html_hash": "1d5af944dbad9f88"
+    },
+    {
+      "municipality": "Storuman",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0023943999999999997,
+      "html_hash": "9692851eda94f77d"
+    },
+    {
+      "municipality": "Mariestad",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0018399999999999998,
+      "html_hash": "e3b0c44298fc1c14"
+    },
+    {
+      "municipality": "Norrtälje",
+      "status": "error",
+      "error": "page.evaluate: TypeError: Cannot read properties of null (reading 'innerText')\n    at eval (eval at evaluate (:290:30), <anonymous>:3:38)\n    at UtilityScript.evaluate (<anonymous>:292:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Österåker",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0018399999999999998,
+      "html_hash": "e3b0c44298fc1c14"
+    },
+    {
+      "municipality": "Södertälje",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0018663999999999998,
+      "html_hash": "695349e23d32c972"
+    },
+    {
+      "municipality": "Tanum",
+      "status": "error",
+      "error": "page.goto: net::ERR_ABORTED at https://www.tanum.se/byggabomiljoinfrastruktur/forenkladdelgivning.4.58a1213116a1838cc7c82788.html\nCall log:\n\u001b[2m  - navigating to \"https://www.tanum.se/byggabomiljoinfrastruktur/forenkladdelgivning.4.58a1213116a1838cc7c82788.html\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Stenungsund",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0018399999999999998,
+      "html_hash": "e3b0c44298fc1c14"
+    },
+    {
+      "municipality": "Bengtsfors",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0023368,
+      "html_hash": "74f28037733ccaa5"
+    },
+    {
+      "municipality": "Östersund",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0018399999999999998,
+      "html_hash": "e3b0c44298fc1c14"
+    },
+    {
+      "municipality": "Trollhättan",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0018407999999999999,
+      "html_hash": "e3b0c44298fc1c14"
+    },
+    {
+      "municipality": "Umeå",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0018656,
+      "html_hash": "695349e23d32c972"
+    },
+    {
+      "municipality": "Dorotea",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0018399999999999998,
+      "html_hash": "e3b0c44298fc1c14"
+    },
+    {
+      "municipality": "Växjö",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0018399999999999998,
+      "html_hash": "e3b0c44298fc1c14"
+    },
+    {
+      "municipality": "Överkalix",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0018399999999999998,
+      "html_hash": "e3b0c44298fc1c14"
+    },
+    {
+      "municipality": "Botkyrka",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0018407999999999999,
+      "html_hash": "e3b0c44298fc1c14"
+    },
+    {
+      "municipality": "Solna",
+      "status": "error",
+      "error": "page.goto: net::ERR_ABORTED at https://www.solna.se/om-solna-stad/arenden-beslut-och-protokoll/anslagstavla\nCall log:\n\u001b[2m  - navigating to \"https://www.solna.se/om-solna-stad/arenden-beslut-och-protokoll/anslagstavla\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Höör",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0018391999999999998,
+      "html_hash": "e3b0c44298fc1c14"
+    },
+    {
+      "municipality": "Täby",
+      "status": "error",
+      "error": "page.goto: net::ERR_ABORTED at https://www.taby.se/anslagstavla/\nCall log:\n\u001b[2m  - navigating to \"https://www.taby.se/anslagstavla/\", waiting until \"domcontentloaded\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Karlstad",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0018391999999999998,
+      "html_hash": "e3b0c44298fc1c14"
+    },
+    {
+      "municipality": "Säter",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0018391999999999998,
+      "html_hash": "e3b0c44298fc1c14"
+    },
+    {
+      "municipality": "Kristinehamn",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0018407999999999999,
+      "html_hash": "e3b0c44298fc1c14"
+    },
+    {
+      "municipality": "Vaggeryd",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0033888,
+      "html_hash": "851b10d7cc3183be"
+    },
+    {
+      "municipality": "Upplands-Bro",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0018424,
+      "html_hash": "e3b0c44298fc1c14"
+    }
+  ]
+}

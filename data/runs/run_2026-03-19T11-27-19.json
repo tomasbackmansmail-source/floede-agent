@@ -1,0 +1,69 @@
+{
+  "run_id": "2026-03-19T11-27-19",
+  "run_at": "2026-03-19T11:28:14.367Z",
+  "elapsed_ms": 54770,
+  "configs_count": 5,
+  "http_count": 5,
+  "browser_count": 0,
+  "total_permits": 59,
+  "total_inserted": 14,
+  "total_cost_usd": 0.04568239999999999,
+  "cost_per_permit_usd": 0.0007742779661016947,
+  "results": [
+    {
+      "municipality": "Ludvika",
+      "status": "ok",
+      "fetch_mode": "http",
+      "permits": 20,
+      "inserted": 0,
+      "skipped": 20,
+      "errors": 0,
+      "cost_usd": 0.015930399999999997,
+      "html_hash": "39e32388cec7d8ee"
+    },
+    {
+      "municipality": "Grums",
+      "status": "ok",
+      "fetch_mode": "http",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0051568,
+      "html_hash": "db1b1ea7f6592964"
+    },
+    {
+      "municipality": "Knivsta",
+      "status": "ok",
+      "fetch_mode": "http",
+      "permits": 4,
+      "inserted": 4,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.005425599999999999,
+      "html_hash": "914d3598543aa3ca"
+    },
+    {
+      "municipality": "Nassjo",
+      "status": "ok",
+      "fetch_mode": "http",
+      "permits": 25,
+      "inserted": 0,
+      "skipped": 25,
+      "errors": 0,
+      "cost_usd": 0.0121696,
+      "html_hash": "97a446534c7635df"
+    },
+    {
+      "municipality": "Svenljunga",
+      "status": "ok",
+      "fetch_mode": "http",
+      "permits": 10,
+      "inserted": 10,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.006999999999999999,
+      "html_hash": "5161543207a7353e"
+    }
+  ]
+}

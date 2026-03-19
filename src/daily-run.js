@@ -32,6 +32,12 @@ const HAIKU_OUTPUT_COST = 0.000004;
 
 const USER_AGENT = "FloedAgent/0.1 (byggsignal.se; datainsamling fran offentliga anslagstavlor)";
 
+const BYGGLOV_KEYWORDS = [
+  'bygglov', 'rivningslov', 'marklov', 'förhandsbesked',
+  'plan- och bygglagen', 'pbl', 'kungörelse om beslut i lov',
+  'strandskyddsdispens', 'bygganmälan',
+];
+
 async function ensureDirs() {
   for (const dir of [HTML_DIR, EXTRACTED_DIR, COST_DIR, RUN_LOG_DIR]) {
     await mkdir(dir, { recursive: true });
@@ -83,17 +89,21 @@ function htmlToText(html) {
 }
 
 // Extract links matching a CSS-selector-like pattern from raw HTML
+// Returns [{ href, text }] where text is the anchor's inner text content
 function extractLinks(html, baseUrl, selectorHint) {
   const links = [];
-  // Parse href attributes from anchor tags
-  const anchorRegex = /<a\s[^>]*href="([^"]*)"[^>]*>/gi;
+  // Parse anchor tags with href and capture inner text
+  const anchorRegex = /<a\s[^>]*href="([^"]*)"[^>]*>([\s\S]*?)<\/a>/gi;
   let match;
   while ((match = anchorRegex.exec(html)) !== null) {
     const href = match[1];
+    const innerHtml = match[2];
     if (!href || href.startsWith("#") || href.startsWith("javascript:")) continue;
+    // Strip tags from inner HTML to get plain text
+    const text = innerHtml.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
     try {
       const absolute = new URL(href, baseUrl).href;
-      links.push({ href: absolute, tag: match[0] });
+      links.push({ href: absolute, text });
     } catch { /* skip invalid URLs */ }
   }
 
@@ -101,13 +111,19 @@ function extractLinks(html, baseUrl, selectorHint) {
   if (selectorHint) {
     const hrefPatterns = [...selectorHint.matchAll(/href\*='([^']+)'/g)].map(m => m[1]);
     if (hrefPatterns.length > 0) {
-      return links
-        .filter(l => hrefPatterns.some(p => l.href.toLowerCase().includes(p)))
-        .map(l => l.href);
+      return links.filter(l => hrefPatterns.some(p => l.href.toLowerCase().includes(p)));
     }
   }
 
-  return links.map(l => l.href);
+  return links;
+}
+
+// Filter subpage links to only those whose text matches bygglov-related keywords
+function filterByBygglovKeywords(links) {
+  return links.filter(l => {
+    const text = l.text.toLowerCase();
+    return BYGGLOV_KEYWORDS.some(kw => text.includes(kw));
+  });
 }
 
 // Filter links: remove binaries and external domains
@@ -144,24 +160,34 @@ async function fetchPageHttp(config) {
   if (config.requires_subpages && config.requires_subpages.required) {
     const selectorHint = config.requires_subpages.link_selector_hint || "a[href*='bygglov'], a[href*='kungorelse']";
     const allLinks = extractLinks(rawHtml, url, selectorHint);
-    const filtered = filterLinks(allLinks, url);
+    const domainFiltered = filterLinks(allLinks.map(l => l.href), url);
+    // Re-attach text for keyword filtering
+    const domainFilteredWithText = allLinks.filter(l => domainFiltered.includes(l.href));
+    const bygglovLinks = filterByBygglovKeywords(domainFilteredWithText);
     const maxSubpages = config.requires_subpages.max_subpages || 200;
-    console.log(`  [HTTP] Found ${allLinks.length} links, ${filtered.length} after filtering (fetching up to ${maxSubpages})`);
+
+    console.log(`  [HTTP] Found ${allLinks.length} links, ${domainFiltered.length} after domain filter, ${bygglovLinks.length} matching bygglov keywords`);
+
+    // If no bygglov-specific links found, fallback to listing page directly
+    if (bygglovLinks.length === 0) {
+      console.log(`  [HTTP] No bygglov subpage links found — using listing page directly`);
+      return htmlToText(rawHtml);
+    }
 
     const subpageTexts = [];
-    for (const link of filtered.slice(0, maxSubpages)) {
+    for (const link of bygglovLinks.slice(0, maxSubpages)) {
       try {
-        const subResp = await fetch(link, {
+        const subResp = await fetch(link.href, {
           headers: { "User-Agent": USER_AGENT },
           signal: AbortSignal.timeout(15000),
           redirect: "follow",
         });
         if (subResp.ok) {
           const subHtml = await subResp.text();
-          subpageTexts.push(`<!-- SUBPAGE: ${link} -->\n${htmlToText(subHtml)}`);
+          subpageTexts.push(`<!-- SUBPAGE: ${link.href} -->\n${htmlToText(subHtml)}`);
         }
       } catch (err) {
-        console.log(`  [HTTP] Subpage failed: ${link} — ${err.message}`);
+        console.log(`  [HTTP] Subpage failed: ${link.href} — ${err.message}`);
       }
       await new Promise((r) => setTimeout(r, 500)); // Rate limit
     }
@@ -220,31 +246,45 @@ async function fetchPagePlaywright(page, config) {
   if (config.requires_subpages && config.requires_subpages.required) {
     const linkSelector = config.requires_subpages.link_selector_hint || "a[href*='bygglov'], a[href*='kungorelse']";
     const links = await page.$$eval(linkSelector, (els) =>
-      els.map((el) => el.href).filter((href) => href && href.startsWith("http"))
+      els.map((el) => ({ href: el.href, text: el.textContent || "" })).filter((l) => l.href && l.href.startsWith("http"))
     );
 
-    const filtered = filterLinks(links, config.listing_url);
+    const domainFiltered = filterLinks(links.map(l => l.href), config.listing_url);
+    const domainFilteredWithText = links.filter(l => domainFiltered.includes(l.href));
+    const bygglovLinks = filterByBygglovKeywords(domainFilteredWithText);
     const maxSubpages = config.requires_subpages.max_subpages || 200;
-    console.log(`  [Browser] Found ${links.length} links, ${filtered.length} after filtering (fetching up to ${maxSubpages})`);
 
-    const subpageTexts = [];
-    for (const link of filtered.slice(0, maxSubpages)) {
-      try {
-        await page.goto(link, { waitUntil: "domcontentloaded", timeout: 15000 });
-        await page.waitForTimeout(500);
-        const text = await page.evaluate(() => {
-          const main = document.querySelector("main, article, .pagecontent, [role='main']");
-          return (main || document.body).innerText;
-        });
-        subpageTexts.push(`<!-- SUBPAGE: ${link} -->\n${text}`);
-      } catch (err) {
-        console.log(`  [Browser] Subpage failed: ${link} — ${err.message}`);
+    console.log(`  [Browser] Found ${links.length} links, ${domainFiltered.length} after domain filter, ${bygglovLinks.length} matching bygglov keywords`);
+
+    // If no bygglov-specific links found, fallback to listing page directly
+    if (bygglovLinks.length === 0) {
+      console.log(`  [Browser] No bygglov subpage links found — using listing page directly`);
+      await page.goto(config.listing_url, { waitUntil: "domcontentloaded", timeout: 30000 });
+      await page.waitForTimeout(2000);
+      html = await page.evaluate(() => {
+        const main = document.querySelector("main, article, .pagecontent, [role='main'], #pageContent");
+        return (main || document.body).innerText;
+      });
+    } else {
+      const subpageTexts = [];
+      for (const link of bygglovLinks.slice(0, maxSubpages)) {
+        try {
+          await page.goto(link.href, { waitUntil: "domcontentloaded", timeout: 15000 });
+          await page.waitForTimeout(500);
+          const text = await page.evaluate(() => {
+            const main = document.querySelector("main, article, .pagecontent, [role='main']");
+            return (main || document.body).innerText;
+          });
+          subpageTexts.push(`<!-- SUBPAGE: ${link.href} -->\n${text}`);
+        } catch (err) {
+          console.log(`  [Browser] Subpage failed: ${link.href} — ${err.message}`);
+        }
+        await new Promise((r) => setTimeout(r, 1000));
       }
-      await new Promise((r) => setTimeout(r, 1000));
-    }
 
-    console.log(`  [Browser] Fetched ${subpageTexts.length} subpages`);
-    html = subpageTexts.join("\n\n");
+      console.log(`  [Browser] Fetched ${subpageTexts.length} subpages`);
+      html = subpageTexts.join("\n\n");
+    }
   } else {
     await page.evaluate(() => {
       document.querySelectorAll("details").forEach(d => d.open = true);

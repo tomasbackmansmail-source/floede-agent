@@ -1,0 +1,47 @@
+{
+  "run_id": "2026-03-19T15-19-18",
+  "run_at": "2026-03-19T15:19:57.062Z",
+  "elapsed_ms": 38361,
+  "configs_count": 3,
+  "http_count": 3,
+  "browser_count": 0,
+  "total_permits": 40,
+  "total_inserted": 40,
+  "total_cost_usd": 0.0329888,
+  "cost_per_permit_usd": 0.0008247199999999999,
+  "results": [
+    {
+      "municipality": "Gävle",
+      "status": "ok",
+      "fetch_mode": "http",
+      "permits": 40,
+      "inserted": 40,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.027915999999999996,
+      "html_hash": "cd1f6d8b55bdc710"
+    },
+    {
+      "municipality": "Järfälla",
+      "status": "ok",
+      "fetch_mode": "http",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.002624,
+      "html_hash": "5c3d359b1d1af845"
+    },
+    {
+      "municipality": "Sundsvall",
+      "status": "ok",
+      "fetch_mode": "http",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0024487999999999997,
+      "html_hash": "eab21f44098d8150"
+    }
+  ]
+}
