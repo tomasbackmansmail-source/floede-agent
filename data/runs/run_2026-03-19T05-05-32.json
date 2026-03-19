@@ -1,0 +1,2197 @@
+{
+  "run_id": "2026-03-19T05-05-32",
+  "run_at": "2026-03-19T06:14:33.242Z",
+  "elapsed_ms": 4141226,
+  "configs_count": 274,
+  "total_permits": 615,
+  "total_inserted": 539,
+  "total_cost_usd": 0.5939792,
+  "cost_per_permit_usd": 0.0009658198373983741,
+  "results": [
+    {
+      "municipality": "Älmhult",
+      "status": "ok",
+      "permits": 1,
+      "inserted": 1,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0035376,
+      "html_hash": "95b9d5ca87c6df1f"
+    },
+    {
+      "municipality": "Ängelholm",
+      "status": "ok",
+      "permits": 5,
+      "inserted": 1,
+      "skipped": 4,
+      "errors": 0,
+      "cost_usd": 0.0040248,
+      "html_hash": "9f22044d1e9b70b8"
+    },
+    {
+      "municipality": "Arvika",
+      "status": "ok",
+      "permits": 10,
+      "inserted": 10,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0077800000000000005,
+      "html_hash": "88aeb666f3f7b346"
+    },
+    {
+      "municipality": "Aneby",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0018448,
+      "html_hash": "862f7f30418364c2"
+    },
+    {
+      "municipality": "Hjo",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0018512,
+      "html_hash": "b271b95e9427d364"
+    },
+    {
+      "municipality": "Sunne",
+      "status": "error",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://sunne.se/anslagstavla\", waiting until \"networkidle\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Bjuv",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0019439999999999998,
+      "html_hash": "0286198fe235ea14"
+    },
+    {
+      "municipality": "Borås",
+      "status": "ok",
+      "permits": 47,
+      "inserted": 47,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.032423999999999994,
+      "html_hash": "8c2e59a426bdcf8e"
+    },
+    {
+      "municipality": "Berg",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0025144,
+      "html_hash": "7ec1c9532f9c385c"
+    },
+    {
+      "municipality": "Boden",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0020568,
+      "html_hash": "6b39bf4144c7eb47"
+    },
+    {
+      "municipality": "Arvidsjaur",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0019191999999999998,
+      "html_hash": "f984bca33be83099"
+    },
+    {
+      "municipality": "Bjurholm",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0018999999999999998,
+      "html_hash": "8d0fa0b9436daaaa"
+    },
+    {
+      "municipality": "Ekerö",
+      "status": "ok",
+      "permits": 22,
+      "inserted": 0,
+      "skipped": 22,
+      "errors": 0,
+      "cost_usd": 0.0132208,
+      "html_hash": "62a02f568aa62d68"
+    },
+    {
+      "municipality": "Eslöv",
+      "status": "ok",
+      "permits": 20,
+      "inserted": 8,
+      "skipped": 12,
+      "errors": 0,
+      "cost_usd": 0.0119616,
+      "html_hash": "6d0f22f08bc0440b"
+    },
+    {
+      "municipality": "Eskilstuna",
+      "status": "ok",
+      "permits": 8,
+      "inserted": 8,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0081168,
+      "html_hash": "f5c6325b984cac45"
+    },
+    {
+      "municipality": "Bollnas",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0018687999999999999,
+      "html_hash": "24b67959dab27661"
+    },
+    {
+      "municipality": "Boxholm",
+      "status": "ok",
+      "permits": 1,
+      "inserted": 1,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0033816,
+      "html_hash": "3992e36afddbdbb6"
+    },
+    {
+      "municipality": "Degerfors",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0018903999999999998,
+      "html_hash": "fe9f097d3da7e1b7"
+    },
+    {
+      "municipality": "Karlsborg",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0019904,
+      "html_hash": "58297f16f9dd9351"
+    },
+    {
+      "municipality": "Torsås",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.001996,
+      "html_hash": "6614fb9f787e62f7"
+    },
+    {
+      "municipality": "Filipstad",
+      "status": "ok",
+      "permits": 16,
+      "inserted": 16,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.01112,
+      "html_hash": "9a580e61711a7369"
+    },
+    {
+      "municipality": "Fagersta",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0019136,
+      "html_hash": "7d3da218ce96bddd"
+    },
+    {
+      "municipality": "Kumla",
+      "status": "ok",
+      "permits": 10,
+      "inserted": 10,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0076863999999999995,
+      "html_hash": "4d3017f989004bfc"
+    },
+    {
+      "municipality": "Emmaboda",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0019592,
+      "html_hash": "f74ba9f08044e69d"
+    },
+    {
+      "municipality": "Essunga",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0018839999999999998,
+      "html_hash": "a9141f1d2285bf58"
+    },
+    {
+      "municipality": "Falkoping",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0022031999999999998,
+      "html_hash": "c383965fedc8e723"
+    },
+    {
+      "municipality": "Skinnskatteberg",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0018415999999999999,
+      "html_hash": "e3b0c44298fc1c14"
+    },
+    {
+      "municipality": "Bränås",
+      "status": "error",
+      "error": "page.goto: net::ERR_NAME_NOT_RESOLVED at https://www.brantorp.se/anslagstavla\nCall log:\n\u001b[2m  - navigating to \"https://www.brantorp.se/anslagstavla\", waiting until \"networkidle\"\u001b[22m\n",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Håbo",
+      "status": "ok",
+      "permits": 18,
+      "inserted": 18,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0214584,
+      "html_hash": "857e529ae61557df"
+    },
+    {
+      "municipality": "Gotland",
+      "status": "ok",
+      "permits": 17,
+      "inserted": 17,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0160064,
+      "html_hash": "b6a26389fe873dd3"
+    },
+    {
+      "municipality": "Halmstad",
+      "status": "ok",
+      "permits": 41,
+      "inserted": 40,
+      "skipped": 1,
+      "errors": 0,
+      "cost_usd": 0.020525599999999998,
+      "html_hash": "e24a35029f6e2c3a"
+    },
+    {
+      "municipality": "Flen",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0028215999999999996,
+      "html_hash": "6ae336ece0d9f3f9"
+    },
+    {
+      "municipality": "Forshaga",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0021872,
+      "html_hash": "286086f766632f6b"
+    },
+    {
+      "municipality": "Gnesta",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0026487999999999998,
+      "html_hash": "914c01eb4ab9a6d5"
+    },
+    {
+      "municipality": "Gnosjo",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0018919999999999998,
+      "html_hash": "298eb5b991f7955e"
+    },
+    {
+      "municipality": "Hässleholm",
+      "status": "ok",
+      "permits": 23,
+      "inserted": 23,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0185472,
+      "html_hash": "9ca8ffacff0381e2"
+    },
+    {
+      "municipality": "Haparanda",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0018479999999999998,
+      "html_hash": "05847f8615096cc7"
+    },
+    {
+      "municipality": "Kungälv",
+      "status": "ok",
+      "permits": 25,
+      "inserted": 25,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0203008,
+      "html_hash": "54e37509f997ddbd"
+    },
+    {
+      "municipality": "Gullspang",
+      "status": "ok",
+      "permits": 2,
+      "inserted": 2,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0035023999999999997,
+      "html_hash": "0cdb9810f453ef89"
+    },
+    {
+      "municipality": "Heby",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0018815999999999998,
+      "html_hash": "271505502f22ad2a"
+    },
+    {
+      "municipality": "Grastorp",
+      "status": "ok",
+      "permits": 4,
+      "inserted": 4,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0045152,
+      "html_hash": "29fc8c19ba8936a4"
+    },
+    {
+      "municipality": "Hagfors",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0019592,
+      "html_hash": "2c766f3af2cf025f"
+    },
+    {
+      "municipality": "Hörby",
+      "status": "ok",
+      "permits": 4,
+      "inserted": 4,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0039456,
+      "html_hash": "114fd8298ec06f57"
+    },
+    {
+      "municipality": "Harjedalen",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0024632,
+      "html_hash": "4b6cfaeb4fd646b6"
+    },
+    {
+      "municipality": "Hofors",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0018903999999999998,
+      "html_hash": "ff012e3c5a67d9bf"
+    },
+    {
+      "municipality": "Harryda",
+      "status": "ok",
+      "permits": 12,
+      "inserted": 12,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0080112,
+      "html_hash": "47abea9bd5178cac"
+    },
+    {
+      "municipality": "Hudiksvall",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0019512,
+      "html_hash": "e4985ef0256be179"
+    },
+    {
+      "municipality": "Höganäs",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0033055999999999997,
+      "html_hash": "dd3ac6d0e65f0e60"
+    },
+    {
+      "municipality": "Kil",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0019072,
+      "html_hash": "42e960949acd2687"
+    },
+    {
+      "municipality": "Kalmar",
+      "status": "ok",
+      "permits": 32,
+      "inserted": 32,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0174064,
+      "html_hash": "0bac1ce5a70e8543"
+    },
+    {
+      "municipality": "Karlskrona",
+      "status": "ok",
+      "permits": 23,
+      "inserted": 23,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0168696,
+      "html_hash": "74d9b6d3e6a05be5"
+    },
+    {
+      "municipality": "Hallstahammar",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0021944,
+      "html_hash": "954c2dbaaa44cd3b"
+    },
+    {
+      "municipality": "Karlskoga",
+      "status": "ok",
+      "permits": 9,
+      "inserted": 4,
+      "skipped": 5,
+      "errors": 0,
+      "cost_usd": 0.0056328,
+      "html_hash": "28bb05dc147d518b"
+    },
+    {
+      "municipality": "Kinda",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0022519999999999997,
+      "html_hash": "eb12df1e11e00019"
+    },
+    {
+      "municipality": "Katrineholm",
+      "status": "ok",
+      "permits": 20,
+      "inserted": 20,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0165096,
+      "html_hash": "690aeb609758d0e1"
+    },
+    {
+      "municipality": "Kiruna",
+      "status": "ok",
+      "permits": 5,
+      "inserted": 5,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.004075199999999999,
+      "html_hash": "7fa7078d38801985"
+    },
+    {
+      "municipality": "Klippan",
+      "status": "ok",
+      "permits": 14,
+      "inserted": 14,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0116944,
+      "html_hash": "de7fe89065cbefc3"
+    },
+    {
+      "municipality": "Kramfors",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0021328,
+      "html_hash": "72377daaa44365d1"
+    },
+    {
+      "municipality": "Krokom",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0021376,
+      "html_hash": "dd10a83c8319fc29"
+    },
+    {
+      "municipality": "Laxå",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0019624,
+      "html_hash": "2c3f8b799e6b7f60"
+    },
+    {
+      "municipality": "Lekeberg",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0020104,
+      "html_hash": "d16c55b10621bbc6"
+    },
+    {
+      "municipality": "Lerum",
+      "status": "ok",
+      "permits": 7,
+      "inserted": 0,
+      "skipped": 7,
+      "errors": 0,
+      "cost_usd": 0.005370399999999999,
+      "html_hash": "0c48c0ad5b5ffcae"
+    },
+    {
+      "municipality": "Lessebo",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0022408,
+      "html_hash": "7a183cabbbcabd79"
+    },
+    {
+      "municipality": "Koping",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0018528,
+      "html_hash": "579318d9c30c2b23"
+    },
+    {
+      "municipality": "Laholm",
+      "status": "ok",
+      "permits": 20,
+      "inserted": 20,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.015371999999999999,
+      "html_hash": "bcbf4b1caf30f786"
+    },
+    {
+      "municipality": "Lidköping",
+      "status": "ok",
+      "permits": 21,
+      "inserted": 0,
+      "skipped": 21,
+      "errors": 0,
+      "cost_usd": 0.011796000000000001,
+      "html_hash": "b38698b76f62ddef"
+    },
+    {
+      "municipality": "Lomma",
+      "status": "ok",
+      "permits": 14,
+      "inserted": 14,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0090456,
+      "html_hash": "fb89f96b1ef3a58e"
+    },
+    {
+      "municipality": "Linköping",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0018407999999999999,
+      "html_hash": "e3b0c44298fc1c14"
+    },
+    {
+      "municipality": "Lindesberg",
+      "status": "ok",
+      "permits": 7,
+      "inserted": 7,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0077,
+      "html_hash": "7a63d4b21cc0b2db"
+    },
+    {
+      "municipality": "Ljusnarsberg",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0025288,
+      "html_hash": "ed75b64e52b9f5a8"
+    },
+    {
+      "municipality": "Ludvika",
+      "status": "ok",
+      "permits": 20,
+      "inserted": 17,
+      "skipped": 3,
+      "errors": 0,
+      "cost_usd": 0.015968,
+      "html_hash": "fcc2ffd7676646a7"
+    },
+    {
+      "municipality": "Malung Salen",
+      "status": "ok",
+      "permits": 39,
+      "inserted": 39,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.029177599999999998,
+      "html_hash": "24b90664938c4f95"
+    },
+    {
+      "municipality": "Ljusdal",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0020296,
+      "html_hash": "f5fed0c506425165"
+    },
+    {
+      "municipality": "Lysekil",
+      "status": "ok",
+      "permits": 18,
+      "inserted": 18,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0162616,
+      "html_hash": "9d39cddcbded4280"
+    },
+    {
+      "municipality": "Norberg",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0018855999999999999,
+      "html_hash": "a2f88a529c86d66c"
+    },
+    {
+      "municipality": "Nora",
+      "status": "ok",
+      "permits": 2,
+      "inserted": 2,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0046472,
+      "html_hash": "8794ea9a29da8996"
+    },
+    {
+      "municipality": "Nordanstig",
+      "status": "ok",
+      "permits": 2,
+      "inserted": 2,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0028584,
+      "html_hash": "a37aea68c6abed73"
+    },
+    {
+      "municipality": "Mullsjo",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0018456,
+      "html_hash": "862f7f30418364c2"
+    },
+    {
+      "municipality": "Nordmaling",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0018847999999999998,
+      "html_hash": "b3075083e657efd3"
+    },
+    {
+      "municipality": "Ragunda",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0019248,
+      "html_hash": "9c99c4fd971511c5"
+    },
+    {
+      "municipality": "Ovanaker",
+      "status": "ok",
+      "permits": 1,
+      "inserted": 1,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0034087999999999996,
+      "html_hash": "14fc6543c5fc39b0"
+    },
+    {
+      "municipality": "Perstorp",
+      "status": "ok",
+      "permits": 1,
+      "inserted": 1,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0056304,
+      "html_hash": "744c7ba992566056"
+    },
+    {
+      "municipality": "Ronneby",
+      "status": "ok",
+      "permits": 8,
+      "inserted": 8,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.008055199999999998,
+      "html_hash": "31ac5f2471a0d6a2"
+    },
+    {
+      "municipality": "Ockelbo",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0018872,
+      "html_hash": "900bc46c34b3faf1"
+    },
+    {
+      "municipality": "Olofstrom",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.001888,
+      "html_hash": "8e4b7e6ed20bb43e"
+    },
+    {
+      "municipality": "Orsa",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0019168,
+      "html_hash": "e3aa6924d54e37f0"
+    },
+    {
+      "municipality": "Robertsfors",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0019479999999999999,
+      "html_hash": "3f081e8f62be25a7"
+    },
+    {
+      "municipality": "Skurup",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0021815999999999997,
+      "html_hash": "41b1e9929d099668"
+    },
+    {
+      "municipality": "Norrköping",
+      "status": "ok",
+      "permits": 66,
+      "inserted": 65,
+      "skipped": 1,
+      "errors": 0,
+      "cost_usd": 0.0637432,
+      "html_hash": "3a347708aac82873"
+    },
+    {
+      "municipality": "Rattvik",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0019656,
+      "html_hash": "bfcb40bbbb1dddc1"
+    },
+    {
+      "municipality": "SjöBo",
+      "status": "ok",
+      "permits": 0,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0018463999999999998,
+      "html_hash": "862f7f30418364c2"
+    },
+    {
+      "municipality": "Skara",
+      "status": "error",
+      "error": "page.evaluate: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Smedjebacken",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Söderköping",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Nynäshamn",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Orust",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Örebro",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Solleftea",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Sorsele",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Örnsköldsvik",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Stromsund",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Oxelösund",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Uddevalla",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Surahammar",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Storfors",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Piteå",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Sala",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Säffle",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Savenas",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Sigtuna",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Skellefteå",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Skövde",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Tomelilla",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Torsby",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Timra",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Tranemo",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Sölvesborg",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Staffanstorp",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Vansbro",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Vanersborg",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Uppvidinge",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Sundbyberg",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Svalöv",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Svedala",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Vaxholm",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Vingaker",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Tibro",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Tjörn",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "VåRgåRda",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Ydre",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Vannas",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Tierp",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Trelleborg",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "åNge",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Tyresö",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Trosa",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Upplands Väsby",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "åRe",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "åTvidaberg",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Alvkarleby",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Ostra Goinge",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Alvdalen",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Orkelljunga",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Askersund",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Vara",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Varberg",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Värmdö",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Grums",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Värnamo",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Knivsta",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Borlange",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Vellinge",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Vetlanda",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Hylte",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Eksjo",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Alingsås",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Bollebygd",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Uppsala",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Soderhamn",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Toreboda",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Danderyd",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Enköping",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Falkenberg",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Falun",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Gislaved",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Hallsberg",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Härnösand",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Göteborg",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Kungsor",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Herrljunga",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Hultsfred",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Mönsterås",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Markaryd",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Kungsbacka",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Landskrona",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Vindeln",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Lidingö",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Nassjo",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Svenljunga",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Mark",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Mjölby",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Munkfors",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Munkedal",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Salem",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Oskarshamn",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Valdemarsvik",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Nyköping",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Sotenas",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Sandviken",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Simrishamn",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Sollentuna",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Vimmerby",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Tidaholm",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Strängnäs",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Tranås",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Eda",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Ulricehamn",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Vallentuna",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Bromölla",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Övertorneå",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Ystad",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Luleå",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Malmö",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Mölndal",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Finspang",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Motala",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Osby",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Haninge",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Helsingborg",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Ale",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Jönköping",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Lilla Edet",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Lund",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Nacka",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Partille",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Stockholm",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Västerås",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Älvsbyn",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Arjeplog",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Norsjö",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Borgholm",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Nybro",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Dals-Ed",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Karlshamn",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Pajala",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Högsby",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Jokkmokk",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Hedemora",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Kristianstad",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Leksand",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Gagnef",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Arboga",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Alvesta",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Tingsryd",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "åMåL",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Vilhelmina",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Hällefors",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Kalix",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Lycksele",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Malå",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Mellerud",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Östhammar",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Båstad",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Burlöv",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Gävle",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Huddinge",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Järfälla",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Ljungby",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Mora",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Sundsvall",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Avesta",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Storuman",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Mariestad",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Norrtälje",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Österåker",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Södertälje",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Tanum",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Stenungsund",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Bengtsfors",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Östersund",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Trollhättan",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Umeå",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Dorotea",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Växjö",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Överkalix",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Botkyrka",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Solna",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Höör",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Täby",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Karlstad",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Säter",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Kristinehamn",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Vaggeryd",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    },
+    {
+      "municipality": "Upplands-Bro",
+      "status": "error",
+      "error": "page.goto: Target page, context or browser has been closed",
+      "permits": 0,
+      "cost_usd": 0
+    }
+  ]
+}
