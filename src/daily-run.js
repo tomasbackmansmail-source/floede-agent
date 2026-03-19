@@ -328,11 +328,11 @@ async function main() {
   console.log(`Found ${configs.length} approved configs\n`);
 
   const client = new Anthropic();
-  const browser = await chromium.launch({ headless: true });
-  const context = await browser.newContext({
+  let browser = await chromium.launch({ headless: true });
+  let context = await browser.newContext({
     userAgent: "FloedAgent/0.1 (byggsignal.se; datainsamling fran offentliga anslagstavlor)"
   });
-  const page = await context.newPage();
+  let page = await context.newPage();
 
   const results = [];
   let totalCost = 0;
@@ -340,8 +340,21 @@ async function main() {
   let totalInserted = 0;
   let totalCacheCreated = 0;
   let totalCacheRead = 0;
+  let processedCount = 0;
 
   for (const config of configs) {
+    // Restart browser every 80 municipalities to prevent resource exhaustion
+    if (processedCount > 0 && processedCount % 80 === 0) {
+      console.log(`\n[Browser] Restarting browser after ${processedCount} municipalities...`);
+      await browser.close();
+      browser = await chromium.launch({ headless: true });
+      context = await browser.newContext({
+        userAgent: "FloedAgent/0.1 (byggsignal.se; datainsamling fran offentliga anslagstavlor)"
+      });
+      page = await context.newPage();
+      console.log(`[Browser] Restarted successfully`);
+    }
+
     const muniName = config.municipality;
     const hasSubpages = config.requires_subpages && config.requires_subpages.required;
     const timeout = hasSubpages ? 300000 : 60000; // 5 min for subpages, 60s otherwise
@@ -406,6 +419,7 @@ async function main() {
       });
     }
 
+    processedCount++;
     // Rate limit between municipalities
     await new Promise((r) => setTimeout(r, 1000));
   }
