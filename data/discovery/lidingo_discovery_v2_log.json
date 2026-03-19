@@ -5,18 +5,18 @@
   "needs_manual_url": false,
   "config": {
     "municipality": "Lidingö",
-    "platform_guess": "sitevision",
-    "listing_url": "https://www.lidingo.se/anslagstavla",
+    "platform_guess": "netpublicator",
+    "listing_url": "https://www.lidingo.se/ovrigasidor/stadensanslagstavla.4.7a7e170815fc29ac5e455a5.html",
     "listing_type": "unknown",
     "pagination": {
       "has_pagination": null,
       "type": "unknown",
-      "mechanism": "Okänt - innehållet renderas dynamiskt via React-komponent (Netpublicator bulletinboard). Paginering kan finnas men är inte synlig i statisk HTML.",
+      "mechanism": "Innehållet renderas dynamiskt via React-komponent (data-reactroot) i #bulletinboard. Paginering kan förekomma men är inte synlig i statisk HTML.",
       "estimated_total_pages": null
     },
     "requires_subpages": {
-      "required": null,
-      "reason": "Kan ej avgöras från statisk HTML. Allt innehåll laddas via React-komponenten med id='bulletinboard' och data-cid='12.19d6a5619378e1f28d2c1' inuti div#NetpublicatorAnslagstavla. Sidans faktiska anslag är inte synliga i källkoden.",
+      "required": true,
+      "reason": "Anslagsinnehållet är helt dynamiskt och laddas client-side via en Netpublicator-modul (sv-netpub-bulletinboard, data-cid='12.19d6a5619378e1f28d2c1'). Statisk HTML innehåller inga ärenden. Scraping kräver antingen JavaScript-rendering (Playwright/Puppeteer) eller identifiering av bakomliggande API-anrop från Netpublicator-modulen.",
       "link_selector_hint": "#bulletinboard a"
     },
     "selectors_hint": {
@@ -27,17 +27,17 @@
       "date": null,
       "description": null
     },
-    "notes": "Anslagstavlans innehåll renderas helt via Netpublicator React-widget (sv-netpub-bulletinboard). Statisk HTML innehåller endast en tom div#bulletinboard med data-reactroot. Scraping kräver JavaScript-rendering (Playwright/Puppeteer). Efter JS-rendering bör selektorer verifieras mot faktisk renderad DOM. Netpublicator-plattformen används av många svenska kommuner och kan ha ett eget API under t.ex. /api/netpublicator/ eller liknande - värt att undersöka i nätverkstrafiken vid sidladdning.",
+    "notes": "Sidan använder SiteVision som CMS men anslagstavlan drivs av en inbäddad Netpublicator-modul (sv-custom-module sv-netpub-bulletinboard). Allt innehåll renderas via React client-side och syns inte i statisk HTML. Kräver JavaScript-rendering eller nätverksanalys för att fånga Netpublicator API-anrop (troligen mot en endpoint under netpublicator.com eller liknande). data-cid='12.19d6a5619378e1f28d2c1' kan vara nyckel för att identifiera rätt API-endpoint. Rekommendation: Kör Playwright och fånga XHR/fetch-anrop när sidan laddas.",
     "confidence": "low",
     "approved": false
   },
   "navigations_used": 1,
-  "candidate_url": "https://www.lidingo.se/anslagstavla",
-  "final_url": "https://www.lidingo.se/anslagstavla",
+  "candidate_url": "https://www.lidingo.se/ovrigasidor/stadensanslagstavla.4.7a7e170815fc29ac5e455a5.html",
+  "final_url": "https://www.lidingo.se/ovrigasidor/stadensanslagstavla.4.7a7e170815fc29ac5e455a5.html",
   "tokens": {
-    "input": 57114,
-    "output": 944,
-    "cost_usd": 0.185502
+    "input": 73179,
+    "output": 1267,
+    "cost_usd": 0.238542
   },
   "failure_reason": null
 }

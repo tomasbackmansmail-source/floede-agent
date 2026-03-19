@@ -221,6 +221,15 @@ const DISCOVERY_TARGETS = [
   { id: "vilhelmina", name: "Vilhelmina", homepage: "https://www.vilhelmina.se" },
   { id: "hallefors", name: "Hällefors", homepage: "https://www.hallefors.se" },
   { id: "upplandsbro", name: "Upplands-Bro", homepage: "https://www.upplandsbro.se" },
+
+  // Fas N — Remaining 404/broken municipalities
+  { id: "degerfors", name: "Degerfors", homepage: "https://www.degerfors.se" },
+  { id: "falkoping", name: "Falköping", homepage: "https://www.falkoping.se" },
+  { id: "gnosjo", name: "Gnosjö", homepage: "https://www.gnosjo.se" },
+  { id: "vansbro", name: "Vansbro", homepage: "https://www.vansbro.se" },
+  { id: "amal", name: "Åmål", homepage: "https://www.amal.se" },
+  { id: "lidingo", name: "Lidingö", homepage: "https://www.lidingo.se" },
+  { id: "huddinge", name: "Huddinge", homepage: "https://www.huddinge.se" },
 ];
 
 // Parse --only=nacka,malmo CLI argument
