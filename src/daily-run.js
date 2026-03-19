@@ -70,8 +70,8 @@ async function fetchPage(page, config) {
   const url = config.listing_url;
   console.log(`  [Fetch] ${url}`);
 
-  await page.goto(url, { waitUntil: "networkidle", timeout: 30000 });
-  await page.waitForTimeout(1500);
+  await page.goto(url, { waitUntil: "domcontentloaded", timeout: 30000 });
+  await page.waitForTimeout(2000);
 
   // Handle pagination if configured
   if (config.pagination && config.pagination.has_pagination) {
@@ -134,7 +134,7 @@ async function fetchPage(page, config) {
     const subpageTexts = [];
     for (const link of filteredLinks.slice(0, maxSubpages)) {
       try {
-        await page.goto(link, { waitUntil: "networkidle", timeout: 15000 });
+        await page.goto(link, { waitUntil: "domcontentloaded", timeout: 15000 });
         await page.waitForTimeout(500);
 
         // Extract only the meaningful text content to avoid bloat from
@@ -181,7 +181,17 @@ async function extractPermits(client, html, municipalityName, sourceUrl) {
       messages: [
         {
           role: "user",
-          content: `${EXTRACTION_PROMPT_V2}\n\nKommun: ${municipalityName}\n\nHTML:\n${truncated}`
+          content: [
+            {
+              type: "text",
+              text: EXTRACTION_PROMPT_V2,
+              cache_control: { type: "ephemeral" }
+            },
+            {
+              type: "text",
+              text: `Kommun: ${municipalityName}\n\nHTML:\n${truncated}`
+            }
+          ]
         }
       ]
     }),
@@ -199,9 +209,15 @@ async function extractPermits(client, html, municipalityName, sourceUrl) {
     permits = [];
   }
 
+  // Cache stats
+  const cacheCreated = response.usage.cache_creation_input_tokens || 0;
+  const cacheRead = response.usage.cache_read_input_tokens || 0;
+
   const cost = {
     input_tokens: response.usage.input_tokens,
     output_tokens: response.usage.output_tokens,
+    cache_creation_input_tokens: cacheCreated,
+    cache_read_input_tokens: cacheRead,
     cost_usd: (response.usage.input_tokens * HAIKU_INPUT_COST) +
               (response.usage.output_tokens * HAIKU_OUTPUT_COST)
   };
@@ -322,49 +338,62 @@ async function main() {
   let totalCost = 0;
   let totalPermits = 0;
   let totalInserted = 0;
+  let totalCacheCreated = 0;
+  let totalCacheRead = 0;
 
   for (const config of configs) {
     const muniName = config.municipality;
+    const hasSubpages = config.requires_subpages && config.requires_subpages.required;
+    const timeout = hasSubpages ? 300000 : 60000; // 5 min for subpages, 60s otherwise
     console.log(`\n--- ${muniName} ---`);
 
     try {
-      // 1. Fetch HTML
-      const html = await fetchPage(page, config);
-      const hash = createHash("sha256").update(html).digest("hex").slice(0, 16);
+      await Promise.race([
+        (async () => {
+          // 1. Fetch HTML
+          const html = await fetchPage(page, config);
+          const hash = createHash("sha256").update(html).digest("hex").slice(0, 16);
 
-      // Save HTML
-      const htmlFile = `${sanitizeFilename(muniName)}_${runId}.html`;
-      await writeFile(join(HTML_DIR, htmlFile), html, "utf-8");
+          // Save HTML
+          const htmlFile = `${sanitizeFilename(muniName)}_${runId}.html`;
+          await writeFile(join(HTML_DIR, htmlFile), html, "utf-8");
 
-      // 2. Extract permits
-      const { permits, cost } = await extractPermits(client, html, muniName, config.listing_url);
-      totalCost += cost.cost_usd;
-      totalPermits += permits.length;
+          // 2. Extract permits
+          const { permits, cost } = await extractPermits(client, html, muniName, config.listing_url);
+          totalCost += cost.cost_usd;
+          totalPermits += permits.length;
+          totalCacheCreated += cost.cache_creation_input_tokens || 0;
+          totalCacheRead += cost.cache_read_input_tokens || 0;
 
-      console.log(`  Permits: ${permits.length}, Cost: $${cost.cost_usd.toFixed(4)}`);
+          console.log(`  Permits: ${permits.length}, Cost: $${cost.cost_usd.toFixed(4)}${cost.cache_read_input_tokens ? ` (cache hit: ${cost.cache_read_input_tokens} tokens)` : ""}`);
 
-      // Save extracted data
-      await writeFile(
-        join(EXTRACTED_DIR, `${sanitizeFilename(muniName)}_extracted.json`),
-        JSON.stringify(permits, null, 2),
-        "utf-8"
-      );
+          // Save extracted data
+          await writeFile(
+            join(EXTRACTED_DIR, `${sanitizeFilename(muniName)}_extracted.json`),
+            JSON.stringify(permits, null, 2),
+            "utf-8"
+          );
 
-      // 3. Insert to Supabase
-      const db = await insertToSupabase(supabase, permits, runId);
-      totalInserted += db.inserted;
-      console.log(`  DB: ${db.inserted} inserted, ${db.skipped} skipped, ${db.errors} errors`);
+          // 3. Insert to Supabase
+          const db = await insertToSupabase(supabase, permits, runId);
+          totalInserted += db.inserted;
+          console.log(`  DB: ${db.inserted} inserted, ${db.skipped} skipped, ${db.errors} errors`);
 
-      results.push({
-        municipality: muniName,
-        status: "ok",
-        permits: permits.length,
-        inserted: db.inserted,
-        skipped: db.skipped,
-        errors: db.errors,
-        cost_usd: cost.cost_usd,
-        html_hash: hash
-      });
+          results.push({
+            municipality: muniName,
+            status: "ok",
+            permits: permits.length,
+            inserted: db.inserted,
+            skipped: db.skipped,
+            errors: db.errors,
+            cost_usd: cost.cost_usd,
+            html_hash: hash
+          });
+        })(),
+        new Promise((_, reject) =>
+          setTimeout(() => reject(new Error(`Municipality timeout: ${timeout / 1000}s exceeded`)), timeout)
+        )
+      ]);
 
     } catch (err) {
       console.error(`  ERROR: ${err.message}`);
@@ -427,6 +456,7 @@ async function main() {
   console.log(`Permits inserted: ${totalInserted}`);
   console.log(`Cost: $${totalCost.toFixed(4)}`);
   console.log(`Cost/permit: $${(totalPermits > 0 ? totalCost / totalPermits : 0).toFixed(6)}`);
+  console.log(`Cache: ${totalCacheCreated} tokens created, ${totalCacheRead} tokens read (${totalCacheRead > 0 ? "caching active" : "no cache hits"})`);
 
   const ok = results.filter((r) => r.status === "ok").length;
   const failed = results.filter((r) => r.status === "error").length;
