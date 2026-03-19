@@ -1,5 +1,6 @@
 // Daily runner: fetch HTML → extract with Haiku → insert to permits_v2 → QC
 // This is what Railway cron runs daily at 14:00 CET.
+// Default: HTTP fetch (no browser). Playwright only for needs_browser configs.
 
 import Anthropic from "@anthropic-ai/sdk";
 import { createClient } from "@supabase/supabase-js";
@@ -29,6 +30,8 @@ const RUN_LOG_DIR = join(process.cwd(), "data", "runs");
 const HAIKU_INPUT_COST = 0.0000008;
 const HAIKU_OUTPUT_COST = 0.000004;
 
+const USER_AGENT = "FloedAgent/0.1 (byggsignal.se; datainsamling fran offentliga anslagstavlor)";
+
 async function ensureDirs() {
   for (const dir of [HTML_DIR, EXTRACTED_DIR, COST_DIR, RUN_LOG_DIR]) {
     await mkdir(dir, { recursive: true });
@@ -49,46 +52,148 @@ async function loadApprovedConfigs(supabase) {
   return data.map((row) => ({
     ...row.config,
     approved: row.approved,
+    needs_browser: row.needs_browser || false,
     _file: `${row.municipality}_config.json`,
   }));
 }
 
-function stripNonContent(html) {
+// Strip HTML to plain text (equivalent to innerText)
+function htmlToText(html) {
   return html
     .replace(/<script[\s\S]*?<\/script>/gi, "")
     .replace(/<style[\s\S]*?<\/style>/gi, "")
     .replace(/<svg[\s\S]*?<\/svg>/gi, "")
+    .replace(/<nav[\s\S]*?<\/nav>/gi, "")
+    .replace(/<header[\s\S]*?<\/header>/gi, "")
+    .replace(/<footer[\s\S]*?<\/footer>/gi, "")
     .replace(/<!--[\s\S]*?-->/g, "")
-    .replace(/<link[^>]*>/gi, "")
-    .replace(/<meta[^>]*>/gi, "")
-    .replace(/<img[^>]*>/gi, "")
-    .replace(/\s{2,}/g, " ")
+    .replace(/<br\s*\/?>/gi, "\n")
+    .replace(/<\/(?:p|div|h[1-6]|li|tr|dt|dd|section|article)>/gi, "\n")
+    .replace(/<[^>]+>/g, " ")
+    .replace(/&nbsp;/gi, " ")
+    .replace(/&amp;/gi, "&")
+    .replace(/&lt;/gi, "<")
+    .replace(/&gt;/gi, ">")
+    .replace(/&quot;/gi, '"')
+    .replace(/&#\d+;/g, "")
+    .replace(/[ \t]+/g, " ")
+    .replace(/\n[ \t]+/g, "\n")
+    .replace(/\n{3,}/g, "\n\n")
     .trim();
 }
 
-async function fetchPage(page, config) {
+// Extract links matching a CSS-selector-like pattern from raw HTML
+function extractLinks(html, baseUrl, selectorHint) {
+  const links = [];
+  // Parse href attributes from anchor tags
+  const anchorRegex = /<a\s[^>]*href="([^"]*)"[^>]*>/gi;
+  let match;
+  while ((match = anchorRegex.exec(html)) !== null) {
+    const href = match[1];
+    if (!href || href.startsWith("#") || href.startsWith("javascript:")) continue;
+    try {
+      const absolute = new URL(href, baseUrl).href;
+      links.push({ href: absolute, tag: match[0] });
+    } catch { /* skip invalid URLs */ }
+  }
+
+  // Filter by selector hint keywords (e.g., "a[href*='kungorelse']")
+  if (selectorHint) {
+    const hrefPatterns = [...selectorHint.matchAll(/href\*='([^']+)'/g)].map(m => m[1]);
+    if (hrefPatterns.length > 0) {
+      return links
+        .filter(l => hrefPatterns.some(p => l.href.toLowerCase().includes(p)))
+        .map(l => l.href);
+    }
+  }
+
+  return links.map(l => l.href);
+}
+
+// Filter links: remove binaries and external domains
+function filterLinks(links, configUrl) {
+  const configDomain = new URL(configUrl).hostname.replace(/^www\./, "");
+  return [...new Set(links)].filter((url) => {
+    if (/\.(pdf|doc|docx|xlsx|xls|zip|png|jpg|jpeg|gif)$/i.test(url)) return false;
+    try {
+      const host = new URL(url).hostname.replace(/^www\./, "");
+      return host === configDomain || host.endsWith(`.${configDomain}`);
+    } catch { return false; }
+  });
+}
+
+// --- HTTP FETCH (default) ---
+
+async function fetchPageHttp(config) {
   const url = config.listing_url;
-  console.log(`  [Fetch] ${url}`);
+  console.log(`  [HTTP] ${url}`);
+
+  const response = await fetch(url, {
+    headers: { "User-Agent": USER_AGENT },
+    signal: AbortSignal.timeout(30000),
+    redirect: "follow",
+  });
+
+  if (!response.ok) {
+    throw new Error(`HTTP ${response.status} ${response.statusText}`);
+  }
+
+  const rawHtml = await response.text();
+
+  // Handle subpages
+  if (config.requires_subpages && config.requires_subpages.required) {
+    const selectorHint = config.requires_subpages.link_selector_hint || "a[href*='bygglov'], a[href*='kungorelse']";
+    const allLinks = extractLinks(rawHtml, url, selectorHint);
+    const filtered = filterLinks(allLinks, url);
+    const maxSubpages = config.requires_subpages.max_subpages || 200;
+    console.log(`  [HTTP] Found ${allLinks.length} links, ${filtered.length} after filtering (fetching up to ${maxSubpages})`);
+
+    const subpageTexts = [];
+    for (const link of filtered.slice(0, maxSubpages)) {
+      try {
+        const subResp = await fetch(link, {
+          headers: { "User-Agent": USER_AGENT },
+          signal: AbortSignal.timeout(15000),
+          redirect: "follow",
+        });
+        if (subResp.ok) {
+          const subHtml = await subResp.text();
+          subpageTexts.push(`<!-- SUBPAGE: ${link} -->\n${htmlToText(subHtml)}`);
+        }
+      } catch (err) {
+        console.log(`  [HTTP] Subpage failed: ${link} — ${err.message}`);
+      }
+      await new Promise((r) => setTimeout(r, 500)); // Rate limit
+    }
+
+    console.log(`  [HTTP] Fetched ${subpageTexts.length} subpages`);
+    return subpageTexts.join("\n\n");
+  }
+
+  return htmlToText(rawHtml);
+}
+
+// --- PLAYWRIGHT FETCH (for needs_browser configs) ---
+
+async function fetchPagePlaywright(page, config) {
+  const url = config.listing_url;
+  console.log(`  [Browser] ${url}`);
 
   await page.goto(url, { waitUntil: "domcontentloaded", timeout: 30000 });
   await page.waitForTimeout(2000);
 
-  // Handle pagination if configured
+  // Handle pagination
   if (config.pagination && config.pagination.has_pagination) {
     if (config.pagination.type === "load_more_button" && config.pagination.mechanism) {
-      // Click "load more" button multiple times
       for (let i = 0; i < 10; i++) {
         try {
           const btn = await page.$(config.pagination.mechanism);
           if (!btn) break;
           await btn.click();
           await page.waitForTimeout(1500);
-        } catch {
-          break;
-        }
+        } catch { break; }
       }
     } else if (config.pagination.type === "page_size_selector") {
-      // Try to set page size to maximum
       try {
         const selectors = ["select[name*='size']", "select[name*='antal']", ".page-size select"];
         for (const sel of selectors) {
@@ -105,62 +210,47 @@ async function fetchPage(page, config) {
           }
         }
       } catch (err) {
-        console.log(`  [Fetch] Could not set page size: ${err.message}`);
+        console.log(`  [Browser] Could not set page size: ${err.message}`);
       }
     }
   }
 
-  // Handle subpages if required
+  // Handle subpages
   let html;
-
   if (config.requires_subpages && config.requires_subpages.required) {
     const linkSelector = config.requires_subpages.link_selector_hint || "a[href*='bygglov'], a[href*='kungorelse']";
     const links = await page.$$eval(linkSelector, (els) =>
       els.map((el) => el.href).filter((href) => href && href.startsWith("http"))
     );
 
-    // Filter out binary files and external domains
-    const configDomain = new URL(config.listing_url).hostname.replace(/^www\./, "");
-    const filteredLinks = [...new Set(links)].filter((url) => {
-      if (/\.(pdf|doc|docx|xlsx|xls|zip|png|jpg|jpeg|gif)$/i.test(url)) return false;
-      try {
-        const host = new URL(url).hostname.replace(/^www\./, "");
-        return host === configDomain || host.endsWith(`.${configDomain}`);
-      } catch { return false; }
-    });
+    const filtered = filterLinks(links, config.listing_url);
     const maxSubpages = config.requires_subpages.max_subpages || 200;
-    console.log(`  [Fetch] Found ${links.length} links, ${filteredLinks.length} after filtering (fetching up to ${maxSubpages})`);
+    console.log(`  [Browser] Found ${links.length} links, ${filtered.length} after filtering (fetching up to ${maxSubpages})`);
 
     const subpageTexts = [];
-    for (const link of filteredLinks.slice(0, maxSubpages)) {
+    for (const link of filtered.slice(0, maxSubpages)) {
       try {
         await page.goto(link, { waitUntil: "domcontentloaded", timeout: 15000 });
         await page.waitForTimeout(500);
-
-        // Extract only the meaningful text content to avoid bloat from
-        // navigation, headers, footers, and scripts. This lets us fit
-        // hundreds of subpages within the extraction token limit.
         const text = await page.evaluate(() => {
           const main = document.querySelector("main, article, .pagecontent, [role='main']");
           return (main || document.body).innerText;
         });
         subpageTexts.push(`<!-- SUBPAGE: ${link} -->\n${text}`);
       } catch (err) {
-        console.log(`  [Fetch] Subpage failed: ${link} — ${err.message}`);
+        console.log(`  [Browser] Subpage failed: ${link} — ${err.message}`);
       }
-      await new Promise((r) => setTimeout(r, 1000)); // Rate limit
+      await new Promise((r) => setTimeout(r, 1000));
     }
 
-    console.log(`  [Fetch] Fetched ${subpageTexts.length} subpages`);
+    console.log(`  [Browser] Fetched ${subpageTexts.length} subpages`);
     html = subpageTexts.join("\n\n");
   } else {
-    // Expand accordion/details sections before extracting text
     await page.evaluate(() => {
       document.querySelectorAll("details").forEach(d => d.open = true);
-      document.querySelectorAll("[aria-expanded='false']").forEach(el => el.click());
+      document.querySelectorAll("[aria-expanded='false']").forEach(el => { try { el.click(); } catch {} });
     });
     await page.waitForTimeout(500);
-    // For inline pages: extract text content only (avoids navigation/header/footer noise)
     html = await page.evaluate(() => {
       const main = document.querySelector("main, article, .pagecontent, [role='main'], #pageContent");
       return (main || document.body).innerText;
@@ -168,6 +258,21 @@ async function fetchPage(page, config) {
   }
 
   return html;
+}
+
+// --- EXTRACTION ---
+
+function stripNonContent(html) {
+  return html
+    .replace(/<script[\s\S]*?<\/script>/gi, "")
+    .replace(/<style[\s\S]*?<\/style>/gi, "")
+    .replace(/<svg[\s\S]*?<\/svg>/gi, "")
+    .replace(/<!--[\s\S]*?-->/g, "")
+    .replace(/<link[^>]*>/gi, "")
+    .replace(/<meta[^>]*>/gi, "")
+    .replace(/<img[^>]*>/gi, "")
+    .replace(/\s{2,}/g, " ")
+    .trim();
 }
 
 async function extractPermits(client, html, municipalityName, sourceUrl) {
@@ -209,7 +314,6 @@ async function extractPermits(client, html, municipalityName, sourceUrl) {
     permits = [];
   }
 
-  // Cache stats
   const cacheCreated = response.usage.cache_creation_input_tokens || 0;
   const cacheRead = response.usage.cache_read_input_tokens || 0;
 
@@ -248,7 +352,6 @@ async function insertToSupabase(supabase, permits, extractionRun) {
     };
 
     if (row.case_number) {
-      // Standard upsert on municipality + case_number
       const { error } = await withRetry(
         () => supabase
           .from("permits_v2")
@@ -266,7 +369,6 @@ async function insertToSupabase(supabase, permits, extractionRun) {
         inserted++;
       }
     } else {
-      // For null case_number: check if duplicate exists by municipality + address + date
       const query = supabase
         .from("permits_v2")
         .select("id", { count: "exact", head: true })
@@ -301,7 +403,6 @@ async function main() {
   const startTime = Date.now();
   const runId = new Date().toISOString().slice(0, 19).replace(/[:.]/g, "-");
 
-  // CLI: --municipality norrkoping,malmo to run specific municipalities
   const muniArg = process.argv.find((a) => a.startsWith("--municipality="));
   const onlyMunis = muniArg
     ? muniArg.split("=")[1].split(",").map((s) => s.trim().toLowerCase())
@@ -325,53 +426,39 @@ async function main() {
     process.exit(1);
   }
 
-  console.log(`Found ${configs.length} approved configs\n`);
+  // Separate HTTP vs browser configs
+  const httpConfigs = configs.filter(c => !c.needs_browser);
+  const browserConfigs = configs.filter(c => c.needs_browser);
+  console.log(`Found ${configs.length} approved configs (${httpConfigs.length} HTTP, ${browserConfigs.length} browser)\n`);
 
   const client = new Anthropic();
-  let browser = await chromium.launch({ headless: true });
-  let context = await browser.newContext({
-    userAgent: "FloedAgent/0.1 (byggsignal.se; datainsamling fran offentliga anslagstavlor)"
-  });
-  let page = await context.newPage();
-
   const results = [];
   let totalCost = 0;
   let totalPermits = 0;
   let totalInserted = 0;
   let totalCacheCreated = 0;
   let totalCacheRead = 0;
-  let processedCount = 0;
+  let httpCount = 0;
+  let browserCount = 0;
 
-  for (const config of configs) {
-    // Restart browser every 80 municipalities to prevent resource exhaustion
-    if (processedCount > 0 && processedCount % 80 === 0) {
-      console.log(`\n[Browser] Restarting browser after ${processedCount} municipalities...`);
-      await browser.close();
-      browser = await chromium.launch({ headless: true });
-      context = await browser.newContext({
-        userAgent: "FloedAgent/0.1 (byggsignal.se; datainsamling fran offentliga anslagstavlor)"
-      });
-      page = await context.newPage();
-      console.log(`[Browser] Restarted successfully`);
-    }
+  // --- Phase 1: HTTP fetch (fast, no browser) ---
+  console.log(`=== Phase 1: HTTP fetch (${httpConfigs.length} municipalities) ===`);
 
+  for (const config of httpConfigs) {
     const muniName = config.municipality;
     const hasSubpages = config.requires_subpages && config.requires_subpages.required;
-    const timeout = hasSubpages ? 300000 : 60000; // 5 min for subpages, 60s otherwise
+    const timeout = hasSubpages ? 300000 : 30000;
     console.log(`\n--- ${muniName} ---`);
 
     try {
       await Promise.race([
         (async () => {
-          // 1. Fetch HTML
-          const html = await fetchPage(page, config);
+          const html = await fetchPageHttp(config);
           const hash = createHash("sha256").update(html).digest("hex").slice(0, 16);
 
-          // Save HTML
           const htmlFile = `${sanitizeFilename(muniName)}_${runId}.html`;
           await writeFile(join(HTML_DIR, htmlFile), html, "utf-8");
 
-          // 2. Extract permits
           const { permits, cost } = await extractPermits(client, html, muniName, config.listing_url);
           totalCost += cost.cost_usd;
           totalPermits += permits.length;
@@ -380,14 +467,12 @@ async function main() {
 
           console.log(`  Permits: ${permits.length}, Cost: $${cost.cost_usd.toFixed(4)}${cost.cache_read_input_tokens ? ` (cache hit: ${cost.cache_read_input_tokens} tokens)` : ""}`);
 
-          // Save extracted data
           await writeFile(
             join(EXTRACTED_DIR, `${sanitizeFilename(muniName)}_extracted.json`),
             JSON.stringify(permits, null, 2),
             "utf-8"
           );
 
-          // 3. Insert to Supabase
           const db = await insertToSupabase(supabase, permits, runId);
           totalInserted += db.inserted;
           console.log(`  DB: ${db.inserted} inserted, ${db.skipped} skipped, ${db.errors} errors`);
@@ -395,6 +480,7 @@ async function main() {
           results.push({
             municipality: muniName,
             status: "ok",
+            fetch_mode: "http",
             permits: permits.length,
             inserted: db.inserted,
             skipped: db.skipped,
@@ -402,29 +488,113 @@ async function main() {
             cost_usd: cost.cost_usd,
             html_hash: hash
           });
+          httpCount++;
         })(),
         new Promise((_, reject) =>
           setTimeout(() => reject(new Error(`Municipality timeout: ${timeout / 1000}s exceeded`)), timeout)
         )
       ]);
-
     } catch (err) {
       console.error(`  ERROR: ${err.message}`);
       results.push({
         municipality: muniName,
         status: "error",
+        fetch_mode: "http",
         error: err.message,
         permits: 0,
         cost_usd: 0
       });
     }
 
-    processedCount++;
-    // Rate limit between municipalities
-    await new Promise((r) => setTimeout(r, 1000));
+    await new Promise((r) => setTimeout(r, 300)); // Lighter rate limit for HTTP
   }
 
-  await browser.close();
+  // --- Phase 2: Playwright fetch (browser-dependent sites) ---
+  if (browserConfigs.length > 0) {
+    console.log(`\n=== Phase 2: Playwright fetch (${browserConfigs.length} municipalities) ===`);
+
+    let browser = await chromium.launch({ headless: true });
+    let context = await browser.newContext({ userAgent: USER_AGENT });
+    let page = await context.newPage();
+    let browserProcessed = 0;
+
+    for (const config of browserConfigs) {
+      if (browserProcessed > 0 && browserProcessed % 80 === 0) {
+        console.log(`\n[Browser] Restarting after ${browserProcessed} municipalities...`);
+        await browser.close();
+        browser = await chromium.launch({ headless: true });
+        context = await browser.newContext({ userAgent: USER_AGENT });
+        page = await context.newPage();
+        console.log(`[Browser] Restarted`);
+      }
+
+      const muniName = config.municipality;
+      const hasSubpages = config.requires_subpages && config.requires_subpages.required;
+      const timeout = hasSubpages ? 300000 : 60000;
+      console.log(`\n--- ${muniName} ---`);
+
+      try {
+        await Promise.race([
+          (async () => {
+            const html = await fetchPagePlaywright(page, config);
+            const hash = createHash("sha256").update(html).digest("hex").slice(0, 16);
+
+            const htmlFile = `${sanitizeFilename(muniName)}_${runId}.html`;
+            await writeFile(join(HTML_DIR, htmlFile), html, "utf-8");
+
+            const { permits, cost } = await extractPermits(client, html, muniName, config.listing_url);
+            totalCost += cost.cost_usd;
+            totalPermits += permits.length;
+            totalCacheCreated += cost.cache_creation_input_tokens || 0;
+            totalCacheRead += cost.cache_read_input_tokens || 0;
+
+            console.log(`  Permits: ${permits.length}, Cost: $${cost.cost_usd.toFixed(4)}`);
+
+            await writeFile(
+              join(EXTRACTED_DIR, `${sanitizeFilename(muniName)}_extracted.json`),
+              JSON.stringify(permits, null, 2),
+              "utf-8"
+            );
+
+            const db = await insertToSupabase(supabase, permits, runId);
+            totalInserted += db.inserted;
+            console.log(`  DB: ${db.inserted} inserted, ${db.skipped} skipped, ${db.errors} errors`);
+
+            results.push({
+              municipality: muniName,
+              status: "ok",
+              fetch_mode: "browser",
+              permits: permits.length,
+              inserted: db.inserted,
+              skipped: db.skipped,
+              errors: db.errors,
+              cost_usd: cost.cost_usd,
+              html_hash: hash
+            });
+            browserCount++;
+          })(),
+          new Promise((_, reject) =>
+            setTimeout(() => reject(new Error(`Municipality timeout: ${timeout / 1000}s exceeded`)), timeout)
+          )
+        ]);
+      } catch (err) {
+        console.error(`  ERROR: ${err.message}`);
+        results.push({
+          municipality: muniName,
+          status: "error",
+          fetch_mode: "browser",
+          error: err.message,
+          permits: 0,
+          cost_usd: 0
+        });
+      }
+
+      browserProcessed++;
+      await new Promise((r) => setTimeout(r, 1000));
+    }
+
+    await browser.close();
+  }
 
   const elapsed = Date.now() - startTime;
 
@@ -434,6 +604,8 @@ async function main() {
     run_at: new Date().toISOString(),
     elapsed_ms: elapsed,
     configs_count: configs.length,
+    http_count: httpCount,
+    browser_count: browserCount,
     total_permits: totalPermits,
     total_inserted: totalInserted,
     total_cost_usd: totalCost,
@@ -443,7 +615,6 @@ async function main() {
 
   await writeFile(join(RUN_LOG_DIR, `run_${runId}.json`), JSON.stringify(runLog, null, 2), "utf-8");
 
-  // Save cost log (for QC to read)
   await writeFile(
     join(COST_DIR, `extraction_cost_${Date.now()}.json`),
     JSON.stringify({
@@ -465,12 +636,12 @@ async function main() {
   // Summary
   console.log(`\n=== RUN COMPLETE ===`);
   console.log(`Time: ${Math.round(elapsed / 1000)}s`);
-  console.log(`Municipalities: ${configs.length}`);
+  console.log(`Municipalities: ${configs.length} (${httpCount} HTTP ok, ${browserCount} browser ok)`);
   console.log(`Permits extracted: ${totalPermits}`);
   console.log(`Permits inserted: ${totalInserted}`);
   console.log(`Cost: $${totalCost.toFixed(4)}`);
   console.log(`Cost/permit: $${(totalPermits > 0 ? totalCost / totalPermits : 0).toFixed(6)}`);
-  console.log(`Cache: ${totalCacheCreated} tokens created, ${totalCacheRead} tokens read (${totalCacheRead > 0 ? "caching active" : "no cache hits"})`);
+  console.log(`Cache: ${totalCacheCreated} created, ${totalCacheRead} read`);
 
   const ok = results.filter((r) => r.status === "ok").length;
   const failed = results.filter((r) => r.status === "error").length;
@@ -479,7 +650,7 @@ async function main() {
   if (failed > 0) {
     console.log("Failed municipalities:");
     results.filter((r) => r.status === "error").forEach((r) => {
-      console.log(`  - ${r.municipality}: ${r.error}`);
+      console.log(`  - ${r.municipality} [${r.fetch_mode}]: ${r.error}`);
     });
   }
 }
