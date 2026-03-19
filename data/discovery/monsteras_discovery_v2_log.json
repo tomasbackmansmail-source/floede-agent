@@ -1,0 +1,43 @@
+{
+  "municipality": "Mönsterås",
+  "municipality_id": "monsteras",
+  "success": true,
+  "needs_manual_url": false,
+  "config": {
+    "municipality": "Mönsterås",
+    "platform_guess": "wordpress",
+    "listing_url": "https://www.monsteras.se/anslagstavla/kungorelse/kungorelse/",
+    "listing_type": "links_to_subpages",
+    "pagination": {
+      "has_pagination": false,
+      "type": "none",
+      "mechanism": "Sidan verkar visa ett enskilt ärende per URL-slug, inte en listning med pagination. Varje kungörelse har egen URL under /anslagstavla/kungorelse/",
+      "estimated_total_pages": null
+    },
+    "requires_subpages": {
+      "required": true,
+      "reason": "Sidtiteln visar ett specifikt ärende ('Kungörelse, ny granskning: Detaljplan för del av Nynäs 3:1'). Listningssidan för alla kungörelser behöver identifieras, troligen via /anslagstavla/ eller liknande. Varje kungörelse ligger på egen undersida.",
+      "link_selector_hint": "a[href*='/anslagstavla/kungorelse/']"
+    },
+    "selectors_hint": {
+      "container": ".main-container",
+      "item": "article, .post, .entry, .content-area",
+      "case_number": null,
+      "address": null,
+      "date": ".post-date, .entry-date, time[datetime]",
+      "description": ".entry-content, .post-content, .main-content"
+    },
+    "notes": "OBS: Den angivna URL:en verkar leda till en enskild kungörelse, inte en listningssida. Rätt listnings-URL är troligen https://www.monsteras.se/anslagstavla/ eller https://www.monsteras.se/kommun-och-politik/politik-och-demokrati/anslagstavla/. Sidan körs på WordPress-liknande CMS. Kungörelser om detaljplaner och bygglov publiceras under /anslagstavla/kungorelse/-segmentet. Rekommenderar att verifiera korrekt listnings-URL och filtrera på bygglov-relaterade kungörelser.",
+    "confidence": "low",
+    "approved": false
+  },
+  "navigations_used": 1,
+  "candidate_url": "https://www.monsteras.se/anslagstavla/kungorelse/",
+  "final_url": "https://www.monsteras.se/anslagstavla/kungorelse/kungorelse/",
+  "tokens": {
+    "input": 50817,
+    "output": 885,
+    "cost_usd": 0.165726
+  },
+  "failure_reason": null
+}

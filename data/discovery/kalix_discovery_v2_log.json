@@ -1,0 +1,43 @@
+{
+  "municipality": "Kalix",
+  "municipality_id": "kalix",
+  "success": true,
+  "needs_manual_url": false,
+  "config": {
+    "municipality": "Kalix",
+    "platform_guess": "custom",
+    "listing_url": "https://www.kalix.se/anslagstavla/Beslut-om-lov/",
+    "listing_type": "links_to_subpages",
+    "pagination": {
+      "has_pagination": false,
+      "type": "none",
+      "mechanism": "Alla aktuella beslut visas på en sida. Poster arkiveras efter tre veckor och försvinner från listan.",
+      "estimated_total_pages": null
+    },
+    "requires_subpages": {
+      "required": true,
+      "reason": "Listningssidan visar titel och datum. Diarienummer, anslagningstid (från/till) finns som länktext i article-body på listsidan men fullständiga detaljer finns på undersidorna.",
+      "link_selector_hint": "div.news-article.list-item-normal h2.article-heading a[href*='/anslagstavla/beslut-om-lov2/']"
+    },
+    "selectors_hint": {
+      "container": "div.news-article.list-item-normal",
+      "item": "div.news-article.list-item-normal",
+      "case_number": "div.article-body p a",
+      "address": "h2.article-heading a",
+      "date": "span.article-date",
+      "description": "div.article-body p a"
+    },
+    "notes": "Listan är uppdelad i två kolumner: main-news-col (de två senaste posterna med body-text innehållande diarienummer och anslagningstid) och sub-news-col (äldre poster utan body-text, enbart rubrik och datum). Diarienummer extraheras med regex 'Diarienummer:\\s*([\\w\\s-]+)' från länktexten i article-body. Anslagningstid extraheras med regex 'från och med (\\d{4}-\\d{2}-\\d{2}) till och med (\\d{4}-\\d{2}-\\d{2})'. URL-prefix för undersidor: https://www.kalix.se. Ärendetyp (beviljat/inkommen ansökan/rivningslov etc.) framgår av titeln inom parentes.",
+    "confidence": "high",
+    "approved": false
+  },
+  "navigations_used": 2,
+  "candidate_url": "https://www.kalix.se/anslagstavla/samhallsbyggnadsnamnden/",
+  "final_url": "https://www.kalix.se/anslagstavla/Beslut-om-lov/",
+  "tokens": {
+    "input": 47435,
+    "output": 1508,
+    "cost_usd": 0.16492500000000002
+  },
+  "failure_reason": null
+}

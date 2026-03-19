@@ -1,0 +1,43 @@
+{
+  "municipality": "Mellerud",
+  "municipality_id": "mellerud",
+  "success": true,
+  "needs_manual_url": false,
+  "config": {
+    "municipality": "Mellerud",
+    "platform_guess": "custom",
+    "listing_url": "https://mellerud.se/kommun-och-politik/anslagstavla/",
+    "listing_type": "pdf_list",
+    "pagination": {
+      "has_pagination": false,
+      "type": "none",
+      "mechanism": "Alla poster listas direkt på sidan i kollapsade Bootstrap-sektioner. Ingen paginering förekommer.",
+      "estimated_total_pages": null
+    },
+    "requires_subpages": {
+      "required": false,
+      "reason": "Varje post är en direktlänk till en PDF-fil. Det finns inga undersidor – all navigering sker via PDF-länkarna direkt i listan.",
+      "link_selector_hint": "#cf2e0941e-0a17-4b0d-a0fd-9a9f224c3a23 a[href*='/media/']"
+    },
+    "selectors_hint": {
+      "container": "#cf2e0941e-0a17-4b0d-a0fd-9a9f224c3a23",
+      "item": "#cf2e0941e-0a17-4b0d-a0fd-9a9f224c3a23 p",
+      "case_number": null,
+      "address": null,
+      "date": null,
+      "description": "#cf2e0941e-0a17-4b0d-a0fd-9a9f224c3a23 p a"
+    },
+    "notes": "Bygglovsärenden finns i den kollapsade Bootstrap-sektionen med knappen 'Kungörelser plan- och byggärenden' (collapse-id: cf2e0941e-0a17-4b0d-a0fd-9a9f224c3a23). Sektionen är collapsed by default (aria-expanded=false) vilket kan kräva att scraper renderar JavaScript eller hämtar dolda element. Varje post är en <p><a href='/media/...'> med länktext som innehåller fastighetsbeteckning och ärendetyp, t.ex. 'Stora Rud 1:26 - Grannehörande (ansökan om nybyggnad av transformatorstation)'. Datuminformation saknas i listningen – datum finns sannolikt bara i respektive PDF. Sidans iframe (https://anslagstavla.mellerud.se/#!/billboard/) är en separat officiell anslagstavla för justerade protokoll och bör behandlas separat om sådana ärenden också ska samlas in.",
+    "confidence": "high",
+    "approved": false
+  },
+  "navigations_used": 1,
+  "candidate_url": "https://mellerud.se/kommun-och-politik/anslagstavla/",
+  "final_url": "https://mellerud.se/kommun-och-politik/anslagstavla/",
+  "tokens": {
+    "input": 52918,
+    "output": 1200,
+    "cost_usd": 0.17675400000000002
+  },
+  "failure_reason": null
+}

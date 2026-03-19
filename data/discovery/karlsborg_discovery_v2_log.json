@@ -1,0 +1,16 @@
+{
+  "municipality": "Karlsborg",
+  "municipality_id": "karlsborg",
+  "success": false,
+  "needs_manual_url": false,
+  "config": null,
+  "navigations_used": 5,
+  "candidate_url": "https://karlsborg.se/kommun--politik/sa-styrs-karlsborgs-kommun/politik/anslagstavla-for-protokoll/",
+  "final_url": "https://karlsborg.se/bygga-bo--miljo/bygglov/",
+  "tokens": {
+    "input": 155229,
+    "output": 1539,
+    "cost_usd": 0.48877200000000004
+  },
+  "failure_reason": "Could not generate valid config after analysis"
+}

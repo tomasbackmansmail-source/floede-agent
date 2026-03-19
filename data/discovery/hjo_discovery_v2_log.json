@@ -1,0 +1,16 @@
+{
+  "municipality": "Hjo",
+  "municipality_id": "hjo",
+  "success": false,
+  "needs_manual_url": false,
+  "config": null,
+  "navigations_used": 5,
+  "candidate_url": "https://hjo.se/kommun--politik/politik-och-organisation/anslagstavla2/",
+  "final_url": "https://hjo.se/kommun--politik/politik-och-organisation/anslagstavla2/",
+  "tokens": {
+    "input": 82217,
+    "output": 533,
+    "cost_usd": 0.254646
+  },
+  "failure_reason": "Could not generate valid config after analysis"
+}

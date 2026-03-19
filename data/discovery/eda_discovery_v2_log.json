@@ -1,0 +1,43 @@
+{
+  "municipality": "Eda",
+  "municipality_id": "eda",
+  "success": true,
+  "needs_manual_url": false,
+  "config": {
+    "municipality": "Eda",
+    "platform_guess": "custom",
+    "listing_url": "https://eda.se/digitalanslagstavla",
+    "listing_type": "unknown",
+    "pagination": {
+      "has_pagination": false,
+      "type": "none",
+      "mechanism": "Ingen paginering observerad",
+      "estimated_total_pages": null
+    },
+    "requires_subpages": {
+      "required": false,
+      "reason": "Anslagstavlan bedöms visa alla relevanta fält direkt i listningen. Undersidor kan finnas men är ej bekräftade.",
+      "link_selector_hint": "#pagecnt a"
+    },
+    "selectors_hint": {
+      "container": "#pagecnt",
+      "item": "#pagecnt table tr",
+      "case_number": "td:nth-child(1)",
+      "address": null,
+      "date": "td:nth-child(3)",
+      "description": "td:nth-child(2)"
+    },
+    "notes": "Sidan använder ASP.NET WebForms med __VIEWSTATE och __wdID=c_908. HTML trunkeras konsekvent i navigationsmenyn innan innehållscontainern #pagecnt nås, vilket gör att faktisk tabellstruktur och fältnamn ej kunnat bekräftas. Selektorer är kvalificerade gissningar baserade på typisk WebDewey-anslagstavlestruktur. Sidan renderas sannolikt server-side och kräver ingen JavaScript. Kräver verifiering av faktisk innehållsstruktur vid första körning.",
+    "confidence": "low",
+    "approved": false
+  },
+  "navigations_used": 3,
+  "candidate_url": "https://eda.se/digitalanslagstavla",
+  "final_url": "https://eda.se/digitalanslagstavla",
+  "tokens": {
+    "input": 128667,
+    "output": 1744,
+    "cost_usd": 0.412161
+  },
+  "failure_reason": null
+}

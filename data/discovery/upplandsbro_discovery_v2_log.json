@@ -1,0 +1,43 @@
+{
+  "municipality": "Upplands-Bro",
+  "municipality_id": "upplandsbro",
+  "success": true,
+  "needs_manual_url": false,
+  "config": {
+    "municipality": "Upplands-Bro",
+    "platform_guess": "sitevision",
+    "listing_url": "https://www.upplands-bro.se/anslagstavla.html",
+    "listing_type": "unknown",
+    "pagination": {
+      "has_pagination": false,
+      "type": "none",
+      "mechanism": "Ingen paginering observerad",
+      "estimated_total_pages": null
+    },
+    "requires_subpages": {
+      "required": true,
+      "reason": "Sidans faktiska anslags-innehåll var inte synligt i det tillgängliga HTML-utdraget då det domineras av navigationsmenyn. Undersidor krävs troligen för att nå ärendedetaljer.",
+      "link_selector_hint": "a[href*='anslagstavla'], a[href*='bygglov'], a[href*='kungorelse']"
+    },
+    "selectors_hint": {
+      "container": ".sv-portlet, .sv-layout",
+      "item": ".sv-channel-item, article, li",
+      "case_number": null,
+      "address": null,
+      "date": "time, .sv-channel-item-date",
+      "description": ".sv-channel-item-description, p"
+    },
+    "notes": "HTML-utdraget är kraftigt trunkerat och domineras av navigationsmenyn. Sidans titel är korrekt 'Anslagstavla - Upplands-Bro' och URL stämmer. Plattformen är Sitevision baserat på klassnamn som sv-portlet, sv-layout och sv-channel-item. Det faktiska anslags-innehållet (kungörelser, bygglov) är inte synligt i utdraget – sidan kan vara JavaScript-renderad. Kräver troligen JavaScript-rendering för att hämta faktiskt innehåll. Selektorer är preliminära och behöver verifieras mot faktiskt sidinnehåll.",
+    "confidence": "low",
+    "approved": false
+  },
+  "navigations_used": 3,
+  "candidate_url": "https://www.upplands-bro.se/anslagstavla.html",
+  "final_url": "https://www.upplands-bro.se/anslagstavla.html",
+  "tokens": {
+    "input": 165720,
+    "output": 1750,
+    "cost_usd": 0.52341
+  },
+  "failure_reason": null
+}

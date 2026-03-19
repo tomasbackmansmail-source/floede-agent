@@ -1,0 +1,66 @@
+{
+  "municipality": "Valdemarsvik",
+  "municipality_id": "valdemarsvik",
+  "success": true,
+  "needs_manual_url": false,
+  "config": {
+    "municipality": "Valdemarsvik",
+    "platform_guess": "wordpress",
+    "listing_url": "https://www.valdemarsvik.se/kommun/kommun-politik/kommunens-anslagstavla/",
+    "listing_type": "mixed",
+    "pagination": {
+      "has_pagination": false,
+      "type": "none",
+      "mechanism": "Allt innehall visas pa en sida. Tabellen for tillkannagivanden har DataTables med page-length=10 men innehallet ar statiskt inlakat i HTML.",
+      "estimated_total_pages": null
+    },
+    "requires_subpages": {
+      "required": true,
+      "reason": "Bygglovsbeslut listas i sektionen 'Kungörelse – Beslut' som en textmodul (modularity-mod-text) med h3-rubriker och lankar till individuella blogginlagg (t.ex. /blog/bankebote-133-ansokan-om-bygglov-for-nybyggnation-av-fritidshus/). Detaljer om fastighet, arendenummer och beslut finns pa respektive undersida.",
+      "link_selector_hint": ".modularity-mod-text a[href*='/blog/']"
+    },
+    "selectors_hint": {
+      "container": ".modularity-mod-text .box-panel-secondary .box-content",
+      "item": "h3, p.normal",
+      "case_number": null,
+      "address": "h3 a",
+      "date": "p.normal strong",
+      "description": "h3 a"
+    },
+    "extra_sources": {
+      "tillkannagivanden_table": {
+        "selector": "table.modularity-table tbody.list tr",
+        "columns": [
+          "Beslutsorgan",
+          "Sammanträdesdatum",
+          "Tillkännagivande startdatum",
+          "Tillkännagivande slutdatum",
+          "Förvaringsplats"
+        ],
+        "protocol_link": "tr[data-href]",
+        "note": "Innehaller protokollanslag for namnder inklusive Miljö- och byggnämnden. Lankar till PDF-protokoll via data-href-attribut pa tr-element."
+      },
+      "kallelser_table": {
+        "selector": ".modularity-mod-fileslist .box-panel-secondary table tbody tr td a",
+        "note": "Kallelser och beslutsunderlag som PDF-lankar, inklusive kommunstyrelsen och utskott."
+      },
+      "externa_anslagstavlor": {
+        "lansstyrelsen": "https://www.lansstyrelsen.se/ostergotland/om-oss/nyheter-och-press/kungorelser-och-delgivningar.html",
+        "raddningstjansten": "https://rtog.se/anslagstavlan/",
+        "note": "Externa anslagstavlor for Lansstyrelsen Ostergotland och Raddningstjansten Ostra Gotaland listas i sidopanelen."
+      }
+    },
+    "notes": "Sidan ar byggd i WordPress med Municipio-temat. Bygglovsbeslut publiceras i en fritext-modul (modularity-mod-text, ID 1372127) med rubriken 'Kungörelse – Beslut'. Varje beslut har en h3-rubrik med fastighetsadress och atgard, lankat till ett blogginlagg, samt ett p.normal-element med anslags- och nedtagningsdatum (format: 'Anslaget: YYYY-MM-DD / Anslaget tas ner: YYYY-MM-DD'). Observerade arenden inkluderar bygglov for fritidshus, ellagringsenheter och belysningsmaster. Tillkannagivanden for Miljö- och byggnämnden finns aven i DataTables-tabellen med motet 2026-02-26. Inga tecken pa paginering eller AJAX-laddning av ytterligare poster.",
+    "confidence": "high",
+    "approved": false
+  },
+  "navigations_used": 1,
+  "candidate_url": "https://www.valdemarsvik.se/kommun/kommun-politik/kommunens-anslagstavla/",
+  "final_url": "https://www.valdemarsvik.se/kommun/kommun-politik/kommunens-anslagstavla/",
+  "tokens": {
+    "input": 52718,
+    "output": 1313,
+    "cost_usd": 0.177849
+  },
+  "failure_reason": null
+}

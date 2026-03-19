@@ -1,0 +1,16 @@
+{
+  "municipality": "Torsås",
+  "municipality_id": "torsas",
+  "success": false,
+  "needs_manual_url": false,
+  "config": null,
+  "navigations_used": 4,
+  "candidate_url": "https://www.torsas.se/anslagstavla/",
+  "final_url": "https://www.torsas.se/anslagstavla/",
+  "tokens": {
+    "input": 90354,
+    "output": 770,
+    "cost_usd": 0.28261200000000003
+  },
+  "failure_reason": "Could not generate valid config after analysis"
+}

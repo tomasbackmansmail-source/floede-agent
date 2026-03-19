@@ -1,0 +1,46 @@
+{
+  "municipality": "Alvesta",
+  "municipality_id": "alvesta",
+  "success": true,
+  "needs_manual_url": false,
+  "config": {
+    "municipality": "Alvesta",
+    "platform_guess": "custom",
+    "listing_url": "https://anslagstavla.alvesta.se/#!/billboard/",
+    "listing_type": "table",
+    "pagination": {
+      "has_pagination": true,
+      "type": "load_more_button",
+      "mechanism": "Click element with class 'show-more more-results' and text 'Visa fler'",
+      "estimated_total_pages": null
+    },
+    "requires_subpages": {
+      "required": false,
+      "reason": "Detaljdata finns inbäddad i HTML som JSON i attributet 'item' på td[board-details]. Fälten Anslaget från och med, Anslaget till och med, Anslaget av, Justerade paragrafer, Lagringsplats och Justeringsdag laddas dynamiskt via AngularJS när raden klickas, men object_link och metadata finns redan i DOM.",
+      "link_selector_hint": "td[board-details]"
+    },
+    "selectors_hint": {
+      "container": "#billboard",
+      "item": "tr.table-item",
+      "case_number": "td[board-details][item*='diarie']",
+      "address": null,
+      "date": "td[board-item] p.ng-binding",
+      "description": "td[board-item] p.ng-binding",
+      "detail_json": "td[board-details]",
+      "detail_json_attribute": "item",
+      "section_header": "h1.board-header"
+    },
+    "notes": "AngularJS SPA - kräver JavaScript-rendering via Playwright/Selenium. Data finns i tre sektioner: 'Justerade protokoll' (doctype 128), 'Övriga sammanträden' och 'Fullmäktiges sammanträden' (doctype 1), samt 'Övrigt anslagen information' (doctype 4). Bygglovsrelevant post hittad direkt i 'Övrigt anslagen information': titel 'Kungörelser enligt plan- och bygglagen av bygglov, marklov, rivningslov, förhandsbesked och grannehöranden', doctype 4, diarie '202500073', diary_name 'NMY', object_link '?t=4&d=50414&n=NMY'. Metadata är JSON-kodad i item-attributet på td[board-details]. Detaljer (datum, handläggare) laddas via AJAX när rad klickas. Nämnden för myndighetsutövning (NMY) hanterar bygglov. Detaljvy-URL-mönster: https://anslagstavla.alvesta.se/#!/billboard/?t=4&d=50414&n=NMY",
+    "confidence": "high",
+    "approved": false
+  },
+  "navigations_used": 2,
+  "candidate_url": "https://www.alvesta.se/anslagstavla",
+  "final_url": "https://anslagstavla.alvesta.se/#!/billboard/",
+  "tokens": {
+    "input": 153606,
+    "output": 2231,
+    "cost_usd": 0.49428300000000003
+  },
+  "failure_reason": null
+}

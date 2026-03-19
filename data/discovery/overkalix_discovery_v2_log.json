@@ -1,0 +1,43 @@
+{
+  "municipality": "Överkalix",
+  "municipality_id": "overkalix",
+  "success": true,
+  "needs_manual_url": false,
+  "config": {
+    "municipality": "Överkalix",
+    "platform_guess": "sitevision",
+    "listing_url": "https://www.overkalix.se/kommun-och-politik/politik-och-organisation/anslagstavla/",
+    "listing_type": "unknown",
+    "pagination": {
+      "has_pagination": false,
+      "type": "none",
+      "mechanism": "Ingen paginering observerad",
+      "estimated_total_pages": null
+    },
+    "requires_subpages": {
+      "required": true,
+      "reason": "Innehållssektionen på sidan är trunkerad i tillgänglig HTML – anslagslistans faktiska struktur och detaljer kan inte bekräftas utan fullständigt renderat innehåll. Baserat på SMiL-plattformens typiska mönster visas titlar och datum i listan, med detaljer på undersidor.",
+      "link_selector_hint": "main a[href*='anslagstavla'], .page-content a, article a"
+    },
+    "selectors_hint": {
+      "container": "main .container, .page-content, article",
+      "item": ".listing-item, .news-item, .anslag, table tr",
+      "case_number": ".diarienummer, td:nth-child(1)",
+      "address": null,
+      "date": ".date, time, td:nth-child(2)",
+      "description": ".item-title, h2, h3, td:nth-child(3)"
+    },
+    "notes": "Sidan använder SMiL-plattformen (html-klass 'smil', data-rsevent-id 'rs_25656'). Innehållssektionen var trunkerad i levererad HTML – selektorer är uppskattade baserat på SMiL-typisk struktur och kan behöva justeras vid faktisk skrapning. Rekommenderar att scraper renderar sidan med JavaScript aktiverat då SMiL-sidor ibland laddar anslag dynamiskt.",
+    "confidence": "low",
+    "approved": false
+  },
+  "navigations_used": 2,
+  "candidate_url": "https://www.overkalix.se/kommun-och-politik/anslagstavla/kungorelser/",
+  "final_url": "https://www.overkalix.se/kommun-och-politik/politik-och-organisation/anslagstavla/",
+  "tokens": {
+    "input": 89619,
+    "output": 1734,
+    "cost_usd": 0.294867
+  },
+  "failure_reason": null
+}

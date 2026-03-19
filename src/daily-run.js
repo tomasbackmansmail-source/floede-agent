@@ -119,12 +119,20 @@ async function fetchPage(page, config) {
       els.map((el) => el.href).filter((href) => href && href.startsWith("http"))
     );
 
-    const uniqueLinks = [...new Set(links)];
+    // Filter out binary files and external domains
+    const configDomain = new URL(config.listing_url).hostname.replace(/^www\./, "");
+    const filteredLinks = [...new Set(links)].filter((url) => {
+      if (/\.(pdf|doc|docx|xlsx|xls|zip|png|jpg|jpeg|gif)$/i.test(url)) return false;
+      try {
+        const host = new URL(url).hostname.replace(/^www\./, "");
+        return host === configDomain || host.endsWith(`.${configDomain}`);
+      } catch { return false; }
+    });
     const maxSubpages = config.requires_subpages.max_subpages || 200;
-    console.log(`  [Fetch] Found ${uniqueLinks.length} subpage links (fetching up to ${maxSubpages})`);
+    console.log(`  [Fetch] Found ${links.length} links, ${filteredLinks.length} after filtering (fetching up to ${maxSubpages})`);
 
     const subpageTexts = [];
-    for (const link of uniqueLinks.slice(0, maxSubpages)) {
+    for (const link of filteredLinks.slice(0, maxSubpages)) {
       try {
         await page.goto(link, { waitUntil: "networkidle", timeout: 15000 });
         await page.waitForTimeout(500);

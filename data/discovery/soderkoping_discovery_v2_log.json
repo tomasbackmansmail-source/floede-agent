@@ -1,0 +1,16 @@
+{
+  "municipality": "Söderköping",
+  "municipality_id": "soderkoping",
+  "success": false,
+  "needs_manual_url": false,
+  "config": null,
+  "navigations_used": 3,
+  "candidate_url": "https://www.soderkoping.se/officiell-anslagstavla/digital-anslagstavla/",
+  "final_url": "https://www.soderkoping.se/officiell-anslagstavla/digital-anslagstavla/",
+  "tokens": {
+    "input": 82097,
+    "output": 1009,
+    "cost_usd": 0.261426
+  },
+  "failure_reason": "Could not generate valid config after analysis"
+}

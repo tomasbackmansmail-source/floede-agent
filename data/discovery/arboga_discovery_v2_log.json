@@ -1,0 +1,43 @@
+{
+  "municipality": "Arboga",
+  "municipality_id": "arboga",
+  "success": true,
+  "needs_manual_url": false,
+  "config": {
+    "municipality": "Arboga",
+    "platform_guess": "sitevision",
+    "listing_url": "https://arboga.se/anslagstavla/anslagstavla.html",
+    "listing_type": "links_to_subpages",
+    "pagination": {
+      "has_pagination": false,
+      "type": "none",
+      "mechanism": "Alla aktuella anslag visas på en och samma sida utan paginering",
+      "estimated_total_pages": null
+    },
+    "requires_subpages": {
+      "required": true,
+      "reason": "Listsidan visar endast titel och publiceringsdatum. Detaljer om ärendet finns på respektive undersida.",
+      "link_selector_hint": "ul.sv-channel li.sv-channel-item a.tableheading"
+    },
+    "selectors_hint": {
+      "container": "div#svid12_3656a3481699f67cc0b1e315 ul.sv-channel",
+      "item": "li.sv-channel-item",
+      "case_number": null,
+      "address": null,
+      "date": "time.sv-font-liten-text",
+      "description": "a.tableheading span"
+    },
+    "notes": "Officiell anslagstavla för Arboga kommun byggd i SiteVision. Listan innehåller blandade anslag: protokoll från nämnder och utskott, kungörelser samt detaljplaner. Inga bygglovsspecifika filter finns på listsidan – filtrering måste ske på titelnivå (t.ex. 'detaljplan', 'kungörelse', 'bygglov'). Varje listelement har ett datetime-attribut i ISO 8601-format vilket underlättar datumextrahering. URL-mönster för undersidor: /anslagstavla/anslagstavla/anslagstavla/*.html. Det finns även en separat länk till Västra Mälardalens myndighetsförbunds anslagstavla (bygglovsenheten) på /kommun-och-politik/insyn-och-paverkan/anslagstavla-for-vastra-malardalens-myndighetsforbund.html som kan vara relevant för bygglovsärenden.",
+    "confidence": "high",
+    "approved": false
+  },
+  "navigations_used": 1,
+  "candidate_url": "https://arboga.se/anslagstavla/anslagstavla.html",
+  "final_url": "https://arboga.se/anslagstavla/anslagstavla.html",
+  "tokens": {
+    "input": 52928,
+    "output": 1072,
+    "cost_usd": 0.17486400000000002
+  },
+  "failure_reason": null
+}

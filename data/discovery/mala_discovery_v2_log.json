@@ -1,0 +1,43 @@
+{
+  "municipality": "Malå",
+  "municipality_id": "mala",
+  "success": true,
+  "needs_manual_url": false,
+  "config": {
+    "municipality": "Malå",
+    "platform_guess": "sitevision",
+    "listing_url": "https://www.mala.se/anslagstavla/",
+    "listing_type": "links_to_subpages",
+    "pagination": {
+      "has_pagination": false,
+      "type": "none",
+      "mechanism": "Alla aktuella anslag visas på en sida utan paginering",
+      "estimated_total_pages": null
+    },
+    "requires_subpages": {
+      "required": true,
+      "reason": "Listsidan visar endast titel, nämnd och datum. Detaljer om bygglov (fastighetsbeteckning, ärendenummer, beslut etc.) finns på undersidor via länk med ?k= eller ?p= parameter.",
+      "link_selector_hint": "aside a[href*='?k='], .list.news li a[href*='anslagstavla']"
+    },
+    "selectors_hint": {
+      "container": "aside .list.news, .flex-table",
+      "item": "aside .list.news li, .flex-table-row",
+      "case_number": null,
+      "address": null,
+      "date": "aside .list.news li .date, .flex-table-col-date .date span:nth-child(2)",
+      "description": "aside .list.news li a, .flex-table-col-value a.link-large"
+    },
+    "notes": "Anslagstavlan har två sektioner: 'Justerade protokoll' (huvudkolumn, .flex-table) och 'Tillkännagivanden/kungörelser' (aside, .list.news). Bygglov finns under aside-sektionen, t.ex. länken 'Kungörelse av beslutade bygglov' med href ?k=13597 från Malå/Norsjö Miljö- och byggnämnd. Undersidor måste följas för att få ärendedetaljer. Filtrera på kungörelser från Miljö- och byggnämnd. Protokoll-sektionen är sannolikt inte relevant för bygglov.",
+    "confidence": "high",
+    "approved": false
+  },
+  "navigations_used": 2,
+  "candidate_url": "https://www.mala.se/anslagstavla/",
+  "final_url": "https://www.mala.se/anslagstavla/",
+  "tokens": {
+    "input": 123712,
+    "output": 2246,
+    "cost_usd": 0.404826
+  },
+  "failure_reason": null
+}
