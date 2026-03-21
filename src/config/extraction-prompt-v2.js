@@ -14,7 +14,7 @@ REGLER:
    - status: EN av: "ansokt", "beviljat", "avslag", "overklagat", "startbesked", "slutbesked"
    - date: Datum i ISO 8601-format (YYYY-MM-DD)
    - description: Kort beskrivning av arendet (string eller null)
-   - applicant: Sokandens namn om det framgar av texten. Kan vara privatperson, foretag (AB, BRF, kommun etc), eller organisation. Extrahera EXAKT som det star. Om det inte framgar: null. Gissa aldrig.
+   - applicant: Sokandens namn BARA om det ar ett bolag, forening, kommun eller annan organisation. Bolagsmarkorer: AB, BRF, HB, KB, kommun, region, stiftelse, forening, fastigheter, bostader, exploatering. Om sokanden ar en privatperson: returnera ALLTID null. Vi far ALDRIG spara privatpersoners namn (GDPR).
    - source_url: Satt till null (fylls i av anropande kod)
 
 3. permit_type och status ar SEPARATA falt. Forvaxla dem ALDRIG.
