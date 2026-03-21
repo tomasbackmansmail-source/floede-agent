@@ -36,5 +36,5 @@
   },
   "notes": "Indexsidan innehåller inga ärenden direkt. IBM WebSphere Portal används (WPS) vilket ger långa dynamiska URL:er med hash-segment – använd kanoniska /start/-URL:er utan hash. De två PBL-relevanta undersidorna måste båda skrapas. Sidorna är troligen statiska HTML utan JavaScript-rendering men URL-strukturen kan variera vid navigering. Rekommendation: scrapa båda sub_listing_urls direkt.",
   "confidence": "medium",
-  "approved": false
+  "approved": true
 }
