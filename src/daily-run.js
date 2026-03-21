@@ -385,6 +385,7 @@ async function insertToSupabase(supabase, permits, extractionRun) {
       status: p.status || null,
       date: p.date || null,
       description: p.description || null,
+      applicant: p.applicant || null,
       source_url: p.source_url || null,
       extraction_model: "claude-haiku-4-5-20251001",
       extraction_cost_usd: null,

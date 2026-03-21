@@ -109,6 +109,7 @@ async function extractFromHtml(client, html, municipalityName, sourceUrl) {
     status: validStatuses.includes(p.status) ? p.status : null,
     date: p.date || null,
     description: p.description || null,
+    applicant: p.applicant || null,
     source_url: sourceUrl,
     _extraction_meta: {
       raw_permit_type: p.permit_type,
