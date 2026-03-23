@@ -25,25 +25,29 @@ const supabase = createClient(
 
 const USER_AGENT = "Byggsignal/1.0 (byggsignal.se; offentlig upphandlingsdata)";
 
-// ─── Bygg-relevance filter (same as POC) ─────────────────────
-
-const BYGG_WORDS = [
-  "bygg", "anläggning", "entreprenad", "måleri", "elinstallation",
-  "vvs", "renovering", "markarbete", "markentreprenad", "fasad",
-  "takarbete", "tak(?:läggning|byte)", "rörarbete", "ventilation",
-  "golv", "betong", "stålkonstruktion", "rivning", "ombyggnad",
-  "nybyggnad", "plåt", "isolering", "stomme", "puts",
-  "kakel", "klinker", "snickeri", "tätskikt", "dränering",
-  "schakt", "sprängning", "hiss", "brandskydd", "stambyte",
-  "cirkulationsplats", "va-arbete", "ledningsarbete",
-  "anläggningsarbete", "ombyggnadsarbete", "elarbete",
-];
-
-const BYGG_REGEX = new RegExp("\\b(?:" + BYGG_WORDS.join("|") + ")", "i");
+// ─── Construction-relevance filter ────────────────────────────
+// CPV codes starting with 45 = construction works.
+// If no CPV code, fall back to title keyword matching.
 
 function isByggRelevant(item) {
-  const text = `${item.title} ${item.description || ""} ${item.category || ""}`.toLowerCase();
-  return BYGG_REGEX.test(text);
+  const cpv = item.category || "";
+
+  // If CPV codes present, check for construction codes (45xxxxx)
+  if (cpv && /\d{8}/.test(cpv)) {
+    const codes = cpv.match(/\d{8}/g) || [];
+    return codes.some((c) => c.startsWith("45"));
+  }
+
+  // No CPV code — filter by title keywords
+  const title = `${item.title} ${item.description || ""}`.toLowerCase();
+
+  // Exclude non-construction
+  const EXCLUDE = /\b(?:konsult|arkitekt|rådgivning|utredning|besiktning|it-|städ|transport|livsmedel|möbler)\b/i;
+  if (EXCLUDE.test(title)) return false;
+
+  // Include construction keywords
+  const INCLUDE = /\b(?:entreprenad|bygg|renovering|ombyggnad|rivning|mark|anläggning|vvs|elinstallation|elarbete|ventilation|måleri|tak|fasad|golv|plåt|betong|stål|schakt|dränering|brandskydd|stambyte|hiss|isolering|puts|snickeri|tätskikt|va-arbete|ledningsarbete)\b/i;
+  return INCLUDE.test(title);
 }
 
 // ─── Sources: all 26 Stockholms län kommuner ──────────────────
