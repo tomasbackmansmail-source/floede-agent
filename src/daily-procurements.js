@@ -42,7 +42,7 @@ function isByggRelevant(item) {
   const title = `${item.title} ${item.description || ""}`.toLowerCase();
 
   // Exclude non-construction
-  const EXCLUDE = /\b(?:konsult|arkitekt|rådgivning|utredning|besiktning|it-|städ|transport|livsmedel|möbler)\b/i;
+  const EXCLUDE = /\b(?:konsult|arkitekt|rådgivning|utredning|besiktning|it-|städ|transport|livsmedel|möbler|bemanning|drift av|återvinning|avfall)\b/i;
   if (EXCLUDE.test(title)) return false;
 
   // Include construction keywords
