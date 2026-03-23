@@ -98,8 +98,8 @@ async function extractFromHtml(client, html, municipalityName, sourceUrl) {
   }
 
   // Post-process: fill in source_url, validate enums
-  const validPermitTypes = ["bygglov", "marklov", "rivningslov", "forhandsbesked", "strandskyddsdispens", "anmalan"];
-  const validStatuses = ["ansokt", "beviljat", "avslag", "overklagat", "startbesked", "slutbesked"];
+  const validPermitTypes = ["bygglov", "marklov", "rivningslov", "förhandsbesked", "strandskyddsdispens", "anmälan"];
+  const validStatuses = ["ansökt", "beviljat", "avslag", "överklagat", "startbesked", "slutbesked"];
 
   const validated = permits.map((p) => ({
     municipality: p.municipality || municipalityName,

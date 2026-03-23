@@ -14,8 +14,8 @@ const CONFIG_DIR = join(process.cwd(), "data", "discovery");
 const SONNET_INPUT_COST = 0.000003;
 const SONNET_OUTPUT_COST = 0.000015;
 
-const VALID_PERMIT_TYPES = ["bygglov", "marklov", "rivningslov", "forhandsbesked", "strandskyddsdispens", "anmalan"];
-const VALID_STATUSES = ["ansokt", "beviljat", "avslag", "overklagat", "startbesked", "slutbesked"];
+const VALID_PERMIT_TYPES = ["bygglov", "marklov", "rivningslov", "förhandsbesked", "strandskyddsdispens", "anmälan"];
+const VALID_STATUSES = ["ansökt", "beviljat", "avslag", "överklagat", "startbesked", "slutbesked"];
 
 async function loadBaselines(supabase) {
   // Calculate baseline per municipality: average permits per extraction

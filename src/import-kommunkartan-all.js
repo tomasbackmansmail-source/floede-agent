@@ -8,7 +8,7 @@ import { createClient } from "@supabase/supabase-js";
 const BASE_URL = "https://kommunkartan.se";
 const USER_AGENT = "FloedAgent/0.2 (byggsignal.se; dataimport)";
 const BATCH_SIZE = 50;
-const RATE_LIMIT_MS = 2000; // ~0.5 req/s to avoid 429s
+const RATE_LIMIT_MS = 4000; // ~0.25 req/s to avoid 429s
 const PUBLISHED_FROM = "2025-12-19";
 const PUBLISHED_TO = "2026-03-19";
 
@@ -121,8 +121,8 @@ async function apiFetch(path, retries = 3) {
       if (resp.status === 429) {
         consecutive429++;
         if (consecutive429 >= 3) {
-          console.log("  [429x3] Waiting 5 minutes...");
-          await sleep(5 * 60 * 1000);
+          console.log("  [429x3] Waiting 10 minutes...");
+          await sleep(10 * 60 * 1000);
           consecutive429 = 0;
         } else {
           const waitSecs = 60;
@@ -198,12 +198,12 @@ function extractStatus(description) {
   if (lower.includes("avslag") || lower.includes("avslagit")) return "avslag";
   if (lower.includes("startbesked")) return "startbesked";
   if (lower.includes("slutbesked")) return "slutbesked";
-  if (lower.includes("ansökan") || lower.includes("ansökt")) return "ansokt";
+  if (lower.includes("ansökan") || lower.includes("ansökt")) return "ansökt";
   return null;
 }
 
-const VALID_PERMIT_TYPES = new Set(["bygglov", "marklov", "rivningslov", "forhandsbesked", "strandskyddsdispens", "anmalan"]);
-const VALID_STATUSES = new Set(["ansokt", "beviljat", "avslag", "overklagat", "startbesked", "slutbesked"]);
+const VALID_PERMIT_TYPES = new Set(["bygglov", "marklov", "rivningslov", "förhandsbesked", "strandskyddsdispens", "anmälan"]);
+const VALID_STATUSES = new Set(["ansökt", "beviljat", "avslag", "överklagat", "startbesked", "slutbesked"]);
 
 function mapToPermitRow(detail, municipality) {
   const item = detail.item || detail;
@@ -238,9 +238,9 @@ function mapToPermitRow(detail, municipality) {
     if (permitType.includes("bygg")) permitType = "bygglov";
     else if (permitType.includes("mark")) permitType = "marklov";
     else if (permitType.includes("riv")) permitType = "rivningslov";
-    else if (permitType.includes("förhandsbesked") || permitType.includes("forhandsbesked")) permitType = "forhandsbesked";
+    else if (permitType.includes("förhandsbesked") || permitType.includes("forhandsbesked")) permitType = "förhandsbesked";
     else if (permitType.includes("strand")) permitType = "strandskyddsdispens";
-    else if (permitType.includes("anmäl") || permitType.includes("anmal")) permitType = "anmalan";
+    else if (permitType.includes("anmäl") || permitType.includes("anmal")) permitType = "anmälan";
     else permitType = null; // Unknown type — set null to avoid CHECK violation
   }
 
@@ -339,6 +339,9 @@ async function main() {
   const errors = [];
   const slugMap = {}; // name → slug
   let skipped = 0;
+  let processedCount = 0;
+  const BATCH_PAUSE_EVERY = 40;
+  const BATCH_PAUSE_MS = 5 * 60 * 1000; // 5 min pause every N municipalities
 
   for (let i = 0; i < ALL_MUNICIPALITIES.length; i++) {
     const muni = ALL_MUNICIPALITIES[i];
@@ -347,6 +350,13 @@ async function main() {
     if (alreadyImported.has(muni)) {
       skipped++;
       continue;
+    }
+
+    // Batch pause to avoid sustained 429s
+    processedCount++;
+    if (processedCount > 1 && processedCount % BATCH_PAUSE_EVERY === 0) {
+      console.log(`\n  === Batch pause (${processedCount} processed). Waiting 5 min to cool API... ===\n`);
+      await sleep(BATCH_PAUSE_MS);
     }
 
     process.stdout.write(`[${i + 1}/${ALL_MUNICIPALITIES.length}] ${muni}... `);

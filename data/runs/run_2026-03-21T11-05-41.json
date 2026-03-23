@@ -1,0 +1,25 @@
+{
+  "run_id": "2026-03-21T11-05-41",
+  "run_at": "2026-03-21T11:06:03.208Z",
+  "elapsed_ms": 22059,
+  "configs_count": 1,
+  "http_count": 1,
+  "browser_count": 0,
+  "total_permits": 8,
+  "total_inserted": 0,
+  "total_cost_usd": 0.0196328,
+  "cost_per_permit_usd": 0.0024541,
+  "results": [
+    {
+      "municipality": "Mariestad",
+      "status": "ok",
+      "fetch_mode": "http",
+      "permits": 8,
+      "inserted": 0,
+      "skipped": 0,
+      "errors": 8,
+      "cost_usd": 0.0196328,
+      "html_hash": "0373b3bc49a6d468"
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "run_id": "2026-03-19T19-19-29",
+  "run_at": "2026-03-19T19:19:34.877Z",
+  "elapsed_ms": 5075,
+  "configs_count": 1,
+  "http_count": 1,
+  "browser_count": 0,
+  "total_permits": 6,
+  "total_inserted": 6,
+  "total_cost_usd": 0.0058904,
+  "cost_per_permit_usd": 0.0009817333333333332,
+  "results": [
+    {
+      "municipality": "Gnosjo",
+      "status": "ok",
+      "fetch_mode": "http",
+      "permits": 6,
+      "inserted": 6,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.0058904,
+      "html_hash": "51b86d640021210c"
+    }
+  ]
+}

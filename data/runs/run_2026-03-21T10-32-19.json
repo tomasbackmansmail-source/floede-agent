@@ -1,0 +1,25 @@
+{
+  "run_id": "2026-03-21T10-32-19",
+  "run_at": "2026-03-21T10:34:10.352Z",
+  "elapsed_ms": 110400,
+  "configs_count": 1,
+  "http_count": 1,
+  "browser_count": 0,
+  "total_permits": 131,
+  "total_inserted": 131,
+  "total_cost_usd": 0.092164,
+  "cost_per_permit_usd": 0.0007035419847328244,
+  "results": [
+    {
+      "municipality": "Göteborg",
+      "status": "ok",
+      "fetch_mode": "http",
+      "permits": 131,
+      "inserted": 131,
+      "skipped": 0,
+      "errors": 0,
+      "cost_usd": 0.092164,
+      "html_hash": "c74bc2cb748ec0ba"
+    }
+  ]
+}

@@ -10,8 +10,8 @@ REGLER:
    - municipality: Kommunens namn (string)
    - case_number: Arendenummer/diarienummer (string eller null)
    - address: Fastighetsbeteckning eller gatuadress (string eller null)
-   - permit_type: EN av: "bygglov", "marklov", "rivningslov", "forhandsbesked", "strandskyddsdispens", "anmalan"
-   - status: EN av: "ansokt", "beviljat", "avslag", "overklagat", "startbesked", "slutbesked"
+   - permit_type: EN av: "bygglov", "marklov", "rivningslov", "förhandsbesked", "strandskyddsdispens", "anmälan"
+   - status: EN av: "ansökt", "beviljat", "avslag", "överklagat", "startbesked", "slutbesked"
    - date: Datum i ISO 8601-format (YYYY-MM-DD)
    - description: Kort beskrivning av arendet (string eller null)
    - applicant: Sokandens namn BARA om det ar ett bolag, forening, kommun eller annan organisation. Bolagsmarkorer: AB, BRF, HB, KB, kommun, region, stiftelse, forening, fastigheter, bostader, exploatering. Om sokanden ar en privatperson: returnera ALLTID null. Vi far ALDRIG spara privatpersoners namn (GDPR).
@@ -72,7 +72,7 @@ PERMIT_TYPE — DETALJERAD MAPPNING MED EXEMPEL
   - "Rivningslov for..."
   - "Rivning av del av byggnad"
 
-"forhandsbesked" — forfragan om byggnad far uppforas:
+"förhandsbesked" — forfragan om byggnad far uppforas:
   - "Forhandsbesked for nybyggnad"
   - "Forhandsbesked for enbostadshus"
   - "Forhandsbesked for tvabostadshus"
@@ -87,7 +87,7 @@ PERMIT_TYPE — DETALJERAD MAPPNING MED EXEMPEL
   - "Dispens fran strandskydd"
   - "Dispens fran strandskyddsbestammelserna"
 
-"anmalan" — anmalningspliktiga atgarder (inte lovpliktiga):
+"anmälan" — anmalningspliktiga atgarder (inte lovpliktiga):
   - "Installation av eldstad"
   - "Installation av kamin"
   - "Installation av kassett"
@@ -107,8 +107,8 @@ PERMIT_TYPE — DETALJERAD MAPPNING MED EXEMPEL
 
 VIKTIGT — DISAMBIGUATION:
 - Om texten sager "bygglov" uttryckligen -> "bygglov"
-- Om texten sager "anmalan" uttryckligen -> "anmalan"
-- Om det handlar om installation av eldstad/kamin/ventilation/VA -> "anmalan" (dessa ar anmalningspliktiga, inte lovpliktiga)
+- Om texten sager "anmalan" uttryckligen -> "anmälan"
+- Om det handlar om installation av eldstad/kamin/ventilation/VA -> "anmälan" (dessa ar anmalningspliktiga, inte lovpliktiga)
 - Om det handlar om nybyggnad/tillbyggnad/ombyggnad utan att saga anmalan -> "bygglov"
 - Om texten sager bade "bygglov" och "marklov" for samma arende -> valj det som verkar vara huvudarendet
 - Om du inte kan avgora typen -> null
@@ -117,7 +117,7 @@ VIKTIGT — DISAMBIGUATION:
 STATUS — DETALJERAD MAPPNING MED EXEMPEL
 ═══════════════════════════════════════════════
 
-"ansokt" — arendet ar inkommet/under handlaggning:
+"ansökt" — arendet ar inkommet/under handlaggning:
   - "Inkommet", "Inkommen ansokan"
   - "Under handlaggning"
   - "Remiss"
@@ -137,7 +137,7 @@ STATUS — DETALJERAD MAPPNING MED EXEMPEL
   - "Nekat"
   - "Avslagit"
 
-"overklagat" — arendet ar overklagat:
+"överklagat" — arendet ar overklagat:
   - "Overklagat", "Overklagande"
   - "Overklagat till lansstyrelsen"
   - "Under provning"
