@@ -10,6 +10,7 @@ import { join } from "path";
 import { createHash } from "crypto";
 import { EXTRACTION_PROMPT_V2 } from "./config/extraction-prompt-v2.js";
 import { withRetry } from "./utils/retry.js";
+import { runProcurements } from "./daily-procurements.js";
 
 function sanitizeFilename(name) {
   return name
@@ -693,6 +694,15 @@ async function main() {
     results.filter((r) => r.status === "error").forEach((r) => {
       console.log(`  - ${r.municipality} [${r.fetch_mode}]: ${r.error}`);
     });
+  }
+
+  // --- Phase 3: Procurement scraping (Stockholms län) ---
+  console.log(`\n=== Phase 3: Procurement scraping ===`);
+  try {
+    const procResult = await runProcurements();
+    console.log(`Procurements: ${procResult.inserted} new, ${procResult.skipped} dupes, ${procResult.closed} closed`);
+  } catch (err) {
+    console.error(`Procurement scraping failed: ${err.message}`);
   }
 }
 
