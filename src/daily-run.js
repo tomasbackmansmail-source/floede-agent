@@ -373,6 +373,14 @@ async function extractPermits(client, html, municipalityName, sourceUrl) {
 async function insertToSupabase(supabase, permits, extractionRun) {
   if (permits.length === 0) return { inserted: 0, skipped: 0, errors: 0 };
 
+  // Lookup municipality -> county for lan field
+  const { data: muniRows } = await supabase
+    .from('municipalities')
+    .select('name, county');
+  const lanLookup = Object.fromEntries(
+    (muniRows || []).map(m => [m.name, m.county])
+  );
+
   let inserted = 0;
   let skipped = 0;
   let errors = 0;
@@ -388,6 +396,7 @@ async function insertToSupabase(supabase, permits, extractionRun) {
       description: p.description || null,
       applicant: p.applicant || null,
       source_url: p.source_url || null,
+      lan: lanLookup[p.municipality] || null,
       extraction_model: "claude-haiku-4-5-20251001",
       extraction_cost_usd: null,
       raw_html_hash: null
