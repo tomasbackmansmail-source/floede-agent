@@ -69,12 +69,17 @@ export function extractLinks(html, baseUrl, selectorHint) {
   return links;
 }
 
-// Filter subpage links to only those matching bygglov keywords
-export function filterByBygglovKeywords(links) {
+// Filter links by keyword list (generic — works for any vertical)
+export function filterByKeywords(links, keywords) {
   return links.filter(l => {
     const text = l.text.toLowerCase();
-    return BYGGLOV_KEYWORDS.some(kw => text.includes(kw));
+    return keywords.some(kw => text.includes(kw));
   });
+}
+
+// Legacy wrapper for backward compatibility (tests + existing code)
+export function filterByBygglovKeywords(links) {
+  return filterByKeywords(links, BYGGLOV_KEYWORDS);
 }
 
 // Filter links: remove binaries and external domains

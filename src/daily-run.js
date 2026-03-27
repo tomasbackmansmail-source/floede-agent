@@ -12,7 +12,7 @@ import { createHash } from "crypto";
 import { withRetry } from "./utils/retry.js";
 import {
   sanitizeFilename, htmlToText, extractLinks,
-  filterByBygglovKeywords, filterLinks, stripNonContent,
+  filterByKeywords, filterByBygglovKeywords, filterLinks, stripNonContent,
   BYGGLOV_KEYWORDS
 } from "./utils/engine.js";
 import { readFileSync } from "fs";
@@ -81,7 +81,7 @@ async function fetchPageHttp(config) {
     const domainFiltered = filterLinks(allLinks.map(l => l.href), url);
     // Re-attach text for keyword filtering
     const domainFilteredWithText = allLinks.filter(l => domainFiltered.includes(l.href));
-    const bygglovLinks = filterByBygglovKeywords(domainFilteredWithText);
+    const bygglovLinks = filterByKeywords(domainFilteredWithText, verticalConfig.keywords);
     const maxSubpages = config.requires_subpages.max_subpages || 200;
 
     console.log(`  [HTTP] Found ${allLinks.length} links, ${domainFiltered.length} after domain filter, ${bygglovLinks.length} matching bygglov keywords`);
@@ -169,7 +169,7 @@ async function fetchPagePlaywright(page, config) {
 
     const domainFiltered = filterLinks(links.map(l => l.href), config.listing_url);
     const domainFilteredWithText = links.filter(l => domainFiltered.includes(l.href));
-    const bygglovLinks = filterByBygglovKeywords(domainFilteredWithText);
+    const bygglovLinks = filterByKeywords(domainFilteredWithText, verticalConfig.keywords);
     const maxSubpages = config.requires_subpages.max_subpages || 200;
 
     console.log(`  [Browser] Found ${links.length} links, ${domainFiltered.length} after domain filter, ${bygglovLinks.length} matching bygglov keywords`);
