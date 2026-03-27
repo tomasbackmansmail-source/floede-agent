@@ -10,7 +10,6 @@ import { join } from "path";
 import { createHash } from "crypto";
 import { EXTRACTION_PROMPT_V2 } from "./config/extraction-prompt-v2.js";
 import { withRetry } from "./utils/retry.js";
-import { runProcurements } from "./daily-procurements.js";
 
 function sanitizeFilename(name) {
   return name
@@ -705,14 +704,33 @@ async function main() {
     });
   }
 
-  // --- Phase 3: Procurement scraping (Stockholms län) ---
-  console.log(`\n=== Phase 3: Procurement scraping ===`);
-  try {
-    const procResult = await runProcurements();
-    console.log(`Procurements: ${procResult.inserted} new, ${procResult.skipped} dupes, ${procResult.closed} closed`);
-  } catch (err) {
-    console.error(`Procurement scraping failed: ${err.message}`);
+  // --- Alerting: email if zero permits inserted ---
+  if (totalInserted === 0 && process.env.RESEND_API_KEY) {
+    console.log(`\n=== ALERT: Zero permits inserted — sending email ===`);
+    try {
+      const alertResp = await fetch("https://api.resend.com/emails", {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${process.env.RESEND_API_KEY}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          from: "Floede Engine <hej@byggsignal.se>",
+          to: ["tomas@floede.se"],
+          subject: `ALERT: Floede Engine — 0 permits inserted (${runId})`,
+          text: `Floede Engine daily run ${runId} finished with 0 permits inserted.\n\nConfigs: ${configs.length}\nExtracted: ${totalPermits}\nInserted: ${totalInserted}\nFailed municipalities: ${failed}\nCost: $${totalCost.toFixed(4)}\nElapsed: ${Math.round(elapsed / 1000)}s\n\nCheck Railway logs for details.`,
+        }),
+      });
+      if (alertResp.ok) {
+        console.log("  Alert email sent.");
+      } else {
+        console.error(`  Alert email failed: ${alertResp.status} ${await alertResp.text()}`);
+      }
+    } catch (alertErr) {
+      console.error(`  Alert email error: ${alertErr.message}`);
+    }
   }
+
 }
 
 main()
