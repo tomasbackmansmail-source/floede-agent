@@ -8,13 +8,18 @@ import { chromium } from "playwright";
 import { writeFile, mkdir } from "fs/promises";
 import { join } from "path";
 import { createHash } from "crypto";
-import { EXTRACTION_PROMPT_V2 } from "./config/extraction-prompt-v2.js";
+
 import { withRetry } from "./utils/retry.js";
 import {
   sanitizeFilename, htmlToText, extractLinks,
   filterByBygglovKeywords, filterLinks, stripNonContent,
   BYGGLOV_KEYWORDS
 } from "./utils/engine.js";
+import { readFileSync } from "fs";
+
+const VERTICAL = process.env.VERTICAL || "byggsignal";
+const verticalConfig = JSON.parse(readFileSync(new URL(`./config/verticals/${VERTICAL}.json`, import.meta.url), "utf-8"));
+const EXTRACTION_PROMPT_V2 = verticalConfig.extraction_prompt;
 
 const HTML_DIR = join(process.cwd(), "data", "html");
 const EXTRACTED_DIR = join(process.cwd(), "data", "extracted");
@@ -24,7 +29,7 @@ const RUN_LOG_DIR = join(process.cwd(), "data", "runs");
 const HAIKU_INPUT_COST = 0.0000008;
 const HAIKU_OUTPUT_COST = 0.000004;
 
-const USER_AGENT = "FloedAgent/0.1 (byggsignal.se; datainsamling fran offentliga anslagstavlor)";
+const USER_AGENT = verticalConfig.user_agent;
 
 async function ensureDirs() {
   for (const dir of [HTML_DIR, EXTRACTED_DIR, COST_DIR, RUN_LOG_DIR]) {
