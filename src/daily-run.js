@@ -1,4 +1,4 @@
-// Daily runner: fetch HTML → extract with Haiku → insert to permits_v2 → QC
+// Daily runner: fetch HTML → extract with LLM → insert to database → QC
 // This is what Railway cron runs daily at 14:00 CET.
 // Default: HTTP fetch (no browser). Playwright only for needs_browser configs.
 
@@ -12,8 +12,8 @@ import { createHash } from "crypto";
 import { withRetry } from "./utils/retry.js";
 import {
   sanitizeFilename, htmlToText, extractLinks,
-  filterByKeywords, filterByBygglovKeywords, filterLinks, stripNonContent,
-  BYGGLOV_KEYWORDS
+  filterByKeywords, filterLinks, stripNonContent,
+
 } from "./utils/engine.js";
 import { readFileSync } from "fs";
 
