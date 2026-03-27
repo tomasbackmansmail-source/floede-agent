@@ -1,0 +1,57 @@
+{
+  "fixture": "10-gdpr-applicants",
+  "municipality": "Uppsala",
+  "generated_at": "2026-03-27T08:42:05.204Z",
+  "model": "claude-haiku-4-5-20251001",
+  "input_tokens": 2920,
+  "output_tokens": 463,
+  "cost_usd": 0.004188,
+  "permits_count": 4,
+  "permits": [
+    {
+      "municipality": "Uppsala",
+      "case_number": "2026-000456",
+      "address": "GOTTSUNDA 7:3",
+      "permit_type": "bygglov",
+      "status": "beviljat",
+      "date": "2026-03-22",
+      "description": "Nybyggnad av enbostadshus",
+      "applicant": null,
+      "source_url": null
+    },
+    {
+      "municipality": "Uppsala",
+      "case_number": "2026-000478",
+      "address": "FLOGSTA 12:45",
+      "permit_type": "bygglov",
+      "status": "beviljat",
+      "date": "2026-03-21",
+      "description": "Ombyggnad av flerbostadshus",
+      "applicant": "Uppsala Bostadsförening",
+      "source_url": null
+    },
+    {
+      "municipality": "Uppsala",
+      "case_number": "2026-000445",
+      "address": "KUNGSÄNGEN 14:2",
+      "permit_type": "rivningslov",
+      "status": "beviljat",
+      "date": "2026-03-19",
+      "description": "Rivning av garage",
+      "applicant": null,
+      "source_url": null
+    },
+    {
+      "municipality": "Uppsala",
+      "case_number": "2026-000490",
+      "address": "SUNNERSTA 3:89",
+      "permit_type": "bygglov",
+      "status": "ansökt",
+      "date": "2026-03-18",
+      "description": "Nybyggnad av komplementbyggnad",
+      "applicant": "Akademiska Hus AB",
+      "source_url": null
+    }
+  ],
+  "raw_response": "[\n  {\n    \"municipality\": \"Uppsala\",\n    \"case_number\": \"2026-000456\",\n    \"address\": \"GOTTSUNDA 7:3\",\n    \"permit_type\": \"bygglov\",\n    \"status\": \"beviljat\",\n    \"date\": \"2026-03-22\",\n    \"description\": \"Nybyggnad av enbostadshus\",\n    \"applicant\": null,\n    \"source_url\": null\n  },\n  {\n    \"municipality\": \"Uppsala\",\n    \"case_number\": \"2026-000478\",\n    \"address\": \"FLOGSTA 12:45\",\n    \"permit_type\": \"bygglov\",\n    \"status\": \"beviljat\",\n    \"date\": \"2026-03-21\",\n    \"description\": \"Ombyggnad av flerbostadshus\",\n    \"applicant\": \"Uppsala Bostadsförening\",\n    \"source_url\": null\n  },\n  {\n    \"municipality\": \"Uppsala\",\n    \"case_number\": \"2026-000445\",\n    \"address\": \"KUNGSÄNGEN 14:2\",\n    \"permit_type\": \"rivningslov\",\n    \"status\": \"beviljat\",\n    \"date\": \"2026-03-19\",\n    \"description\": \"Rivning av garage\",\n    \"applicant\": null,\n    \"source_url\": null\n  },\n  {\n    \"municipality\": \"Uppsala\",\n    \"case_number\": \"2026-000490\",\n    \"address\": \"SUNNERSTA 3:89\",\n    \"permit_type\": \"bygglov\",\n    \"status\": \"ansökt\",\n    \"date\": \"2026-03-18\",\n    \"description\": \"Nybyggnad av komplementbyggnad\",\n    \"applicant\": \"Akademiska Hus AB\",\n    \"source_url\": null\n  }\n]\n"
+}

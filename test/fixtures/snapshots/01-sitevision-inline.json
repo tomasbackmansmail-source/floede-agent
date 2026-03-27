@@ -1,0 +1,68 @@
+{
+  "fixture": "01-sitevision-inline",
+  "municipality": "Karlstad",
+  "generated_at": "2026-03-27T08:41:35.064Z",
+  "model": "claude-haiku-4-5-20251001",
+  "input_tokens": 3343,
+  "output_tokens": 632,
+  "cost_usd": 0.005202399999999999,
+  "permits_count": 5,
+  "permits": [
+    {
+      "municipality": "Karlstad",
+      "case_number": "BN 2026/0234",
+      "address": "HERRHAGEN 1:45",
+      "permit_type": "bygglov",
+      "status": "beviljat",
+      "date": "2026-03-18",
+      "description": "Nybyggnad av enbostadshus med garage",
+      "applicant": "Karlstad Bostäder AB",
+      "source_url": null
+    },
+    {
+      "municipality": "Karlstad",
+      "case_number": "BN 2026/0198",
+      "address": "RUD 3:12",
+      "permit_type": "marklov",
+      "status": "beviljat",
+      "date": "2026-03-15",
+      "description": "Schaktning och utfyllnad för ny infart",
+      "applicant": null,
+      "source_url": null
+    },
+    {
+      "municipality": "Karlstad",
+      "case_number": "BN 2026/0211",
+      "address": "TINGVALLASTADEN 12:8",
+      "permit_type": "rivningslov",
+      "status": "beviljat",
+      "date": "2026-03-17",
+      "description": "Rivning av komplementbyggnad",
+      "applicant": "Stiftelsen Karlstadshus",
+      "source_url": null
+    },
+    {
+      "municipality": "Karlstad",
+      "case_number": "BN 2025/1456",
+      "address": "SKATTKÄRR 2:89",
+      "permit_type": "bygglov",
+      "status": "startbesked",
+      "date": "2026-03-20",
+      "description": "Tillbyggnad av enbostadshus",
+      "applicant": null,
+      "source_url": null
+    },
+    {
+      "municipality": "Karlstad",
+      "case_number": "BN 2026/0089",
+      "address": "ALSTER 5:3",
+      "permit_type": "förhandsbesked",
+      "status": "beviljat",
+      "date": "2026-03-12",
+      "description": "Positivt förhandsbesked för nybyggnad av tvåbostadshus",
+      "applicant": "BRF Alstervik",
+      "source_url": null
+    }
+  ],
+  "raw_response": "[\n  {\n    \"municipality\": \"Karlstad\",\n    \"case_number\": \"BN 2026/0234\",\n    \"address\": \"HERRHAGEN 1:45\",\n    \"permit_type\": \"bygglov\",\n    \"status\": \"beviljat\",\n    \"date\": \"2026-03-18\",\n    \"description\": \"Nybyggnad av enbostadshus med garage\",\n    \"applicant\": \"Karlstad Bostäder AB\",\n    \"source_url\": null\n  },\n  {\n    \"municipality\": \"Karlstad\",\n    \"case_number\": \"BN 2026/0198\",\n    \"address\": \"RUD 3:12\",\n    \"permit_type\": \"marklov\",\n    \"status\": \"beviljat\",\n    \"date\": \"2026-03-15\",\n    \"description\": \"Schaktning och utfyllnad för ny infart\",\n    \"applicant\": null,\n    \"source_url\": null\n  },\n  {\n    \"municipality\": \"Karlstad\",\n    \"case_number\": \"BN 2026/0211\",\n    \"address\": \"TINGVALLASTADEN 12:8\",\n    \"permit_type\": \"rivningslov\",\n    \"status\": \"beviljat\",\n    \"date\": \"2026-03-17\",\n    \"description\": \"Rivning av komplementbyggnad\",\n    \"applicant\": \"Stiftelsen Karlstadshus\",\n    \"source_url\": null\n  },\n  {\n    \"municipality\": \"Karlstad\",\n    \"case_number\": \"BN 2025/1456\",\n    \"address\": \"SKATTKÄRR 2:89\",\n    \"permit_type\": \"bygglov\",\n    \"status\": \"startbesked\",\n    \"date\": \"2026-03-20\",\n    \"description\": \"Tillbyggnad av enbostadshus\",\n    \"applicant\": null,\n    \"source_url\": null\n  },\n  {\n    \"municipality\": \"Karlstad\",\n    \"case_number\": \"BN 2026/0089\",\n    \"address\": \"ALSTER 5:3\",\n    \"permit_type\": \"förhandsbesked\",\n    \"status\": \"beviljat\",\n    \"date\": \"2026-03-12\",\n    \"description\": \"Positivt förhandsbesked för nybyggnad av tvåbostadshus\",\n    \"applicant\": \"BRF Alstervik\",\n    \"source_url\": null\n  }\n]\n"
+}

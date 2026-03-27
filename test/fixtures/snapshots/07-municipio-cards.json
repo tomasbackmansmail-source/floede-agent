@@ -1,0 +1,46 @@
+{
+  "fixture": "07-municipio-cards",
+  "municipality": "Helsingborg",
+  "generated_at": "2026-03-27T08:41:56.642Z",
+  "model": "claude-haiku-4-5-20251001",
+  "input_tokens": 2872,
+  "output_tokens": 364,
+  "cost_usd": 0.0037535999999999997,
+  "permits_count": 3,
+  "permits": [
+    {
+      "municipality": "Helsingborg",
+      "case_number": "BN-2026-234",
+      "address": "PÅLSJÖ 1:45",
+      "permit_type": "bygglov",
+      "status": "beviljat",
+      "date": "2026-03-22",
+      "description": "Nybyggnad av enbostadshus",
+      "applicant": "Helsingborgshem AB",
+      "source_url": null
+    },
+    {
+      "municipality": "Helsingborg",
+      "case_number": "BN-2026-219",
+      "address": "RAUS 23:7",
+      "permit_type": "bygglov",
+      "status": "beviljat",
+      "date": "2026-03-20",
+      "description": "Tillbyggnad av garage",
+      "applicant": null,
+      "source_url": null
+    },
+    {
+      "municipality": "Helsingborg",
+      "case_number": "BN-2025-1567",
+      "address": "MARIASTADEN 8:12",
+      "permit_type": "bygglov",
+      "status": "överklagat",
+      "date": null,
+      "description": "Nybyggnad av flerbostadshus",
+      "applicant": "Peab Bostad AB",
+      "source_url": null
+    }
+  ],
+  "raw_response": "[\n  {\n    \"municipality\": \"Helsingborg\",\n    \"case_number\": \"BN-2026-234\",\n    \"address\": \"PÅLSJÖ 1:45\",\n    \"permit_type\": \"bygglov\",\n    \"status\": \"beviljat\",\n    \"date\": \"2026-03-22\",\n    \"description\": \"Nybyggnad av enbostadshus\",\n    \"applicant\": \"Helsingborgshem AB\",\n    \"source_url\": null\n  },\n  {\n    \"municipality\": \"Helsingborg\",\n    \"case_number\": \"BN-2026-219\",\n    \"address\": \"RAUS 23:7\",\n    \"permit_type\": \"bygglov\",\n    \"status\": \"beviljat\",\n    \"date\": \"2026-03-20\",\n    \"description\": \"Tillbyggnad av garage\",\n    \"applicant\": null,\n    \"source_url\": null\n  },\n  {\n    \"municipality\": \"Helsingborg\",\n    \"case_number\": \"BN-2025-1567\",\n    \"address\": \"MARIASTADEN 8:12\",\n    \"permit_type\": \"bygglov\",\n    \"status\": \"överklagat\",\n    \"date\": null,\n    \"description\": \"Nybyggnad av flerbostadshus\",\n    \"applicant\": \"Peab Bostad AB\",\n    \"source_url\": null\n  }\n]\n"
+}

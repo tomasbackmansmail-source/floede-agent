@@ -1,0 +1,46 @@
+{
+  "fixture": "03-netpublicator-articles",
+  "municipality": "Malmö",
+  "generated_at": "2026-03-27T08:41:42.054Z",
+  "model": "claude-haiku-4-5-20251001",
+  "input_tokens": 2904,
+  "output_tokens": 378,
+  "cost_usd": 0.0038352,
+  "permits_count": 3,
+  "permits": [
+    {
+      "municipality": "Malmö",
+      "case_number": "BN-2026-00789",
+      "address": "VÄSTRA HAMNEN 4:22",
+      "permit_type": "bygglov",
+      "status": "beviljat",
+      "date": "2026-03-20",
+      "description": "Nybyggnad av flerbostadshus",
+      "applicant": "MKB Fastighets AB",
+      "source_url": null
+    },
+    {
+      "municipality": "Malmö",
+      "case_number": "BN-2026-00812",
+      "address": "INNERSTADEN 23:5",
+      "permit_type": "bygglov",
+      "status": "ansökt",
+      "date": "2026-03-18",
+      "description": "Ombyggnad av kontorsbyggnad till bostäder",
+      "applicant": "Wihlborgs Fastigheter AB",
+      "source_url": null
+    },
+    {
+      "municipality": "Malmö",
+      "case_number": "BN-2026-00756",
+      "address": "LIMHAMN 155:302",
+      "permit_type": "bygglov",
+      "status": "beviljat",
+      "date": "2026-03-16",
+      "description": "Inglasning av balkong",
+      "applicant": null,
+      "source_url": null
+    }
+  ],
+  "raw_response": "[\n  {\n    \"municipality\": \"Malmö\",\n    \"case_number\": \"BN-2026-00789\",\n    \"address\": \"VÄSTRA HAMNEN 4:22\",\n    \"permit_type\": \"bygglov\",\n    \"status\": \"beviljat\",\n    \"date\": \"2026-03-20\",\n    \"description\": \"Nybyggnad av flerbostadshus\",\n    \"applicant\": \"MKB Fastighets AB\",\n    \"source_url\": null\n  },\n  {\n    \"municipality\": \"Malmö\",\n    \"case_number\": \"BN-2026-00812\",\n    \"address\": \"INNERSTADEN 23:5\",\n    \"permit_type\": \"bygglov\",\n    \"status\": \"ansökt\",\n    \"date\": \"2026-03-18\",\n    \"description\": \"Ombyggnad av kontorsbyggnad till bostäder\",\n    \"applicant\": \"Wihlborgs Fastigheter AB\",\n    \"source_url\": null\n  },\n  {\n    \"municipality\": \"Malmö\",\n    \"case_number\": \"BN-2026-00756\",\n    \"address\": \"LIMHAMN 155:302\",\n    \"permit_type\": \"bygglov\",\n    \"status\": \"beviljat\",\n    \"date\": \"2026-03-16\",\n    \"description\": \"Inglasning av balkong\",\n    \"applicant\": null,\n    \"source_url\": null\n  }\n]\n"
+}

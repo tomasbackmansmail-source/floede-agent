@@ -1,0 +1,68 @@
+{
+  "fixture": "06-meetingsplus-details",
+  "municipality": "Mölndal",
+  "generated_at": "2026-03-27T08:41:53.602Z",
+  "model": "claude-haiku-4-5-20251001",
+  "input_tokens": 2825,
+  "output_tokens": 598,
+  "cost_usd": 0.004652,
+  "permits_count": 5,
+  "permits": [
+    {
+      "municipality": "Mölndal",
+      "case_number": "BN 2026/00123",
+      "address": "KÅLLERED 5:18",
+      "permit_type": "bygglov",
+      "status": "beviljat",
+      "date": "2026-03-22",
+      "description": "Nybyggnad av tvåbostadshus",
+      "applicant": null,
+      "source_url": null
+    },
+    {
+      "municipality": "Mölndal",
+      "case_number": "BN 2026/00098",
+      "address": "LINDOME 3:45",
+      "permit_type": "bygglov",
+      "status": "beviljat",
+      "date": "2026-03-20",
+      "description": "Tillbyggnad av industribyggnad",
+      "applicant": "Lindome Fastigheter AB",
+      "source_url": null
+    },
+    {
+      "municipality": "Mölndal",
+      "case_number": "BN 2026/00112",
+      "address": "MÖLNDAL 7:89",
+      "permit_type": "bygglov",
+      "status": "avslag",
+      "date": "2026-03-19",
+      "description": "Uppsättning av ljusanordning",
+      "applicant": null,
+      "source_url": null
+    },
+    {
+      "municipality": "Mölndal",
+      "case_number": "BN 2026/00134",
+      "address": "KÄRRA 2:67",
+      "permit_type": "anmälan",
+      "status": "startbesked",
+      "date": "2026-03-21",
+      "description": "Installation av eldstad",
+      "applicant": null,
+      "source_url": null
+    },
+    {
+      "municipality": "Mölndal",
+      "case_number": "BN 2026/00145",
+      "address": "FÄSSBERG 11:3",
+      "permit_type": "anmälan",
+      "status": "startbesked",
+      "date": "2026-03-18",
+      "description": "Ändring av ventilation",
+      "applicant": null,
+      "source_url": null
+    }
+  ],
+  "raw_response": "[\n  {\n    \"municipality\": \"Mölndal\",\n    \"case_number\": \"BN 2026/00123\",\n    \"address\": \"KÅLLERED 5:18\",\n    \"permit_type\": \"bygglov\",\n    \"status\": \"beviljat\",\n    \"date\": \"2026-03-22\",\n    \"description\": \"Nybyggnad av tvåbostadshus\",\n    \"applicant\": null,\n    \"source_url\": null\n  },\n  {\n    \"municipality\": \"Mölndal\",\n    \"case_number\": \"BN 2026/00098\",\n    \"address\": \"LINDOME 3:45\",\n    \"permit_type\": \"bygglov\",\n    \"status\": \"beviljat\",\n    \"date\": \"2026-03-20\",\n    \"description\": \"Tillbyggnad av industribyggnad\",\n    \"applicant\": \"Lindome Fastigheter AB\",\n    \"source_url\": null\n  },\n  {\n    \"municipality\": \"Mölndal\",\n    \"case_number\": \"BN 2026/00112\",\n    \"address\": \"MÖLNDAL 7:89\",\n    \"permit_type\": \"bygglov\",\n    \"status\": \"avslag\",\n    \"date\": \"2026-03-19\",\n    \"description\": \"Uppsättning av ljusanordning\",\n    \"applicant\": null,\n    \"source_url\": null\n  },\n  {\n    \"municipality\": \"Mölndal\",\n    \"case_number\": \"BN 2026/00134\",\n    \"address\": \"KÄRRA 2:67\",\n    \"permit_type\": \"anmälan\",\n    \"status\": \"startbesked\",\n    \"date\": \"2026-03-21\",\n    \"description\": \"Installation av eldstad\",\n    \"applicant\": null,\n    \"source_url\": null\n  },\n  {\n    \"municipality\": \"Mölndal\",\n    \"case_number\": \"BN 2026/00145\",\n    \"address\": \"FÄSSBERG 11:3\",\n    \"permit_type\": \"anmälan\",\n    \"status\": \"startbesked\",\n    \"date\": \"2026-03-18\",\n    \"description\": \"Ändring av ventilation\",\n    \"applicant\": null,\n    \"source_url\": null\n  }\n]\n"
+}

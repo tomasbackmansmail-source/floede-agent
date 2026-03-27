@@ -1,0 +1,57 @@
+{
+  "fixture": "08-custom-mixed-types",
+  "municipality": "Gotland",
+  "generated_at": "2026-03-27T08:42:00.121Z",
+  "model": "claude-haiku-4-5-20251001",
+  "input_tokens": 2923,
+  "output_tokens": 503,
+  "cost_usd": 0.0043504,
+  "permits_count": 4,
+  "permits": [
+    {
+      "municipality": "Gotland",
+      "case_number": "MN 2026/0078",
+      "address": "VISBY NORDERGRAVAR 1:5",
+      "permit_type": "strandskyddsdispens",
+      "status": "beviljat",
+      "date": "2026-03-22",
+      "description": "Dispens från strandskyddsbestämmelserna för nybyggnad av sjöbod",
+      "applicant": "Gotlands Hamnförening",
+      "source_url": null
+    },
+    {
+      "municipality": "Gotland",
+      "case_number": "BN 2026/0345",
+      "address": "ROMA 12:8",
+      "permit_type": "bygglov",
+      "status": "beviljat",
+      "date": "2026-03-20",
+      "description": "Nybyggnad av transformatorstation",
+      "applicant": "Gotlands Energi AB",
+      "source_url": null
+    },
+    {
+      "municipality": "Gotland",
+      "case_number": "BN 2026/0312",
+      "address": "SLITE 1:234",
+      "permit_type": "anmälan",
+      "status": "startbesked",
+      "date": "2026-03-18",
+      "description": "Installation av kassett i enbostadshus",
+      "applicant": null,
+      "source_url": null
+    },
+    {
+      "municipality": "Gotland",
+      "case_number": "BN 2026/0298",
+      "address": "FÅRÖ 3:56",
+      "permit_type": "marklov",
+      "status": "beviljat",
+      "date": "2026-03-15",
+      "description": "Marklov för schaktning",
+      "applicant": null,
+      "source_url": null
+    }
+  ],
+  "raw_response": "[\n  {\n    \"municipality\": \"Gotland\",\n    \"case_number\": \"MN 2026/0078\",\n    \"address\": \"VISBY NORDERGRAVAR 1:5\",\n    \"permit_type\": \"strandskyddsdispens\",\n    \"status\": \"beviljat\",\n    \"date\": \"2026-03-22\",\n    \"description\": \"Dispens från strandskyddsbestämmelserna för nybyggnad av sjöbod\",\n    \"applicant\": \"Gotlands Hamnförening\",\n    \"source_url\": null\n  },\n  {\n    \"municipality\": \"Gotland\",\n    \"case_number\": \"BN 2026/0345\",\n    \"address\": \"ROMA 12:8\",\n    \"permit_type\": \"bygglov\",\n    \"status\": \"beviljat\",\n    \"date\": \"2026-03-20\",\n    \"description\": \"Nybyggnad av transformatorstation\",\n    \"applicant\": \"Gotlands Energi AB\",\n    \"source_url\": null\n  },\n  {\n    \"municipality\": \"Gotland\",\n    \"case_number\": \"BN 2026/0312\",\n    \"address\": \"SLITE 1:234\",\n    \"permit_type\": \"anmälan\",\n    \"status\": \"startbesked\",\n    \"date\": \"2026-03-18\",\n    \"description\": \"Installation av kassett i enbostadshus\",\n    \"applicant\": null,\n    \"source_url\": null\n  },\n  {\n    \"municipality\": \"Gotland\",\n    \"case_number\": \"BN 2026/0298\",\n    \"address\": \"FÅRÖ 3:56\",\n    \"permit_type\": \"marklov\",\n    \"status\": \"beviljat\",\n    \"date\": \"2026-03-15\",\n    \"description\": \"Marklov för schaktning\",\n    \"applicant\": null,\n    \"source_url\": null\n  }\n]\n"
+}

@@ -1,0 +1,57 @@
+{
+  "fixture": "02-episerver-table",
+  "municipality": "Eskilstuna",
+  "generated_at": "2026-03-27T08:41:38.664Z",
+  "model": "claude-haiku-4-5-20251001",
+  "input_tokens": 2879,
+  "output_tokens": 493,
+  "cost_usd": 0.0042752,
+  "permits_count": 4,
+  "permits": [
+    {
+      "municipality": "Eskilstuna",
+      "case_number": "SBN/2026/00321",
+      "address": "FORS 14:2",
+      "permit_type": "bygglov",
+      "status": "beviljat",
+      "date": "2026-03-19",
+      "description": "Nybyggnad av flerbostadshus",
+      "applicant": null,
+      "source_url": null
+    },
+    {
+      "municipality": "Eskilstuna",
+      "case_number": "SBN/2026/00287",
+      "address": "TUMBO 8:15",
+      "permit_type": "anmälan",
+      "status": "startbesked",
+      "date": "2026-03-17",
+      "description": "Installation av eldstad i enbostadshus",
+      "applicant": null,
+      "source_url": null
+    },
+    {
+      "municipality": "Eskilstuna",
+      "case_number": "SBN/2026/00256",
+      "address": "TORSHÄLLA 3:44",
+      "permit_type": "strandskyddsdispens",
+      "status": "beviljat",
+      "date": "2026-03-14",
+      "description": "Strandskyddsdispens för nybyggnad av brygga",
+      "applicant": null,
+      "source_url": null
+    },
+    {
+      "municipality": "Eskilstuna",
+      "case_number": "SBN/2025/01987",
+      "address": "GILLBERGA 1:78",
+      "permit_type": "bygglov",
+      "status": "avslag",
+      "date": "2026-03-13",
+      "description": "Uppsättning av skylt",
+      "applicant": null,
+      "source_url": null
+    }
+  ],
+  "raw_response": "[\n  {\n    \"municipality\": \"Eskilstuna\",\n    \"case_number\": \"SBN/2026/00321\",\n    \"address\": \"FORS 14:2\",\n    \"permit_type\": \"bygglov\",\n    \"status\": \"beviljat\",\n    \"date\": \"2026-03-19\",\n    \"description\": \"Nybyggnad av flerbostadshus\",\n    \"applicant\": null,\n    \"source_url\": null\n  },\n  {\n    \"municipality\": \"Eskilstuna\",\n    \"case_number\": \"SBN/2026/00287\",\n    \"address\": \"TUMBO 8:15\",\n    \"permit_type\": \"anmälan\",\n    \"status\": \"startbesked\",\n    \"date\": \"2026-03-17\",\n    \"description\": \"Installation av eldstad i enbostadshus\",\n    \"applicant\": null,\n    \"source_url\": null\n  },\n  {\n    \"municipality\": \"Eskilstuna\",\n    \"case_number\": \"SBN/2026/00256\",\n    \"address\": \"TORSHÄLLA 3:44\",\n    \"permit_type\": \"strandskyddsdispens\",\n    \"status\": \"beviljat\",\n    \"date\": \"2026-03-14\",\n    \"description\": \"Strandskyddsdispens för nybyggnad av brygga\",\n    \"applicant\": null,\n    \"source_url\": null\n  },\n  {\n    \"municipality\": \"Eskilstuna\",\n    \"case_number\": \"SBN/2025/01987\",\n    \"address\": \"GILLBERGA 1:78\",\n    \"permit_type\": \"bygglov\",\n    \"status\": \"avslag\",\n    \"date\": \"2026-03-13\",\n    \"description\": \"Uppsättning av skylt\",\n    \"applicant\": null,\n    \"source_url\": null\n  }\n]\n"
+}

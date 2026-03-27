@@ -1,0 +1,46 @@
+{
+  "fixture": "05-sitevision-subpages",
+  "municipality": "Nacka",
+  "generated_at": "2026-03-27T08:41:49.825Z",
+  "model": "claude-haiku-4-5-20251001",
+  "input_tokens": 3001,
+  "output_tokens": 389,
+  "cost_usd": 0.0039568,
+  "permits_count": 3,
+  "permits": [
+    {
+      "municipality": "Nacka",
+      "case_number": "KFKS 2026/00142",
+      "address": "SICKLAÖN 73:12",
+      "permit_type": "bygglov",
+      "status": "beviljat",
+      "date": "2026-03-21",
+      "description": "Tillbyggnad av enbostadshus med uterum",
+      "applicant": null,
+      "source_url": null
+    },
+    {
+      "municipality": "Nacka",
+      "case_number": "KFKS 2026/00156",
+      "address": "BOO 14:56",
+      "permit_type": "bygglov",
+      "status": "beviljat",
+      "date": "2026-03-19",
+      "description": "Nybyggnad av komplementbyggnad (förråd)",
+      "applicant": "BRF Orminge Centrum",
+      "source_url": null
+    },
+    {
+      "municipality": "Nacka",
+      "case_number": "KFKS 2026/00163",
+      "address": "SALTSJÖBADEN 1:234",
+      "permit_type": "bygglov",
+      "status": "startbesked",
+      "date": "2026-03-18",
+      "description": "Nybyggnad av enbostadshus",
+      "applicant": "Nacka Exploatering AB",
+      "source_url": null
+    }
+  ],
+  "raw_response": "[\n  {\n    \"municipality\": \"Nacka\",\n    \"case_number\": \"KFKS 2026/00142\",\n    \"address\": \"SICKLAÖN 73:12\",\n    \"permit_type\": \"bygglov\",\n    \"status\": \"beviljat\",\n    \"date\": \"2026-03-21\",\n    \"description\": \"Tillbyggnad av enbostadshus med uterum\",\n    \"applicant\": null,\n    \"source_url\": null\n  },\n  {\n    \"municipality\": \"Nacka\",\n    \"case_number\": \"KFKS 2026/00156\",\n    \"address\": \"BOO 14:56\",\n    \"permit_type\": \"bygglov\",\n    \"status\": \"beviljat\",\n    \"date\": \"2026-03-19\",\n    \"description\": \"Nybyggnad av komplementbyggnad (förråd)\",\n    \"applicant\": \"BRF Orminge Centrum\",\n    \"source_url\": null\n  },\n  {\n    \"municipality\": \"Nacka\",\n    \"case_number\": \"KFKS 2026/00163\",\n    \"address\": \"SALTSJÖBADEN 1:234\",\n    \"permit_type\": \"bygglov\",\n    \"status\": \"startbesked\",\n    \"date\": \"2026-03-18\",\n    \"description\": \"Nybyggnad av enbostadshus\",\n    \"applicant\": \"Nacka Exploatering AB\",\n    \"source_url\": null\n  }\n]\n"
+}

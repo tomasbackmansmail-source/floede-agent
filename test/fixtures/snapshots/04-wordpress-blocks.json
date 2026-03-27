@@ -1,0 +1,57 @@
+{
+  "fixture": "04-wordpress-blocks",
+  "municipality": "Lund",
+  "generated_at": "2026-03-27T08:41:46.719Z",
+  "model": "claude-haiku-4-5-20251001",
+  "input_tokens": 2927,
+  "output_tokens": 513,
+  "cost_usd": 0.0043936,
+  "permits_count": 4,
+  "permits": [
+    {
+      "municipality": "Lund",
+      "case_number": "BN 2026/0456",
+      "address": "LUND VÄSTER 4:12",
+      "permit_type": "bygglov",
+      "status": "beviljat",
+      "date": "2026-03-21",
+      "description": "Nybyggnad av garage och carport",
+      "applicant": "KB Lundafastigheter",
+      "source_url": null
+    },
+    {
+      "municipality": "Lund",
+      "case_number": "BN 2026/0423",
+      "address": "STÅNGBY 5:78",
+      "permit_type": "bygglov",
+      "status": "beviljat",
+      "date": "2026-03-19",
+      "description": "Fasadändring på flerbostadshus",
+      "applicant": "Lunds Kommuns Fastighets AB",
+      "source_url": null
+    },
+    {
+      "municipality": "Lund",
+      "case_number": "BN 2026/0401",
+      "address": "DALBY 12:3",
+      "permit_type": "förhandsbesked",
+      "status": "ansökt",
+      "date": "2026-03-17",
+      "description": "Förhandsbesked för nybyggnad av enbostadshus utanför detaljplan",
+      "applicant": null,
+      "source_url": null
+    },
+    {
+      "municipality": "Lund",
+      "case_number": "BN 2025/0890",
+      "address": "GENARP 8:45",
+      "permit_type": "bygglov",
+      "status": "slutbesked",
+      "date": "2026-03-15",
+      "description": "Nybyggnad av industribyggnad",
+      "applicant": "HB Genarps Industri",
+      "source_url": null
+    }
+  ],
+  "raw_response": "[\n  {\n    \"municipality\": \"Lund\",\n    \"case_number\": \"BN 2026/0456\",\n    \"address\": \"LUND VÄSTER 4:12\",\n    \"permit_type\": \"bygglov\",\n    \"status\": \"beviljat\",\n    \"date\": \"2026-03-21\",\n    \"description\": \"Nybyggnad av garage och carport\",\n    \"applicant\": \"KB Lundafastigheter\",\n    \"source_url\": null\n  },\n  {\n    \"municipality\": \"Lund\",\n    \"case_number\": \"BN 2026/0423\",\n    \"address\": \"STÅNGBY 5:78\",\n    \"permit_type\": \"bygglov\",\n    \"status\": \"beviljat\",\n    \"date\": \"2026-03-19\",\n    \"description\": \"Fasadändring på flerbostadshus\",\n    \"applicant\": \"Lunds Kommuns Fastighets AB\",\n    \"source_url\": null\n  },\n  {\n    \"municipality\": \"Lund\",\n    \"case_number\": \"BN 2026/0401\",\n    \"address\": \"DALBY 12:3\",\n    \"permit_type\": \"förhandsbesked\",\n    \"status\": \"ansökt\",\n    \"date\": \"2026-03-17\",\n    \"description\": \"Förhandsbesked för nybyggnad av enbostadshus utanför detaljplan\",\n    \"applicant\": null,\n    \"source_url\": null\n  },\n  {\n    \"municipality\": \"Lund\",\n    \"case_number\": \"BN 2025/0890\",\n    \"address\": \"GENARP 8:45\",\n    \"permit_type\": \"bygglov\",\n    \"status\": \"slutbesked\",\n    \"date\": \"2026-03-15\",\n    \"description\": \"Nybyggnad av industribyggnad\",\n    \"applicant\": \"HB Genarps Industri\",\n    \"source_url\": null\n  }\n]\n"
+}
