@@ -6,9 +6,13 @@
 // If not, the daily run either didn't start or failed silently.
 
 import { createClient } from "@supabase/supabase-js";
+import { readFileSync } from "fs";
 
-const ALERT_EMAIL = "hej@byggsignal.se";
-const ALERT_FROM = "Floede Engine <hej@byggsignal.se>";
+const VERTICAL = process.env.VERTICAL || "byggsignal";
+const verticalConfig = JSON.parse(readFileSync(new URL(`./config/verticals/${VERTICAL}.json`, import.meta.url), "utf-8"));
+
+const ALERT_EMAIL = verticalConfig.alert_email;
+const ALERT_FROM = verticalConfig.alert_from;
 
 async function main() {
   if (!process.env.SUPABASE_URL || !process.env.SUPABASE_SERVICE_KEY) {
@@ -30,7 +34,7 @@ async function main() {
   }
 
   const { count, error } = await supabase
-    .from("permits_v2")
+    .from(verticalConfig.db.table)
     .select("id", { count: "exact", head: true })
     .gte("created_at", checkAfter.toISOString());
 
