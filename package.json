@@ -4,6 +4,7 @@
   "description": "Autonomous pipeline for public permit data extraction",
   "type": "module",
   "scripts": {
+    "test": "node --test test/*.test.js",
     "fetch": "node src/fetch-html.js",
     "extract": "node src/extract.js",
     "compare": "node src/compare.js",

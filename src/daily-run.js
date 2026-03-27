@@ -10,17 +10,11 @@ import { join } from "path";
 import { createHash } from "crypto";
 import { EXTRACTION_PROMPT_V2 } from "./config/extraction-prompt-v2.js";
 import { withRetry } from "./utils/retry.js";
-
-function sanitizeFilename(name) {
-  return name
-    .toLowerCase()
-    .replace(/å/g, "a")
-    .replace(/ä/g, "a")
-    .replace(/ö/g, "o")
-    .replace(/[^a-z0-9-]/g, "-")
-    .replace(/-+/g, "-")
-    .replace(/^-|-$/g, "");
-}
+import {
+  sanitizeFilename, htmlToText, extractLinks,
+  filterByBygglovKeywords, filterLinks, stripNonContent,
+  BYGGLOV_KEYWORDS
+} from "./utils/engine.js";
 
 const HTML_DIR = join(process.cwd(), "data", "html");
 const EXTRACTED_DIR = join(process.cwd(), "data", "extracted");
@@ -31,12 +25,6 @@ const HAIKU_INPUT_COST = 0.0000008;
 const HAIKU_OUTPUT_COST = 0.000004;
 
 const USER_AGENT = "FloedAgent/0.1 (byggsignal.se; datainsamling fran offentliga anslagstavlor)";
-
-const BYGGLOV_KEYWORDS = [
-  'bygglov', 'rivningslov', 'marklov', 'förhandsbesked',
-  'plan- och bygglagen', 'pbl', 'kungörelse om beslut i lov',
-  'strandskyddsdispens', 'bygganmälan',
-];
 
 async function ensureDirs() {
   for (const dir of [HTML_DIR, EXTRACTED_DIR, COST_DIR, RUN_LOG_DIR]) {
@@ -61,81 +49,6 @@ async function loadApprovedConfigs(supabase) {
     needs_browser: row.config.needs_browser || row.needs_browser || false,
     _file: `${row.municipality}_config.json`,
   }));
-}
-
-// Strip HTML to plain text (equivalent to innerText)
-function htmlToText(html) {
-  return html
-    .replace(/<script[\s\S]*?<\/script>/gi, "")
-    .replace(/<style[\s\S]*?<\/style>/gi, "")
-    .replace(/<svg[\s\S]*?<\/svg>/gi, "")
-    .replace(/<nav[\s\S]*?<\/nav>/gi, "")
-    .replace(/<header[\s\S]*?<\/header>/gi, "")
-    .replace(/<footer[\s\S]*?<\/footer>/gi, "")
-    .replace(/<!--[\s\S]*?-->/g, "")
-    .replace(/<br\s*\/?>/gi, "\n")
-    .replace(/<\/(?:p|div|h[1-6]|li|tr|dt|dd|section|article)>/gi, "\n")
-    .replace(/<[^>]+>/g, " ")
-    .replace(/&nbsp;/gi, " ")
-    .replace(/&amp;/gi, "&")
-    .replace(/&lt;/gi, "<")
-    .replace(/&gt;/gi, ">")
-    .replace(/&quot;/gi, '"')
-    .replace(/&#\d+;/g, "")
-    .replace(/[ \t]+/g, " ")
-    .replace(/\n[ \t]+/g, "\n")
-    .replace(/\n{3,}/g, "\n\n")
-    .trim();
-}
-
-// Extract links matching a CSS-selector-like pattern from raw HTML
-// Returns [{ href, text }] where text is the anchor's inner text content
-function extractLinks(html, baseUrl, selectorHint) {
-  const links = [];
-  // Parse anchor tags with href and capture inner text
-  const anchorRegex = /<a\s[^>]*href="([^"]*)"[^>]*>([\s\S]*?)<\/a>/gi;
-  let match;
-  while ((match = anchorRegex.exec(html)) !== null) {
-    const href = match[1];
-    const innerHtml = match[2];
-    if (!href || href.startsWith("#") || href.startsWith("javascript:")) continue;
-    // Strip tags from inner HTML to get plain text
-    const text = innerHtml.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
-    try {
-      const absolute = new URL(href, baseUrl).href;
-      links.push({ href: absolute, text });
-    } catch { /* skip invalid URLs */ }
-  }
-
-  // Filter by selector hint keywords (e.g., "a[href*='kungorelse']")
-  if (selectorHint) {
-    const hrefPatterns = [...selectorHint.matchAll(/href\*='([^']+)'/g)].map(m => m[1]);
-    if (hrefPatterns.length > 0) {
-      return links.filter(l => hrefPatterns.some(p => l.href.toLowerCase().includes(p)));
-    }
-  }
-
-  return links;
-}
-
-// Filter subpage links to only those whose text matches bygglov-related keywords
-function filterByBygglovKeywords(links) {
-  return links.filter(l => {
-    const text = l.text.toLowerCase();
-    return BYGGLOV_KEYWORDS.some(kw => text.includes(kw));
-  });
-}
-
-// Filter links: remove binaries and external domains
-function filterLinks(links, configUrl) {
-  const configDomain = new URL(configUrl).hostname.replace(/^www\./, "");
-  return [...new Set(links)].filter((url) => {
-    if (/\.(pdf|doc|docx|xlsx|xls|zip|png|jpg|jpeg|gif)$/i.test(url)) return false;
-    try {
-      const host = new URL(url).hostname.replace(/^www\./, "");
-      return host === configDomain || host.endsWith(`.${configDomain}`);
-    } catch { return false; }
-  });
 }
 
 // --- HTTP FETCH (default) ---
@@ -301,19 +214,6 @@ async function fetchPagePlaywright(page, config) {
 }
 
 // --- EXTRACTION ---
-
-function stripNonContent(html) {
-  return html
-    .replace(/<script[\s\S]*?<\/script>/gi, "")
-    .replace(/<style[\s\S]*?<\/style>/gi, "")
-    .replace(/<svg[\s\S]*?<\/svg>/gi, "")
-    .replace(/<!--[\s\S]*?-->/g, "")
-    .replace(/<link[^>]*>/gi, "")
-    .replace(/<meta[^>]*>/gi, "")
-    .replace(/<img[^>]*>/gi, "")
-    .replace(/\s{2,}/g, " ")
-    .trim();
-}
 
 async function extractPermits(client, html, municipalityName, sourceUrl) {
   const cleaned = stripNonContent(html);
