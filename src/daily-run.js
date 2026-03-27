@@ -616,7 +616,7 @@ async function main() {
         },
         body: JSON.stringify({
           from: "Floede Engine <hej@byggsignal.se>",
-          to: ["tomasbackmansmail@gmail.com"],
+          to: ["hej@byggsignal.se"],
           subject: `ALERT: Floede Engine — 0 permits inserted (${runId})`,
           text: `Floede Engine daily run ${runId} finished with 0 permits inserted.\n\nConfigs: ${configs.length}\nExtracted: ${totalPermits}\nInserted: ${totalInserted}\nFailed municipalities: ${failed}\nCost: $${totalCost.toFixed(4)}\nElapsed: ${Math.round(elapsed / 1000)}s\n\nCheck Railway logs for details.`,
         }),
