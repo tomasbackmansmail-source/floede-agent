@@ -105,5 +105,34 @@
         "zero_days_threshold": 14
       }
     ]
+  },
+  "db": {
+    "table": "permits_v2",
+    "conflict_key": "municipality,case_number",
+    "primary_id_field": "case_number",
+    "dedup_fields": [
+      "municipality",
+      "address",
+      "date"
+    ],
+    "field_mapping": {
+      "municipality": "municipality",
+      "case_number": "case_number",
+      "address": "address",
+      "permit_type": "permit_type",
+      "status": "status",
+      "date": "date",
+      "description": "description",
+      "applicant": "applicant",
+      "source_url": "source_url"
+    },
+    "enrichment": {
+      "lookup_table": "municipalities",
+      "lookup_key": "name",
+      "lookup_source_field": "municipality",
+      "mappings": {
+        "county": "lan"
+      }
+    }
   }
 }

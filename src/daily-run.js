@@ -226,7 +226,7 @@ async function extractPermits(client, html, municipalityName, sourceUrl) {
 
   const response = await withRetry(
     () => client.messages.create({
-      model: "claude-haiku-4-5-20251001",
+      model: verticalConfig.model,
       max_tokens: 16384,
       messages: [
         {
@@ -274,76 +274,103 @@ async function extractPermits(client, html, municipalityName, sourceUrl) {
   return { permits, cost };
 }
 
-async function insertToSupabase(supabase, permits, extractionRun) {
-  if (permits.length === 0) return { inserted: 0, skipped: 0, errors: 0 };
+async function insertToSupabase(supabase, records, extractionRun) {
+  if (records.length === 0) return { inserted: 0, skipped: 0, errors: 0 };
 
-  // Lookup municipality -> county for lan field
-  const { data: muniRows } = await supabase
-    .from('municipalities')
-    .select('name, county');
-  const lanLookup = Object.fromEntries(
-    (muniRows || []).map(m => [m.name, m.county])
-  );
+  const dbConfig = verticalConfig.db;
+  const table = dbConfig.table;
+  const fieldMapping = dbConfig.field_mapping;
+  const primaryIdField = dbConfig.primary_id_field;
+  const conflictKey = dbConfig.conflict_key;
+  const dedupFields = dbConfig.dedup_fields || [];
+
+  // Enrichment: lookup from reference table (e.g. municipality -> county)
+  let enrichmentLookup = {};
+  if (dbConfig.enrichment) {
+    const e = dbConfig.enrichment;
+    const selectFields = [e.lookup_key, ...Object.keys(e.mappings)].join(',');
+    const { data: lookupRows } = await supabase
+      .from(e.lookup_table)
+      .select(selectFields);
+    enrichmentLookup = Object.fromEntries(
+      (lookupRows || []).map(r => [r[e.lookup_key], r])
+    );
+  }
 
   let inserted = 0;
   let skipped = 0;
   let errors = 0;
 
-  for (const p of permits) {
-    const row = {
-      municipality: p.municipality,
-      case_number: p.case_number || null,
-      address: p.address || null,
-      permit_type: p.permit_type || null,
-      status: p.status || null,
-      date: p.date || null,
-      description: p.description || null,
-      applicant: p.applicant || null,
-      source_url: p.source_url || null,
-      lan: lanLookup[p.municipality] || null,
-      extraction_model: "claude-haiku-4-5-20251001",
-      extraction_cost_usd: null,
-      raw_html_hash: null
-    };
+  for (const record of records) {
+    // Map fields from extraction output to database columns
+    const row = {};
+    for (const [extractField, dbField] of Object.entries(fieldMapping)) {
+      row[dbField] = record[extractField] || null;
+    }
 
-    if (row.case_number) {
+    // Apply enrichment lookups
+    if (dbConfig.enrichment) {
+      const e = dbConfig.enrichment;
+      const lookupValue = record[e.lookup_source_field];
+      const lookupRow = enrichmentLookup[lookupValue];
+      if (lookupRow) {
+        for (const [sourceCol, targetCol] of Object.entries(e.mappings)) {
+          row[targetCol] = lookupRow[sourceCol] || null;
+        }
+      }
+    }
+
+    // Add extraction metadata
+    row.extraction_model = verticalConfig.model;
+    row.extraction_cost_usd = null;
+    row.raw_html_hash = null;
+
+    const idValue = row[primaryIdField];
+
+    if (idValue) {
+      // Has primary ID — upsert with conflict handling
       const { error } = await withRetry(
         () => supabase
-          .from("permits_v2")
+          .from(table)
           .upsert(row, {
-            onConflict: "municipality,case_number",
+            onConflict: conflictKey,
             ignoreDuplicates: true
           }),
-        { maxRetries: 3, baseDelay: 5000, label: `DB ${row.case_number}` }
+        { maxRetries: 3, baseDelay: 5000, label: `DB ${idValue}` }
       );
 
       if (error) {
-        if (error.code === "23505") { skipped++; }
-        else { errors++; console.log(`  [DB] Error inserting ${row.case_number}: ${error.message}`); }
+        if (error.code === '23505') { skipped++; }
+        else { errors++; console.log(`  [DB] Error inserting ${idValue}: ${error.message}`); }
       } else {
         inserted++;
       }
     } else {
+      // No primary ID — check for duplicates using dedup fields
       const query = supabase
-        .from("permits_v2")
-        .select("id", { count: "exact", head: true })
-        .is("case_number", null)
-        .eq("municipality", row.municipality);
-      if (row.address) query.eq("address", row.address);
-      else query.is("address", null);
-      if (row.date) query.eq("date", row.date);
-      else query.is("date", null);
+        .from(table)
+        .select('id', { count: 'exact', head: true })
+        .is(primaryIdField, null);
 
-      const { count } = await withRetry(() => query, { maxRetries: 3, baseDelay: 5000, label: `DB check ${row.address}` });
+      for (const field of dedupFields) {
+        const dbField = fieldMapping[field] || field;
+        if (row[dbField]) query.eq(dbField, row[dbField]);
+        else query.is(dbField, null);
+      }
+
+      const { count } = await withRetry(
+        () => query,
+        { maxRetries: 3, baseDelay: 5000, label: `DB check ${row[fieldMapping.address] || 'unknown'}` }
+      );
 
       if (count > 0) {
         skipped++;
       } else {
         const { error } = await withRetry(
-          () => supabase.from("permits_v2").insert(row),
-          { maxRetries: 3, baseDelay: 5000, label: `DB insert ${row.address}` }
+          () => supabase.from(table).insert(row),
+          { maxRetries: 3, baseDelay: 5000, label: `DB insert ${row[fieldMapping.address] || 'unknown'}` }
         );
-        if (error) { errors++; console.log(`  [DB] Error inserting null/${row.address}: ${error.message}`); }
+        if (error) { errors++; console.log(`  [DB] Error inserting: ${error.message}`); }
         else { inserted++; }
       }
     }
@@ -575,7 +602,7 @@ async function main() {
     JSON.stringify({
       run_at: new Date().toISOString(),
       agent: "extraction",
-      model: "claude-haiku-4-5-20251001",
+      model: verticalConfig.model,
       total_cost_usd: totalCost,
       total_permits: totalPermits,
       cost_per_permit_usd: totalPermits > 0 ? totalCost / totalPermits : 0,
@@ -620,8 +647,8 @@ async function main() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          from: "Floede Engine <hej@byggsignal.se>",
-          to: ["hej@byggsignal.se"],
+          from: verticalConfig.alert_from,
+          to: [verticalConfig.alert_email],
           subject: `ALERT: Floede Engine — 0 permits inserted (${runId})`,
           text: `Floede Engine daily run ${runId} finished with 0 permits inserted.\n\nConfigs: ${configs.length}\nExtracted: ${totalPermits}\nInserted: ${totalInserted}\nFailed municipalities: ${failed}\nCost: $${totalCost.toFixed(4)}\nElapsed: ${Math.round(elapsed / 1000)}s\n\nCheck Railway logs for details.`,
         }),
