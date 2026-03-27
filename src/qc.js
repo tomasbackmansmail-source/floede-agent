@@ -25,7 +25,7 @@ async function loadBaselines(supabase) {
   // Calculate baseline per municipality: average permits per extraction
   // over the last 4 runs
   const { data, error } = await supabase
-    .from("permits_v2")
+    .from(verticalConfig.db.table)
     .select("municipality, extracted_at")
     .order("extracted_at", { ascending: false });
 
@@ -191,6 +191,68 @@ function populationFlags(todayCounts, baselines) {
   return flags;
 }
 
+
+async function saveToQcRuns(supabase, todayCounts, baselines, allFlags) {
+  const today = new Date().toISOString().slice(0, 10);
+
+  for (const [muniId, count] of Object.entries(todayCounts)) {
+    const baseline = baselines[muniId];
+    const flags = allFlags[muniId] || [];
+
+    const { error } = await supabase
+      .from('qc_runs')
+      .upsert({
+        vertical: VERTICAL,
+        municipality: muniId,
+        run_date: today,
+        permits_extracted: count,
+        permits_inserted: 0,
+        expected_avg: baseline ? baseline.avg_permits_per_run : null,
+        flags: flags,
+        alert_sent: false
+      }, {
+        onConflict: 'vertical,municipality,run_date'
+      });
+
+    if (error) {
+      console.log('  [QC DB] Error saving ' + muniId + ': ' + error.message);
+    }
+  }
+
+  console.log('QC results saved to qc_runs: ' + Object.keys(todayCounts).length + ' rows');
+}
+
+async function checkZeroStreak(supabase) {
+  const threeDaysAgo = new Date();
+  threeDaysAgo.setDate(threeDaysAgo.getDate() - 3);
+
+  const { data, error } = await supabase
+    .from('qc_runs')
+    .select('municipality, run_date, permits_extracted')
+    .eq('vertical', VERTICAL)
+    .gte('run_date', threeDaysAgo.toISOString().slice(0, 10))
+    .eq('permits_extracted', 0)
+    .order('municipality')
+    .order('run_date', { ascending: false });
+
+  if (error || !data) return [];
+
+  const byMuni = {};
+  for (const row of data) {
+    if (!byMuni[row.municipality]) byMuni[row.municipality] = [];
+    byMuni[row.municipality].push(row.run_date);
+  }
+
+  const zeroStreaks = [];
+  for (const [muni, dates] of Object.entries(byMuni)) {
+    if (dates.length >= 3) {
+      zeroStreaks.push({ municipality: muni, zero_days: dates.length, dates });
+    }
+  }
+
+  return zeroStreaks;
+}
+
 async function main() {
   await mkdir(QC_DIR, { recursive: true });
   await mkdir(COST_DIR, { recursive: true });
@@ -331,6 +393,60 @@ async function main() {
   const filename = `qc_report_${new Date().toISOString().slice(0, 10)}_${Date.now()}.json`;
   await writeFile(join(QC_DIR, filename), JSON.stringify(report, null, 2), "utf-8");
   console.log(`\nReport saved: data/qc/${filename}`);
+
+  // --- Save to qc_runs table ---
+  const allFlags = {};
+  for (const [muni, count] of Object.entries(todayCounts)) {
+    const flags = [];
+    if ((allIssues[muni] || []).length > 0) flags.push('validation_issues');
+    if (staleSources.some(s => s.municipality === muni)) flags.push('stale');
+    if (anomalies.some(a => a.municipality === muni)) flags.push('anomaly');
+    if (count === 0) flags.push('zero_permits');
+    if (flags.length > 0) allFlags[muni] = flags;
+  }
+
+  await saveToQcRuns(supabase, todayCounts, baselines, allFlags);
+
+  // --- Check for three-day zero streaks ---
+  const zeroStreaks = await checkZeroStreak(supabase);
+  if (zeroStreaks.length > 0) {
+    console.log(`\n=== ZERO STREAK ALERT (3+ days) ===`);
+    zeroStreaks.forEach(z => {
+      console.log(`  ${z.municipality}: ${z.zero_days} consecutive days with 0 permits`);
+    });
+
+    if (process.env.RESEND_API_KEY) {
+      const muniList = zeroStreaks.map(z => `- ${z.municipality} (${z.zero_days} dagar)`).join('\n');
+      try {
+        const resp = await fetch('https://api.resend.com/emails', {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${process.env.RESEND_API_KEY}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            from: verticalConfig.alert_from,
+            to: [verticalConfig.alert_email],
+            subject: `QC ALERT: ${zeroStreaks.length} kommuner med 0 ärenden 3+ dagar`,
+            text: `Följande kommuner har extraherat 0 ärenden tre eller fler dagar i rad:\n\n${muniList}\n\nKontrollera discovery-configs och källsidor.`,
+          }),
+        });
+        if (resp.ok) console.log('  Zero-streak alert email sent.');
+        else console.error(`  Alert email failed: ${resp.status}`);
+      } catch (err) {
+        console.error(`  Alert email error: ${err.message}`);
+      }
+
+      for (const z of zeroStreaks) {
+        await supabase
+          .from('qc_runs')
+          .update({ alert_sent: true })
+          .eq('vertical', VERTICAL)
+          .eq('municipality', z.municipality)
+          .eq('run_date', new Date().toISOString().slice(0, 10));
+      }
+    }
+  }
 
   // Return stale sources for potential Discovery trigger
   if (staleSources.length > 0) {
