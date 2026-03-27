@@ -6,6 +6,10 @@ import Anthropic from "@anthropic-ai/sdk";
 import { createClient } from "@supabase/supabase-js";
 import { readFile, readdir, writeFile, mkdir } from "fs/promises";
 import { join } from "path";
+import { readFileSync } from "fs";
+
+const VERTICAL = process.env.VERTICAL || "byggsignal";
+const verticalConfig = JSON.parse(readFileSync(new URL(`./config/verticals/${VERTICAL}.json`, import.meta.url), "utf-8"));
 
 const QC_DIR = join(process.cwd(), "data", "qc");
 const COST_DIR = join(process.cwd(), "data", "costs");
@@ -14,8 +18,8 @@ const CONFIG_DIR = join(process.cwd(), "data", "discovery");
 const SONNET_INPUT_COST = 0.000003;
 const SONNET_OUTPUT_COST = 0.000015;
 
-const VALID_PERMIT_TYPES = ["bygglov", "marklov", "rivningslov", "förhandsbesked", "strandskyddsdispens", "anmälan"];
-const VALID_STATUSES = ["ansökt", "beviljat", "avslag", "överklagat", "startbesked", "slutbesked"];
+const VALID_PERMIT_TYPES = verticalConfig.valid_permit_types;
+const VALID_STATUSES = verticalConfig.valid_statuses;
 
 async function loadBaselines(supabase) {
   // Calculate baseline per municipality: average permits per extraction
@@ -155,24 +159,7 @@ function detectAnomalies(baselines, todayCounts) {
   return anomalies;
 }
 
-const POPULATION = {
-  // Fas A+B (kommun 1-20)
-  "Malmö": 351749, "Uppsala": 233839, "Linköping": 164616, "Örebro": 155696,
-  "Västerås": 154049, "Norrköping": 143171, "Helsingborg": 149280,
-  "Jönköping": 144489, "Umeå": 132004, "Lund": 128036, "Halmstad": 105295,
-  "Nacka": 109525, "Sundsvall": 99785, "Karlstad": 96466, "Mölndal": 69517,
-  "Gotland": 60124, "Kiruna": 22915, "Höör": 17046, "Trosa": 13527,
-  "Tibro": 11089,
-  // Fas C (kommun 21-50)
-  "Stockholm": 984748, "Göteborg": 594732, "Borås": 114000, "Huddinge": 115000,
-  "Eskilstuna": 108000, "Södertälje": 100000, "Gävle": 103000, "Växjö": 96000,
-  "Botkyrka": 95000, "Haninge": 95000, "Trollhättan": 59000, "Nyköping": 57000,
-  "Lidingö": 48000, "Österåker": 47000, "Kristianstad": 87000, "Solna": 85000,
-  "Järfälla": 80000, "Luleå": 78000, "Täby": 75000, "Skellefteå": 73000,
-  "Kalmar": 70000, "Varberg": 66000, "Östersund": 64000, "Norrtälje": 64000,
-  "Falun": 60000, "Landskrona": 47000, "Upplands Väsby": 47000, "Tyresö": 50000,
-  "Vallentuna": 34000,
-};
+const POPULATION = (verticalConfig.qc && verticalConfig.qc.population) || {};
 
 function populationFlags(todayCounts, baselines) {
   const flags = [];

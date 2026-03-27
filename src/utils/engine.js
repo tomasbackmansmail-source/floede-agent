@@ -109,13 +109,15 @@ export function stripNonContent(html) {
 }
 
 // Validate permit enums — returns cleaned object
-export function validatePermitEnums(permit) {
-  const VALID_PERMIT_TYPES = ["bygglov", "marklov", "rivningslov", "förhandsbesked", "strandskyddsdispens", "anmälan"];
-  const VALID_STATUSES = ["ansökt", "beviljat", "avslag", "överklagat", "startbesked", "slutbesked"];
+// Takes enum lists as parameters for vertical independence.
+// Defaults to ByggSignal enums for backward compatibility (tests).
+const DEFAULT_PERMIT_TYPES = ["bygglov", "marklov", "rivningslov", "förhandsbesked", "strandskyddsdispens", "anmälan"];
+const DEFAULT_STATUSES = ["ansökt", "beviljat", "avslag", "överklagat", "startbesked", "slutbesked"];
 
+export function validatePermitEnums(permit, validPermitTypes = DEFAULT_PERMIT_TYPES, validStatuses = DEFAULT_STATUSES) {
   return {
-    permit_type: VALID_PERMIT_TYPES.includes(permit.permit_type) ? permit.permit_type : null,
-    status: VALID_STATUSES.includes(permit.status) ? permit.status : null,
+    permit_type: validPermitTypes.includes(permit.permit_type) ? permit.permit_type : null,
+    status: validStatuses.includes(permit.status) ? permit.status : null,
   };
 }
 
