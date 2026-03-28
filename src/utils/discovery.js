@@ -555,6 +555,9 @@ export async function verifyExtraction(listingUrl, verticalConfig, keywords) {
     cleaned = cleaned.slice(0, 100000);
   }
 
+  // Pre-compute keyword match before LLM call so all return paths can use it
+  const hasKeywordMatch = (keywords || []).some(k => html.toLowerCase().includes(k.toLowerCase()));
+
   // Step 3: Run extraction with configured model
   const HAIKU_INPUT_COST = 0.0000008;
   const HAIKU_OUTPUT_COST = 0.000004;
@@ -591,15 +594,7 @@ export async function verifyExtraction(listingUrl, verticalConfig, keywords) {
       sample = parsed.slice(0, 3);
     }
   } catch (err) {
-    return { verified: false, result_count: 0, sample: [], cost_usd: costUsd, error: `Extraction failed: ${err.message}`, needs_browser: false };
-  }
-
-  // Determine needs_browser: if 0 results but keywords match in HTML, likely JS-rendered
-  let needsBrowser = false;
-  if (resultCount === 0 && keywords && keywords.length > 0) {
-    const lower = html.toLowerCase();
-    const matchedKeywords = keywords.filter(k => lower.includes(k.toLowerCase()));
-    needsBrowser = matchedKeywords.length > 0;
+    return { verified: false, result_count: 0, sample: [], cost_usd: costUsd, error: `Extraction failed: ${err.message}`, needs_browser: hasKeywordMatch };
   }
 
   return {
@@ -608,6 +603,6 @@ export async function verifyExtraction(listingUrl, verticalConfig, keywords) {
     sample,
     cost_usd: costUsd,
     error: null,
-    needs_browser: needsBrowser,
+    needs_browser: resultCount === 0 && hasKeywordMatch,
   };
 }
