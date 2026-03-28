@@ -306,3 +306,76 @@ export async function checkSitemap(homepageUrl, searchTerms, userAgent) {
     urlsScanned: urls.length,
   };
 }
+
+// ═══════════════════════════════════════════════
+// Orchestrator: try cheap steps in order, stop at first hit
+// ═══════════════════════════════════════════════
+// Contract: discoverSource(sourceName, sourceUrl, discoveryConfig)
+//   → { found, url, method, confidence, details }
+// No vertical-specific logic. Everything comes from config.
+
+export async function discoverSource(sourceName, sourceUrl, discoveryConfig) {
+  const config = discoveryConfig;
+  const userAgent = config.user_agent || USER_AGENT_FALLBACK;
+  const searchTerms = config.search_terms || [];
+
+  // Step 1: URL variants (platform detection + known patterns)
+  const urlResult = await tryUrlVariants(sourceUrl, config, userAgent);
+  if (urlResult.found) {
+    return {
+      found: true,
+      url: urlResult.url,
+      method: 'url_variants',
+      platform: urlResult.platform,
+      confidence: urlResult.matchCount >= 2 ? 'high' : 'medium',
+      cost_usd: 0,
+      details: urlResult,
+    };
+  }
+
+  // Step 2: Crawl homepage for relevant links
+  const crawlResult = await crawlHomepage(sourceUrl, searchTerms, userAgent);
+  if (crawlResult.found) {
+    return {
+      found: true,
+      url: crawlResult.url,
+      method: 'crawl_homepage',
+      platform: urlResult.platform || 'unknown',
+      confidence: crawlResult.matchCount >= 2 ? 'high' : 'medium',
+      cost_usd: 0,
+      details: crawlResult,
+    };
+  }
+
+  // Step 3: Check sitemap.xml
+  const sitemapResult = await checkSitemap(sourceUrl, searchTerms, userAgent);
+  if (sitemapResult.found) {
+    return {
+      found: true,
+      url: sitemapResult.url,
+      method: 'sitemap',
+      platform: urlResult.platform || 'unknown',
+      confidence: sitemapResult.matchCount >= 2 ? 'high' : 'medium',
+      cost_usd: 0,
+      details: sitemapResult,
+    };
+  }
+
+  // Step 4: All cheap steps failed — return null
+  // Sonnet Discovery (step 5) is not called here.
+  // It will be added later, either as a direct call or via Agent SDK.
+  return {
+    found: false,
+    url: null,
+    method: null,
+    platform: urlResult.platform || 'unknown',
+    confidence: null,
+    cost_usd: 0,
+    steps_tried: ['url_variants', 'crawl_homepage', 'sitemap'],
+    details: {
+      url_variants: urlResult,
+      crawl: crawlResult,
+      sitemap: sitemapResult,
+    },
+  };
+}
