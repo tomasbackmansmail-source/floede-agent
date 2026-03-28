@@ -314,24 +314,31 @@ async function verifyAndUpdateConfig(supabase, sourceName, listingUrl) {
   console.log(`  [Verify] Results: ${result.result_count} items${result.error ? ` (error: ${result.error})` : ""}`);
 
   // Update discovery_configs with verification result
+  const shouldApprove = result.verified || result.needs_browser;
+
+  const updateData = {
+    verified: result.verified,
+    verified_at: new Date().toISOString(),
+    verify_result_count: result.result_count,
+    needs_browser: result.needs_browser || false,
+    approved: shouldApprove,
+  };
+
   const { error } = await supabase
     .from("discovery_configs")
-    .update({
-      verified: result.verified,
-      verified_at: new Date().toISOString(),
-      verify_result_count: result.result_count,
-      needs_browser: result.needs_browser || false,
-    })
+    .update(updateData)
     .eq("municipality", sourceName);
 
   if (error) {
     console.log(`  [Verify] DB update error: ${error.message}`);
   }
 
-  if (!result.verified && result.needs_browser) {
-    console.log(`  [Verify] URL looks correct but needs JS rendering — flagged needs_browser: true`);
-  } else if (!result.verified && verifyConfig.flag_if_zero) {
-    console.log(`  [Verify] WARNING: Zero results from ${listingUrl} — config may be invalid`);
+  if (result.verified) {
+    console.log(`  [Verify] Auto-approved — ${result.result_count} items extracted via HTTP`);
+  } else if (result.needs_browser) {
+    console.log(`  [Verify] Auto-approved — needs Playwright, daily-run handles fallback`);
+  } else {
+    console.log(`  [Verify] NOT approved — wrong URL, awaiting re-discovery`);
   }
 
   if (result.verified && result.sample.length > 0) {
