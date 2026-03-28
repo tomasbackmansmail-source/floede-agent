@@ -179,6 +179,8 @@
         "/kungorelser"
       ]
     },
+    "haiku_model": "claude-haiku-4-5-20251001",
+    "haiku_prompt": "Du får en lista med länkar från en svensk kommuns hemsida. Vilken länk leder mest troligt till kommunens ANSLAGSTAVLA för bygglov och kungörelser?\n\nRegler:\n- Anslagstavlan är där kommunen publicerar bygglovsbeslut enligt plan- och bygglagen\n- Vanliga nyckelord: anslagstavla, kungörelse, bygglov, anslagen, tillkännagivanden\n- Svara ENBART med den mest troliga URL:en, inget annat\n- Om ingen länk verkar relevant, svara med exakt: NONE",
     "verify_extraction": {
       "enabled": true,
       "min_expected_results": 1,

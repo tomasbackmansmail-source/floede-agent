@@ -241,7 +241,7 @@ describe("scoreLinks", () => {
 // parseSitemapUrls
 // ═══════════════════════════════════════════════
 
-import { parseSitemapUrls, scoreSitemapUrls, verifyExtraction } from "../src/utils/discovery.js";
+import { parseSitemapUrls, scoreSitemapUrls, verifyExtraction, haikuDiscovery } from "../src/utils/discovery.js";
 
 describe("parseSitemapUrls", () => {
   it("extracts URLs from sitemap XML", () => {
@@ -337,5 +337,23 @@ describe("verifyExtraction", () => {
     const result = await verifyExtraction("https://example.com", { model: "claude-haiku-4-5-20251001" });
     assert.strictEqual(result.verified, false);
     assert.ok(result.error.includes("extraction_prompt"));
+  });
+});
+
+// ═══════════════════════════════════════════════
+// haikuDiscovery
+// ═══════════════════════════════════════════════
+
+describe("haikuDiscovery", () => {
+  it("returns not found when haiku_model is missing", async () => {
+    const result = await haikuDiscovery("https://example.com", { haiku_prompt: "test" });
+    assert.strictEqual(result.found, false);
+    assert.ok(result.reason.includes("haiku_model"));
+  });
+
+  it("returns not found when haiku_prompt is missing", async () => {
+    const result = await haikuDiscovery("https://example.com", { haiku_model: "claude-haiku-4-5-20251001" });
+    assert.strictEqual(result.found, false);
+    assert.ok(result.reason.includes("haiku_prompt"));
   });
 });

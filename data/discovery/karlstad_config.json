@@ -1,28 +1,8 @@
 {
-  "municipality": "Karlstad",
-  "platform_guess": "sitevision",
+  "source_name": "Karlstad",
   "listing_url": "https://karlstad.se/kommun-och-politik/delta-och-paverka/anslagstavla",
-  "listing_type": "unknown",
-  "pagination": {
-    "has_pagination": false,
-    "type": "none",
-    "mechanism": "No pagination observed - all notices appear on single page",
-    "estimated_total_pages": null
-  },
-  "requires_subpages": {
-    "required": true,
-    "reason": "Page intro confirms notices include fullmäktige info, justerade protokoll and kungörelser. Main content area (#main-content inside .ks-main-content) was empty in rendered HTML, suggesting content may load dynamically or links lead to subpages for details.",
-    "link_selector_hint": "div#svid94_67d083131827bd64ed71e7 a"
-  },
-  "selectors_hint": {
-    "container": "div#svid94_67d083131827bd64ed71e7",
-    "item": "div.sv-text-portlet-content p, ul li",
-    "case_number": null,
-    "address": null,
-    "date": "time, .date",
-    "description": "p.sv-font-ingress"
-  },
-  "notes": "Sidan är byggd i SiteVision. Huvudinnehållet finns under h1 'Anslagstavla' i div#svid94_67d083131827bd64ed71e7. Innehållsförteckning listar tre sektioner: 'Personuppgifter och sekretess', 'Överklagande', 'Aktuella kungörelser och meddelanden'. Den relevanta sektionen för insamling är '#h-Aktuellakungorelserochmeddelanden'. HTML för själva anslagslistan var trunkerad och kunde inte analyseras fullt ut - selektorer behöver verifieras mot live-sida. #main-content div var tom vilket kan indikera att anslag laddas via JavaScript eller ligger längre ned i DOM.",
+  "platform_guess": "sitevision",
+  "discovery_method": "haiku",
   "confidence": "low",
   "approved": false
 }

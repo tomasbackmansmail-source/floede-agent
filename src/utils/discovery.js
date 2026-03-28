@@ -307,6 +307,104 @@ export async function checkSitemap(homepageUrl, searchTerms, userAgent) {
   };
 }
 
+// Step 4: Haiku LLM — read homepage links, ask Haiku to pick the best one
+export async function haikuDiscovery(homepageUrl, discoveryConfig) {
+  const config = discoveryConfig;
+  const userAgent = config.user_agent || USER_AGENT_FALLBACK;
+  const searchTerms = config.search_terms || [];
+  const model = config.haiku_model;
+  const prompt = config.haiku_prompt;
+
+  if (!model || !prompt) {
+    return { found: false, reason: "haiku_model or haiku_prompt not configured" };
+  }
+
+  // Fetch homepage and extract links
+  let html;
+  try {
+    const response = await fetch(homepageUrl, {
+      headers: { "User-Agent": userAgent },
+      signal: AbortSignal.timeout(DEFAULT_TIMEOUT),
+      redirect: "follow",
+    });
+    if (!response.ok) return { found: false, reason: `HTTP ${response.status}` };
+    html = await response.text();
+  } catch (err) {
+    return { found: false, reason: err.message };
+  }
+
+  const allLinks = extractLinksSimple(html, homepageUrl);
+  if (allLinks.length === 0) return { found: false, reason: "no links found on page" };
+
+  // Format links for Haiku
+  const linkList = allLinks
+    .map((l, i) => `${i + 1}. ${l.text} → ${l.href}`)
+    .join("\n");
+
+  const HAIKU_INPUT_COST = 0.0000008;
+  const HAIKU_OUTPUT_COST = 0.000004;
+
+  let candidateUrl;
+  let costUsd = 0;
+
+  try {
+    const { default: Anthropic } = await import("@anthropic-ai/sdk");
+    const client = new Anthropic();
+
+    const response = await client.messages.create({
+      model,
+      max_tokens: 256,
+      messages: [
+        {
+          role: "user",
+          content: `${prompt}\n\nLänkar:\n${linkList}`,
+        },
+      ],
+    });
+
+    costUsd =
+      (response.usage.input_tokens * HAIKU_INPUT_COST) +
+      (response.usage.output_tokens * HAIKU_OUTPUT_COST);
+
+    const reply = response.content[0].text.trim();
+
+    if (reply === "NONE" || !reply.startsWith("http")) {
+      return { found: false, reason: "Haiku found no relevant link", cost_usd: costUsd };
+    }
+
+    candidateUrl = reply;
+  } catch (err) {
+    return { found: false, reason: `Haiku API error: ${err.message}`, cost_usd: costUsd };
+  }
+
+  // Verify the URL Haiku picked
+  const testResult = await testUrl(candidateUrl, searchTerms, userAgent);
+
+  if (testResult.found) {
+    return {
+      found: true,
+      url: testResult.url,
+      matchedTerms: testResult.matchedTerms,
+      matchCount: testResult.matchCount,
+      cost_usd: costUsd,
+    };
+  }
+
+  // Haiku picked a URL but it didn't contain search terms — still return it with low confidence
+  if (testResult.status === 200) {
+    return {
+      found: true,
+      url: candidateUrl,
+      matchedTerms: [],
+      matchCount: 0,
+      cost_usd: costUsd,
+      note: "Haiku selected URL but no search term matches in content",
+    };
+  }
+
+  return { found: false, reason: `Haiku URL returned HTTP ${testResult.status}`, cost_usd: costUsd };
+}
+
 // ═══════════════════════════════════════════════
 // Orchestrator: try cheap steps in order, stop at first hit
 // ═══════════════════════════════════════════════
@@ -361,8 +459,22 @@ export async function discoverSource(sourceName, sourceUrl, discoveryConfig) {
     };
   }
 
-  // Step 4: All cheap steps failed — return null
-  // Sonnet Discovery (step 5) is not called here.
+  // Step 4: Haiku LLM — ask Haiku to pick the best link from homepage
+  const haikuResult = await haikuDiscovery(sourceUrl, discoveryConfig);
+  if (haikuResult.found) {
+    return {
+      found: true,
+      url: haikuResult.url,
+      method: 'haiku',
+      platform: urlResult.platform || 'unknown',
+      confidence: haikuResult.matchCount >= 2 ? 'high' : haikuResult.matchCount >= 1 ? 'medium' : 'low',
+      cost_usd: haikuResult.cost_usd || 0,
+      details: haikuResult,
+    };
+  }
+
+  // Step 5: All steps failed — return null
+  // Sonnet Discovery (step 6) is not called here.
   // It will be added later, either as a direct call or via Agent SDK.
   return {
     found: false,
@@ -370,12 +482,13 @@ export async function discoverSource(sourceName, sourceUrl, discoveryConfig) {
     method: null,
     platform: urlResult.platform || 'unknown',
     confidence: null,
-    cost_usd: 0,
-    steps_tried: ['url_variants', 'crawl_homepage', 'sitemap'],
+    cost_usd: haikuResult.cost_usd || 0,
+    steps_tried: ['url_variants', 'crawl_homepage', 'sitemap', 'haiku'],
     details: {
       url_variants: urlResult,
       crawl: crawlResult,
       sitemap: sitemapResult,
+      haiku: haikuResult,
     },
   };
 }
