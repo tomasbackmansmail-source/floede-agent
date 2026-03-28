@@ -145,7 +145,12 @@
     "search_terms": [
       "anslagstavla bygglov",
       "kungörelse bygglov beslut",
-      "digital anslagstavla plan- och bygglagen"
+      "digital anslagstavla plan- och bygglagen",
+      "anslagstavla",
+      "kungörelse",
+      "bygglov",
+      "bygganmälan",
+      "förhandsbesked"
     ],
     "search_prompt": "Hitta URL:en till {source_name} kommuns anslagstavla för bygglov/kungörelser.\n\nSök efter: \"{source_name} kommun anslagstavla bygglov\" och liknande.\n\nJag behöver den exakta URL:en där kommunen publicerar sina bygglovsbeslut/kungörelser.\n\nSvara ENBART med:\nURL: [den mest troliga URL:en]\nALTERNATIV: [eventuella andra kandidater, kommaseparerade]\nKONFIDENS: hög/medel/låg",
     "analysis_prompt": "Är detta {source_name} anslagstavla för bygglov/kungörelser?\n\nOm JA: svara ANALYZE och jag ber dig producera en config.\nOm NEJ: svara NAVIGATE: <bättre-url> om du ser en länk till rätt sida.\nOm OSÄKER: svara vad du ser och vad som saknas.",
