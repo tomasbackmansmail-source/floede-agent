@@ -1,0 +1,45 @@
+{
+  "municipality": "Lindesberg",
+  "platform_guess": "sitevision",
+  "listing_url": "https://www.lindesberg.se/kommun-och-politik/overklaga-beslut-rattssakerhet/anslagstavla-officiell",
+  "listing_type": "inline_with_links_to_subpages",
+  "pagination": {
+    "has_pagination": false,
+    "type": null,
+    "mechanism": null,
+    "estimated_total_pages": null
+  },
+  "requires_subpages": {
+    "required": false,
+    "reason": "Core fields (anslagsdatum, rubrik, typ, ansvarig nämnd, fastighetsbeteckning, diarienummer, beslutsdatum) are all present inline on the listing page. Subpage links exist but are not required for basic data extraction.",
+    "link_selector_hint": "li.sv-channel-item a.normal"
+  },
+  "selectors_hint": {
+    "container": "div.sv-archive-portlet.anslagwrapper ul.sv-channel",
+    "item": "li.sv-channel-item",
+    "case_number": "span.normal:contains('Diarienummer')",
+    "address": "span.normal:contains('Fastighetsbeteckning')",
+    "date": "time.sv-font-liten-gra[datetime]",
+    "description": "a.normal span",
+    "decision_date": "span.normal:contains('Beslutsdatum')",
+    "type": "span.sv-font-liten-gra:contains('Kungörelse')",
+    "responsible_committee": "span.sv-font-liten-gra:last-of-type"
+  },
+  "sections": [
+    {
+      "id": "bygglov_grannhorande",
+      "heading": "Bygglov, grannhörande",
+      "heading_selector": "h2#h-Bygglovgrannhorande",
+      "list_selector": "div#svid12_20add5af187740593275daa3 ul.sv-channel"
+    },
+    {
+      "id": "bygglov_kungorelse",
+      "heading": "Bygglov, kungörelse",
+      "heading_selector": "h2#h-Bygglovkungorelse",
+      "list_selector": "div#svid12_6406ec719c47c50e222c7a ul.sv-channel"
+    }
+  ],
+  "notes": "Page contains multiple named sections (Bygglov grannhörande, Bygglov kungörelse, and likely more below truncation e.g. protokoll/föreskrifter). Each li.sv-channel-item contains all key fields inline as labeled spans. Anslagsdatum is in a <time datetime=''> element. Fastighetsbeteckning, Diarienummer and Beslutsdatum appear as plain span.normal text nodes. Section IDs in the HTML use Swedish identifiers. No pagination observed — all current notices appear on a single page.",
+  "confidence": "high",
+  "approved": false
+}

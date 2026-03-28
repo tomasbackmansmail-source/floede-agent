@@ -1,30 +1,50 @@
 {
   "municipality": "Nacka",
-  "platform_guess": "custom",
+  "platform_guess": "custom_cms",
   "listing_url": "https://www.nacka.se/kommun--politik/delta-och-paverka/anslagstavla-officiell/kungorelser/",
   "listing_type": "links_to_subpages",
   "pagination": {
     "has_pagination": true,
     "type": "load_more_button",
-    "mechanism": "Klicka på länk med texten 'Fler Nyheter' med URL-mönster ?page=2#page-2, ?page=3#page-3 osv. Länken har klassen .c-get-more__button och attributet data-list='list'.",
+    "mechanism": "Click anchor with class 'c-get-more__button' and text 'Fler Nyheter'; URL pattern: ?page=2#page-2, ?page=3#page-3 etc.",
     "estimated_total_pages": null
   },
   "requires_subpages": {
     "required": true,
-    "reason": "Listsidan visar endast titel och publiceringsdatum. Ärendenummer, adress, status och detaljer om bygglovet finns enbart på respektive undersida.",
-    "link_selector_hint": ".c-news-list-item__content a[href*='kungorelser']"
+    "reason": "Listing page shows only title and publication date. Bygglov-items have empty description paragraphs. Case number, address, property designation, and permit details are only available on individual subpages.",
+    "link_selector_hint": ".c-news-list-item__content a[href*='kungorelse-bygglov']"
   },
   "selectors_hint": {
     "container": "#list",
     "item": ".c-news-list-item",
-    "case_number": null,
-    "address": null,
-    "date": "time.c-timestamp__date",
-    "description": ".c-news-list-item__text",
     "title": ".c-news-list-item__title",
-    "link": ".c-news-list-item__content a"
+    "link": ".c-news-list-item__content > a",
+    "date": "time.c-timestamp__date",
+    "date_attribute": "datetime",
+    "description": ".c-news-list-item__text",
+    "case_number": null,
+    "address": null
   },
-  "notes": "Listsidan visar generiska titlar som 'Kungörelse bygglov' utan adress eller ärendenummer. Alla detaljer kräver besök på undersida. Sidan innehåller även andra kungörelsetyper (t.ex. 'Kommunfullmäktige sammanträder', 'Kungörelse om flyttade fordon', 'Underrättelse om antagande') – filtrera på titel för att isolera bygglovsrelaterade ärenden. URL-mönster för bygglov: /kungorelser/YYYY/MM/kungorelse-bygglov*/. Paginering sker via länk med klass .c-get-more__button som pekar på ?page=N#page-N. Plattformen liknar ett anpassat CMS, möjligen EPiServer/Optimizely baserat på URL-struktur och HTML-mönster.",
+  "item_filter": {
+    "strategy": "title_contains",
+    "values": [
+      "Bygglov",
+      "bygglov"
+    ],
+    "notes": "Only items where title contains 'Bygglov' are relevant. Other types (samråd, antagande, underrättelse) are detaljplan notices, not bygglov."
+  },
+  "subpage_hints": {
+    "url_pattern": "https://www.nacka.se/kommun--politik/delta-och-paverka/anslagstavla-officiell/kungorelser/{year}/{month}/kungorelse-bygglov{id}/",
+    "expected_fields": [
+      "case_number",
+      "address",
+      "property_designation",
+      "applicant",
+      "decision_date",
+      "appeal_deadline"
+    ]
+  },
+  "notes": "Page uses standard HTML list rendering with no JavaScript-required content on the listing level. Pagination is a plain anchor link appending ?page=N, not JS-driven. Bygglov entries have empty description text on the list page — subpages must be fetched. Non-bygglov entries (detaljplan samråd/antagande) should be skipped. datetime attribute on <time> element is ISO 8601 and reliable for published date.",
   "confidence": "high",
   "approved": false
 }

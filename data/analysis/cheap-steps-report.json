@@ -1,0 +1,1070 @@
+{
+  "run_at": "2026-03-28T14:30:26.796Z",
+  "vertical": "ByggSignal",
+  "total_targets": 174,
+  "found_total": 1,
+  "found_url_variants": 1,
+  "found_crawl": 0,
+  "found_sitemap": 0,
+  "not_found_count": 173,
+  "platforms": {
+    "wordpress": 29,
+    "sitevision": 93,
+    "episerver": 23,
+    "unknown": 29
+  },
+  "details": {
+    "found_url_variants": [
+      {
+        "name": "Halmstad",
+        "url": "https://www.halmstad.se/anslagstavla",
+        "method": "url_variants",
+        "platform": "sitevision",
+        "confidence": "medium",
+        "matchCount": 1
+      }
+    ],
+    "found_crawl": [],
+    "found_sitemap": [],
+    "not_found": [
+      {
+        "name": "Helsingborg",
+        "url": "https://helsingborg.se",
+        "platform": "wordpress",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Lund",
+        "url": "https://www.lund.se",
+        "platform": "sitevision",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Uppsala",
+        "url": "https://www.uppsala.se",
+        "platform": "episerver",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Norrköping",
+        "url": "https://www.norrkoping.se",
+        "platform": "sitevision",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Jönköping",
+        "url": "https://www.jonkoping.se",
+        "platform": "sitevision",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Trosa",
+        "url": "https://www.trosa.se",
+        "platform": "wordpress",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Gotland",
+        "url": "https://www.gotland.se",
+        "platform": "sitevision",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Huddinge",
+        "url": "https://www.huddinge.se",
+        "platform": "unknown",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Eskilstuna",
+        "url": "https://www.eskilstuna.se",
+        "platform": "sitevision",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Södertälje",
+        "url": "https://www.sodertalje.se",
+        "platform": "episerver",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Botkyrka",
+        "url": "https://www.botkyrka.se",
+        "platform": "sitevision",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Haninge",
+        "url": "https://www.haninge.se",
+        "platform": "episerver",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Lidingö",
+        "url": "https://www.lidingo.se",
+        "platform": "unknown",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Österåker",
+        "url": "https://www.osteraker.se",
+        "platform": "sitevision",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Solna",
+        "url": "https://www.solna.se",
+        "platform": "sitevision",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Järfälla",
+        "url": "https://www.jarfalla.se",
+        "platform": "sitevision",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Täby",
+        "url": "https://www.taby.se",
+        "platform": "episerver",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Norrtälje",
+        "url": "https://www.norrtalje.se",
+        "platform": "episerver",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Landskrona",
+        "url": "https://www.landskrona.se",
+        "platform": "wordpress",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Tyresö",
+        "url": "https://www.tyreso.se",
+        "platform": "sitevision",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Vallentuna",
+        "url": "https://www.vallentuna.se",
+        "platform": "unknown",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Karlskrona",
+        "url": "https://www.karlskrona.se",
+        "platform": "episerver",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Sigtuna",
+        "url": "https://www.sigtuna.se",
+        "platform": "sitevision",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Enköping",
+        "url": "https://www.enkoping.se",
+        "platform": "unknown",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Motala",
+        "url": "https://www.motala.se",
+        "platform": "wordpress",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Katrineholm",
+        "url": "https://www.katrineholm.se",
+        "platform": "sitevision",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Värnamo",
+        "url": "https://www.varnamo.se",
+        "platform": "sitevision",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Danderyd",
+        "url": "https://www.danderyd.se",
+        "platform": "episerver",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Mjölby",
+        "url": "https://www.mjolby.se",
+        "platform": "sitevision",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Ekerö",
+        "url": "https://www.ekero.se",
+        "platform": "sitevision",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Lomma",
+        "url": "https://www.lomma.se",
+        "platform": "sitevision",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Håbo",
+        "url": "https://www.habo.se",
+        "platform": "sitevision",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Hässleholm",
+        "url": "https://www.hassleholm.se",
+        "platform": "sitevision",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Burlöv",
+        "url": "https://www.burlov.se",
+        "platform": "sitevision",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Svedala",
+        "url": "https://www.svedala.se",
+        "platform": "episerver",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Oskarshamn",
+        "url": "https://www.oskarshamn.se",
+        "platform": "episerver",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Tranås",
+        "url": "https://www.tranas.se",
+        "platform": "sitevision",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Tierp",
+        "url": "https://www.tierp.se",
+        "platform": "sitevision",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Oxelösund",
+        "url": "https://www.oxelosund.se",
+        "platform": "sitevision",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Hultsfred",
+        "url": "https://www.hultsfred.se",
+        "platform": "wordpress",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Vetlanda",
+        "url": "https://www.vetlanda.se",
+        "platform": "sitevision",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Vaggeryd",
+        "url": "https://www.vaggeryd.se",
+        "platform": "sitevision",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Hörby",
+        "url": "https://www.horby.se",
+        "platform": "wordpress",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Simrishamn",
+        "url": "https://www.simrishamn.se",
+        "platform": "sitevision",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Svalöv",
+        "url": "https://www.svalov.se",
+        "platform": "sitevision",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Klippan",
+        "url": "https://www.klippan.se",
+        "platform": "sitevision",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Båstad",
+        "url": "https://www.bastad.se",
+        "platform": "sitevision",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Bromölla",
+        "url": "https://www.bromolla.se",
+        "platform": "episerver",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Tingsryd",
+        "url": "https://www.tingsryd.se",
+        "platform": "wordpress",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Valdemarsvik",
+        "url": "https://www.valdemarsvik.se",
+        "platform": "wordpress",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Borgholm",
+        "url": "https://www.borgholm.se",
+        "platform": "wordpress",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Karlshamn",
+        "url": "https://www.karlshamn.se",
+        "platform": "wordpress",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Mönsterås",
+        "url": "https://www.monsteras.se",
+        "platform": "wordpress",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Torsås",
+        "url": "https://www.torsas.se",
+        "platform": "wordpress",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Högsby",
+        "url": "https://www.hogsby.se",
+        "platform": "unknown",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Upplands-Bro",
+        "url": "https://www.upplandsbro.se",
+        "platform": "unknown",
+        "reason": "timeout"
+      },
+      {
+        "name": "Gnosjö",
+        "url": "https://www.gnosjo.se",
+        "platform": "sitevision",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Örebro",
+        "url": "https://www.orebro.se",
+        "platform": "sitevision",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Västerås",
+        "url": "https://www.vasteras.se",
+        "platform": "sitevision",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Göteborg",
+        "url": "https://www.goteborg.se",
+        "platform": "unknown",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Borås",
+        "url": "https://www.boras.se",
+        "platform": "sitevision",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Varberg",
+        "url": "https://www.varberg.se",
+        "platform": "sitevision",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Falun",
+        "url": "https://www.falun.se",
+        "platform": "sitevision",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Kungsbacka",
+        "url": "https://www.kungsbacka.se",
+        "platform": "sitevision",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Skövde",
+        "url": "https://www.skovde.se",
+        "platform": "episerver",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Trelleborg",
+        "url": "https://www.trelleborg.se",
+        "platform": "wordpress",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Ängelholm",
+        "url": "https://www.engelholm.se",
+        "platform": "sitevision",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Alingsås",
+        "url": "https://www.alingsas.se",
+        "platform": "wordpress",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Partille",
+        "url": "https://www.partille.se",
+        "platform": "episerver",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Vellinge",
+        "url": "https://www.vellinge.se",
+        "platform": "episerver",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Kumla",
+        "url": "https://www.kumla.se",
+        "platform": "sitevision",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Falkenberg",
+        "url": "https://www.falkenberg.se",
+        "platform": "wordpress",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Lidköping",
+        "url": "https://www.lidkoping.se",
+        "platform": "unknown",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Laholm",
+        "url": "https://www.laholm.se",
+        "platform": "sitevision",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Sala",
+        "url": "https://www.sala.se",
+        "platform": "unknown",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Köping",
+        "url": "https://www.koping.se",
+        "platform": "sitevision",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Säffle",
+        "url": "https://www.saffle.se",
+        "platform": "sitevision",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Lysekil",
+        "url": "https://www.lysekil.se",
+        "platform": "sitevision",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Leksand",
+        "url": "https://www.leksand.se",
+        "platform": "sitevision",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Avesta",
+        "url": "https://www.avesta.se",
+        "platform": "unknown",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Hedemora",
+        "url": "https://www.hedemora.se",
+        "platform": "wordpress",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Bollebygd",
+        "url": "https://www.bollebygd.se",
+        "platform": "sitevision",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Filipstad",
+        "url": "https://www.filipstad.se",
+        "platform": "sitevision",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Orust",
+        "url": "https://www.orust.se",
+        "platform": "sitevision",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Munkedal",
+        "url": "https://www.munkedal.se",
+        "platform": "sitevision",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Stenungsund",
+        "url": "https://www.stenungsund.se",
+        "platform": "sitevision",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Tjörn",
+        "url": "https://www.tjorn.se",
+        "platform": "sitevision",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Vara",
+        "url": "https://www.vara.se",
+        "platform": "sitevision",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Mark",
+        "url": "https://www.mark.se",
+        "platform": "sitevision",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Ulricehamn",
+        "url": "https://www.ulricehamn.se",
+        "platform": "sitevision",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Karlsborg",
+        "url": "https://www.karlsborg.se",
+        "platform": "episerver",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Kristinehamn",
+        "url": "https://www.kristinehamn.se",
+        "platform": "episerver",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Säter",
+        "url": "https://www.sater.se",
+        "platform": "wordpress",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Gagnef",
+        "url": "https://www.gagnef.se",
+        "platform": "wordpress",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Munkfors",
+        "url": "https://www.munkfors.se",
+        "platform": "wordpress",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Dals-Ed",
+        "url": "https://www.dalsed.se",
+        "platform": "unknown",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Eda",
+        "url": "https://www.eda.se",
+        "platform": "unknown",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Sunne",
+        "url": "https://www.sunne.se",
+        "platform": "episerver",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Hällefors",
+        "url": "https://www.hallefors.se",
+        "platform": "unknown",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Falköping",
+        "url": "https://www.falkoping.se",
+        "platform": "sitevision",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Vansbro",
+        "url": "https://www.vansbro.se",
+        "platform": "sitevision",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Lindesberg",
+        "url": "https://www.lindesberg.se",
+        "platform": "sitevision",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Nacka",
+        "url": "https://www.nacka.se",
+        "platform": "episerver",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Malmö",
+        "url": "https://malmo.se",
+        "platform": "sitevision",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Mölndal",
+        "url": "https://www.molndal.se",
+        "platform": "sitevision",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Linköping",
+        "url": "https://www.linkoping.se",
+        "platform": "sitevision",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Umeå",
+        "url": "https://www.umea.se",
+        "platform": "sitevision",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Karlstad",
+        "url": "https://karlstad.se",
+        "platform": "sitevision",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Sundsvall",
+        "url": "https://www.sundsvall.se",
+        "platform": "sitevision",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Höör",
+        "url": "https://www.hoor.se",
+        "platform": "wordpress",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Tibro",
+        "url": "https://www.tibro.se",
+        "platform": "episerver",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Kiruna",
+        "url": "https://www.kiruna.se",
+        "platform": "sitevision",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Stockholm",
+        "url": "https://www.stockholm.se",
+        "platform": "unknown",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Gävle",
+        "url": "https://www.gavle.se",
+        "platform": "wordpress",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Växjö",
+        "url": "https://www.vaxjo.se",
+        "platform": "sitevision",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Trollhättan",
+        "url": "https://www.trollhattan.se",
+        "platform": "unknown",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Nyköping",
+        "url": "https://www.nykoping.se",
+        "platform": "episerver",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Kristianstad",
+        "url": "https://www.kristianstad.se",
+        "platform": "sitevision",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Luleå",
+        "url": "https://www.lulea.se",
+        "platform": "sitevision",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Skellefteå",
+        "url": "https://www.skelleftea.se",
+        "platform": "sitevision",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Kalmar",
+        "url": "https://www.kalmar.se",
+        "platform": "sitevision",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Östersund",
+        "url": "https://www.ostersund.se",
+        "platform": "sitevision",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Upplands Väsby",
+        "url": "https://www.upplandsvasby.se",
+        "platform": "sitevision",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Sollentuna",
+        "url": "https://www.sollentuna.se",
+        "platform": "episerver",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Uddevalla",
+        "url": "https://www.uddevalla.se",
+        "platform": "sitevision",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Värmdö",
+        "url": "https://www.varmdo.se",
+        "platform": "sitevision",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Lerum",
+        "url": "https://www.lerum.se",
+        "platform": "sitevision",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Piteå",
+        "url": "https://www.pitea.se",
+        "platform": "unknown",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Sandviken",
+        "url": "https://www.sandviken.se",
+        "platform": "sitevision",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Strängnäs",
+        "url": "https://www.strangnas.se",
+        "platform": "sitevision",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Ystad",
+        "url": "https://www.ystad.se",
+        "platform": "sitevision",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Nynäshamn",
+        "url": "https://www.nynashamn.se",
+        "platform": "sitevision",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Härnösand",
+        "url": "https://www.harnosand.se",
+        "platform": "sitevision",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Staffanstorp",
+        "url": "https://www.staffanstorp.se",
+        "platform": "wordpress",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Kungälv",
+        "url": "https://www.kungalv.se",
+        "platform": "episerver",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Sundbyberg",
+        "url": "https://www.sundbyberg.se",
+        "platform": "sitevision",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Örnsköldsvik",
+        "url": "https://www.ornskoldsvik.se",
+        "platform": "sitevision",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Eslöv",
+        "url": "https://www.eslov.se",
+        "platform": "wordpress",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Mariestad",
+        "url": "https://www.mariestad.se",
+        "platform": "sitevision",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Arvika",
+        "url": "https://www.arvika.se",
+        "platform": "sitevision",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Osby",
+        "url": "https://www.osby.se",
+        "platform": "sitevision",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Mora",
+        "url": "https://www.mora.se",
+        "platform": "unknown",
+        "reason": "timeout"
+      },
+      {
+        "name": "Älmhult",
+        "url": "https://www.almhult.se",
+        "platform": "sitevision",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Gislaved",
+        "url": "https://www.gislaved.se",
+        "platform": "sitevision",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Lilla Edet",
+        "url": "https://www.lillaedet.se",
+        "platform": "sitevision",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Sölvesborg",
+        "url": "https://www.solvesborg.se",
+        "platform": "sitevision",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Bengtsfors",
+        "url": "https://www.bengtsfors.se",
+        "platform": "sitevision",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Höganäs",
+        "url": "https://www.hoganas.se",
+        "platform": "sitevision",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Älvsbyn",
+        "url": "https://www.alvsbyn.se",
+        "platform": "wordpress",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Arjeplog",
+        "url": "https://www.arjeplog.se",
+        "platform": "wordpress",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Norsjö",
+        "url": "https://www.norsjo.se",
+        "platform": "wordpress",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Övertorneå",
+        "url": "https://www.overtornea.se",
+        "platform": "unknown",
+        "reason": "timeout"
+      },
+      {
+        "name": "Jokkmokk",
+        "url": "https://www.jokkmokk.se",
+        "platform": "unknown",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Kalix",
+        "url": "https://www.kalix.se",
+        "platform": "unknown",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Lycksele",
+        "url": "https://www.lycksele.se",
+        "platform": "unknown",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Malå",
+        "url": "https://www.mala.se",
+        "platform": "unknown",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Överkalix",
+        "url": "https://www.overkalix.se",
+        "platform": "unknown",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Pajala",
+        "url": "https://www.pajala.se",
+        "platform": "unknown",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Storuman",
+        "url": "https://www.storuman.se",
+        "platform": "unknown",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Dorotea",
+        "url": "https://www.dorotea.se",
+        "platform": "unknown",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Vilhelmina",
+        "url": "https://www.vilhelmina.se",
+        "platform": "unknown",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Tanum",
+        "url": "https://www.tanum.se",
+        "platform": "sitevision",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Herrljunga",
+        "url": "https://www.herrljunga.se",
+        "platform": "sitevision",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Hjo",
+        "url": "https://www.hjo.se",
+        "platform": "episerver",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Söderköping",
+        "url": "https://www.soderkoping.se",
+        "platform": "episerver",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Arboga",
+        "url": "https://www.arboga.se",
+        "platform": "sitevision",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Skinnskatteberg",
+        "url": "https://www.skinnskatteberg.se",
+        "platform": "wordpress",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Alvesta",
+        "url": "https://www.alvesta.se",
+        "platform": "wordpress",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Nybro",
+        "url": "https://www.nybro.se",
+        "platform": "wordpress",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Mellerud",
+        "url": "https://www.mellerud.se",
+        "platform": "unknown",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Östhammar",
+        "url": "https://www.osthammar.se",
+        "platform": "unknown",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Degerfors",
+        "url": "https://www.degerfors.se",
+        "platform": "sitevision",
+        "reason": "no candidates matched search terms"
+      },
+      {
+        "name": "Åmål",
+        "url": "https://www.amal.se",
+        "platform": "sitevision",
+        "reason": "no candidates matched search terms"
+      }
+    ]
+  }
+}
