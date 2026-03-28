@@ -236,3 +236,87 @@ describe("scoreLinks", () => {
     }
   });
 });
+
+// ═══════════════════════════════════════════════
+// parseSitemapUrls
+// ═══════════════════════════════════════════════
+
+import { parseSitemapUrls, scoreSitemapUrls } from "../src/utils/discovery.js";
+
+describe("parseSitemapUrls", () => {
+  it("extracts URLs from sitemap XML", () => {
+    const xml = '<?xml version="1.0"?><urlset><url><loc>https://www.nacka.se/anslagstavla</loc></url><url><loc>https://www.nacka.se/kontakt</loc></url></urlset>';
+    const urls = parseSitemapUrls(xml);
+    assert.equal(urls.length, 2);
+    assert.equal(urls[0], "https://www.nacka.se/anslagstavla");
+    assert.equal(urls[1], "https://www.nacka.se/kontakt");
+  });
+
+  it("handles whitespace in loc tags", () => {
+    const xml = '<urlset><url><loc>  https://www.test.se/page  </loc></url></urlset>';
+    const urls = parseSitemapUrls(xml);
+    assert.equal(urls[0], "https://www.test.se/page");
+  });
+
+  it("returns empty for no loc tags", () => {
+    const xml = '<urlset></urlset>';
+    assert.deepEqual(parseSitemapUrls(xml), []);
+  });
+
+  it("returns empty for empty input", () => {
+    assert.deepEqual(parseSitemapUrls(""), []);
+  });
+
+  it("handles large sitemaps", () => {
+    let xml = '<urlset>';
+    for (let i = 0; i < 100; i++) {
+      xml += '<url><loc>https://www.test.se/page-' + i + '</loc></url>';
+    }
+    xml += '</urlset>';
+    assert.equal(parseSitemapUrls(xml).length, 100);
+  });
+});
+
+// ═══════════════════════════════════════════════
+// scoreSitemapUrls
+// ═══════════════════════════════════════════════
+
+describe("scoreSitemapUrls", () => {
+  const urls = [
+    "https://www.nacka.se/anslagstavla/bygglov",
+    "https://www.nacka.se/kontakt",
+    "https://www.nacka.se/kungorelser/anslagstavla",
+    "https://www.nacka.se/om-kommunen",
+  ];
+  const searchTerms = ["anslagstavla", "bygglov", "kungörelse"];
+
+  it("scores URLs by search term matches", () => {
+    const scored = scoreSitemapUrls(urls, searchTerms);
+    assert.equal(scored[0].url, "https://www.nacka.se/anslagstavla/bygglov");
+    assert.equal(scored[0].matchCount, 2);
+  });
+
+  it("filters out non-matching URLs", () => {
+    const scored = scoreSitemapUrls(urls, searchTerms);
+    assert.ok(!scored.some(s => s.url.includes("kontakt")));
+    assert.ok(!scored.some(s => s.url.includes("om-kommunen")));
+  });
+
+  it("is case-insensitive", () => {
+    const scored = scoreSitemapUrls(["https://x.se/ANSLAGSTAVLA"], ["anslagstavla"]);
+    assert.equal(scored.length, 1);
+  });
+
+  it("handles empty inputs", () => {
+    assert.deepEqual(scoreSitemapUrls([], searchTerms), []);
+    assert.deepEqual(scoreSitemapUrls(urls, []), []);
+    assert.deepEqual(scoreSitemapUrls(null, null), []);
+  });
+
+  it("sorts by matchCount descending", () => {
+    const scored = scoreSitemapUrls(urls, searchTerms);
+    for (let i = 1; i < scored.length; i++) {
+      assert.ok(scored[i - 1].matchCount >= scored[i].matchCount);
+    }
+  });
+});

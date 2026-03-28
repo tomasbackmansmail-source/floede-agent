@@ -238,3 +238,71 @@ export async function crawlHomepage(homepageUrl, searchTerms, userAgent) {
     linksScanned: allLinks.length,
   };
 }
+
+// Parse sitemap XML — extract URLs (pure function, testable)
+export function parseSitemapUrls(xml) {
+  const urls = [];
+  const regex = /<loc>\s*(https?:\/\/[^<]+?)\s*<\/loc>/gi;
+  let match;
+  while ((match = regex.exec(xml)) !== null) {
+    urls.push(match[1].trim());
+  }
+  return urls;
+}
+
+// Score sitemap URLs against search terms (pure function)
+export function scoreSitemapUrls(urls, searchTerms) {
+  if (!urls || !searchTerms || searchTerms.length === 0) return [];
+
+  return urls
+    .map(url => {
+      const lower = url.toLowerCase();
+      const matchedTerms = searchTerms.filter(t => lower.includes(t.toLowerCase()));
+      return { url, matchedTerms, matchCount: matchedTerms.length };
+    })
+    .filter(u => u.matchCount > 0)
+    .sort((a, b) => b.matchCount - a.matchCount);
+}
+
+// Step 4: Check sitemap.xml for relevant URLs
+export async function checkSitemap(homepageUrl, searchTerms, userAgent) {
+  const ua = userAgent || USER_AGENT_FALLBACK;
+  let baseUrl;
+  try {
+    const parsed = new URL(homepageUrl);
+    baseUrl = parsed.protocol + '//' + parsed.host;
+  } catch {
+    return { found: false, reason: 'invalid URL' };
+  }
+
+  const sitemapUrl = baseUrl + '/sitemap.xml';
+
+  let xml;
+  try {
+    const response = await fetch(sitemapUrl, {
+      headers: { 'User-Agent': ua },
+      signal: AbortSignal.timeout(DEFAULT_TIMEOUT),
+      redirect: 'follow',
+    });
+    if (!response.ok) return { found: false, reason: 'HTTP ' + response.status };
+    xml = await response.text();
+  } catch (err) {
+    return { found: false, reason: err.message };
+  }
+
+  const urls = parseSitemapUrls(xml);
+  if (urls.length === 0) return { found: false, reason: 'no URLs in sitemap', sitemapUrl };
+
+  const hits = scoreSitemapUrls(urls, searchTerms);
+  if (hits.length === 0) return { found: false, reason: 'no URLs matched search terms', sitemapUrl, urlsScanned: urls.length };
+
+  return {
+    found: true,
+    url: hits[0].url,
+    matchedTerms: hits[0].matchedTerms,
+    matchCount: hits[0].matchCount,
+    alternativeUrls: hits.slice(1, 4).map(h => ({ url: h.url, matchCount: h.matchCount })),
+    sitemapUrl,
+    urlsScanned: urls.length,
+  };
+}
