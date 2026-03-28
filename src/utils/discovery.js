@@ -379,3 +379,88 @@ export async function discoverSource(sourceName, sourceUrl, discoveryConfig) {
     },
   };
 }
+
+// Verify that a discovered config actually produces extraction results.
+// Fetches the listing_url, runs the extraction prompt with the configured model, counts results.
+export async function verifyExtraction(listingUrl, verticalConfig) {
+  const userAgent = verticalConfig.user_agent || "FloedAgent/0.1";
+  const model = verticalConfig.model;
+  const extractionPrompt = verticalConfig.extraction_prompt;
+
+  if (!listingUrl || !model || !extractionPrompt) {
+    return { verified: false, result_count: 0, sample: [], cost_usd: 0, error: "Missing listingUrl, model, or extraction_prompt" };
+  }
+
+  // Step 1: Fetch the page
+  let html;
+  try {
+    const response = await fetch(listingUrl, {
+      headers: { "User-Agent": userAgent },
+      signal: AbortSignal.timeout(30000),
+      redirect: "follow",
+    });
+    if (!response.ok) {
+      return { verified: false, result_count: 0, sample: [], cost_usd: 0, error: `HTTP ${response.status}` };
+    }
+    html = await response.text();
+  } catch (err) {
+    return { verified: false, result_count: 0, sample: [], cost_usd: 0, error: err.message };
+  }
+
+  // Step 2: Basic text extraction (strip scripts/styles, truncate)
+  let cleaned = html
+    .replace(/<script[\s\S]*?<\/script>/gi, "")
+    .replace(/<style[\s\S]*?<\/style>/gi, "")
+    .replace(/<svg[\s\S]*?<\/svg>/gi, "")
+    .replace(/<!--[\s\S]*?-->/g, "");
+  if (cleaned.length > 100000) {
+    cleaned = cleaned.slice(0, 100000);
+  }
+
+  // Step 3: Run extraction with configured model
+  const HAIKU_INPUT_COST = 0.0000008;
+  const HAIKU_OUTPUT_COST = 0.000004;
+
+  let resultCount = 0;
+  let sample = [];
+  let costUsd = 0;
+
+  try {
+    const { default: Anthropic } = await import("@anthropic-ai/sdk");
+    const client = new Anthropic();
+
+    const response = await client.messages.create({
+      model,
+      max_tokens: 16384,
+      messages: [
+        {
+          role: "user",
+          content: `${extractionPrompt}\n\nHTML:\n${cleaned}`,
+        },
+      ],
+    });
+
+    costUsd =
+      (response.usage.input_tokens * HAIKU_INPUT_COST) +
+      (response.usage.output_tokens * HAIKU_OUTPUT_COST);
+
+    const rawText = response.content[0].text.trim()
+      .replace(/```json\s*/g, "").replace(/```\s*/g, "");
+
+    const parsed = JSON.parse(rawText);
+    if (Array.isArray(parsed)) {
+      resultCount = parsed.length;
+      sample = parsed.slice(0, 3);
+    }
+  } catch (err) {
+    return { verified: false, result_count: 0, sample: [], cost_usd: costUsd, error: `Extraction failed: ${err.message}` };
+  }
+
+  return {
+    verified: resultCount >= 1,
+    result_count: resultCount,
+    sample,
+    cost_usd: costUsd,
+    error: null,
+  };
+}

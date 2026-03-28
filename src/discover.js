@@ -9,7 +9,7 @@ import { chromium } from "playwright";
 import { writeFile, mkdir } from "fs/promises";
 import { join } from "path";
 import { readFileSync } from "fs";
-import { discoverSource, detectPlatform } from "./utils/discovery.js";
+import { discoverSource, detectPlatform, verifyExtraction } from "./utils/discovery.js";
 
 const CONFIG_DIR = join(process.cwd(), "data", "discovery");
 const COST_DIR = join(process.cwd(), "data", "costs");
@@ -280,6 +280,43 @@ async function saveConfig(supabase, sourceName, config) {
   }
 }
 
+async function verifyAndUpdateConfig(supabase, sourceName, listingUrl) {
+  const verifyConfig = discoveryConfig.verify_extraction;
+  if (!verifyConfig || !verifyConfig.enabled) {
+    console.log(`  [Verify] Disabled in config — skipping`);
+    return null;
+  }
+
+  console.log(`  [Verify] Testing extraction from ${listingUrl}...`);
+  const result = await verifyExtraction(listingUrl, verticalConfig);
+
+  console.log(`  [Verify] Results: ${result.result_count} items${result.error ? ` (error: ${result.error})` : ""}`);
+
+  // Update discovery_configs with verification result
+  const { error } = await supabase
+    .from("discovery_configs")
+    .update({
+      verified: result.verified,
+      verified_at: new Date().toISOString(),
+      verify_result_count: result.result_count,
+    })
+    .eq("municipality", sourceName);
+
+  if (error) {
+    console.log(`  [Verify] DB update error: ${error.message}`);
+  }
+
+  if (!result.verified && verifyConfig.flag_if_zero) {
+    console.log(`  [Verify] WARNING: Zero results from ${listingUrl} — config may be invalid`);
+  }
+
+  if (result.verified && result.sample.length > 0) {
+    console.log(`  [Verify] Sample: ${JSON.stringify(result.sample[0]).slice(0, 150)}...`);
+  }
+
+  return result;
+}
+
 async function main() {
   await mkdir(CONFIG_DIR, { recursive: true });
   await mkdir(COST_DIR, { recursive: true });
@@ -334,6 +371,7 @@ async function main() {
       };
 
       await saveConfig(supabase, target.name, configStub);
+      await verifyAndUpdateConfig(supabase, target.name, cheapResult.url);
       continue;
     }
 
@@ -348,6 +386,9 @@ async function main() {
     if (sonnetResult.success) {
       console.log(`  [Sonnet] Found: ${sonnetResult.config.listing_url} (${sonnetResult.cost_usd.toFixed(4)})`);
       await saveConfig(supabase, target.name, sonnetResult.config);
+      if (sonnetResult.config?.listing_url) {
+        await verifyAndUpdateConfig(supabase, target.name, sonnetResult.config.listing_url);
+      }
     } else {
       console.log(`  [Sonnet] Failed: ${sonnetResult.failure_reason} (${sonnetResult.cost_usd.toFixed(4)})`);
     }

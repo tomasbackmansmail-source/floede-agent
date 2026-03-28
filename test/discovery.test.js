@@ -241,7 +241,7 @@ describe("scoreLinks", () => {
 // parseSitemapUrls
 // ═══════════════════════════════════════════════
 
-import { parseSitemapUrls, scoreSitemapUrls } from "../src/utils/discovery.js";
+import { parseSitemapUrls, scoreSitemapUrls, verifyExtraction } from "../src/utils/discovery.js";
 
 describe("parseSitemapUrls", () => {
   it("extracts URLs from sitemap XML", () => {
@@ -318,5 +318,24 @@ describe("scoreSitemapUrls", () => {
     for (let i = 1; i < scored.length; i++) {
       assert.ok(scored[i - 1].matchCount >= scored[i].matchCount);
     }
+  });
+});
+
+// ═══════════════════════════════════════════════
+// verifyExtraction
+// ═══════════════════════════════════════════════
+
+describe("verifyExtraction", () => {
+  it("returns error for missing parameters", async () => {
+    const result = await verifyExtraction(null, {});
+    assert.strictEqual(result.verified, false);
+    assert.strictEqual(result.result_count, 0);
+    assert.ok(result.error);
+  });
+
+  it("returns error for missing extraction_prompt", async () => {
+    const result = await verifyExtraction("https://example.com", { model: "claude-haiku-4-5-20251001" });
+    assert.strictEqual(result.verified, false);
+    assert.ok(result.error.includes("extraction_prompt"));
   });
 });
