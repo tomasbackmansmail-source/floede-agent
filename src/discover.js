@@ -348,6 +348,7 @@ async function main() {
     console.log(`\n--- ${target.name} ---`);
 
     const cheapResult = await discoverSource(target.name, target.url, discoveryConfig);
+    totalCost += cheapResult.cost_usd || 0;
 
     if (cheapResult.found) {
       console.log(`  [${cheapResult.method}] Found: ${cheapResult.url} (confidence: ${cheapResult.confidence})`);
@@ -358,7 +359,7 @@ async function main() {
         url: cheapResult.url,
         method: cheapResult.method,
         confidence: cheapResult.confidence,
-        cost_usd: 0,
+        cost_usd: cheapResult.cost_usd || 0,
       });
 
       const configStub = {

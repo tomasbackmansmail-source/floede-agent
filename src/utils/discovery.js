@@ -344,7 +344,7 @@ export async function haikuDiscovery(homepageUrl, discoveryConfig) {
   const HAIKU_INPUT_COST = 0.0000008;
   const HAIKU_OUTPUT_COST = 0.000004;
 
-  let candidateUrl;
+  let candidates = [];
   let costUsd = 0;
 
   try {
@@ -353,7 +353,7 @@ export async function haikuDiscovery(homepageUrl, discoveryConfig) {
 
     const response = await client.messages.create({
       model,
-      max_tokens: 256,
+      max_tokens: 512,
       messages: [
         {
           role: "user",
@@ -366,43 +366,68 @@ export async function haikuDiscovery(homepageUrl, discoveryConfig) {
       (response.usage.input_tokens * HAIKU_INPUT_COST) +
       (response.usage.output_tokens * HAIKU_OUTPUT_COST);
 
-    const reply = response.content[0].text.trim();
+    const reply = response.content[0].text.trim()
+      .replace(/```json\s*/g, "").replace(/```\s*/g, "");
 
-    if (reply === "NONE" || !reply.startsWith("http")) {
-      return { found: false, reason: "Haiku found no relevant link", cost_usd: costUsd };
-    }
-
-    candidateUrl = reply;
+    const parsed = JSON.parse(reply);
+    candidates = Array.isArray(parsed.candidates) ? parsed.candidates.slice(0, 3) : [];
   } catch (err) {
-    return { found: false, reason: `Haiku API error: ${err.message}`, cost_usd: costUsd };
+    return { found: false, reason: `Haiku API/parse error: ${err.message}`, cost_usd: costUsd };
   }
 
-  // Verify the URL Haiku picked
-  const testResult = await testUrl(candidateUrl, searchTerms, userAgent);
-
-  if (testResult.found) {
-    return {
-      found: true,
-      url: testResult.url,
-      matchedTerms: testResult.matchedTerms,
-      matchCount: testResult.matchCount,
-      cost_usd: costUsd,
-    };
+  if (candidates.length === 0) {
+    return { found: false, reason: "Haiku returned no candidates", cost_usd: costUsd };
   }
 
-  // Haiku picked a URL but it didn't contain search terms — still return it with low confidence
-  if (testResult.status === 200) {
-    return {
-      found: true,
-      url: candidateUrl,
-      matchedTerms: [],
-      matchCount: 0,
-      cost_usd: costUsd,
-      note: "Haiku selected URL but no search term matches in content",
-    };
+  // Test each candidate, pick the first with search term matches
+  const testResults = [];
+  let bestCandidate = null;
+
+  for (const candidate of candidates) {
+    const testResult = await testUrl(candidate.url, searchTerms, userAgent);
+    testResults.push({ ...candidate, testResult });
+
+    if (testResult.found && !bestCandidate) {
+      bestCandidate = {
+        url: testResult.url,
+        matchedTerms: testResult.matchedTerms,
+        matchCount: testResult.matchCount,
+        confidence: candidate.confidence,
+        reason: candidate.reason,
+        verified_by_test: true,
+      };
+      break;
+    }
   }
 
-  return { found: false, reason: `Haiku URL returned HTTP ${testResult.status}`, cost_usd: costUsd };
+  // Fallback: use first candidate that returned 200, with low confidence
+  if (!bestCandidate) {
+    const firstOk = testResults.find(t => t.testResult.status === 200);
+    if (firstOk) {
+      bestCandidate = {
+        url: firstOk.url,
+        matchedTerms: [],
+        matchCount: 0,
+        confidence: "low",
+        reason: firstOk.reason,
+        verified_by_test: false,
+      };
+    }
+  }
+
+  if (!bestCandidate) {
+    return { found: false, reason: "All Haiku candidates failed HTTP check", cost_usd: costUsd, details: { candidates, testResults } };
+  }
+
+  return {
+    found: true,
+    url: bestCandidate.url,
+    matchedTerms: bestCandidate.matchedTerms,
+    matchCount: bestCandidate.matchCount,
+    cost_usd: costUsd,
+    verified_by_test: bestCandidate.verified_by_test,
+    details: { candidates, best_candidate: bestCandidate, test_results: testResults },
+  };
 }
 
 // ═══════════════════════════════════════════════
