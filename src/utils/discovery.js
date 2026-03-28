@@ -520,13 +520,13 @@ export async function discoverSource(sourceName, sourceUrl, discoveryConfig) {
 
 // Verify that a discovered config actually produces extraction results.
 // Fetches the listing_url, runs the extraction prompt with the configured model, counts results.
-export async function verifyExtraction(listingUrl, verticalConfig) {
+export async function verifyExtraction(listingUrl, verticalConfig, keywords) {
   const userAgent = verticalConfig.user_agent || "FloedAgent/0.1";
   const model = verticalConfig.model;
   const extractionPrompt = verticalConfig.extraction_prompt;
 
   if (!listingUrl || !model || !extractionPrompt) {
-    return { verified: false, result_count: 0, sample: [], cost_usd: 0, error: "Missing listingUrl, model, or extraction_prompt" };
+    return { verified: false, result_count: 0, sample: [], cost_usd: 0, error: "Missing listingUrl, model, or extraction_prompt", needs_browser: false };
   }
 
   // Step 1: Fetch the page
@@ -538,11 +538,11 @@ export async function verifyExtraction(listingUrl, verticalConfig) {
       redirect: "follow",
     });
     if (!response.ok) {
-      return { verified: false, result_count: 0, sample: [], cost_usd: 0, error: `HTTP ${response.status}` };
+      return { verified: false, result_count: 0, sample: [], cost_usd: 0, error: `HTTP ${response.status}`, needs_browser: false };
     }
     html = await response.text();
   } catch (err) {
-    return { verified: false, result_count: 0, sample: [], cost_usd: 0, error: err.message };
+    return { verified: false, result_count: 0, sample: [], cost_usd: 0, error: err.message, needs_browser: false };
   }
 
   // Step 2: Basic text extraction (strip scripts/styles, truncate)
@@ -591,7 +591,15 @@ export async function verifyExtraction(listingUrl, verticalConfig) {
       sample = parsed.slice(0, 3);
     }
   } catch (err) {
-    return { verified: false, result_count: 0, sample: [], cost_usd: costUsd, error: `Extraction failed: ${err.message}` };
+    return { verified: false, result_count: 0, sample: [], cost_usd: costUsd, error: `Extraction failed: ${err.message}`, needs_browser: false };
+  }
+
+  // Determine needs_browser: if 0 results but keywords match in HTML, likely JS-rendered
+  let needsBrowser = false;
+  if (resultCount === 0 && keywords && keywords.length > 0) {
+    const lower = html.toLowerCase();
+    const matchedKeywords = keywords.filter(k => lower.includes(k.toLowerCase()));
+    needsBrowser = matchedKeywords.length > 0;
   }
 
   return {
@@ -600,5 +608,6 @@ export async function verifyExtraction(listingUrl, verticalConfig) {
     sample,
     cost_usd: costUsd,
     error: null,
+    needs_browser: needsBrowser,
   };
 }

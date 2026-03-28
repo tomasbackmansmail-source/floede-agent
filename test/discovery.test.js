@@ -338,6 +338,11 @@ describe("verifyExtraction", () => {
     assert.strictEqual(result.verified, false);
     assert.ok(result.error.includes("extraction_prompt"));
   });
+
+  it("returns needs_browser false when keywords is undefined", async () => {
+    const result = await verifyExtraction(null, {});
+    assert.strictEqual(result.needs_browser, false);
+  });
 });
 
 // ═══════════════════════════════════════════════

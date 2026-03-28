@@ -288,7 +288,7 @@ async function verifyAndUpdateConfig(supabase, sourceName, listingUrl) {
   }
 
   console.log(`  [Verify] Testing extraction from ${listingUrl}...`);
-  const result = await verifyExtraction(listingUrl, verticalConfig);
+  const result = await verifyExtraction(listingUrl, verticalConfig, discoveryConfig.search_terms);
 
   console.log(`  [Verify] Results: ${result.result_count} items${result.error ? ` (error: ${result.error})` : ""}`);
 
@@ -299,6 +299,7 @@ async function verifyAndUpdateConfig(supabase, sourceName, listingUrl) {
       verified: result.verified,
       verified_at: new Date().toISOString(),
       verify_result_count: result.result_count,
+      needs_browser: result.needs_browser || false,
     })
     .eq("municipality", sourceName);
 
@@ -306,7 +307,9 @@ async function verifyAndUpdateConfig(supabase, sourceName, listingUrl) {
     console.log(`  [Verify] DB update error: ${error.message}`);
   }
 
-  if (!result.verified && verifyConfig.flag_if_zero) {
+  if (!result.verified && result.needs_browser) {
+    console.log(`  [Verify] URL looks correct but needs JS rendering — flagged needs_browser: true`);
+  } else if (!result.verified && verifyConfig.flag_if_zero) {
     console.log(`  [Verify] WARNING: Zero results from ${listingUrl} — config may be invalid`);
   }
 
