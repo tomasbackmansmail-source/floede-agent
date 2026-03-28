@@ -168,3 +168,73 @@ export async function tryUrlVariants(homepageUrl, verticalDiscoveryConfig, userA
     reason: "no candidates matched search terms",
   };
 }
+
+
+// Extract links from HTML (simplified, no dependency on engine.js)
+export function extractLinksSimple(html, baseUrl) {
+  const links = [];
+  const regex = /<a\s[^>]*href="([^"]*)"[^>]*>([\s\S]*?)<\/a>/gi;
+  let match;
+  while ((match = regex.exec(html)) !== null) {
+    const href = match[1];
+    const text = match[2].replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+    if (!href || href.startsWith('#') || href.startsWith('javascript:')) continue;
+    try {
+      const absolute = new URL(href, baseUrl).href;
+      links.push({ href: absolute, text });
+    } catch { /* skip invalid URLs */ }
+  }
+  return links;
+}
+
+// Score links against search terms — pure function, no I/O
+export function scoreLinks(links, searchTerms) {
+  if (!links || !searchTerms || searchTerms.length === 0) return [];
+
+  return links
+    .map(link => {
+      const textLower = link.text.toLowerCase();
+      const hrefLower = link.href.toLowerCase();
+      const matchedTerms = searchTerms.filter(term => {
+        const t = term.toLowerCase();
+        return textLower.includes(t) || hrefLower.includes(t);
+      });
+      return { ...link, matchedTerms, matchCount: matchedTerms.length };
+    })
+    .filter(l => l.matchCount > 0)
+    .sort((a, b) => b.matchCount - a.matchCount);
+}
+
+// Step 3: Crawl homepage — fetch page, extract links, score against search terms
+export async function crawlHomepage(homepageUrl, searchTerms, userAgent) {
+  const ua = userAgent || USER_AGENT_FALLBACK;
+
+  let html;
+  try {
+    const response = await fetch(homepageUrl, {
+      headers: { 'User-Agent': ua },
+      signal: AbortSignal.timeout(DEFAULT_TIMEOUT),
+      redirect: 'follow',
+    });
+    if (!response.ok) return { found: false, reason: 'HTTP ' + response.status };
+    html = await response.text();
+  } catch (err) {
+    return { found: false, reason: err.message };
+  }
+
+  const allLinks = extractLinksSimple(html, homepageUrl);
+  if (allLinks.length === 0) return { found: false, reason: 'no links found on page' };
+
+  const hits = scoreLinks(allLinks, searchTerms);
+  if (hits.length === 0) return { found: false, reason: 'no links matched search terms', linksScanned: allLinks.length };
+
+  return {
+    found: true,
+    url: hits[0].href,
+    linkText: hits[0].text,
+    matchedTerms: hits[0].matchedTerms,
+    matchCount: hits[0].matchCount,
+    alternativeUrls: hits.slice(1, 4).map(h => ({ url: h.href, text: h.text, matchCount: h.matchCount })),
+    linksScanned: allLinks.length,
+  };
+}

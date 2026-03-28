@@ -131,3 +131,108 @@ describe("buildCandidateUrls", () => {
     assert.deepEqual(urls, []);
   });
 });
+
+// ═══════════════════════════════════════════════
+// extractLinksSimple
+// ═══════════════════════════════════════════════
+
+import { extractLinksSimple, scoreLinks } from "../src/utils/discovery.js";
+
+describe("extractLinksSimple", () => {
+  const BASE = "https://www.nacka.se";
+
+  it("extracts absolute links", () => {
+    const html = '<a href="https://www.nacka.se/anslagstavla">Anslagstavla</a>';
+    const links = extractLinksSimple(html, BASE);
+    assert.equal(links.length, 1);
+    assert.equal(links[0].href, "https://www.nacka.se/anslagstavla");
+    assert.equal(links[0].text, "Anslagstavla");
+  });
+
+  it("resolves relative links", () => {
+    const html = '<a href="/bygga-bo/anslagstavla">Bygglov</a>';
+    const links = extractLinksSimple(html, BASE);
+    assert.equal(links[0].href, "https://www.nacka.se/bygga-bo/anslagstavla");
+  });
+
+  it("strips inner HTML from link text", () => {
+    const html = '<a href="/page"><span>Ikon</span> <strong>Text</strong></a>';
+    const links = extractLinksSimple(html, BASE);
+    assert.equal(links[0].text, "Ikon Text");
+  });
+
+  it("skips hash and javascript links", () => {
+    const html = '<a href="#">Top</a><a href="javascript:void(0)">Klick</a><a href="/real">Real</a>';
+    const links = extractLinksSimple(html, BASE);
+    assert.equal(links.length, 1);
+    assert.equal(links[0].text, "Real");
+  });
+
+  it("handles empty HTML", () => {
+    assert.deepEqual(extractLinksSimple("", BASE), []);
+  });
+
+  it("handles HTML with no links", () => {
+    assert.deepEqual(extractLinksSimple("<p>Ingen länk här</p>", BASE), []);
+  });
+});
+
+// ═══════════════════════════════════════════════
+// scoreLinks
+// ═══════════════════════════════════════════════
+
+describe("scoreLinks", () => {
+  const links = [
+    { href: "https://x.se/anslagstavla", text: "Anslagstavla bygglov" },
+    { href: "https://x.se/nyheter", text: "Nyheter från kommunen" },
+    { href: "https://x.se/bygglov/kungorelser", text: "Kungörelser" },
+    { href: "https://x.se/kontakt", text: "Kontakta oss" },
+  ];
+
+  const searchTerms = ["anslagstavla", "bygglov", "kungörelse"];
+
+  it("scores links by number of matching search terms", () => {
+    const scored = scoreLinks(links, searchTerms);
+    assert.ok(scored.length >= 2);
+    assert.equal(scored[0].href, "https://x.se/anslagstavla");
+    assert.equal(scored[0].matchCount, 2); // anslagstavla + bygglov
+  });
+
+  it("matches in both text and URL", () => {
+    const scored = scoreLinks(links, searchTerms);
+    const kungLink = scored.find(s => s.href.includes("kungorelser"));
+    assert.ok(kungLink);
+    assert.ok(kungLink.matchCount >= 1);
+  });
+
+  it("filters out non-matching links", () => {
+    const scored = scoreLinks(links, searchTerms);
+    assert.ok(!scored.some(s => s.href.includes("kontakt")));
+    assert.ok(!scored.some(s => s.href.includes("nyheter")));
+  });
+
+  it("is case-insensitive", () => {
+    const links = [{ href: "https://x.se/page", text: "ANSLAGSTAVLA BYGGLOV" }];
+    const scored = scoreLinks(links, ["anslagstavla"]);
+    assert.equal(scored.length, 1);
+    assert.equal(scored[0].matchCount, 1);
+  });
+
+  it("returns empty for no matches", () => {
+    const scored = scoreLinks(links, ["detaljplan"]);
+    assert.deepEqual(scored, []);
+  });
+
+  it("handles empty inputs", () => {
+    assert.deepEqual(scoreLinks([], searchTerms), []);
+    assert.deepEqual(scoreLinks(links, []), []);
+    assert.deepEqual(scoreLinks(null, null), []);
+  });
+
+  it("sorts by matchCount descending", () => {
+    const scored = scoreLinks(links, searchTerms);
+    for (let i = 1; i < scored.length; i++) {
+      assert.ok(scored[i - 1].matchCount >= scored[i].matchCount);
+    }
+  });
+});
