@@ -307,6 +307,73 @@ export async function checkSitemap(homepageUrl, searchTerms, userAgent) {
   };
 }
 
+// Normalize Swedish municipality name to hostname format
+export function normalizeToHostname(name) {
+  return name
+    .toLowerCase()
+    .replace(/\s+/g, '')
+    .replace(/å/g, 'a')
+    .replace(/ä/g, 'a')
+    .replace(/ö/g, 'o')
+    .replace(/é/g, 'e')
+    .replace(/ü/g, 'u');
+}
+
+// Resolve homepage URL from municipality name
+export async function resolveHomepage(sourceName, userAgent) {
+  const ua = userAgent || USER_AGENT_FALLBACK;
+  const normalized = normalizeToHostname(sourceName);
+
+  // Build candidate hostnames
+  const candidates = [
+    `https://www.${normalized}.se`,
+    `https://${normalized}.se`,
+    `https://www.${normalized}.kommun.se`,
+  ];
+
+  // If name contains hyphen, also try without it
+  if (sourceName.includes('-')) {
+    const withoutHyphen = normalizeToHostname(sourceName.replace(/-/g, ''));
+    candidates.push(`https://www.${withoutHyphen}.se`);
+    candidates.push(`https://${withoutHyphen}.se`);
+  }
+  // If normalized has no hyphen but original had space+word, also try with hyphen
+  if (sourceName.includes(' ')) {
+    const withHyphen = sourceName.toLowerCase().replace(/\s+/g, '-')
+      .replace(/å/g, 'a').replace(/ä/g, 'a').replace(/ö/g, 'o').replace(/é/g, 'e').replace(/ü/g, 'u');
+    candidates.push(`https://www.${withHyphen}.se`);
+    candidates.push(`https://${withHyphen}.se`);
+  }
+
+  // Deduplicate
+  const uniqueCandidates = [...new Set(candidates)];
+
+  for (const url of uniqueCandidates) {
+    try {
+      const response = await fetch(url, {
+        headers: { 'User-Agent': ua },
+        signal: AbortSignal.timeout(DEFAULT_TIMEOUT),
+        redirect: 'follow',
+      });
+      if (!response.ok) continue;
+
+      const html = await response.text();
+      // Verify page mentions the municipality name (avoid parked domains)
+      const nameParts = sourceName.toLowerCase().split(/[\s-]+/);
+      const lower = html.toLowerCase();
+      const nameFound = nameParts.some(part => part.length >= 3 && lower.includes(part));
+
+      if (nameFound) {
+        return { found: true, url: response.url, method: 'resolve_homepage' };
+      }
+    } catch {
+      // Timeout or network error — try next candidate
+    }
+  }
+
+  return { found: false, url: null, method: 'resolve_homepage' };
+}
+
 // Step 4: Haiku LLM — read homepage links, ask Haiku to pick the best one
 export async function haikuDiscovery(homepageUrl, discoveryConfig) {
   const config = discoveryConfig;

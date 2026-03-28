@@ -3,7 +3,7 @@
 
 import { describe, it } from "node:test";
 import assert from "node:assert/strict";
-import { detectPlatform, buildCandidateUrls } from "../src/utils/discovery.js";
+import { detectPlatform, buildCandidateUrls, normalizeToHostname } from "../src/utils/discovery.js";
 
 // ═══════════════════════════════════════════════
 // detectPlatform
@@ -360,5 +360,37 @@ describe("haikuDiscovery", () => {
     const result = await haikuDiscovery("https://example.com", { haiku_model: "claude-haiku-4-5-20251001" });
     assert.strictEqual(result.found, false);
     assert.ok(result.reason.includes("haiku_prompt"));
+  });
+});
+
+// ═══════════════════════════════════════════════
+// normalizeToHostname
+// ═══════════════════════════════════════════════
+
+describe("normalizeToHostname", () => {
+  it("removes spaces", () => {
+    assert.equal(normalizeToHostname("Upplands Väsby"), "upplandsvasby");
+  });
+
+  it("replaces å ä ö", () => {
+    assert.equal(normalizeToHostname("Södertälje"), "sodertalje");
+    assert.equal(normalizeToHostname("Göteborg"), "goteborg");
+    assert.equal(normalizeToHostname("Malmö"), "malmo");
+  });
+
+  it("handles double umlauts", () => {
+    assert.equal(normalizeToHostname("Höör"), "hoor");
+  });
+
+  it("replaces é and ü", () => {
+    assert.equal(normalizeToHostname("Linköping"), "linkoping");
+  });
+
+  it("lowercases", () => {
+    assert.equal(normalizeToHostname("STOCKHOLM"), "stockholm");
+  });
+
+  it("preserves hyphens", () => {
+    assert.equal(normalizeToHostname("Upplands-Bro"), "upplands-bro");
   });
 });

@@ -9,7 +9,7 @@ import { chromium } from "playwright";
 import { writeFile, mkdir } from "fs/promises";
 import { join } from "path";
 import { readFileSync } from "fs";
-import { discoverSource, detectPlatform, verifyExtraction } from "./utils/discovery.js";
+import { discoverSource, detectPlatform, verifyExtraction, resolveHomepage } from "./utils/discovery.js";
 
 const CONFIG_DIR = join(process.cwd(), "data", "discovery");
 const COST_DIR = join(process.cwd(), "data", "costs");
@@ -64,8 +64,7 @@ async function loadTargets(supabase) {
 
   const { data, error } = await supabase
     .from(table)
-    .select(`${idField}, ${urlField}`)
-    .not(urlField, "is", null);
+    .select(`${idField}, ${urlField}`);
 
   if (error) {
     console.error(`Failed to load targets from ${table}: ${error.message}`);
@@ -74,8 +73,30 @@ async function loadTargets(supabase) {
 
   let targets = data.map(row => ({
     name: row[idField],
-    url: row[urlField],
+    url: row[urlField] || null,
   }));
+
+  // Resolve missing homepages before filtering
+  const userAgent = verticalConfig.user_agent;
+  const missing = targets.filter(t => !t.url);
+  if (missing.length > 0) {
+    console.log(`Resolving homepage for ${missing.length} municipalities without URL...`);
+    for (const target of missing) {
+      const result = await resolveHomepage(target.name, userAgent);
+      if (result.found) {
+        target.url = result.url;
+        console.log(`  Resolved homepage for ${target.name}: ${result.url}`);
+        // Update DB so we don't resolve again next time
+        await supabase.from(table).update({ [urlField]: result.url }).eq(idField, target.name);
+      } else {
+        console.log(`  Could not resolve homepage for ${target.name}`);
+      }
+      await new Promise(r => setTimeout(r, 500));
+    }
+  }
+
+  // Filter out targets still without URL
+  targets = targets.filter(t => t.url);
 
   if (onlyNames) {
     targets = targets.filter(t =>
