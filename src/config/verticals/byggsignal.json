@@ -134,5 +134,55 @@
         "county": "lan"
       }
     }
+  },
+  "discovery": {
+    "source_table": "municipalities",
+    "source_id_field": "name",
+    "source_url_field": "homepage",
+    "discovery_model": "claude-sonnet-4-6",
+    "max_navigations": 6,
+    "max_cost_per_source_usd": 0.5,
+    "search_terms": [
+      "anslagstavla bygglov",
+      "kungörelse bygglov beslut",
+      "digital anslagstavla plan- och bygglagen"
+    ],
+    "search_prompt": "Hitta URL:en till {source_name} kommuns anslagstavla för bygglov/kungörelser.\n\nSök efter: \"{source_name} kommun anslagstavla bygglov\" och liknande.\n\nJag behöver den exakta URL:en där kommunen publicerar sina bygglovsbeslut/kungörelser.\n\nSvara ENBART med:\nURL: [den mest troliga URL:en]\nALTERNATIV: [eventuella andra kandidater, kommaseparerade]\nKONFIDENS: hög/medel/låg",
+    "analysis_prompt": "Är detta {source_name} anslagstavla för bygglov/kungörelser?\n\nOm JA: svara ANALYZE och jag ber dig producera en config.\nOm NEJ: svara NAVIGATE: <bättre-url> om du ser en länk till rätt sida.\nOm OSÄKER: svara vad du ser och vad som saknas.",
+    "url_patterns": [
+      "/anslagstavla",
+      "/kungorelser",
+      "/bygglov/anslagstavla",
+      "/bygga-bo/anslagstavla",
+      "/bygga-bo-miljo/anslagstavla",
+      "/kommun/anslagstavla",
+      "/nyheter-och-press/anslagstavla",
+      "/politik-och-paverkan/anslagstavla"
+    ],
+    "platform_templates": {
+      "sitevision": [
+        "/nyheter-och-press/anslagstavla",
+        "/politik/anslagstavla",
+        "/kommun/anslagstavla",
+        "/bygga-bo/anslagstavla"
+      ],
+      "episerver": [
+        "/bygga-bo/anslagstavla",
+        "/anslagstavla"
+      ],
+      "wordpress": [
+        "/anslagstavla",
+        "/kungorelser"
+      ],
+      "municipio": [
+        "/anslagstavla",
+        "/kungorelser"
+      ]
+    },
+    "verify_extraction": {
+      "enabled": true,
+      "min_expected_results": 1,
+      "flag_if_zero": true
+    }
   }
 }
