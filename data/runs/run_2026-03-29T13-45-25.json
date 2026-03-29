@@ -1,0 +1,25 @@
+{
+  "run_id": "2026-03-29T13-45-25",
+  "run_at": "2026-03-29T13:45:28.210Z",
+  "elapsed_ms": 2418,
+  "configs_count": 1,
+  "http_count": 1,
+  "browser_count": 0,
+  "total_permits": 1,
+  "total_inserted": 0,
+  "total_cost_usd": 0.002848,
+  "cost_per_permit_usd": 0.002848,
+  "results": [
+    {
+      "municipality": "Aneby",
+      "status": "ok",
+      "fetch_mode": "http",
+      "permits": 1,
+      "inserted": 0,
+      "skipped": 1,
+      "errors": 0,
+      "cost_usd": 0.002848,
+      "html_hash": "5d1f4a56c4f5c4e0"
+    }
+  ]
+}

@@ -30,6 +30,7 @@ const HAIKU_INPUT_COST = 0.0000008;
 const HAIKU_OUTPUT_COST = 0.000004;
 
 const USER_AGENT = verticalConfig.user_agent;
+const SOURCE_LABEL = verticalConfig.source_label || "Kommun";
 
 async function ensureDirs() {
   for (const dir of [HTML_DIR, EXTRACTED_DIR, COST_DIR, RUN_LOG_DIR]) {
@@ -38,10 +39,14 @@ async function ensureDirs() {
 }
 
 async function loadApprovedConfigs(supabase) {
+  const configTable = verticalConfig.discovery?.config_table || "discovery_configs";
+  const configApprovedField = verticalConfig.discovery?.config_approved_field || "approved";
+  const configSourceField = verticalConfig.discovery?.config_source_field || "municipality";
+
   const { data, error } = await supabase
-    .from("discovery_configs")
+    .from(configTable)
     .select("*")
-    .eq("approved", true);
+    .eq(configApprovedField, true);
 
   if (error) {
     console.error(`Failed to load configs from Supabase: ${error.message}`);
@@ -50,10 +55,10 @@ async function loadApprovedConfigs(supabase) {
 
   return data.map((row) => ({
     ...row.config,
-    municipality: row.municipality,
-    approved: row.approved,
+    municipality: row[configSourceField] || row.municipality,
+    approved: row[configApprovedField],
     needs_browser: row.config.needs_browser || row.needs_browser || false,
-    _file: `${row.municipality}_config.json`,
+    _file: `${row[configSourceField] || row.municipality}_config.json`,
   }));
 }
 
@@ -240,7 +245,7 @@ async function extractPermits(client, html, municipalityName, sourceUrl) {
             },
             {
               type: "text",
-              text: `Kommun: ${municipalityName}\n\nHTML:\n${truncated}`
+              text: `${SOURCE_LABEL}: ${municipalityName}\n\nHTML:\n${truncated}`
             }
           ]
         }
@@ -386,9 +391,9 @@ async function main() {
   const startTime = Date.now();
   const runId = new Date().toISOString().slice(0, 19).replace(/[:.]/g, "-");
 
-  const muniArg = process.argv.find((a) => a.startsWith("--municipality="));
+  const muniArg = process.argv.find((a) => a.startsWith("--source=") || a.startsWith("--municipality="));
   const onlyMunis = muniArg
-    ? muniArg.split("=")[1].split(",").map((s) => s.trim().toLowerCase())
+    ? muniArg.replace("--source=", "").replace("--municipality=", "").split(",").map((s) => s.trim().toLowerCase())
     : null;
 
   console.log(`=== Floede Agent - Daily Run ${runId} ===\n`);
