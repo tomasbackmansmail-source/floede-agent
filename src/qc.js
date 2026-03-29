@@ -7,9 +7,12 @@ import { createClient } from "@supabase/supabase-js";
 import { readFile, readdir, writeFile, mkdir } from "fs/promises";
 import { join } from "path";
 import { readFileSync } from "fs";
+import { discoverSource, verifyExtraction } from "./utils/discovery.js";
 
 const VERTICAL = process.env.VERTICAL || "byggsignal";
 const verticalConfig = JSON.parse(readFileSync(new URL(`./config/verticals/${VERTICAL}.json`, import.meta.url), "utf-8"));
+const feedbackConfig = verticalConfig.feedback || {};
+const discoveryConfig = verticalConfig.discovery;
 
 const QC_DIR = join(process.cwd(), "data", "qc");
 const COST_DIR = join(process.cwd(), "data", "costs");
@@ -223,14 +226,16 @@ async function saveToQcRuns(supabase, todayCounts, baselines, allFlags) {
 }
 
 async function checkZeroStreak(supabase) {
-  const threeDaysAgo = new Date();
-  threeDaysAgo.setDate(threeDaysAgo.getDate() - 3);
+  const threshold = feedbackConfig.zero_streak_threshold || 3;
+  const lookbackDays = threshold + 1;
+  const cutoff = new Date();
+  cutoff.setDate(cutoff.getDate() - lookbackDays);
 
   const { data, error } = await supabase
     .from('qc_runs')
     .select('municipality, run_date, permits_extracted')
     .eq('vertical', VERTICAL)
-    .gte('run_date', threeDaysAgo.toISOString().slice(0, 10))
+    .gte('run_date', cutoff.toISOString().slice(0, 10))
     .eq('permits_extracted', 0)
     .order('municipality')
     .order('run_date', { ascending: false });
@@ -245,12 +250,108 @@ async function checkZeroStreak(supabase) {
 
   const zeroStreaks = [];
   for (const [muni, dates] of Object.entries(byMuni)) {
-    if (dates.length >= 3) {
+    if (dates.length >= threshold) {
       zeroStreaks.push({ municipality: muni, zero_days: dates.length, dates });
     }
   }
 
   return zeroStreaks;
+}
+
+export async function triggerRediscovery(municipalityName, currentUrl, homepageUrl, supabase) {
+  if (!municipalityName || !supabase || !discoveryConfig) {
+    return { success: false, new_url: null, verified: false, cost_usd: 0, error: "missing required parameters" };
+  }
+
+  const logRow = {
+    municipality: municipalityName,
+    triggered_by: 'qc_zero_streak',
+    previous_url: currentUrl || null,
+    new_url: null,
+    method: null,
+    verified: false,
+    verify_result_count: 0,
+    cost_usd: 0,
+    success: false,
+    error: null,
+  };
+
+  try {
+    const sourceUrl = homepageUrl || currentUrl;
+    if (!sourceUrl) {
+      logRow.error = "no homepage or current URL available";
+      await supabase.from('discovery_runs').insert(logRow);
+      return { success: false, new_url: null, verified: false, cost_usd: 0, error: logRow.error };
+    }
+
+    const result = await discoverSource(municipalityName, sourceUrl, discoveryConfig);
+    logRow.cost_usd = result.cost_usd || 0;
+    logRow.method = result.method;
+
+    if (!result.found) {
+      logRow.error = "discovery found no URL";
+      await supabase.from('discovery_runs').insert(logRow);
+      return { success: false, new_url: null, verified: false, cost_usd: logRow.cost_usd, error: logRow.error };
+    }
+
+    // Same URL as before — skip
+    if (result.url === currentUrl) {
+      logRow.error = "same URL found, skipping";
+      logRow.new_url = result.url;
+      await supabase.from('discovery_runs').insert(logRow);
+      console.log(`    [Re-discovery] Same URL found, skipping`);
+      return { success: false, new_url: result.url, verified: false, cost_usd: logRow.cost_usd, error: logRow.error };
+    }
+
+    // New URL found — verify extraction
+    logRow.new_url = result.url;
+    console.log(`    [Re-discovery] New URL: ${result.url} (was: ${currentUrl})`);
+
+    const verifyResult = await verifyExtraction(result.url, verticalConfig, discoveryConfig.search_terms);
+    logRow.verify_result_count = verifyResult.result_count;
+    logRow.cost_usd += verifyResult.cost_usd || 0;
+
+    const shouldApprove = verifyResult.verified || verifyResult.needs_browser;
+    logRow.verified = verifyResult.verified;
+    logRow.success = shouldApprove;
+
+    if (shouldApprove) {
+      // Update discovery_configs with new URL
+      const configStub = {
+        source_name: municipalityName,
+        listing_url: result.url,
+        platform_guess: result.platform || "unknown",
+        discovery_method: result.method,
+        confidence: result.confidence,
+        approved: false,
+      };
+
+      await supabase
+        .from("discovery_configs")
+        .update({
+          config: configStub,
+          verified: verifyResult.verified,
+          verified_at: new Date().toISOString(),
+          verify_result_count: verifyResult.result_count,
+          needs_browser: verifyResult.needs_browser || false,
+          approved: true,
+          updated_at: new Date().toISOString(),
+        })
+        .eq("municipality", municipalityName);
+
+      console.log(`    [Re-discovery] Updated & auto-approved (${verifyResult.result_count} items, needs_browser: ${verifyResult.needs_browser || false})`);
+    } else {
+      logRow.error = "verification failed";
+      console.log(`    [Re-discovery] Verification failed — not approved`);
+    }
+
+    await supabase.from('discovery_runs').insert(logRow);
+    return { success: logRow.success, new_url: result.url, verified: logRow.verified, cost_usd: logRow.cost_usd, error: logRow.error };
+  } catch (err) {
+    logRow.error = err.message;
+    try { await supabase.from('discovery_runs').insert(logRow); } catch {}
+    return { success: false, new_url: null, verified: false, cost_usd: logRow.cost_usd, error: err.message };
+  }
 }
 
 async function main() {
@@ -446,6 +547,59 @@ async function main() {
           .eq('run_date', new Date().toISOString().slice(0, 10));
       }
     }
+
+    // --- Trigger re-discovery for zero-streak municipalities ---
+    const maxRediscoveries = feedbackConfig.max_rediscoveries_per_run || 5;
+    const maxCost = feedbackConfig.max_cost_per_run_usd || 2.0;
+
+    // Sort by streak length (worst first), take top N
+    const candidates = [...zeroStreaks].sort((a, b) => b.zero_days - a.zero_days).slice(0, maxRediscoveries);
+
+    if (candidates.length > 0) {
+      console.log(`\n=== RE-DISCOVERY (${candidates.length} candidates, max $${maxCost}) ===`);
+
+      // Load current configs and homepage URLs for these municipalities
+      const { data: configRows } = await supabase
+        .from('discovery_configs')
+        .select('municipality, config')
+        .in('municipality', candidates.map(c => c.municipality));
+      const configMap = Object.fromEntries((configRows || []).map(r => [r.municipality, r.config]));
+
+      const { data: muniRows } = await supabase
+        .from(discoveryConfig.source_table)
+        .select(`${discoveryConfig.source_id_field}, ${discoveryConfig.source_url_field}`)
+        .in(discoveryConfig.source_id_field, candidates.map(c => c.municipality));
+      const homepageMap = Object.fromEntries((muniRows || []).map(r => [r[discoveryConfig.source_id_field], r[discoveryConfig.source_url_field]]));
+
+      let totalRediscoveryCost = 0;
+      let succeeded = 0;
+      let failed = 0;
+
+      for (const candidate of candidates) {
+        if (totalRediscoveryCost >= maxCost) {
+          console.log(`  [Re-discovery] Budget exhausted ($${totalRediscoveryCost.toFixed(2)} / $${maxCost})`);
+          break;
+        }
+
+        const currentConfig = configMap[candidate.municipality];
+        const currentUrl = currentConfig?.listing_url || null;
+        const homepageUrl = homepageMap[candidate.municipality] || null;
+
+        console.log(`  ${candidate.municipality} (${candidate.zero_days} days zero):`);
+        const result = await triggerRediscovery(candidate.municipality, currentUrl, homepageUrl, supabase);
+        totalRediscoveryCost += result.cost_usd;
+
+        if (result.success) {
+          succeeded++;
+          console.log(`    OK — new URL: ${result.new_url}`);
+        } else {
+          failed++;
+          console.log(`    FAIL — ${result.error}`);
+        }
+      }
+
+      console.log(`\nRe-discovery: ${candidates.length} triggered, ${succeeded} succeeded, ${failed} failed, $${totalRediscoveryCost.toFixed(4)} spent`);
+    }
   }
 
   // Return stale sources for potential Discovery trigger
@@ -456,6 +610,12 @@ async function main() {
   }
 }
 
-main()
-  .then(() => process.exit(0))
-  .catch((err) => { console.error(err); process.exit(1); });
+// Only run main when executed directly (not imported for testing)
+const isDirectRun = process.argv[1] && (
+  process.argv[1].endsWith('/qc.js') || process.argv[1].endsWith('\\qc.js')
+);
+if (isDirectRun) {
+  main()
+    .then(() => process.exit(0))
+    .catch((err) => { console.error(err); process.exit(1); });
+}
