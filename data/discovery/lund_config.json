@@ -1,28 +1,8 @@
 {
-  "municipality": "Lund",
+  "source_name": "Lund",
+  "listing_url": "https://www.lund.se/bygga-och-bo/allt-om-bygglov",
   "platform_guess": "sitevision",
-  "listing_url": "https://lund.se/kommun-och-politik/anslagstavla/kungorelser-bygglov",
-  "listing_type": "list",
-  "pagination": {
-    "has_pagination": false,
-    "type": "none",
-    "mechanism": "Ingen paginering identifierad. Alla ärenden visas på en och samma sida uppdelad i två sektioner: Grannehörande och Beslutade bygglov.",
-    "estimated_total_pages": null
-  },
-  "requires_subpages": {
-    "required": false,
-    "reason": "Innehållet verkar presenteras direkt på listsidan i två sektioner (Grannehörande och Beslutade bygglov) utan vidare länkning till undersidor. Ärendedetaljer såsom fastighetsbeteckning, adress och diarienummer förväntas finnas inline i listelementet.",
-    "link_selector_hint": null
-  },
-  "selectors_hint": {
-    "container": "#svid12_3afa049419a7bd8d6b912a47, .sv-text-portlet-content",
-    "item": ".sv-text-portlet.sv-use-margins",
-    "case_number": null,
-    "address": null,
-    "date": null,
-    "description": ".env-text-body-01"
-  },
-  "notes": "Sidan är byggd i Sitevision med två tydliga innehållssektioner: 'Grannehörande' (h2 id='h-Grannehorande') och 'Beslutade bygglov' (h2 id='h-Beslutadebygglov'). Innehållet är trunkerat i det tillhandahållna HTML-utdraget, vilket innebär att de faktiska ärendeposterna (fastighetsbeteckning, adress, diarienummer, datum) inte är synliga i underlaget. Extraktionsagenten bör ladda hela sidan och leta efter strukturerat innehåll under respektive h2-rubrik. Inga PDF-listor eller externa länkar till ärendesystem har identifierats. Sidans ingress anger att närmast berörda även får information per brev/digital brevlåda, vilket tyder på att listan på webbsidan är en publik sammanfattning.",
+  "discovery_method": "crawl_homepage",
   "confidence": "medium",
   "approved": false
 }

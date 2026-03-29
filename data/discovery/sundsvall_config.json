@@ -1,8 +1,8 @@
 {
   "source_name": "Sundsvall",
-  "listing_url": "https://www.sundsvall.se/kommun/kommun-och-politik/overklaga-beslut-rattssakerhet/sundsvalls-kommuns-officiella-anslagstavla",
+  "listing_url": "https://www.sundsvall.se/anslagstavla",
   "platform_guess": "sitevision",
-  "discovery_method": "haiku",
-  "confidence": "low",
+  "discovery_method": "url_variants",
+  "confidence": "high",
   "approved": false
 }

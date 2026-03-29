@@ -1,0 +1,8 @@
+{
+  "source_name": "Söderhamn",
+  "listing_url": "https://www.soderhamn.se/anslagstavla",
+  "platform_guess": "sitevision",
+  "discovery_method": "url_variants",
+  "confidence": "high",
+  "approved": false
+}

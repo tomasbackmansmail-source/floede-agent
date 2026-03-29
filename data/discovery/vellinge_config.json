@@ -1,28 +1,8 @@
 {
-  "municipality": "Vellinge",
-  "platform_guess": "sitevision",
-  "listing_url": "https://vellinge.se/anslagstavla/",
-  "listing_type": "unknown",
-  "pagination": {
-    "has_pagination": false,
-    "type": "none",
-    "mechanism": "No pagination observed",
-    "estimated_total_pages": null
-  },
-  "requires_subpages": {
-    "required": false,
-    "reason": "Could not verify subpage structure due to HTML being dominated by Cookiebot dialog in all fetched responses. Assumed flat listing based on typical Sitevision anslagstavla pattern.",
-    "link_selector_hint": "main table tr a, .sv-portlet table tr a"
-  },
-  "selectors_hint": {
-    "container": "main table, .sv-portlet table, .sv-anslag-portlet table",
-    "item": "tbody tr",
-    "case_number": "td:nth-child(1)",
-    "address": "td:nth-child(2)",
-    "date": "td:nth-child(3)",
-    "description": "td:nth-child(1) a"
-  },
-  "notes": "HTML-innehållet har aldrig kunnat verifieras fullt ut - alla tre försök att hämta sidan resulterade i trunkerad HTML dominerad av Cookiebot-dialogen. Sidtiteln 'Anslagstavla — Vellinge kommun' bekräftar korrekt URL. Vellinge använder troligen Sitevision CMS baserat på URL-struktur och cookie-leverantörer (Episerver nämns i cookie-lista vilket kan indikera Optimizely/Episerver istället). Selektorer är uppskattningar baserade på typisk kommunal anslagstavla-struktur och MÅSTE verifieras manuellt innan driftsättning. Rekommenderar att scraping-agenten skickar Accept-Language: sv-SE och sätter CookieConsent-cookie för att undvika dialog-blockering.",
-  "confidence": "low",
-  "approved": true
+  "source_name": "Vellinge",
+  "listing_url": "https://www.vellinge.se/anslagstavla",
+  "platform_guess": "episerver",
+  "discovery_method": "url_variants",
+  "confidence": "high",
+  "approved": false
 }

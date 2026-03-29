@@ -1,0 +1,8 @@
+{
+  "source_name": "Krokom",
+  "listing_url": "https://www.krokom.se/anslagstavla",
+  "platform_guess": "sitevision",
+  "discovery_method": "url_variants",
+  "confidence": "medium",
+  "approved": false
+}

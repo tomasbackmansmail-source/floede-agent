@@ -1,28 +1,8 @@
 {
-  "municipality": "Vallentuna",
-  "platform_guess": "custom",
-  "listing_url": "https://www.vallentuna.se/kommun-och-politik/politik-och-demokrati/anslagstavla-officiell/anslag/",
-  "listing_type": "links_to_subpages",
-  "pagination": {
-    "has_pagination": true,
-    "type": "load_more_button",
-    "mechanism": "Click link with text 'Fler anslag' pointing to /kommun-och-politik/politik-och-demokrati/anslagstavla-officiell/anslag/ for full listing",
-    "estimated_total_pages": null
-  },
-  "requires_subpages": {
-    "required": false,
-    "reason": "Anslagstavlan visar bygglov inline med fastighetsbeteckning, åtgärd, beslutsdatum i titlar/beskrivningar. Subpage-selektor matchade ej - inline-extraction är säkrare.",
-    "link_selector_hint": null
-  },
-  "selectors_hint": {
-    "container": "ul.newsselectionblock__newslist",
-    "item": "li.newsselectionblock__newslist__item",
-    "case_number": null,
-    "address": "li.newsselectionblock__newslist__item a.block__link h3",
-    "date": "time.newsselectionblock__time",
-    "description": "li.newsselectionblock__newslist__item a.block__link p"
-  },
-  "notes": "Huvudsidan visar bara 7 anslag - använd /anslag/-sidan för fullständig listning. Anslag av typen bygglov och rivningslov har egna undersidor med slug som innehåller fastighetsbeteckning och åtgärdstyp, t.ex. /anslag/orkesta-morby-350-ansokan-om-bygglov-for-nybyggnad-av-enbostadshus-och-installation-av-eldstad-beviljat-2026-02-26/. Protokoll-anslag länkar direkt till PDF på dok.vallentuna.se och är inte relevanta för bygglov-scraping. Filtrera på href som innehåller /anslagstavla-officiell/anslag/ och exkludera externa PDF-länkar. Fastighetsbeteckning, adress och beslutsdatum finns i titeln och beskrivningen redan på listsidan.",
+  "source_name": "Vallentuna",
+  "listing_url": "https://www.vallentuna.se/anslagstavla",
+  "platform_guess": "unknown",
+  "discovery_method": "url_variants",
   "confidence": "high",
-  "approved": true
+  "approved": false
 }

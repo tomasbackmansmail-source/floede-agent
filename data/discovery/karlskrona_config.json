@@ -1,28 +1,8 @@
 {
-  "municipality": "Karlskrona",
+  "source_name": "Karlskrona",
+  "listing_url": "https://www.karlskrona.se/anslagstavla",
   "platform_guess": "episerver",
-  "listing_url": "https://www.netpublicator.com/bulletinboard/public/eef22e8e-7d11-4363-be4a-b70d9867e51c",
-  "listing_type": "list",
-  "pagination": {
-    "has_pagination": false,
-    "type": "none",
-    "mechanism": "Alla aktiva anslag visas i en lång lista. Filtrering möjlig via nämnd och anslagstyp.",
-    "estimated_total_pages": null
-  },
-  "requires_subpages": {
-    "required": false,
-    "reason": "Bygglov-kungörelser visas direkt i listan med fullständig text inklusive fastighetsbeteckning, åtgärd och MSN-diarienummer. Ingen navigering till undersidor behövs.",
-    "link_selector_hint": null
-  },
-  "selectors_hint": {
-    "container": null,
-    "item": null,
-    "case_number": null,
-    "address": null,
-    "date": null,
-    "description": null
-  },
-  "notes": "Anslagstavlan ligger i en iframe från netpublicator.com. Iframe-URL:en används som listing_url för direkt åtkomst. Innehåller både justerade protokoll och kungörelser enligt plan- och bygglagen. Bygglov-poster har fullständig text med fastighetsbeteckning, åtgärd och MSN-diarienummer (t.ex. MSN 2026-1409). Filter finns för nämnd och anslagstyp. Alla poster visas på en sida.",
+  "discovery_method": "url_variants",
   "confidence": "high",
-  "approved": true
+  "approved": false
 }

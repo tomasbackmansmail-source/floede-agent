@@ -1,0 +1,8 @@
+{
+  "source_name": "Torsby",
+  "listing_url": "https://torsby.se/anslagstavla",
+  "platform_guess": "sitevision",
+  "discovery_method": "url_variants",
+  "confidence": "high",
+  "approved": false
+}

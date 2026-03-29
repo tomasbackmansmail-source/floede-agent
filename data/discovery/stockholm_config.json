@@ -1,30 +1,39 @@
 {
   "municipality": "Stockholm",
-  "platform_guess": "meetingsplus",
+  "platform_guess": "MeetingPlus (eDok Meetings)",
   "listing_url": "https://meetingspublic.stockholm.se/digital-bulletin-board",
-  "listing_type": "table",
+  "listing_type": "links_to_subpages",
   "pagination": {
     "has_pagination": true,
     "type": "numbered_pages",
-    "mechanism": "Click numbered page links in ul.pagination. Also supports page size selector (10/20/30/100 per page). Estimated 27 pages at 10 items/page.",
-    "estimated_total_pages": 27
+    "mechanism": "Click numbered page links in .pagination ul; estimated 25 pages total at 10 items/page",
+    "estimated_total_pages": 25
   },
   "requires_subpages": {
     "required": true,
-    "reason": "Listing table shows nämnd, typ, datum och titel men inga detaljer om ärendet. Fullständig information finns på individuella undersidor via UUID-baserade länkar.",
-    "link_selector_hint": "div.dbb-published-announcements-table-title-column a[href*='/digital-bulletin-board/announcements/']"
+    "reason": "Listing shows committee, type, dates and title only. Full permit details (decision text, property details, case documents) are on individual announcement subpages.",
+    "link_selector_hint": ".dbb-published-announcements-table-title-column a[href*='/digital-bulletin-board/announcements/']"
+  },
+  "filter": {
+    "relevant_type": "Underrättelse om lovbeslut SBK",
+    "relevant_committee": "Stadsbyggnadsnämnden",
+    "filter_hint": "Only collect rows where .dbb-published-announcements-table-type-column span text equals 'Underrättelse om lovbeslut SBK'"
   },
   "selectors_hint": {
-    "container": "div.dbb-list div.dbb-list-items",
-    "item": "div.dbb-list-items-row",
+    "container": ".dbb-list",
+    "item": ".dbb-list-items-row",
+    "committee": ".dbb-published-announcements-table-committee-column a",
+    "type": ".dbb-published-announcements-table-type-column span",
+    "date_from": ".dbb-published-announcements-table-dates-column span:nth-child(1)",
+    "date_to": ".dbb-published-announcements-table-dates-column span:nth-child(2)",
+    "title": ".dbb-published-announcements-table-title-column a",
+    "detail_url": ".dbb-published-announcements-table-title-column a[href]",
     "case_number": null,
     "address": null,
-    "date": "div.dbb-published-announcements-table-dates-column span",
-    "description": "div.dbb-published-announcements-table-title-column a",
-    "committee": "div.dbb-published-announcements-table-committee-column a",
-    "announcement_type": "div.dbb-published-announcements-table-type-column span"
+    "description": null
   },
-  "notes": "Sidan är en React-renderad MeetingsPlus-applikation. Tabellen innehåller fyra kolumner: Nämnd/styrelse, Typ, Datum (från/till) och Titel. Relevanta anslagstyper för bygglov är 'Underrättelse om lovbeslut SBK' och 'Kungörelse vid samråd SBK' från Stadsbyggnadsnämnden. Datum-cellen innehåller två span-element: anslaget från-datum och till-datum. Detaljlänkar är UUID-baserade t.ex. /digital-bulletin-board/announcements/e53766c9-413b-4edc-8eb6-07be5bd8b789. Rekommenderat att öka page size till 100 via dropdown för effektivare insamling. Filtera på committee 'Stadsbyggnadsnämnden' och typ 'Underrättelse om lovbeslut SBK' eller 'Kungörelse vid samråd SBK'.",
+  "base_url": "https://meetingspublic.stockholm.se",
+  "notes": "Title field often contains address + case number in format 'Description, Address fastighetsbeteckning, YYYY-NNNNN'. Parse case number from trailing pattern e.g. '2026-04094'. Pagination buttons have no href — interaction may require JavaScript click or URL parameter discovery. Consider increasing page size to 100/sida via the dropdown to reduce pages to ~3. Detail page URL pattern: /digital-bulletin-board/announcements/{uuid}.",
   "confidence": "high",
   "approved": false
 }

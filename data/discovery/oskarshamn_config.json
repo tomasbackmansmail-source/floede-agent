@@ -1,28 +1,8 @@
 {
-  "municipality": "Oskarshamn",
-  "platform_guess": "sitevision",
-  "listing_url": "https://www.oskarshamn.se/mer-om-kommunen/politik-och-forvaltning/styrande-dokument/anslagstavla/",
-  "listing_type": "links_to_subpages",
-  "pagination": {
-    "has_pagination": false,
-    "type": "none",
-    "mechanism": "Alla aktuella poster listas på en och samma sida i en kalender-lista. Ingen paginering observerad.",
-    "estimated_total_pages": null
-  },
-  "requires_subpages": {
-    "required": true,
-    "reason": "Listsidan visar titel, datumintervall och kort beskrivning. Fullständiga detaljer om ärendenummer, åtgärd och fastighet finns på respektive undersida.",
-    "link_selector_hint": "ul.calendar-event-list li div.calendar-event-item h2.header a"
-  },
-  "selectors_hint": {
-    "container": "ul.calendar-event-list",
-    "item": "li div.calendar-event-item",
-    "case_number": "p.description",
-    "address": "h2.header a",
-    "date": "div.date",
-    "description": "p.description"
-  },
-  "notes": "Bygglovskungörelser filtreras lämpligen på länktext eller href som innehåller 'kungorelse' och 'bygglov'. Listsidan innehåller även anslagsbevis för nämnder som ska exkluderas. Datumfältet visar ett intervall (t.ex. '17 feb-26 mar 2026') som representerar anslags- och överklagandeperiod. Ärendenummer har formatet BYGG-YYYY/XXXXX och finns i beskrivningstexten. Undersidor i navigationsträdet (ul.nav under li.selected.expanded) speglar samma poster och kan användas som alternativ källa för länklistning.",
+  "source_name": "Oskarshamn",
+  "listing_url": "https://www.oskarshamn.se/anslagstavla",
+  "platform_guess": "episerver",
+  "discovery_method": "url_variants",
   "confidence": "high",
-  "approved": true
+  "approved": false
 }

@@ -1,0 +1,8 @@
+{
+  "source_name": "Söderköping",
+  "listing_url": "https://www.soderkoping.se/sok/#?cludoquery=bygglov",
+  "platform_guess": "episerver",
+  "discovery_method": "crawl_homepage",
+  "confidence": "medium",
+  "approved": false
+}

@@ -1,28 +1,8 @@
 {
-  "municipality": "Simrishamn",
-  "platform_guess": "sitevision",
+  "source_name": "Simrishamn",
   "listing_url": "https://www.simrishamn.se/bo-och-bygga/bygglov/kungorelser-av-underrattelser-och-beslut",
-  "listing_type": "list",
-  "pagination": {
-    "has_pagination": false,
-    "type": "none",
-    "mechanism": null,
-    "estimated_total_pages": null
-  },
-  "requires_subpages": {
-    "required": false,
-    "reason": "Inline extraction. Tabeller med Kungörelser om underrättelse och Kungörelser om beslut visas direkt med ärendemening, fastighetsbeteckning, datum.",
-    "link_selector_hint": null
-  },
-  "selectors_hint": {
-    "container": "main, article, [role=main]",
-    "item": null,
-    "case_number": null,
-    "address": null,
-    "date": null,
-    "description": null
-  },
-  "notes": "Dedikerad bygglovskungörelse-sida med tabeller: underrättelser (förhandsbesked etc) och beslut (bygglov, rivningslov etc). Rik data med fastighetsbeteckning och datum.",
+  "platform_guess": "sitevision",
+  "discovery_method": "crawl_homepage",
   "confidence": "high",
-  "approved": true
+  "approved": false
 }

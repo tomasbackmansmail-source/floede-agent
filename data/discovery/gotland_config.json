@@ -1,45 +1,8 @@
 {
-  "municipality": "Gotland",
+  "source_name": "Gotland",
+  "listing_url": "https://www.gotland.se/anslagstavla",
   "platform_guess": "sitevision",
-  "listing_url": "https://gotland.se/region-och-politik/diarium-allmanna-handlingar-och-arkiv/anslagstavla",
-  "listing_type": "links_to_subpages",
-  "pagination": {
-    "has_pagination": false,
-    "type": "none",
-    "mechanism": "All items appear to be listed on a single page with no pagination controls observed",
-    "estimated_total_pages": null
-  },
-  "requires_subpages": {
-    "required": true,
-    "reason": "Listsidan visar endast titel och datum. Ärendenummer, fastighetsbeteckning, ärendetyp och beslut finns på respektive undersida.",
-    "link_selector_hint": "ul.sv-channel li.sv-channel-item a.font-normal"
-  },
-  "selectors_hint": {
-    "container": "div.sv-archive-portlet.got-anslagstavla-listning ul.sv-channel",
-    "item": "li.sv-channel-item",
-    "case_number": null,
-    "address": null,
-    "date": "li.sv-channel-item time.font-normal",
-    "description": "li.sv-channel-item a.font-normal span"
-  },
-  "sections": [
-    {
-      "name": "Tillkännagivanden och kungörelser",
-      "container_id": "svid12_10e4a7dc19a7bd354e8a420e",
-      "url_pattern": "/anslagstavla/anslagstavla/"
-    },
-    {
-      "name": "Bygglov: underrättelse – grannehörande inför beslut",
-      "container_id": "svid12_10e4a7dc19a7bd354e8a4212",
-      "url_pattern": "/anslagstavla/underrattelser/"
-    },
-    {
-      "name": "Bygglov: meddelande om beslut",
-      "container_id": "svid12_10e4a7dc19a7bd354e8a4210",
-      "url_pattern": "/anslagstavla/meddelanden-om-beslut/"
-    }
-  ],
-  "notes": "Sidan har tre distinkta sektioner: (1) Tillkännagivanden/kungörelser med protokoll och detaljplaner, (2) Bygglov-underrättelser för grannehörande inför beslut med fastighetsbeteckning och ärendenummer i titeln (mönster: 'BYGG YYYY-XXXXXX'), (3) Bygglov-meddelanden om beslut. Fastighetsbeteckning och ärendenummer är synliga direkt i listtitlarna för bygglovsektionerna. Relativa URL:er behöver prefixas med https://gotland.se. Sidan är byggd i SiteVision med klassen 'got-anslagstavla-listning' på varje sektions arkivportlet.",
+  "discovery_method": "url_variants",
   "confidence": "high",
   "approved": false
 }

@@ -1,28 +1,8 @@
 {
-  "municipality": "Kiruna",
-  "platform_guess": "custom_spa",
-  "listing_url": "https://anslagstavla.kiruna.se/#!/billboard/",
-  "listing_type": "dynamic_list",
-  "pagination": {
-    "has_pagination": true,
-    "type": "load_more_button",
-    "mechanism": "div.show-more.more-results",
-    "estimated_total_pages": null
-  },
-  "requires_subpages": {
-    "required": false,
-    "reason": "All data (fastighetsbeteckning, ärendenummer, åtgärd) finns inline i Ciceron SPA:t under 'Övrigt anslagen information'. Inga undersidor behövs.",
-    "link_selector_hint": null
-  },
-  "selectors_hint": {
-    "container": null,
-    "item": null,
-    "case_number": null,
-    "address": null,
-    "date": null,
-    "description": null
-  },
-  "notes": "Kiruna kommun använder en extern JavaScript-baserad SPA för sin anslagstavla på anslagstavla.kiruna.se. Gateway-sidan på kiruna.se/kommun--demokrati/sa-kan-du-paverka/anslagstavla.html länkar dit. Sidan kräver JavaScript och renderar innehållet helt client-side (AngularJS-liknande hashbang-routing #!/billboard/). Innehåller kungörelser, detaljplaner, justerade protokoll och sammanträdesdatum. Kräver Playwright/headless browser för scraping. Selektorer okända – kräver browser-inspektion. Manuellt upptäckt URL efter att automatisk discovery misslyckades pga nätverkstimeout.",
-  "confidence": "medium",
-  "approved": true
+  "source_name": "Kiruna",
+  "listing_url": "https://www.kiruna.se/anslagstavla",
+  "platform_guess": "sitevision",
+  "discovery_method": "url_variants",
+  "confidence": "high",
+  "approved": false
 }

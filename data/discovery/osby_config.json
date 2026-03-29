@@ -1,61 +1,8 @@
 {
-  "municipality": "Osby",
+  "source_name": "Osby",
+  "listing_url": "https://www.osby.se/anslagstavla",
   "platform_guess": "sitevision",
-  "listing_url": "https://www.osby.se/diverse/anslagstavla.html",
-  "listing_type": "pdf_list",
-  "pagination": {
-    "has_pagination": false,
-    "type": "none",
-    "mechanism": "Alla poster visas på en och samma sida utan paginering",
-    "estimated_total_pages": null
-  },
-  "requires_subpages": {
-    "required": false,
-    "reason": "Alla dokument är direktlänkar till PDF-filer. Ingen undersida behövs – titel och URL finns direkt i listningen.",
-    "link_selector_hint": "div.sv-file-portlet-file a"
-  },
-  "selectors_hint": {
-    "container_anslagsbevis": "div#svid12_675cb673160e4dcdcf268 div.sv-file-portlet ul",
-    "container_tillkannagivanden": "div#svid12_675cb673160e4dcdcf256 div.sv-file-portlet ul",
-    "container_aktforvaring": "div#svid12_2f64973519499bf795a5bf69 div.sv-file-portlet ul",
-    "container_grannsakhorande": "div#svid12_2e6f30a619a6c4f18b461f27 div.sv-file-portlet ul",
-    "item": "li",
-    "title": "div.sv-file-portlet-file a",
-    "url": "div.sv-file-portlet-file a[href]",
-    "case_number": null,
-    "address": null,
-    "date": null,
-    "description": null
-  },
-  "sections": [
-    {
-      "name": "Anslagsbevis / Justerade protokoll",
-      "anchor": "h-AnslagsbevisJusteradeprotokoll",
-      "container_selector": "div#svid12_675cb673160e4dcdcf268 div.sv-file-portlet ul"
-    },
-    {
-      "name": "Tillkännagivanden",
-      "anchor": "h-Tillkannagivanden",
-      "container_selector": "div#svid12_675cb673160e4dcdcf256 div.sv-file-portlet ul"
-    },
-    {
-      "name": "Aktförvaring",
-      "anchor": "h-Aktforvaring",
-      "container_selector": "div#svid12_2f64973519499bf795a5bf69 div.sv-file-portlet ul"
-    },
-    {
-      "name": "Grann- och sakhörande",
-      "anchor": "h-Grannochsakhorande",
-      "container_selector": "div#svid12_2e6f30a619a6c4f18b461f27 div.sv-file-portlet ul"
-    }
-  ],
-  "date_extraction": {
-    "strategy": "regex_from_title",
-    "pattern": "\\d{4}-\\d{2}-\\d{2}",
-    "fallback": "regex_from_url_timestamp"
-  },
-  "base_url": "https://www.osby.se",
-  "notes": "PARKERAD 2026-03-17: Rik data finns (19 bygglovsärenden: 2 grannhöranden, 15 meddelande om beslut, 2 besvärshänvisningar) men all detalj finns i PDF-filer. Titlarna (t.ex. 'Meddelande om beslut, marklov') saknar ärendenummer och adress. Kräver PDF-extraction för att få ut strukturerad data. Prioritera om PDF-stöd läggs till.",
+  "discovery_method": "url_variants",
   "confidence": "high",
   "approved": false
 }

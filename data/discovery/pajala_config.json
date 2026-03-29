@@ -1,28 +1,8 @@
 {
-  "municipality": "Pajala",
-  "platform_guess": "custom",
+  "source_name": "Pajala",
   "listing_url": "https://www.pajala.se/kommun-politik-och-service/anslagstavla/kungorelser-bygglov/",
-  "listing_type": "links_to_subpages",
-  "pagination": {
-    "has_pagination": false,
-    "type": "none",
-    "mechanism": "Ingen paginering identifierad - alla arenden listas pa en sida",
-    "estimated_total_pages": null
-  },
-  "requires_subpages": {
-    "required": true,
-    "reason": "Listsidan visar troligen bara titlar och datum. Detaljerad information om arendenummer, adress och status finns sannolikt pa individuella undersidor.",
-    "link_selector_hint": "a[href*='kungorelser-bygglov']"
-  },
-  "selectors_hint": {
-    "container": ".page-content, .main-content, article",
-    "item": ".list-item, li, article",
-    "case_number": null,
-    "address": null,
-    "date": ".date, time",
-    "description": null
-  },
-  "notes": "HTML-utdraget innehaller mestadels navigation och inte sjalva innehallet pa anslagstavlan. Sidans faktiska arende-lista ar trunkerad och syns inte i det tillhandahallna HTML-utdraget. Plattformen liknar en anpassad CMS-losning. Sidstrukturen foljer ett monster liknande andra svenska kommuner dar kungörelser listas med lankar till undersidor. Selektorer bor verifieras vid faktisk insamling.",
-  "confidence": "low",
+  "platform_guess": "unknown",
+  "discovery_method": "crawl_homepage",
+  "confidence": "high",
   "approved": false
 }

@@ -1,0 +1,8 @@
+{
+  "source_name": "Hässleholm",
+  "listing_url": "https://www.hassleholm.se/anslagstavla",
+  "platform_guess": "sitevision",
+  "discovery_method": "url_variants",
+  "confidence": "high",
+  "approved": false
+}

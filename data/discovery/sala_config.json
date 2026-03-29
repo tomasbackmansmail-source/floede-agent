@@ -1,28 +1,8 @@
 {
-  "municipality": "Sala",
-  "platform_guess": "netpublicator",
-  "listing_url": "https://www.sala.se/info/14344",
-  "listing_type": "links_to_subpages",
-  "pagination": {
-    "has_pagination": false,
-    "type": "none",
-    "mechanism": "Alla aktuella anslag visas på en sida utan paginering",
-    "estimated_total_pages": null
-  },
-  "requires_subpages": {
-    "required": true,
-    "reason": "Listsidan visar endast titel, datum och kort beskrivning/diarienummer. Fullständiga detaljer om bygglov (adress, beslut, handlingar) finns på respektive undersida via billboard-URL:er.",
-    "link_selector_hint": "li.list-item div.li-content a.internal-link[href*='/billboard/']"
-  },
-  "selectors_hint": {
-    "container": "div.ServiceListBlock1Column ul",
-    "item": "li.list-item",
-    "case_number": "li.list-item p",
-    "address": "li.list-item div.li-content a",
-    "date": "li.list-item div.ServiceListBlock1ColumnDate",
-    "description": "li.list-item p"
-  },
-  "notes": "Anslagstavlan har tre sektioner: 'Kommande sammanträden', 'Justerade protokoll' och 'Kungörelser'. Bygglov och planärenden finns under 'Kungörelser' med titlar som börjar på 'Kungörelse av beslut, Bygglov' eller 'Underrättelse om antagande'. Varje post har en billboard-URL på formen https://www.sala.se/billboard/{id}/. Diarienummer (t.ex. SBN 2026-000042) anges direkt i listelementet under p-taggen. Filtrera kungörelser på nyckelord: 'Bygglov', 'bygglov', 'Detaljplan', 'Underrättelse'. Datasektionen för kungörelser identifieras via h2-rubrik 'Kungörelser' följt av div.row > div.ServiceListBlock1Column.",
+  "source_name": "Sala",
+  "listing_url": "https://www.sala.se/anslagstavla",
+  "platform_guess": "unknown",
+  "discovery_method": "url_variants",
   "confidence": "high",
-  "approved": true
+  "approved": false
 }

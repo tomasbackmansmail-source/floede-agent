@@ -1,0 +1,8 @@
+{
+  "source_name": "Strömstad",
+  "listing_url": "https://www.stromstad.se/anslagstavla",
+  "platform_guess": "sitevision",
+  "discovery_method": "url_variants",
+  "confidence": "high",
+  "approved": false
+}

@@ -1,0 +1,8 @@
+{
+  "source_name": "Norrtälje",
+  "listing_url": "https://www.norrtalje.se/anslagstavla",
+  "platform_guess": "episerver",
+  "discovery_method": "url_variants",
+  "confidence": "high",
+  "approved": false
+}

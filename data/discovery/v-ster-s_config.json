@@ -1,8 +1,8 @@
 {
   "source_name": "Västerås",
-  "listing_url": "https://www.vasteras.se/kommun-och-politik/moten-handlingar-och-protokoll/anslagstavla.html",
+  "listing_url": "https://www.vasteras.se/anslagstavla",
   "platform_guess": "sitevision",
-  "discovery_method": "haiku",
-  "confidence": "low",
+  "discovery_method": "url_variants",
+  "confidence": "high",
   "approved": false
 }

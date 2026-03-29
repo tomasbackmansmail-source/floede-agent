@@ -1,0 +1,8 @@
+{
+  "source_name": "Ljusdal",
+  "listing_url": "https://anslagstavlan.ljusdal.se/",
+  "platform_guess": "sitevision",
+  "discovery_method": "crawl_homepage",
+  "confidence": "medium",
+  "approved": false
+}

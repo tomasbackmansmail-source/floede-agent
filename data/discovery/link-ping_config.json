@@ -2,7 +2,7 @@
   "source_name": "Linköping",
   "listing_url": "https://ciceron-anslagstavlan.linkoping.se/#!/billboard/",
   "platform_guess": "sitevision",
-  "discovery_method": "haiku",
-  "confidence": "low",
+  "discovery_method": "crawl_homepage",
+  "confidence": "medium",
   "approved": false
 }

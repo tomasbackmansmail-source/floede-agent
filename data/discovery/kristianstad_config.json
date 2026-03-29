@@ -1,28 +1,8 @@
 {
-  "municipality": "Kristianstad",
-  "platform_guess": "sitevision",
+  "source_name": "Kristianstad",
   "listing_url": "https://www.kristianstad.se/anslagstavla",
-  "listing_type": "unknown",
-  "pagination": {
-    "has_pagination": null,
-    "type": "unknown",
-    "mechanism": "Kunde ej fastställa - sidinnehåll dolt bakom Cookiebot-dialog i HTML-utdraget",
-    "estimated_total_pages": null
-  },
-  "requires_subpages": {
-    "required": null,
-    "reason": "Kunde ej fastställa - sidinnehåll trunkerat. Sidan använder live.mediaflow.com för publicering vilket typiskt renderar en inbäddad lista med kungörelser direkt på sidan utan undersidor.",
-    "link_selector_hint": null
-  },
-  "selectors_hint": {
-    "container": null,
-    "item": null,
-    "case_number": null,
-    "address": null,
-    "date": null,
-    "description": null
-  },
-  "notes": "Sidan är Kristianstads kommuns officiella anslagstavla (titel bekräftad: 'Anslagstavla | Kristianstads kommun'). Webbplatsen körs på SiteVision. Cookiebot-dialogen dominerar HTML-utdraget och döljer det faktiska sidinnehållet. Cookie-registret bekräftar tredjepartsleverantören live.mediaflow.com (4 cookies) samt mfstatic.com - Mediaflow är ett vanligt system för kommunala kungörelser i Sverige. Scraper bör rendera sidan med JavaScript aktiverat och vänta på att Mediaflow-komponenten laddas. Mediaflow-iframe eller embed bör sökas efter i det renderade DOM:et.",
-  "confidence": "low",
+  "platform_guess": "sitevision",
+  "discovery_method": "url_variants",
+  "confidence": "high",
   "approved": false
 }

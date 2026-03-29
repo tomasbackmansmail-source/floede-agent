@@ -1,8 +1,8 @@
 {
   "source_name": "Örebro",
-  "listing_url": "https://www.orebro.se/kommun--politik/politik--beslut/digital-anslagstavla.html",
+  "listing_url": "https://www.orebro.se/bygga-bo--trafik.html",
   "platform_guess": "sitevision",
-  "discovery_method": "haiku",
-  "confidence": "low",
+  "discovery_method": "crawl_homepage",
+  "confidence": "medium",
   "approved": false
 }

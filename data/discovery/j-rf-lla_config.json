@@ -1,0 +1,8 @@
+{
+  "source_name": "Järfälla",
+  "listing_url": "https://www.jarfalla.se/anslagstavla",
+  "platform_guess": "sitevision",
+  "discovery_method": "url_variants",
+  "confidence": "high",
+  "approved": false
+}

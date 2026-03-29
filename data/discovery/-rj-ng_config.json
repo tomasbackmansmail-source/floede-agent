@@ -1,0 +1,28 @@
+{
+  "municipality": "Årjäng",
+  "platform_guess": "sitevision",
+  "listing_url": "https://www.arjang.se/kommunalservice/startsida/kommunochpolitik/beslutinsynochrattssakerhet/digitalanslagstavla.2654.html",
+  "listing_type": "dynamic_js_rendered",
+  "pagination": {
+    "has_pagination": false,
+    "type": null,
+    "mechanism": null,
+    "estimated_total_pages": null
+  },
+  "requires_subpages": {
+    "required": false,
+    "reason": "Content is rendered dynamically via JavaScript on the single anslagstavla page. The actual notice list is not visible in static HTML and must be scraped after JS execution.",
+    "link_selector_hint": null
+  },
+  "selectors_hint": {
+    "container": "#svid94_3b981bf917a75bbaf406e479",
+    "item": ".sol-article-item, table tr, li",
+    "case_number": null,
+    "address": null,
+    "date": ".sol-article-item-date, td",
+    "description": ".sol-article-item-heading, td"
+  },
+  "notes": "Page uses Sitevision CMS. Main content area is #svid94_3b981bf917a75bbaf406e479 / #page_content but the actual notice list is injected by JavaScript after page load. A headless browser (Playwright/Puppeteer) is required. Wait for dynamic content to render before extracting notices. The page title confirms this is the correct digital anslagstavla per kommunallagen.",
+  "confidence": "medium",
+  "approved": false
+}

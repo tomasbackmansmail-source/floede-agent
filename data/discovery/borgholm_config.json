@@ -1,28 +1,8 @@
 {
-  "municipality": "Borgholm",
+  "source_name": "Borgholm",
+  "listing_url": "https://www.borgholm.se/anslagstavla",
   "platform_guess": "wordpress",
-  "listing_url": "https://www.borgholm.se/anslagstavla/",
-  "listing_type": "unknown",
-  "pagination": {
-    "has_pagination": false,
-    "type": "none",
-    "mechanism": "No pagination observed",
-    "estimated_total_pages": null
-  },
-  "requires_subpages": {
-    "required": true,
-    "reason": "HTML är truncerad och sidans faktiska anslags-innehåll är inte synligt. Baserat på WordPress pinboard-template (page-template-pinboard) är det troligt att varje anslag är en länk till en undersida med detaljer.",
-    "link_selector_hint": ".pin a, .pinboard-item a, article a"
-  },
-  "selectors_hint": {
-    "container": ".pinboard, .pin-list, #content",
-    "item": ".pin, .pinboard-item, article",
-    "case_number": ".diarienummer, .case-number",
-    "address": ".address, .fastighet",
-    "date": ".date, time, .published",
-    "description": ".excerpt, .description, .pin-content"
-  },
-  "notes": "HTML är kraftigt truncerad vid navigationsmenyn och sidans faktiska innehåll (anslag, kort, tabeller) är aldrig synligt i underlaget. WordPress-temat är 'borgholm_ny_farg' med page-template-pinboard. Body-klassen och sidtiteln bekräftar att detta är rätt sida. Selektorer är kvalificerade gissningar baserade på WordPress pinboard-mönster och måste verifieras mot renderad HTML. Rekommenderar att extrahera fullständig HTML efter cookie-consent är hanterad.",
-  "confidence": "low",
+  "discovery_method": "url_variants",
+  "confidence": "high",
   "approved": false
 }

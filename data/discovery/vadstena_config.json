@@ -1,0 +1,8 @@
+{
+  "source_name": "Vadstena",
+  "listing_url": "https://www.vadstena.se/anslagstavla",
+  "platform_guess": "wordpress",
+  "discovery_method": "url_variants",
+  "confidence": "high",
+  "approved": false
+}

@@ -1,28 +1,8 @@
 {
-  "municipality": "Uppsala",
+  "source_name": "Uppsala",
+  "listing_url": "https://www.uppsala.se/anslagstavla",
   "platform_guess": "episerver",
-  "listing_url": "https://www.uppsala.se/kommun-och-politik/anslagstavla",
-  "listing_type": "links_to_subpages",
-  "pagination": {
-    "has_pagination": false,
-    "type": "none",
-    "mechanism": null,
-    "estimated_total_pages": null
-  },
-  "requires_subpages": {
-    "required": true,
-    "reason": "Anslagstavlan listar kungörelsesidor som länkar. Varje kungörelsesida innehåller flera ärenden med diarienummer, fastighetsbeteckning och åtgärd.",
-    "link_selector_hint": "a[href*='kungorelse-om-beslut-i-lov'], a[href*='kungorelse-om-grannehorande-i-lov'], a[href*='kungorelse-om-grannhorande-i-lov']"
-  },
-  "selectors_hint": {
-    "container": "main, .content-area, [role=main]",
-    "item": "h3",
-    "case_number": "p",
-    "address": "h3",
-    "date": "time",
-    "description": "h3 + p"
-  },
-  "notes": "Uppsala publicerar nya kungörelsesidor löpande. Varje sida har flera ärenden. Filtrera på URL-mönster kungorelse-om-beslut-i-lov och kungorelse-om-grannehorande-i-lov. Platform: EPiServer/Optimizely.",
+  "discovery_method": "url_variants",
   "confidence": "high",
-  "approved": true
+  "approved": false
 }

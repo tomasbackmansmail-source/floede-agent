@@ -1,0 +1,2300 @@
+=== Floede Engine — Discovery ===
+Vertical: ByggSignal
+Targets: 290
+
+
+--- Helsingborg ---
+  [crawl_homepage] Found: https://helsingborg.se/bo-bygga-och-miljo/bygga-nytt-bygga-om-bygga-till/bygglov-och-anmalan/ (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://helsingborg.se/bo-bygga-och-miljo/bygga-nytt-bygga-om-bygga-till/bygglov-och-anmalan/...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Lund ---
+  [crawl_homepage] Found: https://www.lund.se/bygga-och-bo/allt-om-bygglov (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.lund.se/bygga-och-bo/allt-om-bygglov...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Uppsala ---
+  [url_variants] Found: https://www.uppsala.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.uppsala.se/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Norrköping ---
+  [crawl_homepage] Found: https://norrkoping.se/kommun-och-politik/riktlinjer-beslut-och-dokument/anslagstavla (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://norrkoping.se/kommun-och-politik/riktlinjer-beslut-och-dokument/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Jönköping ---
+  [url_variants] Found: https://www.jonkoping.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.jonkoping.se/anslagstavla...
+  [Verify] Results: 35 items
+  [Verify] Auto-approved — 35 items extracted via HTTP
+  [Verify] Sample: {"municipality":"Jönköpings kommun","case_number":null,"address":null,"permit_type":"bygglov","status":"beviljat","date":"2026-03-27","description":"K...
+
+--- Trosa ---
+  [url_variants] Found: https://www.trosa.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.trosa.se/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Gotland ---
+  [url_variants] Found: https://www.gotland.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.gotland.se/anslagstavla...
+  [Verify] Results: 27 items
+  [Verify] Auto-approved — 27 items extracted via HTTP
+  [Verify] Sample: {"municipality":"Region Gotland","case_number":"BYGG 2026-000419","address":"LÄRBRO LILLA VÄGUME 1:18","permit_type":"bygglov","status":"ansökt","date...
+
+--- Huddinge ---
+  [Cheap steps failed] Escalating to Sonnet...
+  [Sonnet] Web search...
+  [Sonnet] Search result: URL: https://www.huddinge.se/huddinge-kommuns-anslagstavla/
+ALTERNATIV: https://www.huddinge.se/organisation-och-styrning/huddinge-kommuns-anslagstavla/anslag/2026/kungorelse-om-beslut-enligt-plan--oc...
+  [Sonnet] Loading https://www.huddinge.se/huddinge-kommuns-anslagstavla/...
+  [Sonnet] OSÄKER
+
+Jag ser endast Huddinge kommuns generella anslagstavla (`/anslagstavla`) — men HTML:en är nästan helt dominerad av cookie-banner-kod och trunkeras innan sidans faktiska innehåll visas.
+
+**Vad ...
+  [Sonnet] NEJ
+
+Sidtiteln är **"Felsida"** — den URL jag föreslog finns inte. Återgå till ursprungs-URL:en.
+
+NAVIGATE: https://www.huddinge.se/anslagstavla
+  [Sonnet] OSÄKER
+
+Samma problem som tidigare — HTML:en trunkeras och domineras helt av cookie-banner-kod. Sidtiteln är korrekt ("Huddinge kommuns anslagstavla") men själva innehållet når aldrig fram i den trunk...
+  [Sonnet] OSÄKER
+
+Cookie-bannern blockerar fortfarande allt innehåll i den trunkerade HTML:en. Detta är ett strukturellt problem med hur sidan levereras.
+
+**Vad jag vet sedan tidigare besök på första sidan:**
+-...
+  [Sonnet] Failed: Could not generate valid config (0.2694)
+
+--- Eskilstuna ---
+  [url_variants] Found: https://www.eskilstuna.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.eskilstuna.se/anslagstavla...
+  [Verify] Results: 10 items
+  [Verify] Auto-approved — 10 items extracted via HTTP
+  [Verify] Sample: {"municipality":"Eskilstuna kommun","case_number":"BYGG.2026.84","address":"FRISTADEN 1:6","permit_type":null,"status":"ansökt","date":"2026-03-27","d...
+
+--- Södertälje ---
+  [url_variants] Found: https://www.sodertalje.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.sodertalje.se/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Botkyrka ---
+  [url_variants] Found: https://www.botkyrka.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.botkyrka.se/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Haninge ---
+  [url_variants] Found: https://www.haninge.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.haninge.se/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Lidingö ---
+  [Cheap steps failed] Escalating to Sonnet...
+  [Sonnet] Web search...
+  [Sonnet] Search result: URL: https://www.lidingo.se/ovrigasidor/stadensanslagstavla.4.7a7e170815fc29ac5e455a5.html
+ALTERNATIV: https://lidingo.se/toppmeny/byggabo/bygglov.4.4fc85f8b1646533157914fe.html, https://minasidor.lid...
+  [Sonnet] Loading https://www.lidingo.se/ovrigasidor/stadensanslagstavla.4.7a7e170815fc29ac5e455a5.html...
+  [Sonnet] ANALYZE
+
+Detta är definitivt Lidingö stads officiella digitala anslagstavla. Jag kan bekräfta:
+
+- **Sidan heter** "Stadens anslagstavla" på lidingo.se/anslagstavla
+- **Innehåller bygglov-relaterade an...
+  [Sonnet] Found: https://www.lidingo.se/ovrigasidor/stadensanslagstavla.4.7a7e170815fc29ac5e455a5.html (0.1539)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.lidingo.se/ovrigasidor/stadensanslagstavla.4.7a7e170815fc29ac5e455a5.html...
+  [Verify] Results: 0 items (error: fetch failed)
+  [Verify] NOT approved — wrong URL, awaiting re-discovery
+
+--- Österåker ---
+  [url_variants] Found: https://www.osteraker.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.osteraker.se/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Solna ---
+  [url_variants] Found: https://www.solna.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.solna.se/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Järfälla ---
+  [url_variants] Found: https://www.jarfalla.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.jarfalla.se/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Täby ---
+  [url_variants] Found: https://www.taby.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.taby.se/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Norrtälje ---
+  [url_variants] Found: https://www.norrtalje.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.norrtalje.se/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Landskrona ---
+  [url_variants] Found: https://www.landskrona.se/anslagstavla (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.landskrona.se/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Tyresö ---
+  [url_variants] Found: https://www.tyreso.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.tyreso.se/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Vallentuna ---
+  [url_variants] Found: https://www.vallentuna.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.vallentuna.se/anslagstavla...
+  [Verify] Results: 11 items
+  [Verify] Auto-approved — 11 items extracted via HTTP
+  [Verify] Sample: {"municipality":"Vallentuna kommun","case_number":null,"address":"UTHAMRA 1:250 (HÄLLMARKSVÄGEN 17)","permit_type":"bygglov","status":"beviljat","date...
+
+--- Karlskrona ---
+  [url_variants] Found: https://www.karlskrona.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.karlskrona.se/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Sigtuna ---
+  [crawl_homepage] Found: https://www.sigtuna.se/kommun-och-politik/handlingar-beslut-och-rattssakerhet/anslagstavla.html (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.sigtuna.se/kommun-och-politik/handlingar-beslut-och-rattssakerhet/anslagstavla.html...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Enköping ---
+  [Cheap steps failed] Escalating to Sonnet...
+  [Sonnet] Web search...
+  [Sonnet] Search result: URL: https://enkoping.se/kommun-och-politik/anslagstavla.html
+ALTERNATIV: https://enkoping.se/kommun-och-politik/
+KONFIDENS: hög...
+  [Sonnet] Loading https://enkoping.se/kommun-och-politik/anslagstavla.html...
+  [Sonnet] NAVIGATE: https://enkoping.se/kommun-och-politik/anslagstavla.html
+
+Sidan verkar vara rätt URL (anslagstavla), men HTML:en är trunkerad och visar mest navigation/meny. Jag kan inte se det faktiska inn...
+  [Sonnet] OSÄKER – HTML:en trunkeras igen innan vi når sidans faktiska innehåll (body-innehållet efter navigationsmenyn). Jag ser bara header/meny, inte det faktiska anslags-innehållet.
+
+**Vad jag vet:**
+- URL:...
+  [Sonnet] NEJ – sidan returnerar "Sidan hittades inte" (404). Den URL:en finns inte.
+
+**Problemet är grundläggande:** Enköpings anslagstavla renderas troligen helt via JavaScript (SiteVision CMS), och innehålle...
+  [Sonnet] ANALYZE
+
+Baserat på vad jag sett är detta Enköpings kommuns officiella anslagstavla på SiteVision CMS. Innehållet renderas via JavaScript men URL:en är korrekt. Här är en config baserad på det vi vet:...
+  [Sonnet] Found: https://enkoping.se/kommun-och-politik/anslagstavla.html (0.4454)
+  [DB] Config saved
+  [Verify] Testing extraction from https://enkoping.se/kommun-och-politik/anslagstavla.html...
+  [Verify] Results: 13 items
+  [Verify] Auto-approved — 13 items extracted via HTTP
+  [Verify] Sample: {"municipality":"Enköpings kommun","case_number":null,"address":null,"permit_type":"bygglov","status":"ansökt","date":"2026-03-27","description":"Nyby...
+
+--- Motala ---
+  [url_variants] Found: https://www.motala.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.motala.se/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Katrineholm ---
+  [crawl_homepage] Found: https://www.katrineholm.se/kommun-och-politik/anslagstavla.html (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.katrineholm.se/kommun-och-politik/anslagstavla.html...
+  [Verify] Results: 25 items
+  [Verify] Auto-approved — 25 items extracted via HTTP
+  [Verify] Sample: {"municipality":"Katrineholms kommun","case_number":null,"address":"MEJERIET 7","permit_type":"bygglov","status":"ansökt","date":"2026-03-27","descrip...
+
+--- Värnamo ---
+  [Cheap steps failed] Escalating to Sonnet...
+  [Sonnet] Web search...
+  [Sonnet] Search result: URL: https://kommun.varnamo.se/kommun-och-politik/politik-och-demokrati/anslagstavla.html
+ALTERNATIV: https://kommun.varnamo.se/kommun-och-politik/politik-och-demokrati/anslagstavla/arkiv-kungorelse-p...
+  [Sonnet] Loading https://kommun.varnamo.se/kommun-och-politik/politik-och-demokrati/anslagstavla.html...
+  [Sonnet] **ANALYZE**
+
+Ja, detta är Värnamo kommuns officiella anslagstavla. Sidan innehåller explicit:
+
+- Tillkännagivanden, kungörelser och beslut
+- Kallelse till kommunfullmäktige
+- Justerade protokoll
+- **P...
+  [Sonnet] Found: https://kommun.varnamo.se/kommun-och-politik/politik-och-demokrati/anslagstavla.html (0.1722)
+  [DB] Config saved
+  [Verify] Testing extraction from https://kommun.varnamo.se/kommun-och-politik/politik-och-demokrati/anslagstavla.html...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Danderyd ---
+  [url_variants] Found: https://www.danderyd.se/bygga-bo/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.danderyd.se/bygga-bo/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Mjölby ---
+  [crawl_homepage] Found: https://www.mjolby.se/kommun-och-politik/overklaga-beslut-rattssakerhet/anslagstavla (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.mjolby.se/kommun-och-politik/overklaga-beslut-rattssakerhet/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Ekerö ---
+  [crawl_homepage] Found: https://www.ekero.se/kommun-politik/moten-handlingar--protokoll/anslagstavla (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.ekero.se/kommun-politik/moten-handlingar--protokoll/anslagstavla...
+  [Verify] Results: 28 items
+  [Verify] Auto-approved — 28 items extracted via HTTP
+  [Verify] Sample: {"municipality":"Ekerö kommun","case_number":null,"address":"EKEBYHOV 1:71","permit_type":"bygglov","status":"beviljat","date":"2026-03-26","descripti...
+
+--- Lomma ---
+  [url_variants] Found: https://www.lomma.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.lomma.se/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Håbo ---
+  [url_variants] Found: https://www.habo.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.habo.se/anslagstavla...
+  [Verify] Results: 15 items
+  [Verify] Auto-approved — 15 items extracted via HTTP
+  [Verify] Sample: {"municipality":"Håbo","case_number":"BM2026-000100","address":"Bålsta simhall","permit_type":"bygglov","status":"beviljat","date":"2026-03-27","descr...
+
+--- Hässleholm ---
+  [url_variants] Found: https://www.hassleholm.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.hassleholm.se/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Burlöv ---
+  [url_variants] Found: https://www.burlov.se/anslagstavla (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.burlov.se/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Svedala ---
+  [crawl_homepage] Found: https://www.svedala.se/paverka/politik-och-demokrati/digital-anslagstavla/ (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.svedala.se/paverka/politik-och-demokrati/digital-anslagstavla/...
+  [Verify] Results: 12 items
+  [Verify] Auto-approved — 12 items extracted via HTTP
+  [Verify] Sample: {"municipality":"Svedala","case_number":null,"address":"BJÖRSHÖG 9:38","permit_type":"bygglov","status":"beviljat","date":"2026-03-27","description":n...
+
+--- Oskarshamn ---
+  [url_variants] Found: https://www.oskarshamn.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.oskarshamn.se/anslagstavla...
+  [Verify] Results: 16 items
+  [Verify] Auto-approved — 16 items extracted via HTTP
+  [Verify] Sample: {"municipality":"Oskarshamns kommun","case_number":"BYGG-2026/00005","address":"Dragskär 1:42","permit_type":"bygglov","status":"beviljat","date":"202...
+
+--- Tranås ---
+  [crawl_homepage] Found: https://tranaskommun.ondemand.formpipe.com/digital-bulletin-board (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://tranaskommun.ondemand.formpipe.com/digital-bulletin-board...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Tierp ---
+  [crawl_homepage] Found: https://www.tierp.se/tierp.se/kommun-och-politik/politik-och-beslut/anslagstavlan.html (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.tierp.se/tierp.se/kommun-och-politik/politik-och-beslut/anslagstavlan.html...
+  [Verify] Results: 2 items
+  [Verify] Auto-approved — 2 items extracted via HTTP
+  [Verify] Sample: {"municipality":"Tierps kommun","case_number":null,"address":"Tolfta-bro 1:3","permit_type":"bygglov","status":"beviljat","date":"2026-03-25","descrip...
+
+--- Oxelösund ---
+  [crawl_homepage] Found: https://www.oxelosund.se/ovrigt/digital-anslagstavla (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.oxelosund.se/ovrigt/digital-anslagstavla...
+  [Verify] Results: 7 items
+  [Verify] Auto-approved — 7 items extracted via HTTP
+  [Verify] Sample: {"municipality":"Oxelösunds kommun","case_number":null,"address":"St Hummelvik 1-8","permit_type":"bygglov","status":"beviljat","date":"2026-03-02","d...
+
+--- Hultsfred ---
+  [url_variants] Found: https://www.hultsfred.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.hultsfred.se/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Vetlanda ---
+  [url_variants] Found: https://www.vetlanda.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.vetlanda.se/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Vaggeryd ---
+  [crawl_homepage] Found: https://www.vaggeryd.se/bygga-bo-och-miljo/bygga-nytt-andra-eller-riva.html (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.vaggeryd.se/bygga-bo-och-miljo/bygga-nytt-andra-eller-riva.html...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Hörby ---
+  [crawl_homepage] Found: https://www.horby.se/kommun-och-politik/overklaga-beslut-rattssakerhet/anslagstavla/ (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.horby.se/kommun-och-politik/overklaga-beslut-rattssakerhet/anslagstavla/...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Simrishamn ---
+  [crawl_homepage] Found: https://www.simrishamn.se/bo-och-bygga/bygglov/kungorelser-av-underrattelser-och-beslut (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.simrishamn.se/bo-och-bygga/bygglov/kungorelser-av-underrattelser-och-beslut...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Svalöv ---
+  [haiku] Found: https://www.svalov.se/bo-bygg--miljo (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.svalov.se/bo-bygg--miljo...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Klippan ---
+  [crawl_homepage] Found: https://www.klippan.se/kommun--politik/moten-handlingar--protokoll/anslagstavla (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.klippan.se/kommun--politik/moten-handlingar--protokoll/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Båstad ---
+  [crawl_homepage] Found: https://www.bastad.se/bo-bygga-och-miljo/bygga-nytt-andra-eller-riva/bygglov---sa-har-gar-det-till/forhandsbesked.html (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.bastad.se/bo-bygga-och-miljo/bygga-nytt-andra-eller-riva/bygglov---sa-har-gar-det-till/forhandsbesked.html...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Bromölla ---
+  [url_variants] Found: https://www.bromolla.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.bromolla.se/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Tingsryd ---
+  [url_variants] Found: https://www.tingsryd.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.tingsryd.se/anslagstavla...
+  [Verify] Results: 8 items
+  [Verify] Auto-approved — 8 items extracted via HTTP
+  [Verify] Sample: {"municipality":"Tingsryds kommun","case_number":"MBN-2026-5","address":"Bro 2:8","permit_type":"bygglov","status":"ansökt","date":"2026-03-30","descr...
+
+--- Valdemarsvik ---
+  [crawl_homepage] Found: https://www.valdemarsvik.se/kommun/kommun-politik/kommunens-anslagstavla/ (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.valdemarsvik.se/kommun/kommun-politik/kommunens-anslagstavla/...
+  [Verify] Results: 6 items
+  [Verify] Auto-approved — 6 items extracted via HTTP
+  [Verify] Sample: {"municipality":"Valdemarsviks kommun","case_number":null,"address":"KALLSÖ 1:46","permit_type":"bygglov","status":"ansökt","date":"2026-03-23","descr...
+
+--- Borgholm ---
+  [url_variants] Found: https://www.borgholm.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.borgholm.se/anslagstavla...
+  [Verify] Results: 22 items
+  [Verify] Auto-approved — 22 items extracted via HTTP
+  [Verify] Sample: {"municipality":"Borgholms kommun","case_number":null,"address":"RÖRSBERG 1:17","permit_type":"marklov","status":"ansökt","date":"2026-03-25","descrip...
+
+--- Karlshamn ---
+  [url_variants] Found: https://www.karlshamn.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.karlshamn.se/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Mönsterås ---
+  [url_variants] Found: https://www.monsteras.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.monsteras.se/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Torsås ---
+  [url_variants] Found: https://www.torsas.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.torsas.se/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Högsby ---
+  [crawl_homepage] Found: https://www.hogsby.se/Bygga-bo-och-miljoe/Bygga-och-planera/Bygglov (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.hogsby.se/Bygga-bo-och-miljoe/Bygga-och-planera/Bygglov...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Upplands-Bro ---
+  [Cheap steps failed] Escalating to Sonnet...
+  [Sonnet] Web search...
+  [Sonnet] Search result: URL: https://www.upplands-bro.se/anslagstavla.html
+ALTERNATIV: https://www.upplands-bro.se/kommun--politik/politik-och-beslut/anslagstavla.html
+KONFIDENS: hög...
+  [Sonnet] Loading https://www.upplands-bro.se/anslagstavla.html...
+  [Sonnet] OSÄKER
+
+Sidan är Upplands-Bro kommuns **webbplats generellt** – det som visas är:
+- En cookie-banner
+- Huvudnavigationsmenyn (förskola, skola, etc.)
+
+Det är **inte** en anslagstavla för bygglov/kungör...
+  [Sonnet] ANALYZE
+
+Baserat på den tillgängliga HTML:en från `https://www.upplands-bro.se/anslagstavla.html` är detta Upplands-Bro kommuns anslagstavla. Här är en config:
+
+```json
+{
+  "municipality": "Upplands-B...
+  [Sonnet] Found: https://www.upplands-bro.se/anslagstavla.html (0.2064)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.upplands-bro.se/anslagstavla.html...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Gnosjö ---
+  [crawl_homepage] Found: https://www.gnosjo.se/bygga-bo-trafik-och-miljo (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.gnosjo.se/bygga-bo-trafik-och-miljo...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Salem ---
+  [url_variants] Found: https://www.salem.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.salem.se/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Vaxholm ---
+  [crawl_homepage] Found: https://www.vaxholm.se/kommun--politik/beslut-insyn-och-rattssakerhet/officiell-anslagstavla (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.vaxholm.se/kommun--politik/beslut-insyn-och-rattssakerhet/officiell-anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Knivsta ---
+  [url_variants] Found: https://knivsta.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://knivsta.se/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Älvkarleby ---
+  [url_variants] Found: https://www.alvkarleby.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.alvkarleby.se/anslagstavla...
+  [Verify] Results: 8 items
+  [Verify] Auto-approved — 8 items extracted via HTTP
+  [Verify] Sample: {"municipality":"Älvkarleby","case_number":null,"address":"Gävlevägen 58, Skutskär","permit_type":"bygglov","status":"beviljat","date":"2026-03-26","d...
+
+--- Gnesta ---
+  [url_variants] Found: https://www.gnesta.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.gnesta.se/anslagstavla...
+  [Verify] Results: 9 items
+  [Verify] Auto-approved — 9 items extracted via HTTP
+  [Verify] Sample: {"municipality":"Gnesta kommun","case_number":"BYGG.2025.209","address":"SLAGGÄRDET 1:1","permit_type":"bygglov","status":"ansökt","date":"2026-03-26"...
+
+--- Vingåker ---
+  [crawl_homepage] Found: https://vingaker.se/kommun--politik/politik-och-demokrati/anslagstavla (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://vingaker.se/kommun--politik/politik-och-demokrati/anslagstavla...
+  [Verify] Results: 3 items
+  [Verify] Auto-approved — 3 items extracted via HTTP
+  [Verify] Sample: {"municipality":"Vingåkers kommun","case_number":"BYGG.2026.99","address":"LYTTERSTA 2:5, Lyttersta gård","permit_type":"bygglov","status":"ansökt","d...
+
+--- Finspång ---
+  [url_variants] Found: https://finspang.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://finspang.se/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Kinda ---
+  [url_variants] Found: https://www.kinda.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.kinda.se/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Ydre ---
+  [crawl_homepage] Found: https://www.ydre.se/ydre-kommun/bygga-bo-och-miljo/anslagstavla (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.ydre.se/ydre-kommun/bygga-bo-och-miljo/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Åtvidaberg ---
+  [url_variants] Found: https://www.atvidaberg.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.atvidaberg.se/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Ödeshög ---
+  [url_variants] Found: https://www.odeshog.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.odeshog.se/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Eksjö ---
+  [url_variants] Found: https://eksjo.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://eksjo.se/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Habo ---
+  [url_variants] Found: https://www.habo.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.habo.se/anslagstavla...
+  [Verify] Results: 15 items
+  [Verify] Auto-approved — 15 items extracted via HTTP
+  [Verify] Sample: {"municipality":"Håbo","case_number":"BM2026-000100","address":"Bålsta simhall","permit_type":"bygglov","status":"beviljat","date":"2026-03-27","descr...
+
+--- Mullsjö ---
+  [crawl_homepage] Found: https://www.mullsjo.se/boende-miljo-och-trafik (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.mullsjo.se/boende-miljo-och-trafik...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Sävsjö ---
+  [url_variants] Found: https://www.savsjo.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.savsjo.se/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Lessebo ---
+  [url_variants] Found: https://www.lessebo.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.lessebo.se/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Markaryd ---
+  [url_variants] Found: https://www.markaryd.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.markaryd.se/anslagstavla...
+  [Verify] Results: 7 items
+  [Verify] Auto-approved — 7 items extracted via HTTP
+  [Verify] Sample: {"municipality":"Markaryd","case_number":"MBE 2026-000037","address":"Ulvaryd 1:51, Anders Anderssons väg 14","permit_type":"bygglov","status":"ansökt...
+
+--- Uppvidinge ---
+  [crawl_homepage] Found: https://www.uppvidinge.se/kommun-och-politik/politik-och-demokrati/anslagstavla.html (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.uppvidinge.se/kommun-och-politik/politik-och-demokrati/anslagstavla.html...
+  [Verify] Results: 2 items
+  [Verify] Auto-approved — 2 items extracted via HTTP
+  [Verify] Sample: {"municipality":"Uppvidinge kommun","case_number":null,"address":"Åseda","permit_type":"bygglov","status":"ansökt","date":"2026-03-19","description":"...
+
+--- Mörbylånga ---
+  [url_variants] Found: https://www.morbylanga.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.morbylanga.se/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Vimmerby ---
+  [url_variants] Found: https://www.vimmerby.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.vimmerby.se/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Olofström ---
+  [crawl_homepage] Found: https://olofstrom.se/kommun-och-politik/overklaga-beslut-rattssakerhet/anslagstavla-officiell/kungorelser-bygglov (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://olofstrom.se/kommun-och-politik/overklaga-beslut-rattssakerhet/anslagstavla-officiell/kungorelser-bygglov...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Ronneby ---
+  [url_variants] Found: https://www.ronneby.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.ronneby.se/anslagstavla...
+  [Verify] Results: 10 items
+  [Verify] Auto-approved — 10 items extracted via HTTP
+  [Verify] Sample: {"municipality":"Ronneby kommun","case_number":"MBN 2026-000244","address":"RASKAMÅLA 1:19","permit_type":"bygglov","status":"ansökt","date":"2026-03-...
+
+--- Kävlinge ---
+  [crawl_homepage] Found: https://www.kavlinge.se/kommun-och-politik/digital-anslagstavla (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.kavlinge.se/kommun-och-politik/digital-anslagstavla...
+  [Verify] Results: 82 items
+  [Verify] Auto-approved — 82 items extracted via HTTP
+  [Verify] Sample: {"municipality":"Kävlinge kommun","case_number":null,"address":"Löddeköpinge 5:330","permit_type":"bygglov","status":"beviljat","date":"2026-03-27","d...
+
+--- Perstorp ---
+  [url_variants] Found: https://www.perstorp.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.perstorp.se/anslagstavla...
+  [Verify] Results: 4 items
+  [Verify] Auto-approved — 4 items extracted via HTTP
+  [Verify] Sample: {"municipality":"Perstorps kommun","case_number":"BN 2025/19","address":"Silversmeden 1,2,3 m.fl.","permit_type":"bygglov","status":"beviljat","date":...
+
+--- Skurup ---
+  [url_variants] Found: https://www.skurup.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.skurup.se/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Tomelilla ---
+  [url_variants] Found: https://tomelilla.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://tomelilla.se/anslagstavla...
+  [Verify] Results: 25 items
+  [Verify] Auto-approved — 25 items extracted via HTTP
+  [Verify] Sample: {"municipality":"Tomelilla kommun","case_number":null,"address":"Tjustorp 2:87","permit_type":"bygglov","status":"beviljat","date":"2026-03-27","descr...
+
+--- Örebro ---
+  [crawl_homepage] Found: https://www.orebro.se/bygga-bo--trafik.html (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.orebro.se/bygga-bo--trafik.html...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Västerås ---
+  [url_variants] Found: https://www.vasteras.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.vasteras.se/anslagstavla...
+  [Verify] Results: 28 items
+  [Verify] Auto-approved — 28 items extracted via HTTP
+  [Verify] Sample: {"municipality":"Västerås","case_number":"BY 2026-000208","address":"Sågen 2","permit_type":"bygglov","status":"beviljat","date":"2026-03-27","descrip...
+
+--- Halmstad ---
+  [url_variants] Found: https://www.halmstad.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.halmstad.se/anslagstavla...
+  [Verify] Results: 14 items
+  [Verify] Auto-approved — 14 items extracted via HTTP
+  [Verify] Sample: {"municipality":"Halmstad","case_number":"BN 2026-000410","address":"Halmstad 7:107 (Transportvägen 5)","permit_type":"bygglov","status":"beviljat","d...
+
+--- Göteborg ---
+  [crawl_homepage] Found: https://www.goteborg.se/wps/portal?uri=gbglnk%3agbg.page.b4d7866c-687f-452c-a3c5-94879c898260 (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.goteborg.se/wps/portal?uri=gbglnk%3agbg.page.b4d7866c-687f-452c-a3c5-94879c898260...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Borås ---
+  [url_variants] Found: https://www.boras.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.boras.se/anslagstavla...
+  [Verify] Results: 55 items
+  [Verify] Auto-approved — 55 items extracted via HTTP
+  [Verify] Sample: {"municipality":"Borås Stad","case_number":"BN 2026-000132","address":"Seglora-näs 2:17, Segloravägen 66, Borås","permit_type":"bygglov","status":"bev...
+
+--- Varberg ---
+  [url_variants] Found: https://www.varberg.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.varberg.se/anslagstavla...
+  [Verify] Results: 33 items
+  [Verify] Auto-approved — 33 items extracted via HTTP
+  [Verify] Sample: {"municipality":"Varbergs kommun","case_number":null,"address":"BLIXTORP 13:3","permit_type":"bygglov","status":"beviljat","date":"2026-03-27","descri...
+
+--- Falun ---
+  [url_variants] Found: https://www.falun.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.falun.se/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Kungsbacka ---
+  [url_variants] Found: https://www.kungsbacka.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.kungsbacka.se/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Skövde ---
+  [crawl_homepage] Found: https://www.skovde.se/sv/kommun-och-politik/anslagstavla/anslagtavlan/ksau-2026-03-25/ (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.skovde.se/sv/kommun-och-politik/anslagstavla/anslagtavlan/ksau-2026-03-25/...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Trelleborg ---
+  [url_variants] Found: https://www.trelleborg.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.trelleborg.se/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Ängelholm ---
+  [crawl_homepage] Found: https://www.engelholm.se/bo-bygga-och-miljo/bygga-nytt-andra-och-riva.html (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.engelholm.se/bo-bygga-och-miljo/bygga-nytt-andra-och-riva.html...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Alingsås ---
+  [crawl_homepage] Found: https://www.alingsas.se/kommun-och-politik/politik-och-beslut/digital-anslagstavla/ (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.alingsas.se/kommun-och-politik/politik-och-beslut/digital-anslagstavla/...
+  [Verify] Results: 8 items
+  [Verify] Auto-approved — 8 items extracted via HTTP
+  [Verify] Sample: {"municipality":"Alingsås kommun","case_number":null,"address":"MJÖNÄS 1:6 (BRUKSUDDEVÄGEN 25)","permit_type":"bygglov","status":"beviljat","date":"20...
+
+--- Partille ---
+  [url_variants] Found: https://www.partille.se/anslagstavla (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.partille.se/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Vellinge ---
+  [url_variants] Found: https://www.vellinge.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.vellinge.se/anslagstavla...
+  [Verify] Results: 46 items
+  [Verify] Auto-approved — 46 items extracted via HTTP
+  [Verify] Sample: {"municipality":"Vellinge kommun","case_number":"2026/327","address":"HÖLLVIKEN 20:128","permit_type":"marklov","status":"ansökt","date":"2026-03-18",...
+
+--- Kumla ---
+  [crawl_homepage] Found: https://www.kumla.se/kommunalanslagstavla (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.kumla.se/kommunalanslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Falkenberg ---
+  [haiku] Found: https://kommun.falkenberg.se/ (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://kommun.falkenberg.se/...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Lidköping ---
+  [Cheap steps failed] Escalating to Sonnet...
+  [Sonnet] Web search...
+  [Sonnet] Search result: URL: `https://lidkoping.se/kommun-och-politik/politik-och-demokrati/anslagstavla`
+ALTERNATIV: `https://lidkoping.se/bygga-bo-och-miljo/bygga-nytt-andra-eller-riva`, `https://lidkoping.se/kommun-och-po...
+  [Sonnet] Failed: Web search could not find URL (0.2923)
+
+--- Laholm ---
+  [crawl_homepage] Found: https://www.laholm.se/bygga-bo-och-miljo/bygga-nytt-andra-eller-riva/bygglov (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.laholm.se/bygga-bo-och-miljo/bygga-nytt-andra-eller-riva/bygglov...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Sala ---
+  [url_variants] Found: https://www.sala.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.sala.se/anslagstavla...
+  [Verify] Results: 11 items
+  [Verify] Auto-approved — 11 items extracted via HTTP
+  [Verify] Sample: {"municipality":"Sala kommun","case_number":"SBN 2026-000020","address":"GÄRDET 7","permit_type":"bygglov","status":"beviljat","date":"2026-03-27","de...
+
+--- Köping ---
+  [crawl_homepage] Found: https://www.koping.se/boende-trafik--miljo/bygglov.html (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.koping.se/boende-trafik--miljo/bygglov.html...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Säffle ---
+  [haiku] Found: https://www.saffle.se/boende-trafik-och-miljo/samhallsutveckling-och-lediga-tomter.html (confidence: low)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.saffle.se/boende-trafik-och-miljo/samhallsutveckling-och-lediga-tomter.html...
+  [Verify] Results: 0 items
+  [Verify] NOT approved — wrong URL, awaiting re-discovery
+
+--- Lysekil ---
+  [crawl_homepage] Found: https://www.lysekil.se/kommun-och-politik/overklaga-beslut-rattssakerhet/kommunal-anslagstavla (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.lysekil.se/kommun-och-politik/overklaga-beslut-rattssakerhet/kommunal-anslagstavla...
+  [Verify] Results: 20 items
+  [Verify] Auto-approved — 20 items extracted via HTTP
+  [Verify] Sample: {"municipality":"Lysekils kommun","case_number":null,"address":"Kyrkeby 2:19","permit_type":"bygglov","status":"ansökt","date":"2026-03-27","descripti...
+
+--- Leksand ---
+  [url_variants] Found: https://www.leksand.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.leksand.se/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Avesta ---
+  [crawl_homepage] Found: https://www.avesta.se/bygga-bo-och-miljo/planering-byggande-och-boende/bygglov-och-tillstand/ (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.avesta.se/bygga-bo-och-miljo/planering-byggande-och-boende/bygglov-och-tillstand/...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Hedemora ---
+  [url_variants] Found: https://www.hedemora.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.hedemora.se/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Bollebygd ---
+  [url_variants] Found: https://www.bollebygd.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.bollebygd.se/anslagstavla...
+  [Verify] Results: 4 items
+  [Verify] Auto-approved — 4 items extracted via HTTP
+  [Verify] Sample: {"municipality":"Bollebygds kommun","case_number":"BMN-2026-284","address":"FLÄSSJUM 13:1","permit_type":"bygglov","status":"ansökt","date":"2026-03-2...
+
+--- Filipstad ---
+  [url_variants] Found: https://www.filipstad.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.filipstad.se/anslagstavla...
+  [Verify] Results: 16 items
+  [Verify] Auto-approved — 16 items extracted via HTTP
+  [Verify] Sample: {"municipality":"Filipstads kommun","case_number":null,"address":"SAXÅN 1:1","permit_type":"bygglov","status":"ansökt","date":null,"description":"Bygg...
+
+--- Orust ---
+  [crawl_homepage] Found: https://www.orust.se/kommun-och-politik/beslut-insyn-och-rattssakerhet/anslagstavla (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.orust.se/kommun-och-politik/beslut-insyn-och-rattssakerhet/anslagstavla...
+  [Verify] Results: 28 items
+  [Verify] Auto-approved — 28 items extracted via HTTP
+  [Verify] Sample: {"municipality":"Orust kommun","case_number":"MBN/2026:351","address":"HÖGGERÖD 1:59","permit_type":"bygglov","status":"ansökt","date":"2026-03-27","d...
+
+--- Munkedal ---
+  [crawl_homepage] Found: https://www.munkedal.se/kommun-och-politik/officiell-anslagstavla (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.munkedal.se/kommun-och-politik/officiell-anslagstavla...
+  [Verify] Results: 3 items
+  [Verify] Auto-approved — 3 items extracted via HTTP
+  [Verify] Sample: {"municipality":"Munkedals kommun","case_number":"SBFV 2026-47","address":"STALE 3:49","permit_type":"bygglov","status":"ansökt","date":"2026-03-09","...
+
+--- Stenungsund ---
+  [url_variants] Found: https://www.stenungsund.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.stenungsund.se/anslagstavla...
+  [Verify] Results: 10 items
+  [Verify] Auto-approved — 10 items extracted via HTTP
+  [Verify] Sample: {"municipality":"Stenungsunds kommun","case_number":null,"address":"Stora Skår 1:95 (Getskärsvägen 11)","permit_type":"bygglov","status":"beviljat","d...
+
+--- Tjörn ---
+  [url_variants] Found: https://www.tjorn.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.tjorn.se/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Vara ---
+  [url_variants] Found: https://www.vara.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.vara.se/anslagstavla...
+  [Verify] Results: 5 items
+  [Verify] Auto-approved — 5 items extracted via HTTP
+  [Verify] Sample: {"municipality":"Vara kommun","case_number":"VABY-2026-121","address":null,"permit_type":"bygglov","status":"beviljat","date":"2026-03-27","descriptio...
+
+--- Mark ---
+  [url_variants] Found: https://www.mark.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.mark.se/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Ulricehamn ---
+  [crawl_homepage] Found: https://www.ulricehamn.se/kommun-och-politik/overklaga-beslut-rattssakerhet/anslagstavla (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.ulricehamn.se/kommun-och-politik/overklaga-beslut-rattssakerhet/anslagstavla...
+  [Verify] Results: 14 items
+  [Verify] Auto-approved — 14 items extracted via HTTP
+  [Verify] Sample: {"municipality":"Ulricehamns kommun","case_number":"2026.256","address":"Stenhuggeriet 2","permit_type":"bygglov","status":"beviljat","date":"2026-03-...
+
+--- Karlsborg ---
+  [crawl_homepage] Found: https://www.karlsborg.se/kommun--politik/sa-styrs-karlsborgs-kommun/politik/anslagstavla-for-protokoll/ (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.karlsborg.se/kommun--politik/sa-styrs-karlsborgs-kommun/politik/anslagstavla-for-protokoll/...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Kristinehamn ---
+  [crawl_homepage] Found: https://www.kristinehamn.se/bygga-bo-och-leva/bygga-andra-eller-riva/bygglovsguiden/ (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.kristinehamn.se/bygga-bo-och-leva/bygga-andra-eller-riva/bygglovsguiden/...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Säter ---
+  [crawl_homepage] Found: https://sater.se/kommun-demokrati/anslagstavla/ (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://sater.se/kommun-demokrati/anslagstavla/...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Gagnef ---
+  [crawl_homepage] Found: https://www.gagnef.se/naringsliv/tillstand-och-tillsyn/bygglov-och-eller-bygganmalan/ (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.gagnef.se/naringsliv/tillstand-och-tillsyn/bygglov-och-eller-bygganmalan/...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Munkfors ---
+  [crawl_homepage] Found: https://www.munkfors.se/kommun-och-politik/politik/digital-anslagstavla/ (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.munkfors.se/kommun-och-politik/politik/digital-anslagstavla/...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Dals-Ed ---
+  [url_variants] Found: https://www.dalsed.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.dalsed.se/anslagstavla...
+  [Verify] Results: 5 items
+  [Verify] Auto-approved — 5 items extracted via HTTP
+  [Verify] Sample: {"municipality":"Dals-Eds kommun","case_number":null,"address":"Eds-Högen 1:25","permit_type":"bygglov","status":"ansökt","date":null,"description":"B...
+
+--- Eda ---
+  [crawl_homepage] Found: https://www.eda.se/m%C3%B6ten-handlingar-och-protokoll/digital-anslagstavla__908 (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.eda.se/m%C3%B6ten-handlingar-och-protokoll/digital-anslagstavla__908...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Sunne ---
+  [url_variants] Found: https://www.sunne.se/kommun/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.sunne.se/kommun/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Hällefors ---
+  [Cheap steps failed] Escalating to Sonnet...
+  [Sonnet] Web search...
+  [Sonnet] Search result: URL: https://www.hellefors.se/anslagstavla.html
+ALTERNATIV: https://www.hellefors.se/overklaga_beslut.html
+KONFIDENS: hög...
+  [Sonnet] Loading https://www.hellefors.se/anslagstavla.html...
+  [Sonnet] ANALYZE
+
+Det här är Hällefors kommuns digitala anslagstavla och den innehåller tydligt:
+
+- **Kungörelse av bygglov** – med ett aktuellt exempel: *Bygglov för nybyggnad av nätstation*, Älgviken 1:17, S...
+  [Sonnet] Found: https://www.hellefors.se/anslagstavla.html (0.1774)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.hellefors.se/anslagstavla.html...
+  [Verify] Results: 1 items
+  [Verify] Auto-approved — 1 items extracted via HTTP
+  [Verify] Sample: {"municipality":"Hällefors kommun","case_number":"S-2026-45","address":"Älgviken 1:17","permit_type":"bygglov","status":"beviljat","date":"2026-03-03"...
+
+--- Falköping ---
+  [crawl_homepage] Found: https://anslagstavlan.falkoping.se/?utm_source=exwebb&amp;utm_medium=sidfot&amp;utm_campaign=anslagstavlan#!/billboard/ (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://anslagstavlan.falkoping.se/?utm_source=exwebb&amp;utm_medium=sidfot&amp;utm_campaign=anslagstavlan#!/billboard/...
+  [Verify] Results: 0 items
+  [Verify] NOT approved — wrong URL, awaiting re-discovery
+
+--- Vansbro ---
+  [crawl_homepage] Found: https://vansbro-anslagstavla.ciceron.cloud/index.html#!/billboard/ (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://vansbro-anslagstavla.ciceron.cloud/index.html#!/billboard/...
+  [Verify] Results: 0 items
+  [Verify] NOT approved — wrong URL, awaiting re-discovery
+
+--- Lindesberg ---
+  [url_variants] Found: https://www.lindesberg.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.lindesberg.se/anslagstavla...
+  [Verify] Results: 6 items
+  [Verify] Auto-approved — 6 items extracted via HTTP
+  [Verify] Sample: {"municipality":"Lindesbergs kommun","case_number":"S-2026-73","address":"Västansjö 1:68","permit_type":"bygglov","status":"beviljat","date":"2026-03-...
+
+--- Åstorp ---
+  [crawl_homepage] Found: https://astorp.se/bygga-bo-miljo-och-trafik/bygga-nytt-andra-och-riva/bygglov-och-anmalan.html (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://astorp.se/bygga-bo-miljo-och-trafik/bygga-nytt-andra-och-riva/bygglov-och-anmalan.html...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Örkelljunga ---
+  [crawl_homepage] Found: https://www.orkelljunga.se/16/kommun-och-politik/digital-anslagstavla.html (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.orkelljunga.se/16/kommun-och-politik/digital-anslagstavla.html...
+  [Verify] Results: 1 items
+  [Verify] Auto-approved — 1 items extracted via HTTP
+  [Verify] Sample: {"municipality":"Örkelljunga","case_number":"BYGG.2026.3","address":"KILLHULT 3:117","permit_type":"bygglov","status":"beviljat","date":"2025-03-11","...
+
+--- Hylte ---
+  [url_variants] Found: https://www.hylte.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.hylte.se/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Ale ---
+  [crawl_homepage] Found: https://ale.se/anslagstavla-officiell.html (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://ale.se/anslagstavla-officiell.html...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Färgelanda ---
+  [crawl_homepage] Found: https://fargelanda.se/bygga-bo-och-miljo/bygga-nytt-andra-eller-riva/vanliga-fragor-om-bygglov/ (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://fargelanda.se/bygga-bo-och-miljo/bygga-nytt-andra-eller-riva/vanliga-fragor-om-bygglov/...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Grästorp ---
+  [crawl_homepage] Found: https://www.grastorp.se/kommun-och-politik/anslagstavla.html (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.grastorp.se/kommun-och-politik/anslagstavla.html...
+  [Verify] Results: 5 items
+  [Verify] Auto-approved — 5 items extracted via HTTP
+  [Verify] Sample: {"municipality":"Grästorp","case_number":null,"address":"Håle 16:1","permit_type":"bygglov","status":"beviljat","date":"2026-03-27","description":"Byg...
+
+--- Götene ---
+  [url_variants] Found: https://www.gotene.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.gotene.se/anslagstavla...
+  [Verify] Results: 9 items
+  [Verify] Auto-approved — 9 items extracted via HTTP
+  [Verify] Sample: {"municipality":"Götene kommun","case_number":null,"address":null,"permit_type":"bygglov","status":"beviljat","date":"2026-03-27","description":"Medde...
+
+--- Härryda ---
+  [url_variants] Found: https://www.harryda.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.harryda.se/anslagstavla...
+  [Verify] Results: 11 items
+  [Verify] Auto-approved — 11 items extracted via HTTP
+  [Verify] Sample: {"municipality":"Härryda kommun","case_number":null,"address":"HAGEN 1:1","permit_type":"bygglov","status":"beviljat","date":null,"description":"Beslu...
+
+--- Skara ---
+  [crawl_homepage] Found: https://www.skara.se/kommunochpolitik/overklagabeslutrattssakerhet/anslagstavla.740.html (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.skara.se/kommunochpolitik/overklagabeslutrattssakerhet/anslagstavla.740.html...
+  [Verify] Results: 13 items
+  [Verify] Auto-approved — 13 items extracted via HTTP
+  [Verify] Sample: {"municipality":"Skara kommun","case_number":"SKSBN-2026-131","address":"TJUREN 5","permit_type":"bygglov","status":"beviljat","date":"2026-03-26","de...
+
+--- Strömstad ---
+  [url_variants] Found: https://www.stromstad.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.stromstad.se/anslagstavla...
+  [Verify] Results: 7 items
+  [Verify] Auto-approved — 7 items extracted via HTTP
+  [Verify] Sample: {"municipality":"Strömstad","case_number":null,"address":"Kangeröd 1:6","permit_type":"bygglov","status":"beviljat","date":"2026-03-27","description":...
+
+--- Svenljunga ---
+  [url_variants] Found: https://www.svenljunga.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.svenljunga.se/anslagstavla...
+  [Verify] Results: 10 items
+  [Verify] Auto-approved — 10 items extracted via HTTP
+  [Verify] Sample: {"municipality":"Svenljunga","case_number":null,"address":"Gälared 8:1","permit_type":"bygglov","status":"beviljat","date":"2026-03-12","description":...
+
+--- Tranemo ---
+  [crawl_homepage] Found: https://tranemo.se/kommun--politik/overklaga-beslut-rattssakerhet/officiell-anslagstavla (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://tranemo.se/kommun--politik/overklaga-beslut-rattssakerhet/officiell-anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Töreboda ---
+  [crawl_homepage] Found: https://toreboda.se/bygga-bo-och-miljo/bygglov-marklov-och-rivningslov (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://toreboda.se/bygga-bo-och-miljo/bygglov-marklov-och-rivningslov...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Vänersborg ---
+  [url_variants] Found: https://vanersborg.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://vanersborg.se/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Öckerö ---
+  [crawl_homepage] Found: https://www.ockero.se/kommun-och-politik/anslagstavla/kungorelse-av-lovbeslut-enligt-plan--och-bygglagen-2010900 (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.ockero.se/kommun-och-politik/anslagstavla/kungorelse-av-lovbeslut-enligt-plan--och-bygglagen-2010900...
+  [Verify] Results: 1 items
+  [Verify] Auto-approved — 1 items extracted via HTTP
+  [Verify] Sample: {"municipality":"Öckerö","case_number":"L 2026-000011","address":"Röd 1:93","permit_type":"bygglov","status":"beviljat","date":"2026-02-16","descripti...
+
+--- Forshaga ---
+  [url_variants] Found: https://www.forshaga.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.forshaga.se/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Hagfors ---
+  [crawl_homepage] Found: https://www.hagfors.se/undersidor/bo-och-bygga/bygga/forhandsbesked.html (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.hagfors.se/undersidor/bo-och-bygga/bygga/forhandsbesked.html...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Hammarö ---
+  [haiku] Found: https://hammaro.se/bygga-bo-och-miljo (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://hammaro.se/bygga-bo-och-miljo...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Kil ---
+  [crawl_homepage] Found: https://kil.se/kommun-och-politik/overklaga-beslut-rattssakerhet/anslagstavla-officiell (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://kil.se/kommun-och-politik/overklaga-beslut-rattssakerhet/anslagstavla-officiell...
+  [Verify] Results: 20 items
+  [Verify] Auto-approved — 20 items extracted via HTTP
+  [Verify] Sample: {"municipality":"Kils kommun","case_number":"M 2026-000082","address":"Stora Kil 1:4","permit_type":"bygglov","status":"beviljat","date":"2026-03-27",...
+
+--- Torsby ---
+  [url_variants] Found: https://torsby.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://torsby.se/anslagstavla...
+  [Verify] Results: 27 items
+  [Verify] Auto-approved — 27 items extracted via HTTP
+  [Verify] Sample: {"municipality":"Torsby","case_number":null,"address":"Branäs 6:118","permit_type":"bygglov","status":"beviljat","date":"2026-03-25","description":"Ny...
+
+--- Årjäng ---
+  [Cheap steps failed] Escalating to Sonnet...
+  [Sonnet] Web search...
+  [Sonnet] Search result: Baserat på sökresultaten är Årjäng kommuns officiella digitala anslagstavla tydligt identifierad:
+
+URL: https://www.arjang.se/kommunalservice/startsida/kommunochpolitik/beslutinsynochrattssakerhet/dig...
+  [Sonnet] Loading https://www.arjang.se/kommunalservice/startsida/kommunochpolitik/beslutinsynochrattssakerhet/digitalanslagstavla.2654.html...
+  [Sonnet] OSÄKER
+
+Jag ser att detta är Årjängs kommuns **digitala anslagstavla** ("Digital anslagstavla"), vilket är rätt typ av sida. Den ligger under:
+
+> Kommun och politik → Beslut, insyn och rättssäkerhet →...
+  [Sonnet] NAVIGATE: https://www.arjang.se/kommunalservice/startsida/kommunochpolitik/beslutinsynochrattssakerhet/digitalanslagstavla.2654.html
+
+I need to see the actual content of the digital notice board page....
+  [Sonnet] OSÄKER
+
+Samma problem som tidigare – HTML är trunkerad och innehållssektionen (`<main>`/`#page_content`) syns inte. Jag ser bara header/navigation.
+
+Det verkar som att sidans faktiska anslags-innehåll...
+  [Sonnet] ANALYZE
+
+This is the correct page - Årjäng kommuns digitala anslagstavla. Even though the content loads dynamically via JavaScript, this is the right URL for building permits and public notices.
+
+Here...
+  [Sonnet] Found: https://www.arjang.se/kommunalservice/startsida/kommunochpolitik/beslutinsynochrattssakerhet/digitalanslagstavla.2654.html (0.4023)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.arjang.se/kommunalservice/startsida/kommunochpolitik/beslutinsynochrattssakerhet/digitalanslagstavla.2654.html...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Askersund ---
+  [url_variants] Found: https://www.askersund.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.askersund.se/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Karlskoga ---
+  [url_variants] Found: https://www.karlskoga.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.karlskoga.se/anslagstavla...
+  [Verify] Results: 7 items
+  [Verify] Auto-approved — 7 items extracted via HTTP
+  [Verify] Sample: {"municipality":"Karlskoga","case_number":null,"address":null,"permit_type":"bygglov","status":"ansökt","date":"2026-03-26","description":"Kungörelse ...
+
+--- Laxå ---
+  [crawl_homepage] Found: https://www.laxa.se/Kommun-och-politik/Demokrati-och-insyn/Kommunal-anslagstavla.html (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.laxa.se/Kommun-och-politik/Demokrati-och-insyn/Kommunal-anslagstavla.html...
+  [Verify] Results: 5 items
+  [Verify] Auto-approved — 5 items extracted via HTTP
+  [Verify] Sample: {"municipality":"Laxå kommun","case_number":"BYGG 2026-000039","address":"LINDÅSEN 1:42 (VATTUGATAN 7)","permit_type":"bygglov","status":"beviljat","d...
+
+--- Ljusnarsberg ---
+  [url_variants] Found: https://ljusnarsberg.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://ljusnarsberg.se/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Nora ---
+  [url_variants] Found: https://www.nora.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.nora.se/anslagstavla...
+  [Verify] Results: 2 items
+  [Verify] Auto-approved — 2 items extracted via HTTP
+  [Verify] Sample: {"municipality":"Nora kommun","case_number":"S-2026-23","address":"Nora Sjöhagen 1:1","permit_type":"bygglov","status":"beviljat","date":"2026-03-16",...
+
+--- Hallstahammar ---
+  [url_variants] Found: https://www.hallstahammar.se/anslagstavla (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.hallstahammar.se/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Kungsör ---
+  [crawl_homepage] Found: https://kungsor.se/kommun-och-politik/anslagstavla.html (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://kungsor.se/kommun-och-politik/anslagstavla.html...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Surahammar ---
+  [url_variants] Found: https://surahammar.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://surahammar.se/anslagstavla...
+  [Verify] Results: 2 items
+  [Verify] Auto-approved — 2 items extracted via HTTP
+  [Verify] Sample: {"municipality":"Surahammars kommun","case_number":null,"address":null,"permit_type":"bygglov","status":"beviljat","date":"2026-03-27","description":"...
+
+--- Borlänge ---
+  [url_variants] Found: https://www.borlange.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.borlange.se/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Malung-Sälen ---
+  [url_variants] Found: https://malung-salen.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://malung-salen.se/anslagstavla...
+  [Verify] Results: 11 items
+  [Verify] Auto-approved — 11 items extracted via HTTP
+  [Verify] Sample: {"municipality":"Malung-Sälen","case_number":"BYGG.2026.81","address":"Östra Sälen 8:12","permit_type":"bygglov","status":"ansökt","date":"2026-03-27"...
+
+--- Orsa ---
+  [crawl_homepage] Found: https://www.orsa.se/arkiv/digital-anslagstavla.html (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.orsa.se/arkiv/digital-anslagstavla.html...
+  [Verify] Results: 8 items
+  [Verify] Auto-approved — 8 items extracted via HTTP
+  [Verify] Sample: {"municipality":"Orsa kommun","case_number":"BKM 2026-000143","address":null,"permit_type":null,"status":"beviljat","date":"2026-03-04","description":...
+
+--- Smedjebacken ---
+  [crawl_homepage] Found: https://www.smedjebacken.se/kommun-och-politik/politik-och-demokrati/digital-anslagstavla.html (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.smedjebacken.se/kommun-och-politik/politik-och-demokrati/digital-anslagstavla.html...
+  [Verify] Results: 10 items
+  [Verify] Auto-approved — 10 items extracted via HTTP
+  [Verify] Sample: {"municipality":"Smedjebackens kommun","case_number":"MBN 2026-000116","address":"HARNÄS 16:1","permit_type":"förhandsbesked","status":"ansökt","date"...
+
+--- Älvdalen ---
+  [crawl_homepage] Found: https://www.alvdalen.se/arkiv/digital-anslagstavla.html (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.alvdalen.se/arkiv/digital-anslagstavla.html...
+  [Verify] Results: 19 items
+  [Verify] Auto-approved — 19 items extracted via HTTP
+  [Verify] Sample: {"municipality":"Älvdalens kommun","case_number":"bygg 2025-000441","address":null,"permit_type":null,"status":"beviljat","date":"2026-03-06","descrip...
+
+--- Nacka ---
+  [url_variants] Found: https://www.nacka.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.nacka.se/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Malmö ---
+  [url_variants] Found: https://malmo.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://malmo.se/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Mölndal ---
+  [url_variants] Found: https://www.molndal.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.molndal.se/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Linköping ---
+  [crawl_homepage] Found: https://ciceron-anslagstavlan.linkoping.se/#!/billboard/ (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://ciceron-anslagstavlan.linkoping.se/#!/billboard/...
+  [Verify] Results: 0 items
+  [Verify] NOT approved — wrong URL, awaiting re-discovery
+
+--- Umeå ---
+  [url_variants] Found: https://www.umea.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.umea.se/anslagstavla...
+  [Verify] Results: 9 items
+  [Verify] Auto-approved — 9 items extracted via HTTP
+  [Verify] Sample: {"municipality":"Umeå kommun","case_number":null,"address":"Balder 3","permit_type":"bygglov","status":"beviljat","date":"2026-03-27","description":"M...
+
+--- Karlstad ---
+  [url_variants] Found: https://karlstad.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://karlstad.se/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Sundsvall ---
+  [url_variants] Found: https://www.sundsvall.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.sundsvall.se/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Höör ---
+  [crawl_homepage] Found: https://www.hoor.se/bygga-bo-miljo/ (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.hoor.se/bygga-bo-miljo/...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Tibro ---
+  [url_variants] Found: https://www.tibro.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.tibro.se/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Kiruna ---
+  [url_variants] Found: https://www.kiruna.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.kiruna.se/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Stockholm ---
+  [Cheap steps failed] Escalating to Sonnet...
+  [Sonnet] Web search...
+  [Sonnet] Search result: URL: https://meetingspublic.stockholm.se/digital-bulletin-board
+ALTERNATIV: https://start.stockholm/om-stockholms-stad/politik-och-demokrati/stockholms-stads-anslagstavla/, https://bygglov.stockholm/
+...
+  [Sonnet] Loading https://meetingspublic.stockholm.se/digital-bulletin-board...
+  [Sonnet] ANALYZE
+
+Detta är Stockholms stads officiella digitala anslagstavla (Digital Anslagstavla) som innehåller bland annat:
+
+- **Underrättelse om lovbeslut SBK** (Stadsbyggnadsnämnden) – dvs. bygglov/lovbe...
+  [Sonnet] Found: https://meetingspublic.stockholm.se/digital-bulletin-board (0.1386)
+  [DB] Config saved
+  [Verify] Testing extraction from https://meetingspublic.stockholm.se/digital-bulletin-board...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Gävle ---
+  [url_variants] Found: https://www.gavle.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.gavle.se/anslagstavla...
+  [Verify] Results: 35 items
+  [Verify] Auto-approved — 35 items extracted via HTTP
+  [Verify] Sample: {"municipality":"Gävle kommun","case_number":"BOB-2026-166","address":"Andersberg 11:40","permit_type":"rivningslov","status":"beviljat","date":"2026-...
+
+--- Växjö ---
+  [url_variants] Found: https://www.vaxjo.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.vaxjo.se/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Trollhättan ---
+  [url_variants] Found: https://www.trollhattan.se/anslagstavla (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.trollhattan.se/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Nyköping ---
+  [crawl_homepage] Found: https://www.nykoping.se/bo-bygga--miljo/ (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.nykoping.se/bo-bygga--miljo/...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Kristianstad ---
+  [url_variants] Found: https://www.kristianstad.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.kristianstad.se/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Luleå ---
+  [url_variants] Found: https://www.lulea.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.lulea.se/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Skellefteå ---
+  [url_variants] Found: https://www.skelleftea.se/kommun/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.skelleftea.se/kommun/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Kalmar ---
+  [url_variants] Found: https://www.kalmar.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.kalmar.se/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Östersund ---
+  [url_variants] Found: https://www.ostersund.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.ostersund.se/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Upplands Väsby ---
+  [url_variants] Found: https://www.upplandsvasby.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.upplandsvasby.se/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Sollentuna ---
+  [url_variants] Found: https://www.sollentuna.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.sollentuna.se/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Uddevalla ---
+  [crawl_homepage] Found: https://www.uddevalla.se/kommun-och-politik/overklaga-beslut-rattsakerhet/uddevalla-kommuns-anslagstavla.html (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.uddevalla.se/kommun-och-politik/overklaga-beslut-rattsakerhet/uddevalla-kommuns-anslagstavla.html...
+  [Verify] Results: 34 items
+  [Verify] Auto-approved — 34 items extracted via HTTP
+  [Verify] Sample: {"municipality":"Uddevalla kommun","case_number":null,"address":"SKÄLLÄCKERÖD 1:2","permit_type":"bygglov","status":"beviljat","date":"2026-03-27","de...
+
+--- Värmdö ---
+  [url_variants] Found: https://www.varmdo.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.varmdo.se/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Lerum ---
+  [url_variants] Found: https://www.lerum.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.lerum.se/anslagstavla...
+  [Verify] Results: 8 items
+  [Verify] Auto-approved — 8 items extracted via HTTP
+  [Verify] Sample: {"municipality":"Lerum","case_number":null,"address":"ANNEKÄRR 2:8","permit_type":null,"status":"beviljat","date":"2026-03-27","description":"Kungörel...
+
+--- Piteå ---
+  [url_variants] Found: https://www.pitea.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.pitea.se/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Sandviken ---
+  [crawl_homepage] Found: https://www.sandviken.se/kommunochpolitik/anslagochkungorelser.22958.html (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.sandviken.se/kommunochpolitik/anslagochkungorelser.22958.html...
+  [Verify] Results: 7 items
+  [Verify] Auto-approved — 7 items extracted via HTTP
+  [Verify] Sample: {"municipality":"Sandvikens kommun","case_number":"VGS-BYGG 2026-000083","address":"Bovik 5:6 (Karlsbovägen 1)","permit_type":"bygglov","status":"ansö...
+
+--- Strängnäs ---
+  [url_variants] Found: https://www.strangnas.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.strangnas.se/anslagstavla...
+  [Verify] Results: 6 items
+  [Verify] Auto-approved — 6 items extracted via HTTP
+  [Verify] Sample: {"municipality":"Strängnäs kommun","case_number":null,"address":"Hedlandet 1:78","permit_type":null,"status":"ansökt","date":"2026-03-23","description...
+
+--- Ystad ---
+  [crawl_homepage] Found: https://www.ystad.se/kommun-och-politik/sa-styrs-ystads-kommun/den-politiska-styrningen/anslagstavla (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.ystad.se/kommun-och-politik/sa-styrs-ystads-kommun/den-politiska-styrningen/anslagstavla...
+  [Verify] Results: 32 items
+  [Verify] Auto-approved — 32 items extracted via HTTP
+  [Verify] Sample: {"municipality":"Ystads kommun","case_number":null,"address":"Baldringetorp 1:1","permit_type":"bygglov","status":"beviljat","date":null,"description"...
+
+--- Nynäshamn ---
+  [crawl_homepage] Found: https://www.nynashamn.se/service/boende--miljo/bygga-nytt-andra-eller-riva/sa-soker-du-bygglov (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.nynashamn.se/service/boende--miljo/bygga-nytt-andra-eller-riva/sa-soker-du-bygglov...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Härnösand ---
+  [url_variants] Found: https://www.harnosand.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.harnosand.se/anslagstavla...
+  [Verify] Results: 6 items
+  [Verify] Auto-approved — 6 items extracted via HTTP
+  [Verify] Sample: {"municipality":"Härnösand","case_number":null,"address":"BERGOM 1:31","permit_type":"bygglov","status":"beviljat","date":"2026-03-26","description":"...
+
+--- Staffanstorp ---
+  [crawl_homepage] Found: https://staffanstorp.se/kommun-och-politik/beslut-insyn-och-rattssakerhet/digital-anslagstavla/ (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://staffanstorp.se/kommun-och-politik/beslut-insyn-och-rattssakerhet/digital-anslagstavla/...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Kungälv ---
+  [url_variants] Found: https://www.kungalv.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.kungalv.se/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Sundbyberg ---
+  [crawl_homepage] Found: https://www.sundbyberg.se/kommun-och-politik/politik-och-demokrati/anslagstavla (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.sundbyberg.se/kommun-och-politik/politik-och-demokrati/anslagstavla...
+  [Verify] Results: 14 items
+  [Verify] Auto-approved — 14 items extracted via HTTP
+  [Verify] Sample: {"municipality":"Sundbyberg","case_number":null,"address":"DOMHERREN 24, Fredsgatan 22, Sundbyberg","permit_type":"bygglov","status":"ansökt","date":"...
+
+--- Örnsköldsvik ---
+  [crawl_homepage] Found: https://www.ornskoldsvik.se/om-kommunen/politiska-beslut-och-handlingar/anslagstavla (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.ornskoldsvik.se/om-kommunen/politiska-beslut-och-handlingar/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Eslöv ---
+  [crawl_homepage] Found: https://eslov.se/anslag (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://eslov.se/anslag...
+  [Verify] Results: 8 items
+  [Verify] Auto-approved — 8 items extracted via HTTP
+  [Verify] Sample: {"municipality":"Eslövs kommun","case_number":null,"address":"Billinge 14:70, Stationsvägen 15, Billinge","permit_type":"bygglov","status":"beviljat",...
+
+--- Mariestad ---
+  [crawl_homepage] Found: https://www.mariestad.se/bygga-bo-och-miljo/bygglov-marklov-och-rivningslov (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.mariestad.se/bygga-bo-och-miljo/bygglov-marklov-och-rivningslov...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Arvika ---
+  [url_variants] Found: https://www.arvika.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.arvika.se/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Osby ---
+  [url_variants] Found: https://www.osby.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.osby.se/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Mora ---
+  [haiku] Found: https://morakommun.se/ (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://morakommun.se/...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Älmhult ---
+  [Cheap steps failed] Escalating to Sonnet...
+  [Sonnet] Web search...
+  [Sonnet] Search result: URL: https://www.almhult.se/kommunpolitik/motenhandlingarprotokoll/anslagstavla.930.html
+ALTERNATIV: https://www.almhult.se/kommunpolitik/motenhandlingarprotokoll/anslagstavla.930.html (ingen ytterlig...
+  [Sonnet] Loading https://www.almhult.se/kommunpolitik/motenhandlingarprotokoll/anslagstavla.930.html...
+  [Sonnet] OSÄKER
+
+Vad jag ser: En CAPTCHA/bot-verifieringssida från en WAF (Web Application Firewall), troligen Cloudflare eller liknande säkerhetslösning. Sidan blockerar åtkomst och ber om att lösa en bildkod...
+  [Sonnet] NAVIGATE: https://www.almhult.se/kommunpolitik/motenhandlingarprotokoll/anslagstavla.930.html
+  [Sonnet] OSÄKER
+
+Samma CAPTCHA-blockering visas igen. Webbplatsen blockerar automatiserad åtkomst konsekvent.
+
+**Rekommendation:** Denna webbplats går troligen inte att skrapa automatiskt via URL-navigation. F...
+  [Sonnet] OSÄKER
+
+Jag är fast i en CAPTCHA-loop och kan inte ta mig vidare automatiskt. Sidan blockerar bot-åtkomst konsekvent och jag kan inte se något verkligt innehåll att analysera.
+
+Jag kan inte producera ...
+  [Sonnet] Failed: Could not generate valid config (0.0805)
+
+--- Gislaved ---
+  [url_variants] Found: https://www.gislaved.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.gislaved.se/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Lilla Edet ---
+  [url_variants] Found: https://www.lillaedet.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.lillaedet.se/anslagstavla...
+  [Verify] Results: 4 items
+  [Verify] Auto-approved — 4 items extracted via HTTP
+  [Verify] Sample: {"municipality":"Lilla Edets kommun","case_number":null,"address":"Eden 24","permit_type":"bygglov","status":"ansökt","date":"2026-03-26","description...
+
+--- Sölvesborg ---
+  [url_variants] Found: https://www.solvesborg.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.solvesborg.se/anslagstavla...
+  [Verify] Results: 12 items
+  [Verify] Auto-approved — 12 items extracted via HTTP
+  [Verify] Sample: {"municipality":"Sölvesborgs kommun","case_number":"BN 2026-000045","address":"SIRETORP 3:285 (PARADISSTIGEN 5956)","permit_type":"bygglov","status":"...
+
+--- Bengtsfors ---
+  [url_variants] Found: https://www.bengtsfors.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.bengtsfors.se/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Höganäs ---
+  [url_variants] Found: https://www.hoganas.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.hoganas.se/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Älvsbyn ---
+  [url_variants] Found: https://www.alvsbyn.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.alvsbyn.se/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Arjeplog ---
+  [crawl_homepage] Found: https://arjeplog.se/foretag-forening-och-naringsliv/tillstand-regler-och-tillsyn/bygglov/ (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://arjeplog.se/foretag-forening-och-naringsliv/tillstand-regler-och-tillsyn/bygglov/...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Norsjö ---
+  [Cheap steps failed] Escalating to Sonnet...
+  [Sonnet] Web search...
+  [Sonnet] Search result: URL: https://www.norsjo.se/kommun-politik/beslut-insyn-och-rattssakerhet/digital-anslagstavla/
+ALTERNATIV: https://www.norsjo.se/bygga-bo-miljo/bygga-nytt-andra-eller-riva/bygglov-och-andra-lov/
+KONFI...
+  [Sonnet] Loading https://www.norsjo.se/kommun-politik/beslut-insyn-och-rattssakerhet/digital-anslagstavla/...
+  [Sonnet] Failed: Could not load URL: page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to "https://www.norsjo.se/kommun-politik/beslut-insyn-och-rattssakerhet/digital-anslagstavla/", waiting until "networkidle"[22m
+ (0.0700)
+
+--- Övertorneå ---
+  [url_variants] Found: https://www.overtornea.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.overtornea.se/anslagstavla...
+  [Verify] Results: 1 items
+  [Verify] Auto-approved — 1 items extracted via HTTP
+  [Verify] Sample: {"municipality":"Övertorneå kommun","case_number":null,"address":"VITSANIEMI 8:7","permit_type":"bygglov","status":"beviljat","date":"2026-03-27","des...
+
+--- Jokkmokk ---
+  [crawl_homepage] Found: https://www.jokkmokk.se/kommun-och-politik/anslagstavla/ (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.jokkmokk.se/kommun-och-politik/anslagstavla/...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Kalix ---
+  [url_variants] Found: https://www.kalix.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.kalix.se/anslagstavla...
+  [Verify] Results: 2 items
+  [Verify] Auto-approved — 2 items extracted via HTTP
+  [Verify] Sample: {"municipality":"Kalix","case_number":null,"address":"Yttrebyn 90:4","permit_type":"rivningslov","status":"beviljat","date":"2026-01-27","description"...
+
+--- Lycksele ---
+  [url_variants] Found: https://www.lycksele.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.lycksele.se/anslagstavla...
+  [Verify] Results: 1 items
+  [Verify] Auto-approved — 1 items extracted via HTTP
+  [Verify] Sample: {"municipality":"Lycksele","case_number":null,"address":null,"permit_type":"bygglov","status":"ansökt","date":"2026-02-27","description":"Anslag: Bygg...
+
+--- Malå ---
+  [url_variants] Found: https://www.mala.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.mala.se/anslagstavla...
+  [Verify] Results: 2 items
+  [Verify] Auto-approved — 2 items extracted via HTTP
+  [Verify] Sample: {"municipality":"Malå kommun","case_number":"13597","address":null,"permit_type":"bygglov","status":"beviljat","date":"2026-03-12","description":"Kung...
+
+--- Överkalix ---
+  [crawl_homepage] Found: https://www.overkalix.se/kommun-och-politik/politik-och-organisation/anslagstavla/ (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.overkalix.se/kommun-och-politik/politik-och-organisation/anslagstavla/...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Pajala ---
+  [crawl_homepage] Found: https://www.pajala.se/kommun-politik-och-service/anslagstavla/kungorelser-bygglov/ (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.pajala.se/kommun-politik-och-service/anslagstavla/kungorelser-bygglov/...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Storuman ---
+  [url_variants] Found: https://www.storuman.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.storuman.se/anslagstavla...
+  [Verify] Results: 4 items
+  [Verify] Auto-approved — 4 items extracted via HTTP
+  [Verify] Sample: {"municipality":"Storumans kommun","case_number":"MB-2026-113","address":"Joeström 1:241","permit_type":"bygglov","status":"beviljat","date":"2026-03-...
+
+--- Dorotea ---
+  [url_variants] Found: https://www.dorotea.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.dorotea.se/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Vilhelmina ---
+  [url_variants] Found: https://www.vilhelmina.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.vilhelmina.se/anslagstavla...
+  [Verify] Results: 8 items
+  [Verify] Auto-approved — 8 items extracted via HTTP
+  [Verify] Sample: {"municipality":"Vilhelmina Kommun","case_number":"D003","address":"ALLMÄNNINGSSKOGEN 1:1","permit_type":"bygglov","status":"beviljat","date":"2026-03...
+
+--- Hofors ---
+  [crawl_homepage] Found: https://www.hofors.se/kommun--politik/anslagstavlan.html (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.hofors.se/kommun--politik/anslagstavlan.html...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Hudiksvall ---
+  [crawl_homepage] Found: https://hudiksvall.se/Sidor/Kommun-och-politik/Anslagstavla.html (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://hudiksvall.se/Sidor/Kommun-och-politik/Anslagstavla.html...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Ljusdal ---
+  [crawl_homepage] Found: https://anslagstavlan.ljusdal.se/ (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://anslagstavlan.ljusdal.se/...
+  [Verify] Results: 0 items
+  [Verify] NOT approved — wrong URL, awaiting re-discovery
+
+--- Nordanstig ---
+  [url_variants] Found: https://nordanstig.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://nordanstig.se/anslagstavla...
+  [Verify] Results: 2 items
+  [Verify] Auto-approved — 2 items extracted via HTTP
+  [Verify] Sample: {"municipality":"Nordanstigs kommun","case_number":null,"address":"Vallen 22:10","permit_type":"bygglov","status":"beviljat","date":"2026-03-16","desc...
+
+--- Ockelbo ---
+  [crawl_homepage] Found: https://ockelbo.se/kommun--politik/beslut--handlingar/anslagstavla (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://ockelbo.se/kommun--politik/beslut--handlingar/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Ovanåker ---
+  [url_variants] Found: https://www.ovanaker.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.ovanaker.se/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Söderhamn ---
+  [url_variants] Found: https://www.soderhamn.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.soderhamn.se/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Kramfors ---
+  [crawl_homepage] Found: https://www.kramfors.se/kommun--demokrati/anslagstavla.html (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.kramfors.se/kommun--demokrati/anslagstavla.html...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Sollefteå ---
+  [crawl_homepage] Found: https://www.solleftea.se/bygga-bo--miljo/bygglov-tillstand-och-fastighetsfragor (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.solleftea.se/bygga-bo--miljo/bygglov-tillstand-och-fastighetsfragor...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Timrå ---
+  [crawl_homepage] Found: https://www.timra.se/evenemangsarkiv/osynligasidor/timrakommunsdigitalaanslagstavla.4.352d744118487e80c3c643.html (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.timra.se/evenemangsarkiv/osynligasidor/timrakommunsdigitalaanslagstavla.4.352d744118487e80c3c643.html...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Ånge ---
+  [crawl_homepage] Found: https://moten.ange.se/digital-bulletin-board (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://moten.ange.se/digital-bulletin-board...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Berg ---
+  [url_variants] Found: https://berg.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://berg.se/anslagstavla...
+  [Verify] Results: 1 items
+  [Verify] Auto-approved — 1 items extracted via HTTP
+  [Verify] Sample: {"municipality":"Berg","case_number":null,"address":"Klövsjö 1:234","permit_type":null,"status":"ansökt","date":"2026-03-17","description":"Samråd för...
+
+--- Bräcke ---
+  [crawl_homepage] Found: https://www.bracke.se/kommun--och-demokrati/beslut-insyn-och-rattssakerhet/anslagstavla (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.bracke.se/kommun--och-demokrati/beslut-insyn-och-rattssakerhet/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Ragunda ---
+  [crawl_homepage] Found: https://www.ragunda.se/kommunochpolitik/politikochmoten/digitalanslagstavla.1029.html (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.ragunda.se/kommunochpolitik/politikochmoten/digitalanslagstavla.1029.html...
+  [Verify] Results: 1 items
+  [Verify] Auto-approved — 1 items extracted via HTTP
+  [Verify] Sample: {"municipality":"Ragunda kommun","case_number":null,"address":"Kånkback 1:107","permit_type":"bygglov","status":"beviljat","date":"2026-03-12","descri...
+
+--- Strömsund ---
+  [crawl_homepage] Found: https://www.stromsund.se/2251.html (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.stromsund.se/2251.html...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Bjurholm ---
+  [crawl_homepage] Found: https://www.bjurholm.se/kommun-och-politik/politik/anslagstavlan (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.bjurholm.se/kommun-och-politik/politik/anslagstavlan...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Sorsele ---
+  [haiku] Found: https://www.sorsele.se/ (confidence: low)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.sorsele.se/...
+  [Verify] Results: 0 items
+  [Verify] NOT approved — wrong URL, awaiting re-discovery
+
+--- Vindeln ---
+  [url_variants] Found: https://www.vindeln.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.vindeln.se/anslagstavla...
+  [Verify] Results: 5 items
+  [Verify] Auto-approved — 5 items extracted via HTTP
+  [Verify] Sample: {"municipality":"Vindelns kommun","case_number":null,"address":"Hällnäs 1:191","permit_type":"bygglov","status":"beviljat","date":"2026-03-24","descri...
+
+--- Vännäs ---
+  [url_variants] Found: https://www.vannas.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.vannas.se/anslagstavla...
+  [Verify] Results: 1 items
+  [Verify] Auto-approved — 1 items extracted via HTTP
+  [Verify] Sample: {"municipality":"Vännäs kommun","case_number":null,"address":"PROFESSORN 5","permit_type":"bygglov","status":"beviljat","date":"2026-03-11","descripti...
+
+--- Boden ---
+  [crawl_homepage] Found: https://anslagstavla.boden.se/ (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://anslagstavla.boden.se/...
+  [Verify] Results: 0 items
+  [Verify] NOT approved — wrong URL, awaiting re-discovery
+
+--- Gällivare ---
+  [url_variants] Found: https://gallivare.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://gallivare.se/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Nordmaling ---
+  [Cheap steps failed] Escalating to Sonnet...
+  [Sonnet] Web search...
+  [Sonnet] Search result: URL: https://www.nordmaling.se/kommun/politik/anslagstavla
+ALTERNATIV: https://www.nordmaling.se/anslagstavla?k=18129, https://www.nordmaling.se/kommun/politik/anslagstavla/arkiv-kungorelser
+KONFIDENS...
+  [Sonnet] Loading https://www.nordmaling.se/kommun/politik/anslagstavla...
+  [Sonnet] ANALYZE
+
+Detta är klart Nordmalings kommuns officiella anslagstavla med kungörelser och bygglov. Sidan innehåller:
+
+- Flera **"Underrättelse av beslut om bygglov"** (Kungörelser)
+- Publiceringsperiode...
+  [Sonnet] Found: https://www.nordmaling.se/kommun/politik/anslagstavla (0.1649)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.nordmaling.se/kommun/politik/anslagstavla...
+  [Verify] Results: 0 items (error: fetch failed)
+  [Verify] NOT approved — wrong URL, awaiting re-discovery
+
+--- Åsele ---
+  [url_variants] Found: https://www.asele.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.asele.se/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Tanum ---
+  [url_variants] Found: https://www.tanum.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.tanum.se/anslagstavla...
+  [Verify] Results: 5 items
+  [Verify] Auto-approved — 5 items extracted via HTTP
+  [Verify] Sample: {"municipality":"Tanums kommun","case_number":"BYGG.2025.2097","address":"LAMMÖN 1:33, Lammön 1","permit_type":"bygglov","status":"beviljat","date":"2...
+
+--- Herrljunga ---
+  [crawl_homepage] Found: https://www.herrljunga.se/kommun-och-politik/digital-anslagstavla (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.herrljunga.se/kommun-och-politik/digital-anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Hjo ---
+  [crawl_homepage] Found: https://www.hjo.se/bostad--miljo/bygglov-och-anmalan/ (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.hjo.se/bostad--miljo/bygglov-och-anmalan/...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Söderköping ---
+  [crawl_homepage] Found: https://www.soderkoping.se/sok/#?cludoquery=bygglov (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.soderkoping.se/sok/#?cludoquery=bygglov...
+  [Verify] Results: 0 items
+  [Verify] NOT approved — wrong URL, awaiting re-discovery
+
+--- Arboga ---
+  [crawl_homepage] Found: https://www.arboga.se/bygga-bo-och-miljo.html (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.arboga.se/bygga-bo-och-miljo.html...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Skinnskatteberg ---
+  [crawl_homepage] Found: https://www.skinnskatteberg.se/kommun-och-demokrati/digital-anslagstavla/ (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.skinnskatteberg.se/kommun-och-demokrati/digital-anslagstavla/...
+  [Verify] Results: 3 items
+  [Verify] Auto-approved — 3 items extracted via HTTP
+  [Verify] Sample: {"municipality":"Skinnskatteberg","case_number":null,"address":"Holmsbovallen 1:17","permit_type":"bygglov","status":"beviljat","date":"2026-03-09","d...
+
+--- Alvesta ---
+  [crawl_homepage] Found: https://anslagstavla.alvesta.se/#!/billboard/ (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://anslagstavla.alvesta.se/#!/billboard/...
+  [Verify] Results: 0 items
+  [Verify] NOT approved — wrong URL, awaiting re-discovery
+
+--- Nybro ---
+  [url_variants] Found: https://www.nybro.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.nybro.se/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Mellerud ---
+  [url_variants] Found: https://www.mellerud.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.mellerud.se/anslagstavla...
+  [Verify] Results: 8 items
+  [Verify] Auto-approved — 8 items extracted via HTTP
+  [Verify] Sample: {"municipality":"Melleruds kommun","case_number":null,"address":"Hunnebyn 1:27","permit_type":"bygglov","status":"ansökt","date":null,"description":"G...
+
+--- Östhammar ---
+  [url_variants] Found: https://www.osthammar.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.osthammar.se/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Degerfors ---
+  [haiku] Found: https://www.degerfors.se/bo-bygga-trafik-och-miljo/bygga-nytt-riva-eller-andra.html (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.degerfors.se/bo-bygga-trafik-och-miljo/bygga-nytt-riva-eller-andra.html...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Åmål ---
+  [crawl_homepage] Found: https://anslagstavla.amal.se/ (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://anslagstavla.amal.se/...
+  [Verify] Results: 0 items
+  [Verify] NOT approved — wrong URL, awaiting re-discovery
+
+--- Nykvarn ---
+  [crawl_homepage] Found: https://nykvarn.se/kommun-och-politik/anslagstavla (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://nykvarn.se/kommun-och-politik/anslagstavla...
+  [Verify] Results: 7 items
+  [Verify] Auto-approved — 7 items extracted via HTTP
+  [Verify] Sample: {"municipality":"Nykvarns kommun","case_number":"BYGG.2026.8","address":"HÖKMOSSEN 1:77","permit_type":"marklov","status":"beviljat","date":"2026-03-2...
+
+--- Heby ---
+  [crawl_homepage] Found: https://www.heby.se/organisation-plats-och-politik/sammantraden-handlingar-och-styrande-dokument/digital-anslagstavla (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.heby.se/organisation-plats-och-politik/sammantraden-handlingar-och-styrande-dokument/digital-anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Flen ---
+  [url_variants] Found: https://flen.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://flen.se/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Boxholm ---
+  [crawl_homepage] Found: https://www.boxholm.se/bygga-bo-och-miljo/bygga-nytt-andra-eller-riva/bygglovsguide/bygganmalan (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.boxholm.se/bygga-bo-och-miljo/bygga-nytt-andra-eller-riva/bygglovsguide/bygganmalan...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Vadstena ---
+  [url_variants] Found: https://www.vadstena.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.vadstena.se/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Aneby ---
+  [crawl_homepage] Found: https://www.aneby.se/arkiv/digital-anslagstavla/anslag/2026-03-26-kungorelse-om-beviljat-bygglov-pa-fastigheten-slapvagnen-2.html (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.aneby.se/arkiv/digital-anslagstavla/anslag/2026-03-26-kungorelse-om-beviljat-bygglov-pa-fastigheten-slapvagnen-2.html...
+  [Verify] Results: 1 items
+  [Verify] Auto-approved — 1 items extracted via HTTP
+  [Verify] Sample: {"municipality":"Aneby","case_number":null,"address":"Släpvagnen 2","permit_type":"bygglov","status":"beviljat","date":"2026-03-25","description":"Tid...
+
+--- Nässjö ---
+  [url_variants] Found: https://nassjo.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://nassjo.se/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Ljungby ---
+  [crawl_homepage] Found: https://www.ljungby.se/kommun-och-politik/anslagstavla-officiell (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.ljungby.se/kommun-och-politik/anslagstavla-officiell...
+  [Verify] Results: 21 items
+  [Verify] Auto-approved — 21 items extracted via HTTP
+  [Verify] Sample: {"municipality":"Ljungby kommun","case_number":"BYGG 2026-000052","address":"Bolmsö-horn 1:6","permit_type":"bygglov","status":"beviljat","date":"2026...
+
+--- Emmaboda ---
+  [crawl_homepage] Found: https://www.emmaboda.se/kommun--politik/politik-och-demokrati/anslagstavla.html (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.emmaboda.se/kommun--politik/politik-och-demokrati/anslagstavla.html...
+  [Verify] Results: 9 items
+  [Verify] Auto-approved — 9 items extracted via HTTP
+  [Verify] Sample: {"municipality":"Emmaboda","case_number":"BMN-2026-97","address":"EMMABO 1:423","permit_type":"bygglov","status":"beviljat","date":"2026-03-26","descr...
+
+--- Västervik ---
+  [url_variants] Found: https://www.vastervik.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.vastervik.se/anslagstavla...
+  [Verify] Results: 31 items
+  [Verify] Auto-approved — 31 items extracted via HTTP
+  [Verify] Sample: {"municipality":"Västervik","case_number":null,"address":"KOLVEN 1 (Vapengränd 21A)","permit_type":"bygglov","status":"ansökt","date":null,"descriptio...
+
+--- Bjuv ---
+  [crawl_homepage] Found: https://www.bjuv.se/kommun-och-politik/kallelser-och-protokoll/kommunal-anslagstavla.html (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.bjuv.se/kommun-och-politik/kallelser-och-protokoll/kommunal-anslagstavla.html...
+  [Verify] Results: 9 items
+  [Verify] Auto-approved — 9 items extracted via HTTP
+  [Verify] Sample: {"municipality":"Bjuvs kommun","case_number":null,"address":"ELESTORP 7:89","permit_type":"bygglov","status":"ansökt","date":"2026-03-27","description...
+
+--- Sjöbo ---
+  [crawl_homepage] Found: https://www.sjobo.se/kommun-och-politik/digital-anslagstavla.html (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.sjobo.se/kommun-och-politik/digital-anslagstavla.html...
+  [Verify] Results: 8 items
+  [Verify] Auto-approved — 8 items extracted via HTTP
+  [Verify] Sample: {"municipality":"Sjöbo kommun","case_number":null,"address":"Kometen 2","permit_type":"bygglov","status":"beviljat","date":"2026-03-24","description":...
+
+--- Östra Göinge ---
+  [crawl_homepage] Found: https://www.ostragoinge.se/kommun-och-politik/anslagstavla (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.ostragoinge.se/kommun-och-politik/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Essunga ---
+  [crawl_homepage] Found: https://www.essunga.se/kommun--politik/politik-och-demokrati/anslagstavla.html (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.essunga.se/kommun--politik/politik-och-demokrati/anslagstavla.html...
+  [Verify] Results: 7 items
+  [Verify] Auto-approved — 7 items extracted via HTTP
+  [Verify] Sample: {"municipality":"Essunga kommun","case_number":null,"address":null,"permit_type":"bygglov","status":"beviljat","date":"2026-03-26","description":"Bevi...
+
+--- Gullspång ---
+  [url_variants] Found: https://gullspang.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://gullspang.se/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Sotenäs ---
+  [url_variants] Found: https://www.sotenas.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.sotenas.se/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Tidaholm ---
+  [crawl_homepage] Found: https://www.tidaholm.se/kommun--politik/anslagstavla.html (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.tidaholm.se/kommun--politik/anslagstavla.html...
+  [Verify] Results: 1 items
+  [Verify] Auto-approved — 1 items extracted via HTTP
+  [Verify] Sample: {"municipality":"Tidaholms kommun","case_number":null,"address":null,"permit_type":"bygglov","status":"ansökt","date":"2025-12-10","description":"Tids...
+
+--- Vårgårda ---
+  [crawl_homepage] Found: https://www.vargarda.se/kommun-och-demokrati/anslagstavla.html (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.vargarda.se/kommun-och-demokrati/anslagstavla.html...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Grums ---
+  [url_variants] Found: https://www.grums.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.grums.se/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Storfors ---
+  [crawl_homepage] Found: https://www.storfors.se/kommunochpolitik/beslutinsynochrattssakerhet/anslagstavla.4.e4d2db016037ff584e12b0.html (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.storfors.se/kommunochpolitik/beslutinsynochrattssakerhet/anslagstavla.4.e4d2db016037ff584e12b0.html...
+  [Verify] Results: 1 items
+  [Verify] Auto-approved — 1 items extracted via HTTP
+  [Verify] Sample: {"municipality":"Storfors kommun","case_number":null,"address":null,"permit_type":"bygglov","status":"beviljat","date":"2026-03-18","description":"Kun...
+
+--- Hallsberg ---
+  [url_variants] Found: https://www.hallsberg.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.hallsberg.se/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Lekeberg ---
+  [crawl_homepage] Found: https://lekeberg.se/kommunochpolitik/overklagabeslutrattssakerhet/anslagstavlaofficiell.4.711bc06b14820d116bc1a0e.html (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://lekeberg.se/kommunochpolitik/overklagabeslutrattssakerhet/anslagstavlaofficiell.4.711bc06b14820d116bc1a0e.html...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Fagersta ---
+  [crawl_homepage] Found: https://www.avesta.se/bygga-bo-och-miljo/planering-byggande-och-boende/bygglov-och-tillstand/bygglov/ (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.avesta.se/bygga-bo-och-miljo/planering-byggande-och-boende/bygglov-och-tillstand/bygglov/...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Norberg ---
+  [crawl_homepage] Found: https://www.avesta.se/bygga-bo-och-miljo/planering-byggande-och-boende/bygglov-och-tillstand/bygglov/ (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.avesta.se/bygga-bo-och-miljo/planering-byggande-och-boende/bygglov-och-tillstand/bygglov/...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Ludvika ---
+  [url_variants] Found: https://www.ludvika.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.ludvika.se/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Rättvik ---
+  [crawl_homepage] Found: https://www.rattvik.se/kommun-och-politik/overklaga-beslut-rattssakerhet/anslagstavla-officiell.html (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.rattvik.se/kommun-och-politik/overklaga-beslut-rattssakerhet/anslagstavla-officiell.html...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Bollnäs ---
+  [crawl_homepage] Found: https://bollnas.se/kommun-och-politik/politik-och-demokrati/overklaga-beslut-rattssakerhet/anslagstavla (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://bollnas.se/kommun-och-politik/politik-och-demokrati/overklaga-beslut-rattssakerhet/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Krokom ---
+  [url_variants] Found: https://www.krokom.se/anslagstavla (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.krokom.se/anslagstavla...
+  [Verify] Results: 4 items
+  [Verify] Auto-approved — 4 items extracted via HTTP
+  [Verify] Sample: {"municipality":"Krokoms kommun","case_number":null,"address":null,"permit_type":null,"status":null,"date":"2026-03-27","description":"Samordningsförb...
+
+--- Åre ---
+  [url_variants] Found: https://www.are.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.are.se/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Robertsfors ---
+  [crawl_homepage] Found: https://www.robertsfors.se/kommunochpolitik/politikochsammantraden/anslagstavlan.1097.html (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.robertsfors.se/kommunochpolitik/politikochsammantraden/anslagstavlan.1097.html...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Arvidsjaur ---
+  [crawl_homepage] Found: https://arvidsjaur.se/kommunpolitik/anslagstavla.1395.html (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://arvidsjaur.se/kommunpolitik/anslagstavla.1395.html...
+  [Verify] Results: 3 items
+  [Verify] Auto-approved — 3 items extracted via HTTP
+  [Verify] Sample: {"municipality":"Arvidsjaurs kommun","case_number":null,"address":"Falkbo 1:1","permit_type":"bygglov","status":"beviljat","date":"2026-03-16","descri...
+
+--- Härjedalen ---
+  [url_variants] Found: https://www.herjedalen.se/anslagstavla (confidence: high)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.herjedalen.se/anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+--- Haparanda ---
+  [crawl_homepage] Found: https://www.haparanda.se/kommun-och-politik/demokrati-och-insyn/digital-anslagstavla (confidence: medium)
+  [DB] Config saved
+  [Verify] Testing extraction from https://www.haparanda.se/kommun-och-politik/demokrati-och-insyn/digital-anslagstavla...
+  [Verify] Results: 0 items
+  [Verify] Auto-approved — needs Playwright, daily-run handles fallback
+
+=== DISCOVERY SUMMARY ===
+Total: 290
+Success: 286 (271 cheap + 15 Sonnet)
+Failed: 4
+Cost: $2.6090

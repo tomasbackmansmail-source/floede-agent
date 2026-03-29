@@ -1,32 +1,8 @@
 {
-  "municipality": "Trelleborg",
+  "source_name": "Trelleborg",
+  "listing_url": "https://www.trelleborg.se/anslagstavla",
   "platform_guess": "wordpress",
-  "listing_url": "https://www.trelleborg.se/kommun-politik/beslut-insyn-och-rattssakerhet/anslagstavla/",
-  "listing_type": "list",
-  "pagination": {
-    "has_pagination": false,
-    "type": "none",
-    "mechanism": "Alla aktiva anslag visas på en och samma sida i ett accordion-format. Inga sidbrytningar observerade.",
-    "estimated_total_pages": null
-  },
-  "requires_subpages": {
-    "required": false,
-    "reason": "All relevant information (titel, beslutande organ, anslagsdatum, nedtagningsdatum, förvaringsplats, ärendedetaljer) finns inbäddad direkt i accordion-innehållet på listsidan. Inga separata undersidor behövs.",
-    "link_selector_hint": null
-  },
-  "selectors_hint": {
-    "container": ".c-accordion",
-    "item": ".c-accordion__section",
-    "case_number": null,
-    "address": null,
-    "date": ".c-accordion__content .prose p",
-    "description": ".c-accordion__content .prose",
-    "title": ".c-accordion__button h3.c-typography",
-    "date_posted": ".c-accordion__content .prose p:contains('sätts upp')",
-    "date_expires": ".c-accordion__content .prose p:contains('tas ned')",
-    "body_text": ".c-accordion__content .prose"
-  },
-  "notes": "Anslagen presenteras som ett accordion (c-accordion__section) där varje sektion har en klickbar rubrik (h3) och ett dolt innehållsblock (c-accordion__content). Rubriken innehåller typ (Anslag/bevis eller Kungörelse) och namn/datum. Innehållet är ostrukturerad prosa med datumrader som 'Datum då anslaget sätts upp: ÅÅÅÅ-MM-DD' och 'Datum då anslaget tas ned: ÅÅÅÅ-MM-DD'. Regex eller text-parsning behövs för att extrahera datum. Sidan innehåller blandade anslag: protokollanslag från nämnder, kungörelser om flyttade fordon, bygglovskungörelser m.m. Från 1 december 2025 publiceras bygglovsbeslut här istället för i Post- och Inrikes Tidningar. Ingen pagination observerad – allt på en sida. Plattformen är WordPress med Municipio-tema (class 't-municipio' på body).",
+  "discovery_method": "url_variants",
   "confidence": "high",
-  "approved": true
+  "approved": false
 }

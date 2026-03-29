@@ -1,0 +1,8 @@
+{
+  "source_name": "Vimmerby",
+  "listing_url": "https://www.vimmerby.se/anslagstavla",
+  "platform_guess": "sitevision",
+  "discovery_method": "url_variants",
+  "confidence": "high",
+  "approved": false
+}

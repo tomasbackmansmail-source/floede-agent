@@ -1,28 +1,8 @@
 {
-  "municipality": "Gislaved",
+  "source_name": "Gislaved",
+  "listing_url": "https://www.gislaved.se/anslagstavla",
   "platform_guess": "sitevision",
-  "listing_url": "https://www.gislaved.se/kommun-och-politik/anslagstavla-overklaga-beslut-insyn/kommunens-officiella-anslagstavla",
-  "listing_type": "links_to_subpages",
-  "pagination": {
-    "has_pagination": false,
-    "type": "none",
-    "mechanism": "Alla aktuella anslag visas i en enda lista utan paginering. Listan verkar visa de senaste 20 anslagna posterna.",
-    "estimated_total_pages": null
-  },
-  "requires_subpages": {
-    "required": true,
-    "reason": "Listsidan visar endast titel och ibland datum. Ärendenummer, adress, fastighetsbeteckning och övriga detaljer finns enbart på respektive undersida.",
-    "link_selector_hint": "ol.sv-search-result li.sv-search-hit a[href*='anslagsarkiv']"
-  },
-  "selectors_hint": {
-    "container": "ol.sv-search-result.sv-defaultlist-noleft",
-    "item": "li.sv-search-hit.sv-corner-all",
-    "case_number": null,
-    "address": null,
-    "date": "li.sv-search-hit > text()",
-    "description": "li.sv-search-hit div.sv-notopmargin a.env-text-body-01"
-  },
-  "notes": "Plattform är SiteVision. Listan är en ol med klassen sv-search-result och varje post är en li med klassen sv-search-hit. Titeln finns i en a-tagg med klassen env-text-body-01 inuti div.sv-notopmargin. Datum (mötesdatum) förekommer som fritext direkt i li-elementet efter div-blocket, men saknas för rena kungörelser. URL-mönster för undersidor: /kommun-och-politik/anslagstavla-overklaga-beslut-insyn/kommunens-officiella-anslagstavla/anslagsarkiv/[slug]. Filtrera på titlar som innehåller 'bygglov', 'rivningslov' eller 'grannhörande' för bygglovsrelaterade ärenden. En äldre post har avvikande URL-format (/kommunochpolitik/...) och bör hanteras separat. Bas-URL för relativa länkar: https://www.gislaved.se",
+  "discovery_method": "url_variants",
   "confidence": "high",
-  "approved": true
+  "approved": false
 }

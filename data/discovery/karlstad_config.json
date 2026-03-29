@@ -1,8 +1,8 @@
 {
   "source_name": "Karlstad",
-  "listing_url": "https://karlstad.se/bygga-bo-och-leva-hallbart/bygglov-och-tillstand",
+  "listing_url": "https://karlstad.se/anslagstavla",
   "platform_guess": "sitevision",
-  "discovery_method": "haiku",
-  "confidence": "low",
+  "discovery_method": "url_variants",
+  "confidence": "high",
   "approved": false
 }

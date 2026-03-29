@@ -1,0 +1,8 @@
+{
+  "source_name": "Älvsbyn",
+  "listing_url": "https://www.alvsbyn.se/anslagstavla",
+  "platform_guess": "wordpress",
+  "discovery_method": "url_variants",
+  "confidence": "high",
+  "approved": false
+}

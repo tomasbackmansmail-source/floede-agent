@@ -1,0 +1,8 @@
+{
+  "source_name": "Surahammar",
+  "listing_url": "https://surahammar.se/anslagstavla",
+  "platform_guess": "sitevision",
+  "discovery_method": "url_variants",
+  "confidence": "high",
+  "approved": false
+}

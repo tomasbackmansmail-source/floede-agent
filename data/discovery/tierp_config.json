@@ -1,28 +1,8 @@
 {
-  "municipality": "Tierp",
-  "platform_guess": "sitevision",
+  "source_name": "Tierp",
   "listing_url": "https://www.tierp.se/tierp.se/kommun-och-politik/politik-och-beslut/anslagstavlan.html",
-  "listing_type": "list",
-  "pagination": {
-    "has_pagination": false,
-    "type": "none",
-    "mechanism": null,
-    "estimated_total_pages": null
-  },
-  "requires_subpages": {
-    "required": false,
-    "reason": null,
-    "link_selector_hint": null
-  },
-  "selectors_hint": {
-    "container": "main, .pagecontent, [role='main']",
-    "item": "li, .sv-text-portlet",
-    "case_number": null,
-    "address": null,
-    "date": null,
-    "description": null
-  },
-  "notes": "PARKERAD 2026-03-17: Huvudsidan är en navigeringshub med länkar till undersektioner ('Justerade protokoll', 'Kungörelser'). Ingen bygglovsdata inline. Kräver subpage-fetching till kungörelsesidan. URL-mönstret inkluderar '/tierp.se/' prefix.",
-  "confidence": "low",
+  "platform_guess": "sitevision",
+  "discovery_method": "crawl_homepage",
+  "confidence": "medium",
   "approved": false
 }

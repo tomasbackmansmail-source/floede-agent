@@ -1,28 +1,8 @@
 {
-  "municipality": "Eskilstuna",
+  "source_name": "Eskilstuna",
+  "listing_url": "https://www.eskilstuna.se/anslagstavla",
   "platform_guess": "sitevision",
-  "listing_url": "https://www.eskilstuna.se/kommun-och-politik/ta-del-av-beslut/anslagstavla",
-  "listing_type": "links_to_subpages",
-  "pagination": {
-    "has_pagination": false,
-    "type": "none",
-    "mechanism": "Alla aktuella ärenden visas direkt på sidan utan paginering. Äldre ärenden försvinner när de inte längre är aktuella.",
-    "estimated_total_pages": null
-  },
-  "requires_subpages": {
-    "required": true,
-    "reason": "Listsidan visar endast titel (fastighetsbeteckning), datum och ärendenummer. Fullständiga detaljer som adress, ärendebeskrivning och handlingar finns på respektive undersida.",
-    "link_selector_hint": "a[href*='kungorelse-grannehorande']"
-  },
-  "selectors_hint": {
-    "container": "#Kungorelsegrannhoran-1",
-    "item": "li.sv-channel-item",
-    "case_number": "span.esw-p",
-    "address": "span.esw-ingress",
-    "date": "time.esw-p",
-    "description": "span.esw-p"
-  },
-  "notes": "Sidan har två relevanta sektioner för bygglov: (1) 'Byggärenden, aktuella kungörelser' som länkar till ett externt system: https://pollux.eskilstuna.se/kungorelse/ – detta kan vara en rikare datakälla. (2) 'Kungörelser grannhöran' (#Kungorelsegrannhoran-1) som listar ärenden med fastighetsbeteckning, ärendenummer (format: BYGG.YYYY.NNN) och datum direkt på sidan. Rekommenderar att även undersöka pollux.eskilstuna.se/kungorelse/ som primär källa för bygglovsärenden. Ärendenummer extraheras ur span.esw-p och har formatet 'BYGG.2026.116'.",
+  "discovery_method": "url_variants",
   "confidence": "high",
   "approved": false
 }

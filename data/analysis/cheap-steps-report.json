@@ -1,102 +1,1317 @@
 {
-  "run_at": "2026-03-28T14:30:26.796Z",
+  "run_at": "2026-03-28T16:29:49.976Z",
   "vertical": "ByggSignal",
   "total_targets": 174,
-  "found_total": 1,
-  "found_url_variants": 1,
-  "found_crawl": 0,
+  "found_total": 161,
+  "found_url_variants": 97,
+  "found_crawl": 64,
   "found_sitemap": 0,
-  "not_found_count": 173,
+  "not_found_count": 9,
   "platforms": {
-    "wordpress": 29,
+    "wordpress": 30,
     "sitevision": 93,
     "episerver": 23,
-    "unknown": 29
+    "unknown": 28
   },
   "details": {
     "found_url_variants": [
+      {
+        "name": "Uppsala",
+        "url": "https://www.uppsala.se/anslagstavla",
+        "method": "url_variants",
+        "platform": "episerver",
+        "confidence": "high",
+        "matchCount": 3
+      },
+      {
+        "name": "Jönköping",
+        "url": "https://www.jonkoping.se/anslagstavla",
+        "method": "url_variants",
+        "platform": "sitevision",
+        "confidence": "high",
+        "matchCount": 3
+      },
+      {
+        "name": "Trosa",
+        "url": "https://www.trosa.se/anslagstavla",
+        "method": "url_variants",
+        "platform": "wordpress",
+        "confidence": "high",
+        "matchCount": 4
+      },
+      {
+        "name": "Gotland",
+        "url": "https://www.gotland.se/anslagstavla",
+        "method": "url_variants",
+        "platform": "sitevision",
+        "confidence": "high",
+        "matchCount": 4
+      },
+      {
+        "name": "Eskilstuna",
+        "url": "https://www.eskilstuna.se/anslagstavla",
+        "method": "url_variants",
+        "platform": "sitevision",
+        "confidence": "high",
+        "matchCount": 2
+      },
+      {
+        "name": "Södertälje",
+        "url": "https://www.sodertalje.se/anslagstavla",
+        "method": "url_variants",
+        "platform": "episerver",
+        "confidence": "high",
+        "matchCount": 4
+      },
+      {
+        "name": "Botkyrka",
+        "url": "https://www.botkyrka.se/anslagstavla",
+        "method": "url_variants",
+        "platform": "sitevision",
+        "confidence": "high",
+        "matchCount": 4
+      },
+      {
+        "name": "Haninge",
+        "url": "https://www.haninge.se/anslagstavla",
+        "method": "url_variants",
+        "platform": "episerver",
+        "confidence": "high",
+        "matchCount": 2
+      },
+      {
+        "name": "Österåker",
+        "url": "https://www.osteraker.se/anslagstavla",
+        "method": "url_variants",
+        "platform": "sitevision",
+        "confidence": "high",
+        "matchCount": 4
+      },
+      {
+        "name": "Solna",
+        "url": "https://www.solna.se/anslagstavla",
+        "method": "url_variants",
+        "platform": "sitevision",
+        "confidence": "high",
+        "matchCount": 2
+      },
+      {
+        "name": "Järfälla",
+        "url": "https://www.jarfalla.se/anslagstavla",
+        "method": "url_variants",
+        "platform": "sitevision",
+        "confidence": "high",
+        "matchCount": 4
+      },
+      {
+        "name": "Täby",
+        "url": "https://www.taby.se/anslagstavla",
+        "method": "url_variants",
+        "platform": "episerver",
+        "confidence": "high",
+        "matchCount": 2
+      },
+      {
+        "name": "Norrtälje",
+        "url": "https://www.norrtalje.se/anslagstavla",
+        "method": "url_variants",
+        "platform": "episerver",
+        "confidence": "high",
+        "matchCount": 2
+      },
+      {
+        "name": "Landskrona",
+        "url": "https://www.landskrona.se/anslagstavla",
+        "method": "url_variants",
+        "platform": "wordpress",
+        "confidence": "medium",
+        "matchCount": 1
+      },
+      {
+        "name": "Tyresö",
+        "url": "https://www.tyreso.se/anslagstavla",
+        "method": "url_variants",
+        "platform": "sitevision",
+        "confidence": "high",
+        "matchCount": 2
+      },
+      {
+        "name": "Vallentuna",
+        "url": "https://www.vallentuna.se/anslagstavla",
+        "method": "url_variants",
+        "platform": "unknown",
+        "confidence": "high",
+        "matchCount": 3
+      },
+      {
+        "name": "Karlskrona",
+        "url": "https://www.karlskrona.se/anslagstavla",
+        "method": "url_variants",
+        "platform": "episerver",
+        "confidence": "high",
+        "matchCount": 4
+      },
+      {
+        "name": "Motala",
+        "url": "https://www.motala.se/anslagstavla",
+        "method": "url_variants",
+        "platform": "wordpress",
+        "confidence": "high",
+        "matchCount": 4
+      },
+      {
+        "name": "Danderyd",
+        "url": "https://www.danderyd.se/bygga-bo/anslagstavla",
+        "method": "url_variants",
+        "platform": "episerver",
+        "confidence": "high",
+        "matchCount": 2
+      },
+      {
+        "name": "Lomma",
+        "url": "https://www.lomma.se/anslagstavla",
+        "method": "url_variants",
+        "platform": "sitevision",
+        "confidence": "high",
+        "matchCount": 2
+      },
+      {
+        "name": "Håbo",
+        "url": "https://www.habo.se/anslagstavla",
+        "method": "url_variants",
+        "platform": "sitevision",
+        "confidence": "high",
+        "matchCount": 3
+      },
+      {
+        "name": "Hässleholm",
+        "url": "https://www.hassleholm.se/anslagstavla",
+        "method": "url_variants",
+        "platform": "sitevision",
+        "confidence": "high",
+        "matchCount": 3
+      },
+      {
+        "name": "Burlöv",
+        "url": "https://www.burlov.se/anslagstavla",
+        "method": "url_variants",
+        "platform": "sitevision",
+        "confidence": "medium",
+        "matchCount": 1
+      },
+      {
+        "name": "Oskarshamn",
+        "url": "https://www.oskarshamn.se/anslagstavla",
+        "method": "url_variants",
+        "platform": "episerver",
+        "confidence": "high",
+        "matchCount": 2
+      },
+      {
+        "name": "Hultsfred",
+        "url": "https://www.hultsfred.se/anslagstavla",
+        "method": "url_variants",
+        "platform": "wordpress",
+        "confidence": "high",
+        "matchCount": 3
+      },
+      {
+        "name": "Vetlanda",
+        "url": "https://www.vetlanda.se/anslagstavla",
+        "method": "url_variants",
+        "platform": "sitevision",
+        "confidence": "high",
+        "matchCount": 4
+      },
+      {
+        "name": "Bromölla",
+        "url": "https://www.bromolla.se/anslagstavla",
+        "method": "url_variants",
+        "platform": "episerver",
+        "confidence": "high",
+        "matchCount": 2
+      },
+      {
+        "name": "Tingsryd",
+        "url": "https://www.tingsryd.se/anslagstavla",
+        "method": "url_variants",
+        "platform": "wordpress",
+        "confidence": "high",
+        "matchCount": 3
+      },
+      {
+        "name": "Borgholm",
+        "url": "https://www.borgholm.se/anslagstavla",
+        "method": "url_variants",
+        "platform": "wordpress",
+        "confidence": "high",
+        "matchCount": 4
+      },
+      {
+        "name": "Karlshamn",
+        "url": "https://www.karlshamn.se/anslagstavla",
+        "method": "url_variants",
+        "platform": "wordpress",
+        "confidence": "high",
+        "matchCount": 4
+      },
+      {
+        "name": "Mönsterås",
+        "url": "https://www.monsteras.se/anslagstavla",
+        "method": "url_variants",
+        "platform": "wordpress",
+        "confidence": "high",
+        "matchCount": 3
+      },
+      {
+        "name": "Torsås",
+        "url": "https://www.torsas.se/anslagstavla",
+        "method": "url_variants",
+        "platform": "wordpress",
+        "confidence": "high",
+        "matchCount": 4
+      },
+      {
+        "name": "Västerås",
+        "url": "https://www.vasteras.se/anslagstavla",
+        "method": "url_variants",
+        "platform": "sitevision",
+        "confidence": "high",
+        "matchCount": 3
+      },
       {
         "name": "Halmstad",
         "url": "https://www.halmstad.se/anslagstavla",
         "method": "url_variants",
         "platform": "sitevision",
+        "confidence": "high",
+        "matchCount": 5
+      },
+      {
+        "name": "Borås",
+        "url": "https://www.boras.se/anslagstavla",
+        "method": "url_variants",
+        "platform": "sitevision",
+        "confidence": "high",
+        "matchCount": 4
+      },
+      {
+        "name": "Varberg",
+        "url": "https://www.varberg.se/anslagstavla",
+        "method": "url_variants",
+        "platform": "sitevision",
+        "confidence": "high",
+        "matchCount": 4
+      },
+      {
+        "name": "Falun",
+        "url": "https://www.falun.se/anslagstavla",
+        "method": "url_variants",
+        "platform": "sitevision",
+        "confidence": "high",
+        "matchCount": 4
+      },
+      {
+        "name": "Kungsbacka",
+        "url": "https://www.kungsbacka.se/anslagstavla",
+        "method": "url_variants",
+        "platform": "sitevision",
+        "confidence": "high",
+        "matchCount": 2
+      },
+      {
+        "name": "Trelleborg",
+        "url": "https://www.trelleborg.se/anslagstavla",
+        "method": "url_variants",
+        "platform": "wordpress",
+        "confidence": "high",
+        "matchCount": 2
+      },
+      {
+        "name": "Partille",
+        "url": "https://www.partille.se/anslagstavla",
+        "method": "url_variants",
+        "platform": "episerver",
+        "confidence": "medium",
+        "matchCount": 1
+      },
+      {
+        "name": "Vellinge",
+        "url": "https://www.vellinge.se/anslagstavla",
+        "method": "url_variants",
+        "platform": "episerver",
+        "confidence": "high",
+        "matchCount": 2
+      },
+      {
+        "name": "Sala",
+        "url": "https://www.sala.se/anslagstavla",
+        "method": "url_variants",
+        "platform": "unknown",
+        "confidence": "high",
+        "matchCount": 3
+      },
+      {
+        "name": "Leksand",
+        "url": "https://www.leksand.se/anslagstavla",
+        "method": "url_variants",
+        "platform": "sitevision",
+        "confidence": "high",
+        "matchCount": 3
+      },
+      {
+        "name": "Hedemora",
+        "url": "https://www.hedemora.se/anslagstavla",
+        "method": "url_variants",
+        "platform": "wordpress",
+        "confidence": "high",
+        "matchCount": 5
+      },
+      {
+        "name": "Bollebygd",
+        "url": "https://www.bollebygd.se/anslagstavla",
+        "method": "url_variants",
+        "platform": "sitevision",
+        "confidence": "high",
+        "matchCount": 4
+      },
+      {
+        "name": "Filipstad",
+        "url": "https://www.filipstad.se/anslagstavla",
+        "method": "url_variants",
+        "platform": "sitevision",
+        "confidence": "high",
+        "matchCount": 3
+      },
+      {
+        "name": "Stenungsund",
+        "url": "https://www.stenungsund.se/anslagstavla",
+        "method": "url_variants",
+        "platform": "sitevision",
+        "confidence": "high",
+        "matchCount": 3
+      },
+      {
+        "name": "Tjörn",
+        "url": "https://www.tjorn.se/anslagstavla",
+        "method": "url_variants",
+        "platform": "sitevision",
+        "confidence": "high",
+        "matchCount": 4
+      },
+      {
+        "name": "Vara",
+        "url": "https://www.vara.se/anslagstavla",
+        "method": "url_variants",
+        "platform": "sitevision",
+        "confidence": "high",
+        "matchCount": 4
+      },
+      {
+        "name": "Mark",
+        "url": "https://www.mark.se/anslagstavla",
+        "method": "url_variants",
+        "platform": "sitevision",
+        "confidence": "high",
+        "matchCount": 4
+      },
+      {
+        "name": "Dals-Ed",
+        "url": "https://www.dalsed.se/anslagstavla",
+        "method": "url_variants",
+        "platform": "unknown",
+        "confidence": "high",
+        "matchCount": 3
+      },
+      {
+        "name": "Sunne",
+        "url": "https://www.sunne.se/kommun/anslagstavla",
+        "method": "url_variants",
+        "platform": "episerver",
+        "confidence": "high",
+        "matchCount": 2
+      },
+      {
+        "name": "Lindesberg",
+        "url": "https://www.lindesberg.se/anslagstavla",
+        "method": "url_variants",
+        "platform": "sitevision",
+        "confidence": "high",
+        "matchCount": 3
+      },
+      {
+        "name": "Nacka",
+        "url": "https://www.nacka.se/anslagstavla",
+        "method": "url_variants",
+        "platform": "episerver",
+        "confidence": "high",
+        "matchCount": 2
+      },
+      {
+        "name": "Malmö",
+        "url": "https://malmo.se/anslagstavla",
+        "method": "url_variants",
+        "platform": "sitevision",
+        "confidence": "high",
+        "matchCount": 3
+      },
+      {
+        "name": "Mölndal",
+        "url": "https://www.molndal.se/anslagstavla",
+        "method": "url_variants",
+        "platform": "sitevision",
+        "confidence": "high",
+        "matchCount": 2
+      },
+      {
+        "name": "Umeå",
+        "url": "https://www.umea.se/anslagstavla",
+        "method": "url_variants",
+        "platform": "sitevision",
+        "confidence": "high",
+        "matchCount": 4
+      },
+      {
+        "name": "Karlstad",
+        "url": "https://karlstad.se/anslagstavla",
+        "method": "url_variants",
+        "platform": "sitevision",
+        "confidence": "high",
+        "matchCount": 2
+      },
+      {
+        "name": "Sundsvall",
+        "url": "https://www.sundsvall.se/anslagstavla",
+        "method": "url_variants",
+        "platform": "sitevision",
+        "confidence": "high",
+        "matchCount": 2
+      },
+      {
+        "name": "Tibro",
+        "url": "https://www.tibro.se/anslagstavla",
+        "method": "url_variants",
+        "platform": "episerver",
+        "confidence": "high",
+        "matchCount": 2
+      },
+      {
+        "name": "Kiruna",
+        "url": "https://www.kiruna.se/anslagstavla",
+        "method": "url_variants",
+        "platform": "sitevision",
+        "confidence": "high",
+        "matchCount": 2
+      },
+      {
+        "name": "Gävle",
+        "url": "https://www.gavle.se/anslagstavla",
+        "method": "url_variants",
+        "platform": "wordpress",
+        "confidence": "high",
+        "matchCount": 4
+      },
+      {
+        "name": "Växjö",
+        "url": "https://www.vaxjo.se/anslagstavla",
+        "method": "url_variants",
+        "platform": "sitevision",
+        "confidence": "high",
+        "matchCount": 2
+      },
+      {
+        "name": "Trollhättan",
+        "url": "https://www.trollhattan.se/anslagstavla",
+        "method": "url_variants",
+        "platform": "unknown",
+        "confidence": "medium",
+        "matchCount": 1
+      },
+      {
+        "name": "Kristianstad",
+        "url": "https://www.kristianstad.se/anslagstavla",
+        "method": "url_variants",
+        "platform": "sitevision",
+        "confidence": "high",
+        "matchCount": 3
+      },
+      {
+        "name": "Luleå",
+        "url": "https://www.lulea.se/anslagstavla",
+        "method": "url_variants",
+        "platform": "sitevision",
+        "confidence": "high",
+        "matchCount": 3
+      },
+      {
+        "name": "Skellefteå",
+        "url": "https://www.skelleftea.se/kommun/anslagstavla",
+        "method": "url_variants",
+        "platform": "sitevision",
+        "confidence": "high",
+        "matchCount": 2
+      },
+      {
+        "name": "Kalmar",
+        "url": "https://www.kalmar.se/anslagstavla",
+        "method": "url_variants",
+        "platform": "sitevision",
+        "confidence": "high",
+        "matchCount": 3
+      },
+      {
+        "name": "Östersund",
+        "url": "https://www.ostersund.se/anslagstavla",
+        "method": "url_variants",
+        "platform": "sitevision",
+        "confidence": "high",
+        "matchCount": 2
+      },
+      {
+        "name": "Upplands Väsby",
+        "url": "https://www.upplandsvasby.se/anslagstavla",
+        "method": "url_variants",
+        "platform": "sitevision",
+        "confidence": "high",
+        "matchCount": 2
+      },
+      {
+        "name": "Sollentuna",
+        "url": "https://www.sollentuna.se/anslagstavla",
+        "method": "url_variants",
+        "platform": "episerver",
+        "confidence": "high",
+        "matchCount": 2
+      },
+      {
+        "name": "Värmdö",
+        "url": "https://www.varmdo.se/anslagstavla",
+        "method": "url_variants",
+        "platform": "sitevision",
+        "confidence": "high",
+        "matchCount": 2
+      },
+      {
+        "name": "Lerum",
+        "url": "https://www.lerum.se/anslagstavla",
+        "method": "url_variants",
+        "platform": "sitevision",
+        "confidence": "high",
+        "matchCount": 2
+      },
+      {
+        "name": "Piteå",
+        "url": "https://www.pitea.se/anslagstavla",
+        "method": "url_variants",
+        "platform": "unknown",
+        "confidence": "high",
+        "matchCount": 2
+      },
+      {
+        "name": "Strängnäs",
+        "url": "https://www.strangnas.se/anslagstavla",
+        "method": "url_variants",
+        "platform": "sitevision",
+        "confidence": "high",
+        "matchCount": 4
+      },
+      {
+        "name": "Härnösand",
+        "url": "https://www.harnosand.se/anslagstavla",
+        "method": "url_variants",
+        "platform": "sitevision",
+        "confidence": "high",
+        "matchCount": 3
+      },
+      {
+        "name": "Kungälv",
+        "url": "https://www.kungalv.se/anslagstavla",
+        "method": "url_variants",
+        "platform": "episerver",
+        "confidence": "high",
+        "matchCount": 3
+      },
+      {
+        "name": "Arvika",
+        "url": "https://www.arvika.se/anslagstavla",
+        "method": "url_variants",
+        "platform": "sitevision",
+        "confidence": "high",
+        "matchCount": 3
+      },
+      {
+        "name": "Osby",
+        "url": "https://www.osby.se/anslagstavla",
+        "method": "url_variants",
+        "platform": "sitevision",
+        "confidence": "high",
+        "matchCount": 2
+      },
+      {
+        "name": "Älmhult",
+        "url": "https://www.almhult.se/anslagstavla",
+        "method": "url_variants",
+        "platform": "sitevision",
+        "confidence": "high",
+        "matchCount": 3
+      },
+      {
+        "name": "Gislaved",
+        "url": "https://www.gislaved.se/anslagstavla",
+        "method": "url_variants",
+        "platform": "sitevision",
+        "confidence": "high",
+        "matchCount": 3
+      },
+      {
+        "name": "Lilla Edet",
+        "url": "https://www.lillaedet.se/anslagstavla",
+        "method": "url_variants",
+        "platform": "sitevision",
+        "confidence": "high",
+        "matchCount": 3
+      },
+      {
+        "name": "Sölvesborg",
+        "url": "https://www.solvesborg.se/anslagstavla",
+        "method": "url_variants",
+        "platform": "sitevision",
+        "confidence": "high",
+        "matchCount": 4
+      },
+      {
+        "name": "Bengtsfors",
+        "url": "https://www.bengtsfors.se/anslagstavla",
+        "method": "url_variants",
+        "platform": "sitevision",
+        "confidence": "high",
+        "matchCount": 2
+      },
+      {
+        "name": "Höganäs",
+        "url": "https://www.hoganas.se/anslagstavla",
+        "method": "url_variants",
+        "platform": "sitevision",
+        "confidence": "high",
+        "matchCount": 2
+      },
+      {
+        "name": "Älvsbyn",
+        "url": "https://www.alvsbyn.se/anslagstavla",
+        "method": "url_variants",
+        "platform": "wordpress",
+        "confidence": "high",
+        "matchCount": 5
+      },
+      {
+        "name": "Övertorneå",
+        "url": "https://www.overtornea.se/anslagstavla",
+        "method": "url_variants",
+        "platform": "wordpress",
+        "confidence": "high",
+        "matchCount": 3
+      },
+      {
+        "name": "Kalix",
+        "url": "https://www.kalix.se/anslagstavla",
+        "method": "url_variants",
+        "platform": "unknown",
+        "confidence": "high",
+        "matchCount": 2
+      },
+      {
+        "name": "Lycksele",
+        "url": "https://www.lycksele.se/anslagstavla",
+        "method": "url_variants",
+        "platform": "unknown",
+        "confidence": "high",
+        "matchCount": 2
+      },
+      {
+        "name": "Malå",
+        "url": "https://www.mala.se/anslagstavla",
+        "method": "url_variants",
+        "platform": "unknown",
+        "confidence": "high",
+        "matchCount": 3
+      },
+      {
+        "name": "Storuman",
+        "url": "https://www.storuman.se/anslagstavla",
+        "method": "url_variants",
+        "platform": "unknown",
+        "confidence": "high",
+        "matchCount": 2
+      },
+      {
+        "name": "Dorotea",
+        "url": "https://www.dorotea.se/anslagstavla",
+        "method": "url_variants",
+        "platform": "unknown",
+        "confidence": "high",
+        "matchCount": 3
+      },
+      {
+        "name": "Vilhelmina",
+        "url": "https://www.vilhelmina.se/anslagstavla",
+        "method": "url_variants",
+        "platform": "unknown",
+        "confidence": "high",
+        "matchCount": 3
+      },
+      {
+        "name": "Tanum",
+        "url": "https://www.tanum.se/anslagstavla",
+        "method": "url_variants",
+        "platform": "sitevision",
+        "confidence": "high",
+        "matchCount": 3
+      },
+      {
+        "name": "Nybro",
+        "url": "https://www.nybro.se/anslagstavla",
+        "method": "url_variants",
+        "platform": "wordpress",
+        "confidence": "high",
+        "matchCount": 3
+      },
+      {
+        "name": "Mellerud",
+        "url": "https://www.mellerud.se/anslagstavla",
+        "method": "url_variants",
+        "platform": "unknown",
+        "confidence": "high",
+        "matchCount": 3
+      },
+      {
+        "name": "Östhammar",
+        "url": "https://www.osthammar.se/anslagstavla",
+        "method": "url_variants",
+        "platform": "unknown",
+        "confidence": "high",
+        "matchCount": 3
+      }
+    ],
+    "found_crawl": [
+      {
+        "name": "Helsingborg",
+        "url": "https://helsingborg.se/bo-bygga-och-miljo/bygga-nytt-bygga-om-bygga-till/bygglov-och-anmalan/",
+        "method": "crawl_homepage",
+        "platform": "wordpress",
+        "confidence": "medium",
+        "matchCount": 1
+      },
+      {
+        "name": "Lund",
+        "url": "https://www.lund.se/bygga-och-bo/allt-om-bygglov",
+        "method": "crawl_homepage",
+        "platform": "sitevision",
+        "confidence": "medium",
+        "matchCount": 1
+      },
+      {
+        "name": "Norrköping",
+        "url": "https://norrkoping.se/kommun-och-politik/riktlinjer-beslut-och-dokument/anslagstavla",
+        "method": "crawl_homepage",
+        "platform": "sitevision",
+        "confidence": "medium",
+        "matchCount": 1
+      },
+      {
+        "name": "Sigtuna",
+        "url": "https://www.sigtuna.se/kommun-och-politik/handlingar-beslut-och-rattssakerhet/anslagstavla.html",
+        "method": "crawl_homepage",
+        "platform": "sitevision",
+        "confidence": "medium",
+        "matchCount": 1
+      },
+      {
+        "name": "Katrineholm",
+        "url": "https://www.katrineholm.se/kommun-och-politik/anslagstavla.html",
+        "method": "crawl_homepage",
+        "platform": "sitevision",
+        "confidence": "medium",
+        "matchCount": 1
+      },
+      {
+        "name": "Mjölby",
+        "url": "https://www.mjolby.se/kommun-och-politik/overklaga-beslut-rattssakerhet/anslagstavla",
+        "method": "crawl_homepage",
+        "platform": "sitevision",
+        "confidence": "medium",
+        "matchCount": 1
+      },
+      {
+        "name": "Ekerö",
+        "url": "https://www.ekero.se/kommun-politik/moten-handlingar--protokoll/anslagstavla",
+        "method": "crawl_homepage",
+        "platform": "sitevision",
+        "confidence": "medium",
+        "matchCount": 1
+      },
+      {
+        "name": "Svedala",
+        "url": "https://www.svedala.se/paverka/politik-och-demokrati/digital-anslagstavla/",
+        "method": "crawl_homepage",
+        "platform": "episerver",
+        "confidence": "medium",
+        "matchCount": 1
+      },
+      {
+        "name": "Tranås",
+        "url": "https://tranaskommun.ondemand.formpipe.com/digital-bulletin-board",
+        "method": "crawl_homepage",
+        "platform": "sitevision",
+        "confidence": "medium",
+        "matchCount": 1
+      },
+      {
+        "name": "Tierp",
+        "url": "https://www.tierp.se/tierp.se/kommun-och-politik/politik-och-beslut/anslagstavlan.html",
+        "method": "crawl_homepage",
+        "platform": "sitevision",
+        "confidence": "medium",
+        "matchCount": 1
+      },
+      {
+        "name": "Oxelösund",
+        "url": "https://www.oxelosund.se/ovrigt/digital-anslagstavla",
+        "method": "crawl_homepage",
+        "platform": "sitevision",
+        "confidence": "medium",
+        "matchCount": 1
+      },
+      {
+        "name": "Vaggeryd",
+        "url": "https://www.vaggeryd.se/bygga-bo-och-miljo/bygga-nytt-andra-eller-riva.html",
+        "method": "crawl_homepage",
+        "platform": "sitevision",
+        "confidence": "medium",
+        "matchCount": 1
+      },
+      {
+        "name": "Hörby",
+        "url": "https://www.horby.se/kommun-och-politik/overklaga-beslut-rattssakerhet/anslagstavla/",
+        "method": "crawl_homepage",
+        "platform": "wordpress",
+        "confidence": "medium",
+        "matchCount": 1
+      },
+      {
+        "name": "Simrishamn",
+        "url": "https://www.simrishamn.se/bo-och-bygga/bygglov/kungorelser-av-underrattelser-och-beslut",
+        "method": "crawl_homepage",
+        "platform": "sitevision",
+        "confidence": "high",
+        "matchCount": 2
+      },
+      {
+        "name": "Klippan",
+        "url": "https://www.klippan.se/kommun--politik/moten-handlingar--protokoll/anslagstavla",
+        "method": "crawl_homepage",
+        "platform": "sitevision",
+        "confidence": "medium",
+        "matchCount": 1
+      },
+      {
+        "name": "Båstad",
+        "url": "https://www.bastad.se/bo-bygga-och-miljo/bygga-nytt-andra-eller-riva/bygglov---sa-har-gar-det-till/forhandsbesked.html",
+        "method": "crawl_homepage",
+        "platform": "sitevision",
+        "confidence": "high",
+        "matchCount": 2
+      },
+      {
+        "name": "Valdemarsvik",
+        "url": "https://www.valdemarsvik.se/kommun/kommun-politik/kommunens-anslagstavla/",
+        "method": "crawl_homepage",
+        "platform": "wordpress",
+        "confidence": "medium",
+        "matchCount": 1
+      },
+      {
+        "name": "Högsby",
+        "url": "https://www.hogsby.se/Bygga-bo-och-miljoe/Bygga-och-planera/Bygglov",
+        "method": "crawl_homepage",
+        "platform": "unknown",
+        "confidence": "medium",
+        "matchCount": 1
+      },
+      {
+        "name": "Gnosjö",
+        "url": "https://www.gnosjo.se/bygga-bo-trafik-och-miljo",
+        "method": "crawl_homepage",
+        "platform": "sitevision",
+        "confidence": "medium",
+        "matchCount": 1
+      },
+      {
+        "name": "Örebro",
+        "url": "https://www.orebro.se/bygga-bo--trafik.html",
+        "method": "crawl_homepage",
+        "platform": "sitevision",
+        "confidence": "medium",
+        "matchCount": 1
+      },
+      {
+        "name": "Göteborg",
+        "url": "https://www.goteborg.se/wps/portal?uri=gbglnk%3agbg.page.b4d7866c-687f-452c-a3c5-94879c898260",
+        "method": "crawl_homepage",
+        "platform": "unknown",
+        "confidence": "medium",
+        "matchCount": 1
+      },
+      {
+        "name": "Skövde",
+        "url": "https://www.skovde.se/sv/kommun-och-politik/anslagstavla/anslagtavlan/ksau-2026-03-25/",
+        "method": "crawl_homepage",
+        "platform": "episerver",
+        "confidence": "medium",
+        "matchCount": 1
+      },
+      {
+        "name": "Ängelholm",
+        "url": "https://www.engelholm.se/bo-bygga-och-miljo/bygga-nytt-andra-och-riva.html",
+        "method": "crawl_homepage",
+        "platform": "sitevision",
+        "confidence": "medium",
+        "matchCount": 1
+      },
+      {
+        "name": "Alingsås",
+        "url": "https://www.alingsas.se/kommun-och-politik/politik-och-beslut/digital-anslagstavla/",
+        "method": "crawl_homepage",
+        "platform": "wordpress",
+        "confidence": "medium",
+        "matchCount": 1
+      },
+      {
+        "name": "Kumla",
+        "url": "https://www.kumla.se/kommunalanslagstavla",
+        "method": "crawl_homepage",
+        "platform": "sitevision",
+        "confidence": "medium",
+        "matchCount": 1
+      },
+      {
+        "name": "Laholm",
+        "url": "https://www.laholm.se/bygga-bo-och-miljo/bygga-nytt-andra-eller-riva/bygglov",
+        "method": "crawl_homepage",
+        "platform": "sitevision",
+        "confidence": "medium",
+        "matchCount": 1
+      },
+      {
+        "name": "Köping",
+        "url": "https://www.koping.se/boende-trafik--miljo/bygglov.html",
+        "method": "crawl_homepage",
+        "platform": "sitevision",
+        "confidence": "medium",
+        "matchCount": 1
+      },
+      {
+        "name": "Lysekil",
+        "url": "https://www.lysekil.se/kommun-och-politik/overklaga-beslut-rattssakerhet/kommunal-anslagstavla",
+        "method": "crawl_homepage",
+        "platform": "sitevision",
+        "confidence": "medium",
+        "matchCount": 1
+      },
+      {
+        "name": "Avesta",
+        "url": "https://www.avesta.se/bygga-bo-och-miljo/planering-byggande-och-boende/bygglov-och-tillstand/",
+        "method": "crawl_homepage",
+        "platform": "unknown",
+        "confidence": "medium",
+        "matchCount": 1
+      },
+      {
+        "name": "Orust",
+        "url": "https://www.orust.se/kommun-och-politik/beslut-insyn-och-rattssakerhet/anslagstavla",
+        "method": "crawl_homepage",
+        "platform": "sitevision",
+        "confidence": "medium",
+        "matchCount": 1
+      },
+      {
+        "name": "Munkedal",
+        "url": "https://www.munkedal.se/kommun-och-politik/officiell-anslagstavla",
+        "method": "crawl_homepage",
+        "platform": "sitevision",
+        "confidence": "medium",
+        "matchCount": 1
+      },
+      {
+        "name": "Ulricehamn",
+        "url": "https://www.ulricehamn.se/kommun-och-politik/overklaga-beslut-rattssakerhet/anslagstavla",
+        "method": "crawl_homepage",
+        "platform": "sitevision",
+        "confidence": "medium",
+        "matchCount": 1
+      },
+      {
+        "name": "Karlsborg",
+        "url": "https://www.karlsborg.se/kommun--politik/sa-styrs-karlsborgs-kommun/politik/anslagstavla-for-protokoll/",
+        "method": "crawl_homepage",
+        "platform": "episerver",
+        "confidence": "medium",
+        "matchCount": 1
+      },
+      {
+        "name": "Kristinehamn",
+        "url": "https://www.kristinehamn.se/bygga-bo-och-leva/bygga-andra-eller-riva/bygglovsguiden/",
+        "method": "crawl_homepage",
+        "platform": "episerver",
+        "confidence": "medium",
+        "matchCount": 1
+      },
+      {
+        "name": "Säter",
+        "url": "https://sater.se/kommun-demokrati/anslagstavla/",
+        "method": "crawl_homepage",
+        "platform": "wordpress",
+        "confidence": "medium",
+        "matchCount": 1
+      },
+      {
+        "name": "Gagnef",
+        "url": "https://www.gagnef.se/naringsliv/tillstand-och-tillsyn/bygglov-och-eller-bygganmalan/",
+        "method": "crawl_homepage",
+        "platform": "wordpress",
+        "confidence": "high",
+        "matchCount": 2
+      },
+      {
+        "name": "Munkfors",
+        "url": "https://www.munkfors.se/kommun-och-politik/politik/digital-anslagstavla/",
+        "method": "crawl_homepage",
+        "platform": "wordpress",
+        "confidence": "medium",
+        "matchCount": 1
+      },
+      {
+        "name": "Eda",
+        "url": "https://www.eda.se/m%C3%B6ten-handlingar-och-protokoll/digital-anslagstavla__908",
+        "method": "crawl_homepage",
+        "platform": "unknown",
+        "confidence": "medium",
+        "matchCount": 1
+      },
+      {
+        "name": "Falköping",
+        "url": "https://anslagstavlan.falkoping.se/?utm_source=exwebb&amp;utm_medium=sidfot&amp;utm_campaign=anslagstavlan#!/billboard/",
+        "method": "crawl_homepage",
+        "platform": "sitevision",
+        "confidence": "medium",
+        "matchCount": 1
+      },
+      {
+        "name": "Vansbro",
+        "url": "https://vansbro-anslagstavla.ciceron.cloud/index.html#!/billboard/",
+        "method": "crawl_homepage",
+        "platform": "sitevision",
+        "confidence": "medium",
+        "matchCount": 1
+      },
+      {
+        "name": "Linköping",
+        "url": "https://ciceron-anslagstavlan.linkoping.se/#!/billboard/",
+        "method": "crawl_homepage",
+        "platform": "sitevision",
+        "confidence": "medium",
+        "matchCount": 1
+      },
+      {
+        "name": "Höör",
+        "url": "https://www.hoor.se/bygga-bo-miljo/",
+        "method": "crawl_homepage",
+        "platform": "wordpress",
+        "confidence": "medium",
+        "matchCount": 1
+      },
+      {
+        "name": "Nyköping",
+        "url": "https://www.nykoping.se/bo-bygga--miljo/",
+        "method": "crawl_homepage",
+        "platform": "episerver",
+        "confidence": "medium",
+        "matchCount": 1
+      },
+      {
+        "name": "Uddevalla",
+        "url": "https://www.uddevalla.se/kommun-och-politik/overklaga-beslut-rattsakerhet/uddevalla-kommuns-anslagstavla.html",
+        "method": "crawl_homepage",
+        "platform": "sitevision",
+        "confidence": "medium",
+        "matchCount": 1
+      },
+      {
+        "name": "Sandviken",
+        "url": "https://www.sandviken.se/kommunochpolitik/anslagochkungorelser.22958.html",
+        "method": "crawl_homepage",
+        "platform": "sitevision",
+        "confidence": "medium",
+        "matchCount": 1
+      },
+      {
+        "name": "Ystad",
+        "url": "https://www.ystad.se/kommun-och-politik/sa-styrs-ystads-kommun/den-politiska-styrningen/anslagstavla",
+        "method": "crawl_homepage",
+        "platform": "sitevision",
+        "confidence": "medium",
+        "matchCount": 1
+      },
+      {
+        "name": "Nynäshamn",
+        "url": "https://www.nynashamn.se/service/boende--miljo/bygga-nytt-andra-eller-riva/sa-soker-du-bygglov",
+        "method": "crawl_homepage",
+        "platform": "sitevision",
+        "confidence": "medium",
+        "matchCount": 1
+      },
+      {
+        "name": "Staffanstorp",
+        "url": "https://staffanstorp.se/kommun-och-politik/beslut-insyn-och-rattssakerhet/digital-anslagstavla/",
+        "method": "crawl_homepage",
+        "platform": "wordpress",
+        "confidence": "medium",
+        "matchCount": 1
+      },
+      {
+        "name": "Sundbyberg",
+        "url": "https://www.sundbyberg.se/kommun-och-politik/politik-och-demokrati/anslagstavla",
+        "method": "crawl_homepage",
+        "platform": "sitevision",
+        "confidence": "medium",
+        "matchCount": 1
+      },
+      {
+        "name": "Örnsköldsvik",
+        "url": "https://www.ornskoldsvik.se/om-kommunen/politiska-beslut-och-handlingar/anslagstavla",
+        "method": "crawl_homepage",
+        "platform": "sitevision",
+        "confidence": "medium",
+        "matchCount": 1
+      },
+      {
+        "name": "Eslöv",
+        "url": "https://eslov.se/anslag",
+        "method": "crawl_homepage",
+        "platform": "wordpress",
+        "confidence": "medium",
+        "matchCount": 1
+      },
+      {
+        "name": "Mariestad",
+        "url": "https://www.mariestad.se/bygga-bo-och-miljo/bygglov-marklov-och-rivningslov",
+        "method": "crawl_homepage",
+        "platform": "sitevision",
+        "confidence": "medium",
+        "matchCount": 1
+      },
+      {
+        "name": "Arjeplog",
+        "url": "https://arjeplog.se/foretag-forening-och-naringsliv/tillstand-regler-och-tillsyn/bygglov/",
+        "method": "crawl_homepage",
+        "platform": "wordpress",
+        "confidence": "medium",
+        "matchCount": 1
+      },
+      {
+        "name": "Norsjö",
+        "url": "https://norsjo.se/bygga-bo-miljo/bygga-nytt-andra-eller-riva/bygglov-och-andra-lov/",
+        "method": "crawl_homepage",
+        "platform": "wordpress",
+        "confidence": "medium",
+        "matchCount": 1
+      },
+      {
+        "name": "Jokkmokk",
+        "url": "https://www.jokkmokk.se/kommun-och-politik/anslagstavla/",
+        "method": "crawl_homepage",
+        "platform": "unknown",
+        "confidence": "medium",
+        "matchCount": 1
+      },
+      {
+        "name": "Överkalix",
+        "url": "https://www.overkalix.se/kommun-och-politik/politik-och-organisation/anslagstavla/",
+        "method": "crawl_homepage",
+        "platform": "unknown",
+        "confidence": "medium",
+        "matchCount": 1
+      },
+      {
+        "name": "Pajala",
+        "url": "https://www.pajala.se/kommun-politik-och-service/anslagstavla/kungorelser-bygglov/",
+        "method": "crawl_homepage",
+        "platform": "unknown",
+        "confidence": "high",
+        "matchCount": 2
+      },
+      {
+        "name": "Herrljunga",
+        "url": "https://www.herrljunga.se/kommun-och-politik/digital-anslagstavla",
+        "method": "crawl_homepage",
+        "platform": "sitevision",
+        "confidence": "medium",
+        "matchCount": 1
+      },
+      {
+        "name": "Hjo",
+        "url": "https://www.hjo.se/bostad--miljo/bygglov-och-anmalan/",
+        "method": "crawl_homepage",
+        "platform": "episerver",
+        "confidence": "medium",
+        "matchCount": 1
+      },
+      {
+        "name": "Söderköping",
+        "url": "https://www.soderkoping.se/sok/#?cludoquery=bygglov",
+        "method": "crawl_homepage",
+        "platform": "episerver",
+        "confidence": "medium",
+        "matchCount": 1
+      },
+      {
+        "name": "Arboga",
+        "url": "https://www.arboga.se/bygga-bo-och-miljo.html",
+        "method": "crawl_homepage",
+        "platform": "sitevision",
+        "confidence": "medium",
+        "matchCount": 1
+      },
+      {
+        "name": "Skinnskatteberg",
+        "url": "https://www.skinnskatteberg.se/kommun-och-demokrati/digital-anslagstavla/",
+        "method": "crawl_homepage",
+        "platform": "wordpress",
+        "confidence": "medium",
+        "matchCount": 1
+      },
+      {
+        "name": "Alvesta",
+        "url": "https://anslagstavla.alvesta.se/#!/billboard/",
+        "method": "crawl_homepage",
+        "platform": "wordpress",
+        "confidence": "medium",
+        "matchCount": 1
+      },
+      {
+        "name": "Åmål",
+        "url": "https://anslagstavla.amal.se/",
+        "method": "crawl_homepage",
+        "platform": "sitevision",
         "confidence": "medium",
         "matchCount": 1
       }
     ],
-    "found_crawl": [],
     "found_sitemap": [],
     "not_found": [
-      {
-        "name": "Helsingborg",
-        "url": "https://helsingborg.se",
-        "platform": "wordpress",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Lund",
-        "url": "https://www.lund.se",
-        "platform": "sitevision",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Uppsala",
-        "url": "https://www.uppsala.se",
-        "platform": "episerver",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Norrköping",
-        "url": "https://www.norrkoping.se",
-        "platform": "sitevision",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Jönköping",
-        "url": "https://www.jonkoping.se",
-        "platform": "sitevision",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Trosa",
-        "url": "https://www.trosa.se",
-        "platform": "wordpress",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Gotland",
-        "url": "https://www.gotland.se",
-        "platform": "sitevision",
-        "reason": "no candidates matched search terms"
-      },
       {
         "name": "Huddinge",
         "url": "https://www.huddinge.se",
         "platform": "unknown",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Eskilstuna",
-        "url": "https://www.eskilstuna.se",
-        "platform": "sitevision",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Södertälje",
-        "url": "https://www.sodertalje.se",
-        "platform": "episerver",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Botkyrka",
-        "url": "https://www.botkyrka.se",
-        "platform": "sitevision",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Haninge",
-        "url": "https://www.haninge.se",
-        "platform": "episerver",
         "reason": "no candidates matched search terms"
       },
       {
@@ -106,81 +1321,9 @@
         "reason": "no candidates matched search terms"
       },
       {
-        "name": "Österåker",
-        "url": "https://www.osteraker.se",
-        "platform": "sitevision",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Solna",
-        "url": "https://www.solna.se",
-        "platform": "sitevision",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Järfälla",
-        "url": "https://www.jarfalla.se",
-        "platform": "sitevision",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Täby",
-        "url": "https://www.taby.se",
-        "platform": "episerver",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Norrtälje",
-        "url": "https://www.norrtalje.se",
-        "platform": "episerver",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Landskrona",
-        "url": "https://www.landskrona.se",
-        "platform": "wordpress",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Tyresö",
-        "url": "https://www.tyreso.se",
-        "platform": "sitevision",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Vallentuna",
-        "url": "https://www.vallentuna.se",
-        "platform": "unknown",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Karlskrona",
-        "url": "https://www.karlskrona.se",
-        "platform": "episerver",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Sigtuna",
-        "url": "https://www.sigtuna.se",
-        "platform": "sitevision",
-        "reason": "no candidates matched search terms"
-      },
-      {
         "name": "Enköping",
         "url": "https://www.enkoping.se",
         "platform": "unknown",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Motala",
-        "url": "https://www.motala.se",
-        "platform": "wordpress",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Katrineholm",
-        "url": "https://www.katrineholm.se",
-        "platform": "sitevision",
         "reason": "no candidates matched search terms"
       },
       {
@@ -190,429 +1333,15 @@
         "reason": "no candidates matched search terms"
       },
       {
-        "name": "Danderyd",
-        "url": "https://www.danderyd.se",
-        "platform": "episerver",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Mjölby",
-        "url": "https://www.mjolby.se",
-        "platform": "sitevision",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Ekerö",
-        "url": "https://www.ekero.se",
-        "platform": "sitevision",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Lomma",
-        "url": "https://www.lomma.se",
-        "platform": "sitevision",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Håbo",
-        "url": "https://www.habo.se",
-        "platform": "sitevision",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Hässleholm",
-        "url": "https://www.hassleholm.se",
-        "platform": "sitevision",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Burlöv",
-        "url": "https://www.burlov.se",
-        "platform": "sitevision",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Svedala",
-        "url": "https://www.svedala.se",
-        "platform": "episerver",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Oskarshamn",
-        "url": "https://www.oskarshamn.se",
-        "platform": "episerver",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Tranås",
-        "url": "https://www.tranas.se",
-        "platform": "sitevision",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Tierp",
-        "url": "https://www.tierp.se",
-        "platform": "sitevision",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Oxelösund",
-        "url": "https://www.oxelosund.se",
-        "platform": "sitevision",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Hultsfred",
-        "url": "https://www.hultsfred.se",
-        "platform": "wordpress",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Vetlanda",
-        "url": "https://www.vetlanda.se",
-        "platform": "sitevision",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Vaggeryd",
-        "url": "https://www.vaggeryd.se",
-        "platform": "sitevision",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Hörby",
-        "url": "https://www.horby.se",
-        "platform": "wordpress",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Simrishamn",
-        "url": "https://www.simrishamn.se",
-        "platform": "sitevision",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Svalöv",
-        "url": "https://www.svalov.se",
-        "platform": "sitevision",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Klippan",
-        "url": "https://www.klippan.se",
-        "platform": "sitevision",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Båstad",
-        "url": "https://www.bastad.se",
-        "platform": "sitevision",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Bromölla",
-        "url": "https://www.bromolla.se",
-        "platform": "episerver",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Tingsryd",
-        "url": "https://www.tingsryd.se",
-        "platform": "wordpress",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Valdemarsvik",
-        "url": "https://www.valdemarsvik.se",
-        "platform": "wordpress",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Borgholm",
-        "url": "https://www.borgholm.se",
-        "platform": "wordpress",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Karlshamn",
-        "url": "https://www.karlshamn.se",
-        "platform": "wordpress",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Mönsterås",
-        "url": "https://www.monsteras.se",
-        "platform": "wordpress",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Torsås",
-        "url": "https://www.torsas.se",
-        "platform": "wordpress",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Högsby",
-        "url": "https://www.hogsby.se",
-        "platform": "unknown",
-        "reason": "no candidates matched search terms"
-      },
-      {
         "name": "Upplands-Bro",
         "url": "https://www.upplandsbro.se",
         "platform": "unknown",
         "reason": "timeout"
       },
       {
-        "name": "Gnosjö",
-        "url": "https://www.gnosjo.se",
-        "platform": "sitevision",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Örebro",
-        "url": "https://www.orebro.se",
-        "platform": "sitevision",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Västerås",
-        "url": "https://www.vasteras.se",
-        "platform": "sitevision",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Göteborg",
-        "url": "https://www.goteborg.se",
-        "platform": "unknown",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Borås",
-        "url": "https://www.boras.se",
-        "platform": "sitevision",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Varberg",
-        "url": "https://www.varberg.se",
-        "platform": "sitevision",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Falun",
-        "url": "https://www.falun.se",
-        "platform": "sitevision",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Kungsbacka",
-        "url": "https://www.kungsbacka.se",
-        "platform": "sitevision",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Skövde",
-        "url": "https://www.skovde.se",
-        "platform": "episerver",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Trelleborg",
-        "url": "https://www.trelleborg.se",
-        "platform": "wordpress",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Ängelholm",
-        "url": "https://www.engelholm.se",
-        "platform": "sitevision",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Alingsås",
-        "url": "https://www.alingsas.se",
-        "platform": "wordpress",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Partille",
-        "url": "https://www.partille.se",
-        "platform": "episerver",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Vellinge",
-        "url": "https://www.vellinge.se",
-        "platform": "episerver",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Kumla",
-        "url": "https://www.kumla.se",
-        "platform": "sitevision",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Falkenberg",
-        "url": "https://www.falkenberg.se",
-        "platform": "wordpress",
-        "reason": "no candidates matched search terms"
-      },
-      {
         "name": "Lidköping",
         "url": "https://www.lidkoping.se",
         "platform": "unknown",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Laholm",
-        "url": "https://www.laholm.se",
-        "platform": "sitevision",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Sala",
-        "url": "https://www.sala.se",
-        "platform": "unknown",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Köping",
-        "url": "https://www.koping.se",
-        "platform": "sitevision",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Säffle",
-        "url": "https://www.saffle.se",
-        "platform": "sitevision",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Lysekil",
-        "url": "https://www.lysekil.se",
-        "platform": "sitevision",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Leksand",
-        "url": "https://www.leksand.se",
-        "platform": "sitevision",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Avesta",
-        "url": "https://www.avesta.se",
-        "platform": "unknown",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Hedemora",
-        "url": "https://www.hedemora.se",
-        "platform": "wordpress",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Bollebygd",
-        "url": "https://www.bollebygd.se",
-        "platform": "sitevision",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Filipstad",
-        "url": "https://www.filipstad.se",
-        "platform": "sitevision",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Orust",
-        "url": "https://www.orust.se",
-        "platform": "sitevision",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Munkedal",
-        "url": "https://www.munkedal.se",
-        "platform": "sitevision",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Stenungsund",
-        "url": "https://www.stenungsund.se",
-        "platform": "sitevision",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Tjörn",
-        "url": "https://www.tjorn.se",
-        "platform": "sitevision",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Vara",
-        "url": "https://www.vara.se",
-        "platform": "sitevision",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Mark",
-        "url": "https://www.mark.se",
-        "platform": "sitevision",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Ulricehamn",
-        "url": "https://www.ulricehamn.se",
-        "platform": "sitevision",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Karlsborg",
-        "url": "https://www.karlsborg.se",
-        "platform": "episerver",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Kristinehamn",
-        "url": "https://www.kristinehamn.se",
-        "platform": "episerver",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Säter",
-        "url": "https://www.sater.se",
-        "platform": "wordpress",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Gagnef",
-        "url": "https://www.gagnef.se",
-        "platform": "wordpress",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Munkfors",
-        "url": "https://www.munkfors.se",
-        "platform": "wordpress",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Dals-Ed",
-        "url": "https://www.dalsed.se",
-        "platform": "unknown",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Eda",
-        "url": "https://www.eda.se",
-        "platform": "unknown",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Sunne",
-        "url": "https://www.sunne.se",
-        "platform": "episerver",
         "reason": "no candidates matched search terms"
       },
       {
@@ -622,255 +1351,9 @@
         "reason": "no candidates matched search terms"
       },
       {
-        "name": "Falköping",
-        "url": "https://www.falkoping.se",
-        "platform": "sitevision",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Vansbro",
-        "url": "https://www.vansbro.se",
-        "platform": "sitevision",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Lindesberg",
-        "url": "https://www.lindesberg.se",
-        "platform": "sitevision",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Nacka",
-        "url": "https://www.nacka.se",
-        "platform": "episerver",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Malmö",
-        "url": "https://malmo.se",
-        "platform": "sitevision",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Mölndal",
-        "url": "https://www.molndal.se",
-        "platform": "sitevision",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Linköping",
-        "url": "https://www.linkoping.se",
-        "platform": "sitevision",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Umeå",
-        "url": "https://www.umea.se",
-        "platform": "sitevision",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Karlstad",
-        "url": "https://karlstad.se",
-        "platform": "sitevision",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Sundsvall",
-        "url": "https://www.sundsvall.se",
-        "platform": "sitevision",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Höör",
-        "url": "https://www.hoor.se",
-        "platform": "wordpress",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Tibro",
-        "url": "https://www.tibro.se",
-        "platform": "episerver",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Kiruna",
-        "url": "https://www.kiruna.se",
-        "platform": "sitevision",
-        "reason": "no candidates matched search terms"
-      },
-      {
         "name": "Stockholm",
         "url": "https://www.stockholm.se",
         "platform": "unknown",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Gävle",
-        "url": "https://www.gavle.se",
-        "platform": "wordpress",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Växjö",
-        "url": "https://www.vaxjo.se",
-        "platform": "sitevision",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Trollhättan",
-        "url": "https://www.trollhattan.se",
-        "platform": "unknown",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Nyköping",
-        "url": "https://www.nykoping.se",
-        "platform": "episerver",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Kristianstad",
-        "url": "https://www.kristianstad.se",
-        "platform": "sitevision",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Luleå",
-        "url": "https://www.lulea.se",
-        "platform": "sitevision",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Skellefteå",
-        "url": "https://www.skelleftea.se",
-        "platform": "sitevision",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Kalmar",
-        "url": "https://www.kalmar.se",
-        "platform": "sitevision",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Östersund",
-        "url": "https://www.ostersund.se",
-        "platform": "sitevision",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Upplands Väsby",
-        "url": "https://www.upplandsvasby.se",
-        "platform": "sitevision",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Sollentuna",
-        "url": "https://www.sollentuna.se",
-        "platform": "episerver",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Uddevalla",
-        "url": "https://www.uddevalla.se",
-        "platform": "sitevision",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Värmdö",
-        "url": "https://www.varmdo.se",
-        "platform": "sitevision",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Lerum",
-        "url": "https://www.lerum.se",
-        "platform": "sitevision",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Piteå",
-        "url": "https://www.pitea.se",
-        "platform": "unknown",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Sandviken",
-        "url": "https://www.sandviken.se",
-        "platform": "sitevision",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Strängnäs",
-        "url": "https://www.strangnas.se",
-        "platform": "sitevision",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Ystad",
-        "url": "https://www.ystad.se",
-        "platform": "sitevision",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Nynäshamn",
-        "url": "https://www.nynashamn.se",
-        "platform": "sitevision",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Härnösand",
-        "url": "https://www.harnosand.se",
-        "platform": "sitevision",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Staffanstorp",
-        "url": "https://www.staffanstorp.se",
-        "platform": "wordpress",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Kungälv",
-        "url": "https://www.kungalv.se",
-        "platform": "episerver",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Sundbyberg",
-        "url": "https://www.sundbyberg.se",
-        "platform": "sitevision",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Örnsköldsvik",
-        "url": "https://www.ornskoldsvik.se",
-        "platform": "sitevision",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Eslöv",
-        "url": "https://www.eslov.se",
-        "platform": "wordpress",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Mariestad",
-        "url": "https://www.mariestad.se",
-        "platform": "sitevision",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Arvika",
-        "url": "https://www.arvika.se",
-        "platform": "sitevision",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Osby",
-        "url": "https://www.osby.se",
-        "platform": "sitevision",
         "reason": "no candidates matched search terms"
       },
       {
@@ -878,192 +1361,6 @@
         "url": "https://www.mora.se",
         "platform": "unknown",
         "reason": "timeout"
-      },
-      {
-        "name": "Älmhult",
-        "url": "https://www.almhult.se",
-        "platform": "sitevision",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Gislaved",
-        "url": "https://www.gislaved.se",
-        "platform": "sitevision",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Lilla Edet",
-        "url": "https://www.lillaedet.se",
-        "platform": "sitevision",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Sölvesborg",
-        "url": "https://www.solvesborg.se",
-        "platform": "sitevision",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Bengtsfors",
-        "url": "https://www.bengtsfors.se",
-        "platform": "sitevision",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Höganäs",
-        "url": "https://www.hoganas.se",
-        "platform": "sitevision",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Älvsbyn",
-        "url": "https://www.alvsbyn.se",
-        "platform": "wordpress",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Arjeplog",
-        "url": "https://www.arjeplog.se",
-        "platform": "wordpress",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Norsjö",
-        "url": "https://www.norsjo.se",
-        "platform": "wordpress",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Övertorneå",
-        "url": "https://www.overtornea.se",
-        "platform": "unknown",
-        "reason": "timeout"
-      },
-      {
-        "name": "Jokkmokk",
-        "url": "https://www.jokkmokk.se",
-        "platform": "unknown",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Kalix",
-        "url": "https://www.kalix.se",
-        "platform": "unknown",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Lycksele",
-        "url": "https://www.lycksele.se",
-        "platform": "unknown",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Malå",
-        "url": "https://www.mala.se",
-        "platform": "unknown",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Överkalix",
-        "url": "https://www.overkalix.se",
-        "platform": "unknown",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Pajala",
-        "url": "https://www.pajala.se",
-        "platform": "unknown",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Storuman",
-        "url": "https://www.storuman.se",
-        "platform": "unknown",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Dorotea",
-        "url": "https://www.dorotea.se",
-        "platform": "unknown",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Vilhelmina",
-        "url": "https://www.vilhelmina.se",
-        "platform": "unknown",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Tanum",
-        "url": "https://www.tanum.se",
-        "platform": "sitevision",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Herrljunga",
-        "url": "https://www.herrljunga.se",
-        "platform": "sitevision",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Hjo",
-        "url": "https://www.hjo.se",
-        "platform": "episerver",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Söderköping",
-        "url": "https://www.soderkoping.se",
-        "platform": "episerver",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Arboga",
-        "url": "https://www.arboga.se",
-        "platform": "sitevision",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Skinnskatteberg",
-        "url": "https://www.skinnskatteberg.se",
-        "platform": "wordpress",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Alvesta",
-        "url": "https://www.alvesta.se",
-        "platform": "wordpress",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Nybro",
-        "url": "https://www.nybro.se",
-        "platform": "wordpress",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Mellerud",
-        "url": "https://www.mellerud.se",
-        "platform": "unknown",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Östhammar",
-        "url": "https://www.osthammar.se",
-        "platform": "unknown",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Degerfors",
-        "url": "https://www.degerfors.se",
-        "platform": "sitevision",
-        "reason": "no candidates matched search terms"
-      },
-      {
-        "name": "Åmål",
-        "url": "https://www.amal.se",
-        "platform": "sitevision",
-        "reason": "no candidates matched search terms"
       }
     ]
   }

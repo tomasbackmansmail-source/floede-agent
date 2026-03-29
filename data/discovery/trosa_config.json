@@ -1,39 +1,8 @@
 {
-  "municipality": "Trosa",
+  "source_name": "Trosa",
+  "listing_url": "https://www.trosa.se/anslagstavla",
   "platform_guess": "wordpress",
-  "listing_url": "https://www.trosa.se/anslagstavla/",
-  "listing_type": "list",
-  "pagination": {
-    "has_pagination": false,
-    "type": "none",
-    "mechanism": "All notices are rendered on a single page as accordion sections",
-    "estimated_total_pages": null
-  },
-  "requires_subpages": {
-    "required": false,
-    "reason": "All content including dates, descriptions and links to documents is embedded directly in each accordion section on the listing page. No navigation to subpages is needed.",
-    "link_selector_hint": null
-  },
-  "selectors_hint": {
-    "container": "div.c-accordion",
-    "item": "div.c-accordion__section",
-    "case_number": null,
-    "address": null,
-    "date": "div.c-accordion__content div.prose p",
-    "description": "div.c-accordion__content div.prose",
-    "title": "div.c-accordion__button-wrapper h2.c-typography, div.c-accordion__button-wrapper h3.c-typography"
-  },
-  "date_extraction": {
-    "anslagsdate_pattern": "Anslås:\\s*(\\d{4}-\\d{2}-\\d{2})",
-    "nedtagningsdate_pattern": "Nedtas:\\s*(\\d{4}-\\d{2}-\\d{2})",
-    "alternative_patterns": [
-      "Publicerades på anslagstavlan:\\s*(\\d{4}-\\d{2}-\\d{2})",
-      "Publiceringen upphör:\\s*(\\d{4}-\\d{2}-\\d{2})",
-      "Datum då anslaget sätts upp:\\s*(\\d{4}-\\d{2}-\\d{2})",
-      "Datum då anslaget tas ned:\\s*(\\d{4}-\\d{2}-\\d{2})"
-    ]
-  },
-  "notes": "Anslagstavlan använder Municipio/WordPress med Modularity-moduler. Alla anslag listas som accordion-sektioner (div.c-accordion__section) direkt på sidan utan paginering. Titlar finns i h2/h3 med klass c-typography__variant--h4. Innehållet är ostrukturerat fritext i div.prose - datumfält varierar i format och etikett beroende på avsändande nämnd (t.ex. 'Anslås'/'Nedtas', 'Publicerades på anslagstavlan'/'Publiceringen upphör', 'Datum då anslaget sätts upp'/'Datum då anslaget tas ned'). Sidan innehåller anslag från både kommunen och externa nämnder (Region Sörmland, gemensamma nämnder). Accordion-innehåll är inbakat i HTML och kräver ingen JavaScript-interaktion för att extraheras.",
+  "discovery_method": "url_variants",
   "confidence": "high",
   "approved": false
 }

@@ -1,28 +1,8 @@
 {
-  "municipality": "Motala",
-  "platform_guess": "custom",
-  "listing_url": "https://anslagstavlan.motala.se/",
-  "listing_type": "list",
-  "pagination": {
-    "has_pagination": true,
-    "type": "load_more",
-    "mechanism": "Varje sektion (Justerade protokoll, Övriga sammanträden, Fullmäktiges sammanträden, Övrigt anslagen information) har en 'Visa fler'-knapp som laddar fler poster.",
-    "estimated_total_pages": null
-  },
-  "requires_subpages": {
-    "required": false,
-    "reason": "Listan visar bara titel och expanderbar ikon. Klick på en post öppnar troligen mer detalj. Bygglov kan finnas dolt under 'Övrigt anslagen information' eller i protokoll.",
-    "link_selector_hint": null
-  },
-  "selectors_hint": {
-    "container": null,
-    "item": null,
-    "case_number": null,
-    "address": null,
-    "date": null,
-    "description": null
-  },
-  "notes": "Motala använder en extern anslagstavla på anslagstavlan.motala.se (samma plattform som Ängelholm). Sidan har fyra sektioner: Justerade protokoll, Övriga sammanträden, Fullmäktiges sammanträden och Övrigt anslagen information. Direkta bygglov-kungörelser syntes ej vid besök, men kan finnas under 'Övrigt anslagen information' (som innehåller detaljplanunderrättelser och kungörelser). Protokoll från relevanta nämnder (t.ex. Byggnadsnämnden) bör kunna hittas i listan. 'Visa fler'-knappar finns i varje sektion. Kommunens huvudsida (motala.se) pekar hit via extern länk. PARKERAD: Anslagstavlan.motala.se (Ciceron SPA) visar bara justerade protokoll och flyttade fordon-kungörelser. Inga bygglov.",
-  "confidence": "medium",
+  "source_name": "Motala",
+  "listing_url": "https://www.motala.se/anslagstavla",
+  "platform_guess": "wordpress",
+  "discovery_method": "url_variants",
+  "confidence": "high",
   "approved": false
 }

@@ -1,0 +1,8 @@
+{
+  "source_name": "Eksjö",
+  "listing_url": "https://eksjo.se/anslagstavla",
+  "platform_guess": "sitevision",
+  "discovery_method": "url_variants",
+  "confidence": "high",
+  "approved": false
+}

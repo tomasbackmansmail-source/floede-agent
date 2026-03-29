@@ -1,0 +1,28 @@
+{
+  "municipality": "Upplands-Bro",
+  "platform_guess": "sitevision",
+  "listing_url": "https://www.upplands-bro.se/anslagstavla.html",
+  "listing_type": "unknown_js_rendered",
+  "pagination": {
+    "has_pagination": null,
+    "type": "unknown",
+    "mechanism": "Page content is rendered via JavaScript portlets. Static HTML only contains navigation and cookie banner. Actual notice content not visible in static HTML.",
+    "estimated_total_pages": null
+  },
+  "requires_subpages": {
+    "required": null,
+    "reason": "Cannot determine structure without JavaScript-rendered content. The main content div IDs visible are #Krisbanner and #Huvudnavigation but the anslagstavla portlet content is not present in static HTML.",
+    "link_selector_hint": null
+  },
+  "selectors_hint": {
+    "container": null,
+    "item": null,
+    "case_number": null,
+    "address": null,
+    "date": null,
+    "description": null
+  },
+  "notes": "Page uses SiteVision CMS with JavaScript-rendered portlets. Static scraping will not work. Requires a JavaScript-capable browser (Playwright or Selenium) to render page content before scraping. After JS rendering, look for portlet containers within the main content area. The actual anslagstavla content div is likely injected dynamically after page load. Recommend: load page with Playwright, wait for network idle, then inspect rendered DOM for notice items.",
+  "confidence": "low",
+  "approved": false
+}

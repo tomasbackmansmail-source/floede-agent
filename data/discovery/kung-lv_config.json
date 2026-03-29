@@ -1,0 +1,8 @@
+{
+  "source_name": "Kungälv",
+  "listing_url": "https://www.kungalv.se/anslagstavla",
+  "platform_guess": "episerver",
+  "discovery_method": "url_variants",
+  "confidence": "high",
+  "approved": false
+}

@@ -1,28 +1,8 @@
 {
-  "municipality": "Laholm",
+  "source_name": "Laholm",
+  "listing_url": "https://www.laholm.se/bygga-bo-och-miljo/bygga-nytt-andra-eller-riva/bygglov",
   "platform_guess": "sitevision",
-  "listing_url": "https://www.laholm.se/kommun-och-politik/anslagstavla",
-  "listing_type": "list",
-  "pagination": {
-    "has_pagination": false,
-    "type": "none",
-    "mechanism": null,
-    "estimated_total_pages": null
-  },
-  "requires_subpages": {
-    "required": false,
-    "reason": "Inline extraction. Kungörelser och underrättelser visas direkt på sidan.",
-    "link_selector_hint": null
-  },
-  "selectors_hint": {
-    "container": "main, article, [role=main]",
-    "item": null,
-    "case_number": null,
-    "address": null,
-    "date": null,
-    "description": null
-  },
-  "notes": "PARKERAD: Anslagstavlan har detaljplaner och protokoll men 'Kungörelser av beslut' och 'Grannhöranden' är tomma. Inga individuella bygglov-beslut publiceras.",
-  "confidence": "low",
+  "discovery_method": "crawl_homepage",
+  "confidence": "medium",
   "approved": false
 }

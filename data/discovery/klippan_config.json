@@ -1,28 +1,8 @@
 {
-  "municipality": "Klippan",
-  "platform_guess": "netpublicator",
-  "listing_url": "https://www.netpublicator.com/bulletinboard/public/e9e73ebb-7b7f-4ce9-bc35-fd22d1fe134a",
-  "listing_type": "list",
-  "pagination": {
-    "has_pagination": false,
-    "type": "none",
-    "mechanism": null,
-    "estimated_total_pages": null
-  },
-  "requires_subpages": {
-    "required": false,
-    "reason": "Inline extraction. Netpublicator renderar alla poster med full text direkt på sidan.",
-    "link_selector_hint": null
-  },
-  "selectors_hint": {
-    "container": "main, article, [role=main]",
-    "item": null,
-    "case_number": null,
-    "address": null,
-    "date": null,
-    "description": null
-  },
-  "notes": "Extern Netpublicator-anslagstavla. Rik data: kungörelser om grannehörande och bygglovsbeslut med fastighetsbeteckning, diarienummer, beslutsdatum. JS-renderad men fungerar i Playwright.",
+  "source_name": "Klippan",
+  "listing_url": "https://www.klippan.se/kommun--politik/moten-handlingar--protokoll/anslagstavla",
+  "platform_guess": "sitevision",
+  "discovery_method": "crawl_homepage",
   "confidence": "medium",
-  "approved": true
+  "approved": false
 }
