@@ -669,6 +669,20 @@ async function main() {
     }
   }
 
+  // --- Phase 4: Trigger vertical notification ---
+  if (process.env.NOTIFY_URL) {
+    console.log('\n=== Phase 4: Trigger notifications ===');
+    try {
+      const resp = await fetch(process.env.NOTIFY_URL, {
+        headers: { 'Authorization': 'Bearer ' + (process.env.CRON_SECRET || '') }
+      });
+      const result = await resp.json();
+      console.log('Notify response:', JSON.stringify(result));
+    } catch (err) {
+      console.error('Notify trigger failed (non-fatal):', err.message);
+    }
+  }
+
 }
 
 main()
