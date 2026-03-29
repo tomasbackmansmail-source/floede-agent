@@ -50,6 +50,7 @@ async function loadApprovedConfigs(supabase) {
 
   return data.map((row) => ({
     ...row.config,
+    municipality: row.municipality,
     approved: row.approved,
     needs_browser: row.config.needs_browser || row.needs_browser || false,
     _file: `${row.municipality}_config.json`,

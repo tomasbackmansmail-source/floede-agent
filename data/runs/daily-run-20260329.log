@@ -1,0 +1,381 @@
+=== Floede Agent - Daily Run 2026-03-29T06-43-10 ===
+
+Found 317 approved configs (138 HTTP, 179 browser)
+
+=== Phase 1: HTTP fetch (138 municipalities) ===
+
+--- Älmhult ---
+  [HTTP] https://www.almhult.se/kommunpolitik/motenhandlingarprotokoll/anslagstavla.930.html
+  Permits: 0, Cost: $0.0020
+  DB: 0 inserted, 0 skipped, 0 errors
+
+--- undefined ---
+  [HTTP] https://www.aneby.se/arkiv/digital-anslagstavla/anslag/2026-03-26-kungorelse-om-beviljat-bygglov-pa-fastigheten-slapvagnen-2.html
+  ERROR: Cannot read properties of undefined (reading 'toLowerCase')
+
+--- undefined ---
+  [HTTP] https://www.alvkarleby.se/anslagstavla
+  ERROR: Cannot read properties of undefined (reading 'toLowerCase')
+
+--- undefined ---
+  [HTTP] https://vingaker.se/kommun--politik/politik-och-demokrati/anslagstavla
+  ERROR: Cannot read properties of undefined (reading 'toLowerCase')
+
+--- undefined ---
+  [HTTP] https://www.vannas.se/anslagstavla
+  ERROR: Cannot read properties of undefined (reading 'toLowerCase')
+
+--- undefined ---
+  [HTTP] https://www.boras.se/anslagstavla
+  ERROR: Cannot read properties of undefined (reading 'toLowerCase')
+
+--- undefined ---
+  [HTTP] https://www.habo.se/anslagstavla
+  ERROR: Cannot read properties of undefined (reading 'toLowerCase')
+
+--- undefined ---
+  [HTTP] https://berg.se/anslagstavla
+  ERROR: Cannot read properties of undefined (reading 'toLowerCase')
+
+--- undefined ---
+  [HTTP] https://arvidsjaur.se/kommunpolitik/anslagstavla.1395.html
+  ERROR: Cannot read properties of undefined (reading 'toLowerCase')
+
+--- undefined ---
+  [HTTP] https://www.bjuv.se/kommun-och-politik/kallelser-och-protokoll/kommunal-anslagstavla.html
+  ERROR: Cannot read properties of undefined (reading 'toLowerCase')
+
+--- Hällefors ---
+  [HTTP] https://www.hellefors.se/anslagstavla.html
+  Permits: 1, Cost: $0.0041
+  DB: 1 inserted, 0 skipped, 0 errors
+
+--- undefined ---
+  [HTTP] https://www.eskilstuna.se/anslagstavla
+  ERROR: Cannot read properties of undefined (reading 'toLowerCase')
+
+--- undefined ---
+  [HTTP] https://www.ekero.se/kommun-politik/moten-handlingar--protokoll/anslagstavla
+  ERROR: Cannot read properties of undefined (reading 'toLowerCase')
+
+--- undefined ---
+  [HTTP] https://www.kavlinge.se/kommun-och-politik/digital-anslagstavla
+  ERROR: Cannot read properties of undefined (reading 'toLowerCase')
+
+--- undefined ---
+  [HTTP] https://eslov.se/anslag
+  ERROR: Cannot read properties of undefined (reading 'toLowerCase')
+
+--- undefined ---
+  [HTTP] https://www.vastervik.se/anslagstavla
+  ERROR: Cannot read properties of undefined (reading 'toLowerCase')
+
+--- undefined ---
+  [HTTP] https://www.sjobo.se/kommun-och-politik/digital-anslagstavla.html
+  ERROR: Cannot read properties of undefined (reading 'toLowerCase')
+
+--- undefined ---
+  [HTTP] https://www.skinnskatteberg.se/kommun-och-demokrati/digital-anslagstavla/
+  ERROR: Cannot read properties of undefined (reading 'toLowerCase')
+
+--- undefined ---
+  [HTTP] https://www.essunga.se/kommun--politik/politik-och-demokrati/anslagstavla.html
+  ERROR: Cannot read properties of undefined (reading 'toLowerCase')
+
+--- undefined ---
+  [HTTP] https://www.orkelljunga.se/16/kommun-och-politik/digital-anslagstavla.html
+  ERROR: Cannot read properties of undefined (reading 'toLowerCase')
+
+--- Bränås ---
+  [HTTP] https://www.brantorp.se/anslagstavla
+  ERROR: fetch failed
+
+--- undefined ---
+  [HTTP] https://www.emmaboda.se/kommun--politik/politik-och-demokrati/anslagstavla.html
+  ERROR: Cannot read properties of undefined (reading 'toLowerCase')
+
+--- undefined ---
+  [HTTP] https://www.filipstad.se/anslagstavla
+  ERROR: Cannot read properties of undefined (reading 'toLowerCase')
+
+--- undefined ---
+  [HTTP] https://www.grastorp.se/kommun-och-politik/anslagstavla.html
+  ERROR: Cannot read properties of undefined (reading 'toLowerCase')
+
+--- undefined ---
+  [HTTP] https://www.gotene.se/anslagstavla
+  ERROR: Cannot read properties of undefined (reading 'toLowerCase')
+
+--- undefined ---
+  [HTTP] https://www.harryda.se/anslagstavla
+  ERROR: Cannot read properties of undefined (reading 'toLowerCase')
+
+--- undefined ---
+  [HTTP] https://www.stromstad.se/anslagstavla
+  ERROR: Cannot read properties of undefined (reading 'toLowerCase')
+
+--- undefined ---
+  [HTTP] https://www.gnesta.se/anslagstavla
+  ERROR: Cannot read properties of undefined (reading 'toLowerCase')
+
+--- undefined ---
+  [HTTP] https://www.gotland.se/anslagstavla
+  ERROR: Cannot read properties of undefined (reading 'toLowerCase')
+
+--- undefined ---
+  [HTTP] https://www.ockero.se/kommun-och-politik/anslagstavla/kungorelse-av-lovbeslut-enligt-plan--och-bygglagen-2010900
+  ERROR: Cannot read properties of undefined (reading 'toLowerCase')
+
+--- Gnosjo ---
+  [HTTP] https://www.gnosjo.se/bygga-bo-trafik-och-miljo/bygga-nytt-andra-eller-riva/anslag-bygglov
+  Permits: 7, Cost: $0.0064
+  DB: 7 inserted, 0 skipped, 0 errors
+
+--- undefined ---
+  [HTTP] https://www.habo.se/anslagstavla
+  ERROR: Cannot read properties of undefined (reading 'toLowerCase')
+
+--- undefined ---
+  [HTTP] https://www.halmstad.se/anslagstavla
+  ERROR: Cannot read properties of undefined (reading 'toLowerCase')
+
+--- Gullspang ---
+  [HTTP] https://www.gullspang.se/anslagstavla
+  Permits: 1, Cost: $0.0031
+  DB: 0 inserted, 1 skipped, 0 errors
+
+--- Grastorp ---
+  [HTTP] https://www.grastorp.se/kommun-och-politik/anslagstavla
+  Permits: 5, Cost: $0.0045
+  DB: 1 inserted, 4 skipped, 0 errors
+
+--- undefined ---
+  [HTTP] https://malung-salen.se/anslagstavla
+  ERROR: Cannot read properties of undefined (reading 'toLowerCase')
+
+--- undefined ---
+  [HTTP] https://www.alvdalen.se/arkiv/digital-anslagstavla.html
+  ERROR: Cannot read properties of undefined (reading 'toLowerCase')
+
+--- Harjedalen ---
+  [HTTP] https://www.herjedalen.se/kommun-och-politik/anslagstavla
+  Permits: 0, Cost: $0.0026
+  DB: 0 inserted, 0 skipped, 0 errors
+
+--- Harryda ---
+  [HTTP] https://www.harryda.se/anslagstavla
+  Permits: 10, Cost: $0.0074
+  DB: 0 inserted, 10 skipped, 0 errors
+
+--- undefined ---
+  [HTTP] https://kil.se/kommun-och-politik/overklaga-beslut-rattssakerhet/anslagstavla-officiell
+  ERROR: Cannot read properties of undefined (reading 'toLowerCase')
+
+--- undefined ---
+  [HTTP] https://www.karlskoga.se/anslagstavla
+  ERROR: Cannot read properties of undefined (reading 'toLowerCase')
+
+--- undefined ---
+  [HTTP] https://www.krokom.se/anslagstavla
+  ERROR: Cannot read properties of undefined (reading 'toLowerCase')
+
+--- undefined ---
+  [HTTP] https://www.katrineholm.se/kommun-och-politik/anslagstavla.html
+  ERROR: Cannot read properties of undefined (reading 'toLowerCase')
+
+--- undefined ---
+  [HTTP] https://www.laxa.se/Kommun-och-politik/Demokrati-och-insyn/Kommunal-anslagstavla.html
+  ERROR: Cannot read properties of undefined (reading 'toLowerCase')
+
+--- undefined ---
+  [HTTP] https://www.lerum.se/anslagstavla
+  ERROR: Cannot read properties of undefined (reading 'toLowerCase')
+
+--- Koping ---
+  [HTTP] https://koping.se/anslagstavla/anslagstavla.html
+  Permits: 6, Cost: $0.0257
+  DB: 0 inserted, 6 skipped, 0 errors
+
+--- Lidköping ---
+  [HTTP] https://lidkoping.se/kommun-och-politik/politik-och-demokrati/anslagstavla
+  ERROR: fetch failed
+
+--- Malung Salen ---
+  [HTTP] https://www.malung-salen.se/anslagstavla
+  Permits: 48, Cost: $0.0360
+  DB: 48 inserted, 0 skipped, 0 errors
+
+--- undefined ---
+  [HTTP] https://www.lysekil.se/kommun-och-politik/overklaga-beslut-rattssakerhet/kommunal-anslagstavla
+  ERROR: Cannot read properties of undefined (reading 'toLowerCase')
+
+--- Mullsjo ---
+  [HTTP] https://www.mullsjo.se/arkiv/anslagstavla
+  Permits: 0, Cost: $0.0028
+  DB: 0 inserted, 0 skipped, 0 errors
+
+--- undefined ---
+  [HTTP] https://nordanstig.se/anslagstavla
+  ERROR: Cannot read properties of undefined (reading 'toLowerCase')
+
+--- undefined ---
+  [HTTP] https://www.nora.se/anslagstavla
+  ERROR: Cannot read properties of undefined (reading 'toLowerCase')
+
+--- undefined ---
+  [HTTP] https://www.ronneby.se/anslagstavla
+  ERROR: Cannot read properties of undefined (reading 'toLowerCase')
+
+--- Olofstrom ---
+  [HTTP] https://olofstrom.se/kommun-och-politik/overklaga-beslut-rattssakerhet/anslagstavla-officiell
+  Permits: 0, Cost: $0.0021
+  DB: 0 inserted, 0 skipped, 0 errors
+
+--- Ovanaker ---
+  [HTTP] https://www.ovanaker.se/anslagstavla
+  Permits: 1, Cost: $0.0040
+  DB: 0 inserted, 1 skipped, 0 errors
+
+--- undefined ---
+  [HTTP] https://www.orsa.se/arkiv/digital-anslagstavla.html
+  ERROR: Cannot read properties of undefined (reading 'toLowerCase')
+
+--- undefined ---
+  [HTTP] https://www.ragunda.se/kommunochpolitik/politikochmoten/digitalanslagstavla.1029.html
+  ERROR: Cannot read properties of undefined (reading 'toLowerCase')
+
+--- undefined ---
+  [HTTP] https://www.perstorp.se/anslagstavla
+  ERROR: Cannot read properties of undefined (reading 'toLowerCase')
+
+--- SjöBo ---
+  [HTTP] https://www.sjobo.se/kommun-och-politik/digital-anslagstavla.html
+  Permits: 10, Cost: $0.0071
+  DB: 0 inserted, 10 skipped, 0 errors
+
+--- undefined ---
+  [HTTP] https://www.skara.se/kommunochpolitik/overklagabeslutrattssakerhet/anslagstavla.740.html
+  ERROR: Cannot read properties of undefined (reading 'toLowerCase')
+
+--- undefined ---
+  [HTTP] https://www.smedjebacken.se/kommun-och-politik/politik-och-demokrati/digital-anslagstavla.html
+  ERROR: Cannot read properties of undefined (reading 'toLowerCase')
+
+--- Rattvik ---
+  [HTTP] https://www.rattvik.se/kommun-och-politik/overklaga-beslut-rattssakerhet/anslagstavla-officiell.html
+  Permits: 0, Cost: $0.0038
+  DB: 0 inserted, 0 skipped, 0 errors
+
+--- Solleftea ---
+  [HTTP] https://www.solleftea.se/kommun--politik/anslagstavla
+  Permits: 20, Cost: $0.0146
+  DB: 20 inserted, 0 skipped, 0 errors
+
+--- undefined ---
+  [HTTP] https://www.orust.se/kommun-och-politik/beslut-insyn-och-rattssakerhet/anslagstavla
+  ERROR: Cannot read properties of undefined (reading 'toLowerCase')
+
+--- undefined ---
+  [HTTP] https://surahammar.se/anslagstavla
+  ERROR: Cannot read properties of undefined (reading 'toLowerCase')
+
+--- undefined ---
+  [HTTP] https://www.storfors.se/kommunochpolitik/beslutinsynochrattssakerhet/anslagstavla.4.e4d2db016037ff584e12b0.html
+  ERROR: Cannot read properties of undefined (reading 'toLowerCase')
+
+--- undefined ---
+  [HTTP] https://www.oxelosund.se/ovrigt/digital-anslagstavla
+  ERROR: Cannot read properties of undefined (reading 'toLowerCase')
+
+--- Stromsund ---
+  [HTTP] https://www.stromsund.se/2251.html
+  Permits: 0, Cost: $0.0032
+  DB: 0 inserted, 0 skipped, 0 errors
+
+--- undefined ---
+  [HTTP] https://www.uddevalla.se/kommun-och-politik/overklaga-beslut-rattsakerhet/uddevalla-kommuns-anslagstavla.html
+  ERROR: Cannot read properties of undefined (reading 'toLowerCase')
+
+--- undefined ---
+  [HTTP] https://www.sala.se/anslagstavla
+  ERROR: Cannot read properties of undefined (reading 'toLowerCase')
+
+--- undefined ---
+  [HTTP] https://www.tanum.se/anslagstavla
+  ERROR: Cannot read properties of undefined (reading 'toLowerCase')
+
+--- Savenas ---
+  [HTTP] https://www.savsjo.se/kommun-och-politik/anslagstavla
+  Permits: 27, Cost: $0.0164
+  DB: 1 inserted, 26 skipped, 0 errors
+
+--- undefined ---
+  [HTTP] https://tomelilla.se/anslagstavla
+  ERROR: Cannot read properties of undefined (reading 'toLowerCase')
+
+--- undefined ---
+  [HTTP] https://torsby.se/anslagstavla
+  ERROR: Cannot read properties of undefined (reading 'toLowerCase')
+
+--- Timra ---
+  [HTTP] https://www.timra.se/evenemangsarkiv/osynligasidor/timrakommunsdigitalaanslagstavla.4.352d744118487e80c3c643.html
+  Permits: 0, Cost: $0.0021
+  DB: 0 inserted, 0 skipped, 0 errors
+
+--- undefined ---
+  [HTTP] https://www.solvesborg.se/anslagstavla
+  ERROR: Cannot read properties of undefined (reading 'toLowerCase')
+
+--- undefined ---
+  [HTTP] https://www.uppvidinge.se/kommun-och-politik/politik-och-demokrati/anslagstavla.html
+  ERROR: Cannot read properties of undefined (reading 'toLowerCase')
+
+--- Vanersborg ---
+  [HTTP] https://www.vanersborg.se/kommun-och-politik/kommunens-anslagstavla
+  Permits: 0, Cost: $0.0033
+  DB: 0 inserted, 0 skipped, 0 errors
+
+--- Vingaker ---
+  [HTTP] https://vingaker.se/kommun--politik/politik-och-demokrati/anslagstavla
+  Permits: 3, Cost: $0.0058
+  DB: 3 inserted, 0 skipped, 0 errors
+
+--- undefined ---
+  [HTTP] https://www.svedala.se/paverka/politik-och-demokrati/digital-anslagstavla/
+  ERROR: Cannot read properties of undefined (reading 'toLowerCase')
+
+--- undefined ---
+  [HTTP] https://www.sundbyberg.se/kommun-och-politik/politik-och-demokrati/anslagstavla
+  ERROR: Cannot read properties of undefined (reading 'toLowerCase')
+
+--- Vannas ---
+  [HTTP] https://www.vannas.se/anslagstavla
+  Permits: 1, Cost: $0.0042
+  DB: 0 inserted, 1 skipped, 0 errors
+
+--- VåRgåRda ---
+  [HTTP] https://www.vargarda.se/kommun-och-demokrati/anslagstavla.html
+  Permits: 0, Cost: $0.0025
+  DB: 0 inserted, 0 skipped, 0 errors
+
+--- undefined ---
+  [HTTP] https://www.tierp.se/tierp.se/kommun-och-politik/politik-och-beslut/anslagstavlan.html
+  ERROR: Cannot read properties of undefined (reading 'toLowerCase')
+
+--- Bollnas ---
+  [HTTP] https://bollnas.se/kommun-och-politik/politik-och-demokrati/overklaga-beslut-rattssakerhet/anslagstavla
+  Permits: 0, Cost: $0.0023
+  DB: 0 inserted, 0 skipped, 0 errors
+
+--- åRe ---
+  [HTTP] https://www.are.se/anslagstavla
+  Permits: 0, Cost: $0.0020
+  DB: 0 inserted, 0 skipped, 0 errors
+
+--- åTvidaberg ---
+  [HTTP] https://www.atvidaberg.se/anslagstavla
+  Permits: 0, Cost: $0.0025
+  DB: 0 inserted, 0 skipped, 0 errors
+
+--- Alvkarleby ---
+  [HTTP] https://www.alvkarleby.se/anslagstavla
