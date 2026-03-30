@@ -7,3 +7,5 @@ data/costs/
 data/reports/
 data/meta/
 .DS_Store
+.env.ci
+data/runs/
