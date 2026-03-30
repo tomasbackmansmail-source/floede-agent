@@ -303,11 +303,31 @@ async function insertToSupabase(supabase, records, extractionRun) {
     );
   }
 
+  function normalizeMunicipality(name) {
+    if (enrichmentLookup[name]) return name;
+    const stripped = name.replace(/s?\s+kommun$/i, '').replace(/s?\s+stad$/i, '');
+    if (enrichmentLookup[stripped]) return stripped;
+    if (stripped.length >= 4) {
+      for (const mName of Object.keys(enrichmentLookup)) {
+        if (mName.toLowerCase() === stripped.toLowerCase()) return mName;
+      }
+    }
+    return name;
+  }
+
   let inserted = 0;
   let skipped = 0;
   let errors = 0;
 
   for (const record of records) {
+    // Normalize municipality name before mapping (e.g. "Eslövs kommun" -> "Eslöv")
+    if (dbConfig.enrichment) {
+      const sourceField = dbConfig.enrichment.lookup_source_field;
+      if (record[sourceField]) {
+        record[sourceField] = normalizeMunicipality(record[sourceField]);
+      }
+    }
+
     // Map fields from extraction output to database columns
     const row = {};
     for (const [extractField, dbField] of Object.entries(fieldMapping)) {
