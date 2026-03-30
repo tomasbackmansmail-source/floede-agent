@@ -463,7 +463,7 @@ async function main() {
   let browserCount = 0;
 
   // --- Phase 1: HTTP fetch (fast, no browser) ---
-  console.log(`=== Phase 1: HTTP fetch (${httpConfigs.length} municipalities) ===`);
+  console.log(`=== Phase 1: HTTP fetch (${httpConfigs.length} sources) ===`);
 
   for (const config of httpConfigs) {
     const muniName = config.municipality;
@@ -532,7 +532,7 @@ async function main() {
 
   // --- Phase 2: Playwright fetch (browser-dependent sites) ---
   if (browserConfigs.length > 0) {
-    console.log(`\n=== Phase 2: Playwright fetch (${browserConfigs.length} municipalities) ===`);
+    console.log(`\n=== Phase 2: Playwright fetch (${browserConfigs.length} sources) ===`);
 
     let browser = await chromium.launch({ headless: true });
     let context = await browser.newContext({ userAgent: USER_AGENT });
@@ -657,7 +657,7 @@ async function main() {
   // Summary
   console.log(`\n=== RUN COMPLETE ===`);
   console.log(`Time: ${Math.round(elapsed / 1000)}s`);
-  console.log(`Municipalities: ${configs.length} (${httpCount} HTTP ok, ${browserCount} browser ok)`);
+  console.log(`Sources: ${configs.length} (${httpCount} HTTP ok, ${browserCount} browser ok)`);
   console.log(`Permits extracted: ${totalPermits}`);
   console.log(`Permits inserted: ${totalInserted}`);
   console.log(`Cost: $${totalCost.toFixed(4)}`);
@@ -669,7 +669,7 @@ async function main() {
   console.log(`OK: ${ok}, Failed: ${failed}`);
 
   if (failed > 0) {
-    console.log("Failed municipalities:");
+    console.log("Failed sources:");
     results.filter((r) => r.status === "error").forEach((r) => {
       console.log(`  - ${r.municipality} [${r.fetch_mode}]: ${r.error}`);
     });
@@ -677,7 +677,7 @@ async function main() {
 
   // --- Alerting: email if zero permits inserted ---
   if (totalInserted === 0 && process.env.RESEND_API_KEY) {
-    console.log(`\n=== ALERT: Zero permits inserted — sending email ===`);
+    console.log(`\n=== ALERT: Zero records inserted — sending email ===`);
     try {
       const alertResp = await fetch("https://api.resend.com/emails", {
         method: "POST",
@@ -688,8 +688,8 @@ async function main() {
         body: JSON.stringify({
           from: verticalConfig.alert_from,
           to: [verticalConfig.alert_email],
-          subject: `ALERT: Floede Engine — 0 permits inserted (${runId})`,
-          text: `Floede Engine daily run ${runId} finished with 0 permits inserted.\n\nConfigs: ${configs.length}\nExtracted: ${totalPermits}\nInserted: ${totalInserted}\nFailed municipalities: ${failed}\nCost: $${totalCost.toFixed(4)}\nElapsed: ${Math.round(elapsed / 1000)}s\n\nCheck Railway logs for details.`,
+          subject: `ALERT: Floede Engine — 0 records inserted (${runId})`,
+          text: `Floede Engine daily run ${runId} finished with 0 records inserted.\n\nConfigs: ${configs.length}\nExtracted: ${totalPermits}\nInserted: ${totalInserted}\nFailed sources: ${failed}\nCost: $${totalCost.toFixed(4)}\nElapsed: ${Math.round(elapsed / 1000)}s\n\nCheck Railway logs for details.`,
         }),
       });
       if (alertResp.ok) {
