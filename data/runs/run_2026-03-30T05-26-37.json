@@ -1,0 +1,22 @@
+{
+  "run_id": "2026-03-30T05-26-37",
+  "run_at": "2026-03-30T05:26:59.101Z",
+  "elapsed_ms": 22020,
+  "configs_count": 1,
+  "http_count": 0,
+  "browser_count": 0,
+  "total_permits": 0,
+  "total_inserted": 0,
+  "total_cost_usd": 0,
+  "cost_per_permit_usd": 0,
+  "results": [
+    {
+      "municipality": "Statens fastighetsverk",
+      "status": "error",
+      "fetch_mode": "browser",
+      "error": "Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the \"X-Api-Key\" or \"Authorization\" headers to be explicitly omitted",
+      "permits": 0,
+      "cost_usd": 0
+    }
+  ]
+}
