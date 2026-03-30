@@ -26,8 +26,11 @@ const EXTRACTED_DIR = join(process.cwd(), "data", "extracted");
 const COST_DIR = join(process.cwd(), "data", "costs");
 const RUN_LOG_DIR = join(process.cwd(), "data", "runs");
 
-const HAIKU_INPUT_COST = 0.0000008;
-const HAIKU_OUTPUT_COST = 0.000004;
+const MODEL_COSTS = {
+  "claude-haiku-4-5-20251001": { input: 0.0000008, output: 0.000004 },
+  "claude-sonnet-4-6": { input: 0.000003, output: 0.000015 },
+};
+const modelCost = MODEL_COSTS[verticalConfig.model] || MODEL_COSTS["claude-haiku-4-5-20251001"];
 
 const USER_AGENT = verticalConfig.user_agent;
 const SOURCE_LABEL = verticalConfig.source_label || "Kommun";
@@ -273,8 +276,8 @@ async function extractPermits(client, html, municipalityName, sourceUrl) {
     output_tokens: response.usage.output_tokens,
     cache_creation_input_tokens: cacheCreated,
     cache_read_input_tokens: cacheRead,
-    cost_usd: (response.usage.input_tokens * HAIKU_INPUT_COST) +
-              (response.usage.output_tokens * HAIKU_OUTPUT_COST)
+    cost_usd: (response.usage.input_tokens * modelCost.input) +
+              (response.usage.output_tokens * modelCost.output)
   };
 
   return { permits, cost };
@@ -321,7 +324,7 @@ async function insertToSupabase(supabase, records, extractionRun) {
 
   for (const record of records) {
     // Normalize municipality name before mapping (e.g. "Eslövs kommun" -> "Eslöv")
-    if (dbConfig.enrichment) {
+    if (dbConfig.enrichment && SOURCE_LABEL === "Kommun") {
       const sourceField = dbConfig.enrichment.lookup_source_field;
       if (record[sourceField]) {
         record[sourceField] = normalizeMunicipality(record[sourceField]);
