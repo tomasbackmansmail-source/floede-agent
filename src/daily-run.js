@@ -418,7 +418,17 @@ async function main() {
 
   console.log(`=== Floede Agent - Daily Run ${runId} ===\n`);
 
-  const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_KEY);
+  const supabaseUrl = verticalConfig.supabase_url || process.env.SUPABASE_URL;
+  const supabaseKey = verticalConfig.supabase_key_env
+    ? process.env[verticalConfig.supabase_key_env]
+    : process.env.SUPABASE_SERVICE_KEY;
+
+  if (!supabaseUrl || !supabaseKey) {
+    console.error("Missing Supabase credentials. Set supabase_url in config or SUPABASE_URL env, and supabase_key_env in config or SUPABASE_SERVICE_KEY env.");
+    process.exit(1);
+  }
+
+  const supabase = createClient(supabaseUrl, supabaseKey);
 
   let configs = await loadApprovedConfigs(supabase);
   if (onlyMunis) {
