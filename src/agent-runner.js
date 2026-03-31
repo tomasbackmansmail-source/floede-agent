@@ -3,6 +3,7 @@
 // tracks budget, and sends a summary email via Resend.
 
 import { execSync } from 'node:child_process';
+import { runResearchTask } from './sdk-runner.js';
 
 const SUPABASE_URL = process.env.SUPABASE_URL;
 const SUPABASE_KEY = process.env.SUPABASE_SERVICE_KEY;
@@ -67,11 +68,15 @@ async function dispatchTask(task) {
   }
 
   if (job_type === 'research' || job_type === 'debug') {
-    log(`Agent SDK not yet implemented, skipping task ${id}`);
+    log(`Running ${job_type} task ${id} via sdk-runner`);
+    const startTime = Date.now();
+    const sdkResult = await runResearchTask(task);
     return {
-      status: 'skipped',
-      error: 'Agent SDK pending implementation',
-      cost_usd: 0,
+      status: sdkResult.status === 'error' ? 'failed' : 'completed',
+      result: { response: sdkResult.result, turns_used: sdkResult.turns_used },
+      cost_usd: sdkResult.cost_usd,
+      duration_ms: Date.now() - startTime,
+      error: sdkResult.error || null,
     };
   }
 
