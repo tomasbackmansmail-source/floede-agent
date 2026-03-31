@@ -1,8 +1,0 @@
-{
-  "source_name": "Ale",
-  "listing_url": "https://ale.se/anslagstavla-officiell.html",
-  "platform_guess": "sitevision",
-  "discovery_method": "crawl_homepage",
-  "confidence": "medium",
-  "approved": false
-}

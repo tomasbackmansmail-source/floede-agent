@@ -1,8 +1,0 @@
-{
-  "source_name": "Nacka",
-  "listing_url": "https://www.nacka.se/anslagstavla",
-  "platform_guess": "episerver",
-  "discovery_method": "url_variants",
-  "confidence": "high",
-  "approved": false
-}

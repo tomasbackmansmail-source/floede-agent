@@ -1,8 +1,0 @@
-{
-  "source_name": "Kumla",
-  "listing_url": "https://www.kumla.se/kommunalanslagstavla",
-  "platform_guess": "sitevision",
-  "discovery_method": "crawl_homepage",
-  "confidence": "medium",
-  "approved": false
-}

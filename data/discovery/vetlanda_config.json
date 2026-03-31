@@ -1,8 +1,0 @@
-{
-  "source_name": "Vetlanda",
-  "listing_url": "https://www.vetlanda.se/anslagstavla",
-  "platform_guess": "sitevision",
-  "discovery_method": "url_variants",
-  "confidence": "high",
-  "approved": false
-}

@@ -1,8 +1,0 @@
-{
-  "source_name": "Gotland",
-  "listing_url": "https://www.gotland.se/anslagstavla",
-  "platform_guess": "sitevision",
-  "discovery_method": "url_variants",
-  "confidence": "high",
-  "approved": false
-}

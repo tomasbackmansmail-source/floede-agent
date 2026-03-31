@@ -1,8 +1,0 @@
-{
-  "source_name": "Oskarshamn",
-  "listing_url": "https://www.oskarshamn.se/anslagstavla",
-  "platform_guess": "episerver",
-  "discovery_method": "url_variants",
-  "confidence": "high",
-  "approved": false
-}

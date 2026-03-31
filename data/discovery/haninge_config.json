@@ -1,8 +1,0 @@
-{
-  "source_name": "Haninge",
-  "listing_url": "https://www.haninge.se/anslagstavla",
-  "platform_guess": "episerver",
-  "discovery_method": "url_variants",
-  "confidence": "high",
-  "approved": false
-}

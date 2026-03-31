@@ -1,8 +1,0 @@
-{
-  "source_name": "Partille",
-  "listing_url": "https://www.partille.se/anslagstavla",
-  "platform_guess": "episerver",
-  "discovery_method": "url_variants",
-  "confidence": "medium",
-  "approved": false
-}

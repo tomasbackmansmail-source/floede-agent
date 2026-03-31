@@ -1,8 +1,0 @@
-{
-  "source_name": "Gävle",
-  "listing_url": "https://www.gavle.se/anslagstavla",
-  "platform_guess": "wordpress",
-  "discovery_method": "url_variants",
-  "confidence": "high",
-  "approved": false
-}

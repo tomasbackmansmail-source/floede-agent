@@ -1,8 +1,0 @@
-{
-  "source_name": "Alvesta",
-  "listing_url": "https://anslagstavla.alvesta.se/#!/billboard/",
-  "platform_guess": "wordpress",
-  "discovery_method": "crawl_homepage",
-  "confidence": "medium",
-  "approved": false
-}

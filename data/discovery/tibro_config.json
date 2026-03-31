@@ -1,8 +1,0 @@
-{
-  "source_name": "Tibro",
-  "listing_url": "https://www.tibro.se/anslagstavla",
-  "platform_guess": "episerver",
-  "discovery_method": "url_variants",
-  "confidence": "high",
-  "approved": false
-}

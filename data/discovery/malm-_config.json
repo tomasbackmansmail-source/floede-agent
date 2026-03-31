@@ -1,8 +1,0 @@
-{
-  "source_name": "Malmö",
-  "listing_url": "https://malmo.se/anslagstavla",
-  "platform_guess": "sitevision",
-  "discovery_method": "url_variants",
-  "confidence": "high",
-  "approved": false
-}

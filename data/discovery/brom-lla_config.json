@@ -1,8 +1,0 @@
-{
-  "source_name": "Bromölla",
-  "listing_url": "https://www.bromolla.se/anslagstavla",
-  "platform_guess": "episerver",
-  "discovery_method": "url_variants",
-  "confidence": "high",
-  "approved": false
-}

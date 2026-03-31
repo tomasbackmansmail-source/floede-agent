@@ -1,8 +1,0 @@
-{
-  "source_name": "Boden",
-  "listing_url": "https://anslagstavla.boden.se/",
-  "platform_guess": "sitevision",
-  "discovery_method": "crawl_homepage",
-  "confidence": "medium",
-  "approved": false
-}
