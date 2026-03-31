@@ -108,6 +108,28 @@ function runDefaultExtraction() {
       warn(`Default extraction FAILED: ${vertical} — ${err.message}`);
     }
     results.push(entry);
+
+    // QC pass
+    const qcEntry = { vertical, job_type: 'qc', status: 'completed', cost_usd: 0 };
+    const qcStart = Date.now();
+    try {
+      log(`Running QC for ${vertical}`);
+      const qcStdout = execSync(`VERTICAL=${vertical} node src/qc.js`, {
+        timeout: 300_000,
+        encoding: 'utf-8',
+        stdio: ['pipe', 'pipe', 'pipe'],
+        env: { ...process.env, VERTICAL: vertical },
+      });
+      qcEntry.duration_ms = Date.now() - qcStart;
+      qcEntry.result = { stdout: qcStdout, stderr: '', exit_code: 0, duration_ms: qcEntry.duration_ms };
+      log(`QC OK: ${vertical} (${qcEntry.duration_ms} ms)`);
+    } catch (err) {
+      qcEntry.duration_ms = Date.now() - qcStart;
+      qcEntry.status = 'failed';
+      qcEntry.error = err.message;
+      warn(`QC FAILED: ${vertical} — ${err.message}`);
+    }
+    results.push(qcEntry);
   }
   return results;
 }

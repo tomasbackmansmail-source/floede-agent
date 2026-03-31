@@ -15,4 +15,4 @@ RUN npx playwright install --with-deps chromium
 
 COPY src/ ./src/
 
-CMD ["sh", "-c", "node src/daily-run.js && node src/qc.js"]
+CMD ["node", "src/agent-runner.js"]
