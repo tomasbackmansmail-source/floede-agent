@@ -147,8 +147,8 @@ async function sendSummary(taskResults, budgetExhaustedTasks) {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      from: 'agent@floede.se',
-      to: 'tomas@floede.se',
+      from: 'onboarding@resend.dev',
+      to: 'tomasbackman@mac.com',
       subject,
       html: body,
     }),
