@@ -69,12 +69,12 @@ function validatePermits(permits, municipality) {
     const permitIssues = [];
 
     // Validate permit_type
-    if (p.permit_type && !VALID_PERMIT_TYPES.includes(p.permit_type)) {
+    if (p.permit_type && VALID_PERMIT_TYPES && !VALID_PERMIT_TYPES.includes(p.permit_type)) {
       permitIssues.push(`invalid permit_type: "${p.permit_type}"`);
     }
 
     // Validate status
-    if (p.status && !VALID_STATUSES.includes(p.status)) {
+    if (p.status && VALID_STATUSES && !VALID_STATUSES.includes(p.status)) {
       permitIssues.push(`invalid status: "${p.status}"`);
     }
 
