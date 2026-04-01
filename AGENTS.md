@@ -192,3 +192,23 @@ config-builder bör uppskatta och rapportera kostnad.
 2. source_url = null på alla records (relaterat till punkt 1)
 3. 2 nära-dubbletter mot äldre data (olika titelvarianter, samma projekt)
 4. qc.js har ingen CI-specifik validering (använder ByggSignal-schema)
+
+### 2026-04-01 — Stockholms stad (CI)
+
+**Källa:** Stockholmshem nyhetsarkiv (https://www.stockholmshem.se/om-oss/nyhetsarkiv/)
+**Signaler extraherade:** 1 (planned, 30 mkr — skyfallssäkring)
+**Kostnad:** ~$0.013 (3 Sonnet-körningar under iteration)
+**QC-resultat:** Godkänd med anmärkningar
+
+**Konfiguration:**
+- ci_sources: organization_name = 'Stockholms stad', approved = true, needs_browser = false
+- Statisk HTML, ingen subpages-config
+
+**Identifierade problem:**
+1. organization_id = null: enrichment matchar "Stockholmshem" mot ci_organizations som har "Stockholms stad"
+2. Låg signal-yield: 0 signaler de flesta dagar (operationella nyheter dominerar sida 1)
+3. Mynewsdesk-dubblett borttagen (producerade 0 signaler, krävde Playwright)
+
+**Nästa steg:**
+- Lägg till Stockholmshem kommande upphandlingar (maturity=tender, ~20 projekt)
+- Lägg till insynsverige.se Exploateringsnämnden (markanvisningar)
