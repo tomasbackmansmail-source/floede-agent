@@ -193,6 +193,30 @@ config-builder bör uppskatta och rapportera kostnad.
 3. 2 nära-dubbletter mot äldre data (olika titelvarianter, samma projekt)
 4. qc.js har ingen CI-specifik validering (använder ByggSignal-schema)
 
+### 2026-04-01 — Akademiska Hus nyhetsarkiv (CI, ytterligare källa)
+
+**Källa:** akademiskahus.se nyheter (https://www.akademiskahus.se/om-oss/aktuellt/Nyheter/)
+**Totalt signaler Akademiska Hus:** 36 (13 från nyhetsarkiv, 13 från Mynewsdesk)
+**Kostnad:** ~$0.19 inkl. iterationer och felsökning
+**QC-resultat:** Godkänd — 36/36 med organization_id, belopp extraherade (245 mkr Zoologen, 3 mdr investeringsöversikt)
+
+**Konfiguration:** ci_sources id=77968676-5ae2-42c2-ab4f-3f54cfbcb08e
+- `listing_url`: https://www.akademiskahus.se/om-oss/aktuellt/Nyheter/
+- `requires_subpages.link_selector_hint`: `a[href*='/om-oss/aktuellt/nyheter/']`
+- `max_subpages: 10`, `needs_browser: false`, `approved: true`
+
+**Lärdom — link_selector_hint-mönster:**
+extractLinks-regex matchar `href*='...'` med ENKLA citationstecken. JSON-config måste
+använda enkla citationstecken i selectorHint-värdet, inte dubbla. Vid fel → returneras alla 447 links.
+extractLinks lowercasar href-strängen innan matchning → mönstret måste vara lowercase.
+`href*='/om-oss/aktuellt/Nyheter/'` fungerar INTE. `href*='/om-oss/aktuellt/nyheter/'` fungerar.
+
+**Lärdom — keyword-filter vid subpages:**
+filterByKeywords körs på länktext (artikel titel + kategoritaggar). Akademiska Hus använder
+kategorier "Nybyggnad" och "Campusutveckling" som inte matchar CI-keywords. Resulterar i
+4/17 artikel-matches per körning. Fallback vid 0 matches → listningssidans HTML direkt (9 signaler
+utan belopp). Båda beteenden är acceptabla men subpage-signaler är kvalitativt bättre.
+
 ### 2026-04-01 — Stockholms stad, koncern (CI)
 
 **Koncernperspektiv:** Stockholms stad bevakas som EN kund inklusive alla kommunala
