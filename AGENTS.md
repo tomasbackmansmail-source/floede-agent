@@ -215,3 +215,26 @@ Löser organization_id = null-problemet för alla koncernkällor.
 - Lägg till Stockholmshem nyproduktion (rang 1, planned-signaler)
 - Lägg till SISAB nyhetsarkiv (rang 1, mixed maturity)
 - Lägg till S:t Erik Markutveckling (rang 2, stora exploateringsprojekt)
+
+### 2026-04-01 — Vasakronan (CI)
+
+**Källa:** Vasakronan pressmeddelanden via WordPress REST API
+(https://vasakronan.se/wp-json/archive/v2/object/?post_type=press-release&page_id=12363)
+**Signaler extraherade:** 4 (planned), varav 3 med belopp (193M, 307M, 1000M SEK)
+**Kostnad:** ~$0.10 (4 iterationer inkl. felsökning)
+**QC-resultat:** Godkänd — 4/4 med organization_id, korrekta belopp och datum
+
+**Lärdom — WordPress React-sajter:**
+Vasakronans webb laddar artiklar/pressmeddelanden via WordPress REST API i en
+React-komponent. HTML-sidan innehåller bara `<article>` med href men ingen länktext,
+vilket gör att motorns `filterByKeywords()` returnerar 0 och faller tillbaka till
+listningssidan utan innehåll. Lösning: använd API-endpointen direkt som listing_url.
+`htmlToText()` på JSON-svar lämnar JSON intakt, som LLM tolkar korrekt.
+
+**Lärdom — /aktuellt/ vs /pressmeddelanden/:**
+Vasakronans /aktuellt/ är en redaktionell magasinsida med feature-artiklar (lågt
+CI-värde). /pressmeddelanden/ innehåller officiella pressmeddelanden om transaktioner
+och förvärv (högt CI-värde). Välj pressmeddelanden-API för CI-ändamål.
+
+**Parallellkörning:** Befintlig Cision-källa (needs_browser: true) körs parallellt
+och fångar kompletterande data. Båda källor är aktiva i ci_sources.
