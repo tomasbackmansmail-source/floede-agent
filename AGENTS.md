@@ -193,22 +193,25 @@ config-builder bör uppskatta och rapportera kostnad.
 3. 2 nära-dubbletter mot äldre data (olika titelvarianter, samma projekt)
 4. qc.js har ingen CI-specifik validering (använder ByggSignal-schema)
 
-### 2026-04-01 — Stockholms stad (CI)
+### 2026-04-01 — Stockholms stad, koncern (CI)
 
-**Källa:** Stockholmshem nyhetsarkiv (https://www.stockholmshem.se/om-oss/nyhetsarkiv/)
-**Signaler extraherade:** 1 (planned, 30 mkr — skyfallssäkring)
-**Kostnad:** ~$0.013 (3 Sonnet-körningar under iteration)
-**QC-resultat:** Godkänd med anmärkningar
+**Koncernperspektiv:** Stockholms stad bevakas som EN kund inklusive alla kommunala
+bolag. Alla källor har organization_name = 'Stockholms stad' i ci_sources.
 
-**Konfiguration:**
-- ci_sources: organization_name = 'Stockholms stad', approved = true, needs_browser = false
-- Statisk HTML, ingen subpages-config
+**Källor (3 st):**
+1. Stockholmshem — Kommande upphandlingar (https://www.stockholmshem.se/om-oss/upphandling/kommande-upphandlingar/)
+2. Micasa Fastigheter — Mynewsdesk pressrum (https://www.mynewsdesk.com/se/micasa-fastigheter/pressreleases)
+3. SISAB — Kommande upphandlingar (https://www.sisab.se/sv/leverantor/upphandlingar/Kommande-upphandlingar/)
 
-**Identifierade problem:**
-1. organization_id = null: enrichment matchar "Stockholmshem" mot ci_organizations som har "Stockholms stad"
-2. Låg signal-yield: 0 signaler de flesta dagar (operationella nyheter dominerar sida 1)
-3. Mynewsdesk-dubblett borttagen (producerade 0 signaler, krävde Playwright)
+**Signaler extraherade:** 36 (26 planned, 7 tender, 3 awarded)
+**Kostnad:** ~$0.23 (2 Sonnet-iterationer x 3 källor)
+**QC-resultat:** Godkänd — 36/36 med organization_id, inga dubbletter
+
+**Extraction_prompt-ändring:** organization_name-regeln uppdaterad så att LLM
+använder organisationsnamnet från kontexten (ci_sources), inte bolagsnamnet i HTML.
+Löser organization_id = null-problemet för alla koncernkällor.
 
 **Nästa steg:**
-- Lägg till Stockholmshem kommande upphandlingar (maturity=tender, ~20 projekt)
-- Lägg till insynsverige.se Exploateringsnämnden (markanvisningar)
+- Lägg till Stockholmshem nyproduktion (rang 1, planned-signaler)
+- Lägg till SISAB nyhetsarkiv (rang 1, mixed maturity)
+- Lägg till S:t Erik Markutveckling (rang 2, stora exploateringsprojekt)
