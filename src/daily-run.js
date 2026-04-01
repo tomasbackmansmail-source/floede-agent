@@ -229,13 +229,13 @@ async function fetchPagePlaywright(page, config) {
 
 // --- EXTRACTION ---
 
-async function extractPermits(client, html, municipalityName, sourceUrl) {
+async function extractPermits(client, html, municipalityName, sourceUrl, sourceConfig = {}) {
   const cleaned = stripNonContent(html);
   const truncated = cleaned.length > 100000 ? cleaned.slice(0, 100000) : cleaned;
 
   const response = await withRetry(
     () => client.messages.create({
-      model: verticalConfig.model,
+      model: sourceConfig.model || verticalConfig.model,
       max_tokens: 16384,
       messages: [
         {
@@ -260,6 +260,10 @@ async function extractPermits(client, html, municipalityName, sourceUrl) {
   const rawText = response.content[0].text.trim()
     .replace(/```json\s*/g, "").replace(/```\s*/g, "");
 
+  if (sourceConfig.model && sourceConfig.model !== verticalConfig.model) {
+    console.log(`  [Extract] Using per-source model: ${sourceConfig.model}`);
+  }
+
   let permits = [];
   try {
     permits = JSON.parse(rawText);
@@ -278,13 +282,15 @@ async function extractPermits(client, html, municipalityName, sourceUrl) {
   const cacheCreated = response.usage.cache_creation_input_tokens || 0;
   const cacheRead = response.usage.cache_read_input_tokens || 0;
 
+  const effectiveModel = sourceConfig.model || verticalConfig.model;
+  const effectiveModelCost = MODEL_COSTS[effectiveModel] || MODEL_COSTS["claude-haiku-4-5-20251001"];
   const cost = {
     input_tokens: response.usage.input_tokens,
     output_tokens: response.usage.output_tokens,
     cache_creation_input_tokens: cacheCreated,
     cache_read_input_tokens: cacheRead,
-    cost_usd: (response.usage.input_tokens * modelCost.input) +
-              (response.usage.output_tokens * modelCost.output)
+    cost_usd: (response.usage.input_tokens * effectiveModelCost.input) +
+              (response.usage.output_tokens * effectiveModelCost.output)
   };
 
   return { permits, cost };
@@ -487,7 +493,7 @@ async function main() {
           const htmlFile = `${sanitizeFilename(muniName)}_${runId}.html`;
           await writeFile(join(HTML_DIR, htmlFile), html, "utf-8");
 
-          const { permits, cost } = await extractPermits(client, html, muniName, config.listing_url);
+          const { permits, cost } = await extractPermits(client, html, muniName, config.listing_url, config);
           totalCost += cost.cost_usd;
           totalPermits += permits.length;
           totalCacheCreated += cost.cache_creation_input_tokens || 0;
@@ -570,7 +576,7 @@ async function main() {
             const htmlFile = `${sanitizeFilename(muniName)}_${runId}.html`;
             await writeFile(join(HTML_DIR, htmlFile), html, "utf-8");
 
-            const { permits, cost } = await extractPermits(client, html, muniName, config.listing_url);
+            const { permits, cost } = await extractPermits(client, html, muniName, config.listing_url, config);
             totalCost += cost.cost_usd;
             totalPermits += permits.length;
             totalCacheCreated += cost.cache_creation_input_tokens || 0;
