@@ -127,13 +127,13 @@ async function main() {
       const signal = {
         organization_id: prop.organization_id,
         organization_name: orgName,
-        title: `Bygglov: ${permit.permit_type || 'okänt'} — ${prop.property_designation}`,
+        title: `${(permit.permit_type || 'okänt').charAt(0).toUpperCase() + (permit.permit_type || 'okänt').slice(1)} — ${prop.property_designation}`,
         maturity: maturity,
         amount_sek: null,
         timeline: null,
         description: description,
         source_url: permit.source_url,
-        source_date: permit.decision_date || null,
+        source_date: permit.date || null,
         region: permit.lan || permit.municipality || null,
       };
 
