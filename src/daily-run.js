@@ -268,6 +268,13 @@ async function extractPermits(client, html, municipalityName, sourceUrl) {
     permits = [];
   }
 
+  // Set source_url on all records if not already set
+  for (const p of permits) {
+    if (!p.source_url) {
+      p.source_url = sourceUrl;
+    }
+  }
+
   const cacheCreated = response.usage.cache_creation_input_tokens || 0;
   const cacheRead = response.usage.cache_read_input_tokens || 0;
 
