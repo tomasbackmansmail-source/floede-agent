@@ -173,3 +173,22 @@ config-builder bör uppskatta och rapportera kostnad.
 1. Kontrollera att organisationen finns i source_table
 2. Kontrollera att search_terms i vertikalconfig är relevanta
 3. Kör manuell sökning — finns organisationen överhuvudtaget online?
+
+---
+
+## GENOMFÖRDA TESTER
+
+### 2026-04-01 — Akademiska Hus (CI)
+
+**Källa:** Mynewsdesk pressmeddelanden (https://www.mynewsdesk.com/se/akademiska_hus_ab/pressreleases)
+**Signaler extraherade:** 8 (6 planned, 2 awarded), varav 3 med belopp
+**Kostnad:** $0.03 (en Sonnet-extraction)
+**QC-resultat:** Godkänd med anmärkningar
+
+**Identifierade problem:**
+1. ON CONFLICT-bugg: ci_signals saknar unique constraint på (organization_id, source_url, title).
+   daily-run.js upsert misslyckas för HTTP-only CI-källor. Workaround: manuell insert.
+   Behöver fixas i DB eller kod för att dagliga körningar ska fungera.
+2. source_url = null på alla records (relaterat till punkt 1)
+3. 2 nära-dubbletter mot äldre data (olika titelvarianter, samma projekt)
+4. qc.js har ingen CI-specifik validering (använder ByggSignal-schema)
