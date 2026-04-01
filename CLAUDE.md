@@ -127,7 +127,7 @@ VERTICAL=byggsignal node src/daily-run.js
 
 ### Daily-run (en specifik källa)
 ```bash
-VERTICAL=ci node src/daily-run.js --source="Statens fastighetsverk"
+VERTICAL=ci-pressroomnode src/daily-run.js --source="Statens fastighetsverk"
 ```
 
 ### Discovery (en specifik källa)
@@ -142,7 +142,7 @@ VERTICAL=byggsignal node src/qc.js
 
 ### QC (en specifik källa)
 ```bash
-VERTICAL=ci node src/qc.js --source="Statens fastighetsverk"
+VERTICAL=ci-pressroomnode src/qc.js --source="Statens fastighetsverk"
 ```
 
 ### Tester

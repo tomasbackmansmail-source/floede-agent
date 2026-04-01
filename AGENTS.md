@@ -92,7 +92,7 @@ För att lägga till en ny vertikal:
 VERTICAL=byggsignal node src/daily-run.js
 
 # En specifik källa
-VERTICAL=ci node src/daily-run.js --source="Akademiska Hus"
+VERTICAL=ci-pressroomnode src/daily-run.js --source="Akademiska Hus"
 ```
 
 ### Discovery
@@ -112,7 +112,7 @@ ci_organizations för CI) men INTE i config_table (discovery_configs / ci_source
 VERTICAL=byggsignal node src/qc.js
 
 # En specifik källa
-VERTICAL=ci node src/qc.js --source="Statens fastighetsverk"
+VERTICAL=ci-pressroomnode src/qc.js --source="Statens fastighetsverk"
 ```
 
 ### Tester
@@ -133,7 +133,7 @@ CC har tillgång till `.env` i repot. Sätt VERTICAL explicit:
 VERTICAL=byggsignal node src/daily-run.js --source="Aneby"
 
 # CI
-VERTICAL=ci node src/daily-run.js --source="Akademiska Hus"
+VERTICAL=ci-pressroomnode src/daily-run.js --source="Akademiska Hus"
 ```
 
 Övriga env vars (ANTHROPIC_API_KEY, SUPABASE_URL, etc.) läses från .env.
