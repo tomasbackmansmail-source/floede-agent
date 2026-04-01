@@ -180,18 +180,20 @@ config-builder bör uppskatta och rapportera kostnad.
 
 ### 2026-04-01 — Akademiska Hus (CI)
 
-**Källa:** Mynewsdesk pressmeddelanden (https://www.mynewsdesk.com/se/akademiska_hus_ab/pressreleases)
-**Signaler extraherade:** 8 (6 planned, 2 awarded), varav 3 med belopp
-**Kostnad:** $0.03 (en Sonnet-extraction)
-**QC-resultat:** Godkänd med anmärkningar
+**Källor (2 st):**
+1. Mynewsdesk pressmeddelanden (https://www.mynewsdesk.com/se/akademiska_hus_ab/pressreleases)
+2. akademiskahus.se nyhetsarkiv (https://www.akademiskahus.se/om-oss/aktuellt/Nyheter/)
 
-**Identifierade problem:**
-1. ON CONFLICT-bugg: ci_signals saknar unique constraint på (organization_id, source_url, title).
-   daily-run.js upsert misslyckas för HTTP-only CI-källor. Workaround: manuell insert.
-   Behöver fixas i DB eller kod för att dagliga körningar ska fungera.
-2. source_url = null på alla records (relaterat till punkt 1)
-3. 2 nära-dubbletter mot äldre data (olika titelvarianter, samma projekt)
-4. qc.js har ingen CI-specifik validering (använder ByggSignal-schema)
+**Signaler:** 21 unika (14 planned, 6 awarded, 1 rumor), varav 3 med belopp
+**Kostnad:** ~$0.15 totalt (Mynewsdesk + nyhetsarkiv)
+**QC-resultat:** Godkänd — 21/21 med organization_id, dubbletter rensade
+
+**Lärdom — subpage link_selector_hint:**
+extractLinks() lowercasar href innan matchning — mönstret måste vara lowercase
+(`nyheter/` inte `Nyheter/`). Enkla citationstecken i CSS-selector krävs.
+
+**Datarensning:** 10 gamla signaler utan source_url borttagna. 5 dubbletter mellan
+Mynewsdesk och nyhetsarkivet borttagna (samma projekt, olika titelvarianter).
 
 ### 2026-04-01 — Akademiska Hus nyhetsarkiv (CI, ytterligare källa)
 
