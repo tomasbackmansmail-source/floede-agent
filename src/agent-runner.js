@@ -136,6 +136,29 @@ function runDefaultExtraction() {
     }
     results.push(qcEntry);
   }
+
+  // Property matching: CI fastigheter mot ByggSignal bygglov
+  const matchEntry = { vertical: 'ci-match', job_type: 'shell', status: 'completed', cost_usd: 0 };
+  const matchStart = Date.now();
+  try {
+    log('Running property matching (ci_properties vs permits_v2)');
+    const matchStdout = execSync('node src/match-properties.js', {
+      timeout: 300_000,
+      encoding: 'utf-8',
+      stdio: ['pipe', 'pipe', 'pipe'],
+      env: process.env,
+    });
+    matchEntry.duration_ms = Date.now() - matchStart;
+    matchEntry.result = { stdout: matchStdout, stderr: '', exit_code: 0, duration_ms: matchEntry.duration_ms };
+    log(`Property matching OK (${matchEntry.duration_ms} ms)`);
+  } catch (err) {
+    matchEntry.duration_ms = Date.now() - matchStart;
+    matchEntry.status = 'failed';
+    matchEntry.error = err.message;
+    warn(`Property matching FAILED: ${err.message}`);
+  }
+  results.push(matchEntry);
+
   return results;
 }
 
@@ -174,7 +197,7 @@ async function sendSummary(taskResults, budgetExhaustedTasks) {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      from: 'Floede Agent <hej@byggsignal.se>',
+      from: 'Floede Agent <tomasbackman@mac.com>',
       to: 'tomasbackman@mac.com',
       subject,
       html: body,
