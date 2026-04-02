@@ -181,6 +181,28 @@ function runDefaultExtraction() {
   }
   results.push(tedEntry);
 
+  // Group signals into projects
+  const groupEntry = { vertical: 'ci-group', job_type: 'shell', status: 'completed', cost_usd: 0 };
+  const groupStart = Date.now();
+  try {
+    log('Running signal grouping');
+    const groupStdout = execSync('node src/group-signals.js', {
+      timeout: 300_000,
+      encoding: 'utf-8',
+      stdio: ['pipe', 'pipe', 'pipe'],
+      env: process.env,
+    });
+    groupEntry.duration_ms = Date.now() - groupStart;
+    groupEntry.result = { stdout: groupStdout, stderr: '', exit_code: 0, duration_ms: groupEntry.duration_ms };
+    log('Signal grouping OK (' + groupEntry.duration_ms + ' ms)');
+  } catch (err) {
+    groupEntry.duration_ms = Date.now() - groupStart;
+    groupEntry.status = 'failed';
+    groupEntry.error = err.message;
+    warn('Signal grouping FAILED: ' + err.message);
+  }
+  results.push(groupEntry);
+
   return results;
 }
 
