@@ -311,6 +311,9 @@ Kör `npm test` före varje push. Alla tester ska vara gröna.
 - Per-källa model override i extractPermits: sourceConfig.model overridar verticalConfig.model
 - match-properties.js: matchar ci_properties mot permits_v2, skapar ci_signals, integrerad i agent-runner
 - ted-sync.js: hämtar upphandlingar från TED Search API för SFV och Akademiska Hus, integrerad i agent-runner
+- ci_projects-tabell skapad, group-signals.js grupperar signaler automatiskt via fastighetsbeteckning + Haiku
+- group-signals.js integrerad i agent-runner efter ted-sync
+- Daglig körordning: daily-run → QC → match-properties → ted-sync → group-signals
 - source_type-fält i ci_signals: pressroom/permit/ted
 - region-fält i ci-pressroom.json extraction
 - category-fält i ci-pressroom.json: commercial/residential/infrastructure/public/mixed
