@@ -306,17 +306,22 @@ Kör `npm test` före varje push. Alla tester ska vara gröna.
 
 ---
 
-## Senast uppdaterat 2026-04-01
+## Senast uppdaterat 2026-04-02
 
 - Per-källa model override i extractPermits: sourceConfig.model overridar verticalConfig.model
-- match-properties.js: matchar ci_properties mot permits_v2, skapar ci_signals (ej i cron ännu)
-- region-fält tillagt i ci-pressroom.json extraction_prompt + field_mapping
-- category-fält tillagt i ci-pressroom.json (commercial/residential/infrastructure/public/mixed)
+- match-properties.js: matchar ci_properties mot permits_v2, skapar ci_signals, integrerad i agent-runner
+- ted-sync.js: hämtar upphandlingar från TED Search API för SFV och Akademiska Hus, integrerad i agent-runner
+- source_type-fält i ci_signals: pressroom/permit/ted
+- region-fält i ci-pressroom.json extraction
+- category-fält i ci-pressroom.json: commercial/residential/infrastructure/public/mixed
+- ci_user_profiles-tabell skapad, Fredrik Johansson seedad med Stockholms län + exkluderar residential
 - extraction_prompt: organization_name hämtas från kontext, inte HTML (koncernfix)
 - ci_signals unique constraint: (organization_id, source_url, title)
-- ci-pressroom.json: alert_email och alert_from ändrade från @floede.se till tomasbackman@mac.com
-- VERTICAL-namn i docs: ci → ci-pressroom
+- ci-pressroom.json: alert_email fixad från @floede.se till tomasbackman@mac.com
+- agent-runner.js: from-adress fixad, match-properties + ted-sync tillagda i fallback
+- cron ändrad från 13:00 UTC till 04:00 UTC (06:00 CEST)
+- VERTICAL-namn i docs: ci -> ci-pressroom
 - .claude/agents/: source-researcher, config-builder, qa-verifier
-- AGENTS.md skapad med config-format per vertikal och kommandon
+- AGENTS.md skapad
 - .claude/skills/floede-overview/: 6 CEO knowledge-filer
-- Lokal körning: node --env-file=.env (inte bara node)
+- Lokal körning: node --env-file=.env
