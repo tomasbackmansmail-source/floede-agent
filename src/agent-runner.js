@@ -159,6 +159,28 @@ function runDefaultExtraction() {
   }
   results.push(matchEntry);
 
+  // TED sync: EU public procurement notices
+  const tedEntry = { vertical: 'ci-ted', job_type: 'shell', status: 'completed', cost_usd: 0 };
+  const tedStart = Date.now();
+  try {
+    log('Running TED sync');
+    const tedStdout = execSync('node src/ted-sync.js', {
+      timeout: 300_000,
+      encoding: 'utf-8',
+      stdio: ['pipe', 'pipe', 'pipe'],
+      env: process.env,
+    });
+    tedEntry.duration_ms = Date.now() - tedStart;
+    tedEntry.result = { stdout: tedStdout, stderr: '', exit_code: 0, duration_ms: tedEntry.duration_ms };
+    log('TED sync OK (' + tedEntry.duration_ms + ' ms)');
+  } catch (err) {
+    tedEntry.duration_ms = Date.now() - tedStart;
+    tedEntry.status = 'failed';
+    tedEntry.error = err.message;
+    warn('TED sync FAILED: ' + err.message);
+  }
+  results.push(tedEntry);
+
   return results;
 }
 
