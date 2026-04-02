@@ -314,6 +314,8 @@ Kör `npm test` före varje push. Alla tester ska vara gröna.
 - ci_projects-tabell skapad, group-signals.js grupperar signaler automatiskt via fastighetsbeteckning + Haiku
 - group-signals.js integrerad i agent-runner efter ted-sync
 - Daglig körordning: daily-run → QC → match-properties → ted-sync → group-signals
+- region i extraction_prompt: "Nationellt" istället för null för nationella signaler
+- CI dashboard live med projektgruppering, tidslinjer, source_type-badges
 - source_type-fält i ci_signals: pressroom/permit/ted
 - region-fält i ci-pressroom.json extraction
 - category-fält i ci-pressroom.json: commercial/residential/infrastructure/public/mixed
