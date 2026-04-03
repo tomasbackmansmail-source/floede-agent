@@ -44,7 +44,7 @@ describe("feedback config", () => {
   });
 
   it("max_rediscoveries_per_run is defined", () => {
-    assert.strictEqual(verticalConfig.feedback.max_rediscoveries_per_run, 5);
+    assert.strictEqual(verticalConfig.feedback.max_rediscoveries_per_run, 50);
   });
 
   it("max_cost_per_run_usd is defined", () => {

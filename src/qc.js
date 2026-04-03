@@ -549,8 +549,19 @@ async function main() {
     }
 
     // --- Trigger re-discovery for zero-streak municipalities ---
-    const maxRediscoveries = feedbackConfig.max_rediscoveries_per_run || 5;
+    let maxRediscoveries = feedbackConfig.max_rediscoveries_per_run || 5;
     const maxCost = feedbackConfig.max_cost_per_run_usd || 2.0;
+
+    // Escalation: if >20% of approved configs have zero-streak, expand re-discovery
+    const { count: totalConfigs } = await supabase
+      .from(discoveryConfig.config_table)
+      .select('*', { count: 'exact', head: true })
+      .eq(discoveryConfig.config_approved_field, true);
+
+    if (totalConfigs && zeroStreaks.length > totalConfigs * 0.2) {
+      maxRediscoveries = Math.min(zeroStreaks.length, 50);
+      console.log(`[QC] ESCALATION: ${zeroStreaks.length} of ${totalConfigs} sources have zero-streak — running expanded re-discovery`);
+    }
 
     // Sort by streak length (worst first), take top N
     const candidates = [...zeroStreaks].sort((a, b) => b.zero_days - a.zero_days).slice(0, maxRediscoveries);

@@ -234,6 +234,39 @@ async function sendSummary(taskResults, budgetExhaustedTasks) {
     body += `</ul><p>Budget limit: $${MAX_COST.toFixed(2)}</p>`;
   }
 
+  // --- Täckning: kommuner med data senaste 7 dagarna ---
+  try {
+    const cutoff = new Date();
+    cutoff.setDate(cutoff.getDate() - 7);
+    const cutoffStr = cutoff.toISOString().slice(0, 10);
+
+    const bsHeaders = {
+      apikey: SUPABASE_KEY,
+      Authorization: `Bearer ${SUPABASE_KEY}`,
+      'Content-Type': 'application/json',
+    };
+
+    const [activeRes, totalRes] = await Promise.all([
+      fetch(
+        `${SUPABASE_URL}/rest/v1/permits_v2?select=municipality&date=gte.${cutoffStr}`,
+        { headers: bsHeaders }
+      ),
+      fetch(
+        `${SUPABASE_URL}/rest/v1/discovery_configs?select=municipality&approved=eq.true`,
+        { headers: bsHeaders }
+      ),
+    ]);
+
+    if (activeRes.ok && totalRes.ok) {
+      const activeData = await activeRes.json();
+      const totalData = await totalRes.json();
+      const activeMunis = new Set(activeData.map(r => r.municipality));
+      body += `<p><strong>Täckning: ${activeMunis.size}/${totalData.length} kommuner med data senaste 7 dagarna</strong></p>`;
+    }
+  } catch (err) {
+    warn(`Coverage query failed: ${err.message}`);
+  }
+
   const res = await fetch('https://api.resend.com/emails', {
     method: 'POST',
     headers: {

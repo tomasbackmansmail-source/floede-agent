@@ -139,7 +139,7 @@
   },
   "feedback": {
     "zero_streak_threshold": 3,
-    "max_rediscoveries_per_run": 5,
+    "max_rediscoveries_per_run": 50,
     "max_cost_per_run_usd": 2.0
   },
   "discovery": {
