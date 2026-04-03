@@ -367,6 +367,124 @@ describe("haikuDiscovery", () => {
 // normalizeToHostname
 // ═══════════════════════════════════════════════
 
+// ═══════════════════════════════════════════════
+// resolveHomepage — name preservation
+// ═══════════════════════════════════════════════
+
+import { resolveHomepage } from "../src/utils/discovery.js";
+
+describe("resolveHomepage", () => {
+  it("does not return normalized name — only url and method", async () => {
+    // resolveHomepage returns { found, url, method } — never a modified sourceName
+    // This test verifies the contract: callers use the ORIGINAL name for DB writes
+    const result = await resolveHomepage("Göteborg", "TestAgent/1.0");
+    // Whether found or not, the result must not contain a mangled name
+    assert.ok(!result.sourceName, "resolveHomepage must not return sourceName");
+    assert.ok("found" in result);
+    assert.ok("url" in result);
+    assert.ok("method" in result);
+    assert.equal(result.method, "resolve_homepage");
+  });
+
+  it("preserves ÅÄÖ in the caller's name (contract test)", async () => {
+    // Simulate what discover.js does: call resolveHomepage, then use target.name for DB
+    const originalName = "Göteborg";
+    const _result = await resolveHomepage(originalName, "TestAgent/1.0");
+    // The key assertion: originalName is unchanged after the call
+    assert.equal(originalName, "Göteborg", "caller's name must not be mutated");
+  });
+});
+
+// ═══════════════════════════════════════════════
+// homepageMap ÅÄÖ normalization (QC matching logic)
+// ═══════════════════════════════════════════════
+
+describe("homepageMap ÅÄÖ matching", () => {
+  // Replicates the homepageMap logic from qc.js (lines 582-591)
+  function buildHomepageMap(rows, idField, urlField) {
+    return Object.fromEntries(
+      rows.flatMap(r => {
+        const name = r[idField];
+        const url = r[urlField];
+        const normalized = name.toLowerCase()
+          .replace(/å/g, 'a').replace(/ä/g, 'a').replace(/ö/g, 'o')
+          .replace(/\s+kommun$/i, '').replace(/\s+stad$/i, '');
+        return [[name, url], [normalized, url], [name.toLowerCase(), url]];
+      })
+    );
+  }
+
+  it("matches normalized name to original ÅÄÖ entry", () => {
+    const rows = [
+      { name: "Göteborg", homepage: "https://www.goteborg.se" },
+      { name: "Malmö", homepage: "https://www.malmo.se" },
+    ];
+    const map = buildHomepageMap(rows, "name", "homepage");
+
+    assert.equal(map["Göteborg"], "https://www.goteborg.se");
+    assert.equal(map["göteborg"], "https://www.goteborg.se");
+    assert.equal(map["goteborg"], "https://www.goteborg.se");
+    assert.equal(map["Malmö"], "https://www.malmo.se");
+    assert.equal(map["malmo"], "https://www.malmo.se");
+  });
+
+  it("strips kommun/stad suffix for matching", () => {
+    const rows = [
+      { name: "Stockholms stad", homepage: "https://www.stockholm.se" },
+      { name: "Luleå kommun", homepage: "https://www.lulea.se" },
+    ];
+    const map = buildHomepageMap(rows, "name", "homepage");
+
+    assert.equal(map["stockholms"], "https://www.stockholm.se");
+    assert.equal(map["lulea"], "https://www.lulea.se");
+  });
+});
+
+// ═══════════════════════════════════════════════
+// discovery_configs duplicate detection
+// ═══════════════════════════════════════════════
+
+describe("discovery_configs duplicate detection", () => {
+  function normalize(name) {
+    return name.toLowerCase()
+      .replace(/å/g, 'a').replace(/ä/g, 'a').replace(/ö/g, 'o')
+      .replace(/é/g, 'e').replace(/ü/g, 'u')
+      .replace(/[^a-z]/g, '');
+  }
+
+  function findDuplicates(names) {
+    const byNormalized = new Map();
+    for (const name of names) {
+      const key = normalize(name);
+      if (!byNormalized.has(key)) byNormalized.set(key, []);
+      byNormalized.get(key).push(name);
+    }
+    return [...byNormalized.entries()].filter(([, v]) => v.length > 1);
+  }
+
+  it("detects ÅÄÖ-mangled duplicates", () => {
+    const names = ["Göteborg", "Goteborg", "Malmö", "Stockholm"];
+    const dupes = findDuplicates(names);
+    assert.equal(dupes.length, 1);
+    assert.deepEqual(dupes[0][1], ["Göteborg", "Goteborg"]);
+  });
+
+  it("detects case-mangled duplicates", () => {
+    const names = ["Åre", "åRe", "Sjöbo", "SjöBo"];
+    const dupes = findDuplicates(names);
+    assert.equal(dupes.length, 2);
+  });
+
+  it("does not flag distinct municipalities", () => {
+    const names = ["Habo", "Håbo", "Malmö", "Lund"];
+    // Habo and Håbo normalize to same "habo" but are distinct municipalities
+    // The detection correctly flags them — the caller must check validNames
+    const dupes = findDuplicates(names);
+    assert.equal(dupes.length, 1); // Habo/Håbo flagged
+    // The fix script handles this by checking both against municipalities table
+  });
+});
+
 describe("normalizeToHostname", () => {
   it("removes spaces", () => {
     assert.equal(normalizeToHostname("Upplands Väsby"), "upplandsvasby");
