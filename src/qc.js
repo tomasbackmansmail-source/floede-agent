@@ -578,9 +578,17 @@ async function main() {
 
       const { data: muniRows } = await supabase
         .from(discoveryConfig.source_table)
-        .select(`${discoveryConfig.source_id_field}, ${discoveryConfig.source_url_field}`)
-        .in(discoveryConfig.source_id_field, candidates.map(c => c.municipality));
-      const homepageMap = Object.fromEntries((muniRows || []).map(r => [r[discoveryConfig.source_id_field], r[discoveryConfig.source_url_field]]));
+        .select(`${discoveryConfig.source_id_field}, ${discoveryConfig.source_url_field}`);
+      const homepageMap = Object.fromEntries(
+        (muniRows || []).flatMap(r => {
+          const name = r[discoveryConfig.source_id_field];
+          const url = r[discoveryConfig.source_url_field];
+          const normalized = name.toLowerCase()
+            .replace(/å/g, 'a').replace(/ä/g, 'a').replace(/ö/g, 'o')
+            .replace(/\s+kommun$/i, '').replace(/\s+stad$/i, '');
+          return [[name, url], [normalized, url], [name.toLowerCase(), url]];
+        })
+      );
 
       let totalRediscoveryCost = 0;
       let succeeded = 0;
