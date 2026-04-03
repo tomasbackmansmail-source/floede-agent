@@ -667,12 +667,25 @@ export async function verifyExtraction(listingUrl, verticalConfig, keywords) {
     return { verified: false, result_count: 0, sample: [], cost_usd: costUsd, error: `Extraction failed: ${err.message}`, needs_browser: hasKeywordMatch };
   }
 
+  // Never auto-approve with 0 extracted items — only pages with actual data
+  if (resultCount === 0) {
+    console.log(`  [Verify] 0 items extracted — not auto-approving`);
+    return {
+      verified: false,
+      result_count: 0,
+      sample: [],
+      cost_usd: costUsd,
+      error: null,
+      needs_browser: false,
+    };
+  }
+
   return {
-    verified: resultCount >= 1,
+    verified: true,
     result_count: resultCount,
     sample,
     cost_usd: costUsd,
     error: null,
-    needs_browser: resultCount === 0 && hasKeywordMatch,
+    needs_browser: false,
   };
 }
