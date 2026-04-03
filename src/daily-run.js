@@ -569,7 +569,7 @@ async function main() {
     let browserProcessed = 0;
 
     for (const config of browserConfigs) {
-      if (browserProcessed > 0 && browserProcessed % 80 === 0) {
+      if (browserProcessed > 0 && browserProcessed % 30 === 0) {
         console.log(`\n[Browser] Restarting after ${browserProcessed} municipalities...`);
         await browser.close();
         browser = await chromium.launch({ headless: true });
