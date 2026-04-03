@@ -511,13 +511,28 @@ async function main() {
   // --- Check for three-day zero streaks ---
   const zeroStreaks = await checkZeroStreak(supabase);
   if (zeroStreaks.length > 0) {
+    // Build display name lookup: normalized/sanitized name → proper ÅÄÖ name
+    const { data: muniNameRows } = await supabase
+      .from(discoveryConfig.source_table)
+      .select(discoveryConfig.source_id_field);
+    const displayNameMap = Object.fromEntries(
+      (muniNameRows || []).flatMap(r => {
+        const name = r[discoveryConfig.source_id_field];
+        const sanitized = name.toLowerCase().replace(/[åä]/g, 'a').replace(/ö/g, 'o')
+          .replace(/é/g, 'e').replace(/ü/g, 'u').replace(/[^a-z0-9]/g, '-')
+          .replace(/-+/g, '-').replace(/^-|-$/g, '');
+        return [[sanitized, name], [name.toLowerCase(), name], [name, name]];
+      })
+    );
+    const displayName = (id) => displayNameMap[id] || displayNameMap[id.toLowerCase()] || id;
+
     console.log(`\n=== ZERO STREAK ALERT (3+ days) ===`);
     zeroStreaks.forEach(z => {
-      console.log(`  ${z.municipality}: ${z.zero_days} consecutive days with 0 permits`);
+      console.log(`  ${displayName(z.municipality)}: ${z.zero_days} consecutive days with 0 permits`);
     });
 
     if (process.env.RESEND_API_KEY) {
-      const muniList = zeroStreaks.map(z => `- ${z.municipality} (${z.zero_days} dagar)`).join('\n');
+      const muniList = zeroStreaks.map(z => `- ${displayName(z.municipality)} (${z.zero_days} dagar)`).join('\n');
       try {
         const resp = await fetch('https://api.resend.com/emails', {
           method: 'POST',
@@ -604,7 +619,7 @@ async function main() {
         const currentUrl = currentConfig?.listing_url || null;
         const homepageUrl = homepageMap[candidate.municipality] || null;
 
-        console.log(`  ${candidate.municipality} (${candidate.zero_days} days zero):`);
+        console.log(`  ${displayName(candidate.municipality)} (${candidate.zero_days} days zero):`);
         const result = await triggerRediscovery(candidate.municipality, currentUrl, homepageUrl, supabase);
         totalRediscoveryCost += result.cost_usd;
 
