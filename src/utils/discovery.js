@@ -319,7 +319,10 @@ export function normalizeToHostname(name) {
     .replace(/ü/g, 'u');
 }
 
-// Resolve homepage URL from municipality name
+// Resolve homepage URL from municipality name.
+// IMPORTANT: This function normalizes the name for DNS lookup only.
+// The caller must always use the ORIGINAL sourceName for DB writes —
+// never the normalized hostname. See CLAUDE.md "KÄNDA PROBLEM" for context.
 export async function resolveHomepage(sourceName, userAgent) {
   const ua = userAgent || USER_AGENT_FALLBACK;
   const normalized = normalizeToHostname(sourceName);
