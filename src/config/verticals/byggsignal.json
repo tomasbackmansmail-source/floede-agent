@@ -153,16 +153,16 @@
     "max_navigations": 6,
     "max_cost_per_source_usd": 0.5,
     "search_terms": [
-      "anslagstavla bygglov",
-      "kungörelse bygglov beslut",
-      "digital anslagstavla plan- och bygglagen",
       "anslagstavla",
       "kungörelse",
+      "kungorelse",
       "bygglov",
       "bygganmälan",
-      "förhandsbesked"
+      "förhandsbesked",
+      "beviljat bygglov",
+      "beslut om lov"
     ],
-    "search_prompt": "Hitta URL:en till {source_name} kommuns anslagstavla för bygglov/kungörelser.\n\nSök efter: \"{source_name} kommun anslagstavla bygglov\" och liknande.\n\nJag behöver den exakta URL:en där kommunen publicerar sina bygglovsbeslut/kungörelser.\n\nSvara ENBART med:\nURL: [den mest troliga URL:en]\nALTERNATIV: [eventuella andra kandidater, kommaseparerade]\nKONFIDENS: hög/medel/låg",
+    "search_prompt": "Hitta URL:en till {source_name} kommuns anslagstavla för bygglov/kungörelser.\n\nSök efter: \"{source_name} kommun anslagstavla bygglov\" och liknande.\n\nJag behöver den exakta URL:en där kommunen publicerar sina bygglovsbeslut/kungörelser. Sidan MÅSTE innehålla faktiska ärenden med fastighetsbeteckning, diarienummer eller beslutsdatum — inte informationssidor om hur man söker bygglov.\n\nIgnorera sidor om bygglovsprocessen, avgifter eller handläggningstider.\n\nSvara ENBART med:\nURL: [den mest troliga URL:en]\nALTERNATIV: [eventuella andra kandidater, kommaseparerade]\nKONFIDENS: hög/medel/låg",
     "analysis_prompt": "Är detta {source_name} anslagstavla för bygglov/kungörelser?\n\nOm JA: svara ANALYZE och jag ber dig producera en config.\nOm NEJ: svara NAVIGATE: <bättre-url> om du ser en länk till rätt sida.\nOm OSÄKER: svara vad du ser och vad som saknas.",
     "url_patterns": [
       "/anslagstavla",
@@ -195,7 +195,7 @@
       ]
     },
     "haiku_model": "claude-haiku-4-5-20251001",
-    "haiku_prompt": "Du får HTML och länkar från en svensk kommuns webbplats. Hitta sidan där kommunen publicerar BYGGLOVSBESLUT och kungörelser enligt plan- och bygglagen (PBL).\n\nVIKTIGT: Många kommuner har en GENERELL anslagstavla och en SEPARAT bygglovsanslagstavla. Vi vill ha den som visar bygglovsbeslut, inte den generella.\n\nPrioriteringsordning:\n1. Sida som specifikt nämner bygglov, bygga, PBL i länktext eller URL\n2. Sida under /bygga/ eller /bygga-bo/ eller /bygglov/\n3. Generell anslagstavla (sista utväg)\n\nSvara ENBART med JSON:\n{\"candidates\": [{\"url\": \"https://...\", \"confidence\": \"high|medium|low\", \"reason\": \"kort förklaring\"}]}\n\nReturnera 1-3 kandidater, rankade bäst först. Om ingen relevant länk hittas:\n{\"candidates\": []}\n\nIngen annan text. Inga markdown-backticks.",
+    "haiku_prompt": "Du får HTML och länkar från en svensk kommuns webbplats. Hitta sidan där kommunen publicerar BYGGLOVSBESLUT och kungörelser enligt plan- och bygglagen (PBL).\n\nVIKTIGT: Många kommuner har en GENERELL anslagstavla och en SEPARAT bygglovsanslagstavla. Vi vill ha den som visar bygglovsbeslut, inte den generella.\n\nSidan MÅSTE innehålla faktiska ärenden eller beslut med fastighetsbeteckning, diarienummer eller beslutsdatum. Ignorera sidor som bara FÖRKLARAR bygglovsprocessen. Ignorera sidor med rubriker som 'Så söker du bygglov', 'Bygglovsprocessen', 'Avgifter', 'Handläggningstider'.\n\nPrioriteringsordning:\n1. Sida som specifikt nämner bygglov, bygga, PBL i länktext eller URL\n2. Sida under /bygga/ eller /bygga-bo/ eller /bygglov/\n3. Generell anslagstavla (sista utväg)\n\nSvara ENBART med JSON:\n{\"candidates\": [{\"url\": \"https://...\", \"confidence\": \"high|medium|low\", \"reason\": \"kort förklaring\"}]}\n\nReturnera 1-3 kandidater, rankade bäst först. Om ingen relevant länk hittas:\n{\"candidates\": []}\n\nIngen annan text. Inga markdown-backticks.",
     "verify_extraction": {
       "enabled": true,
       "min_expected_results": 1,
