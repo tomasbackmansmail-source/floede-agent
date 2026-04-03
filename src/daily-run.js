@@ -501,6 +501,22 @@ async function main() {
 
           console.log(`  Permits: ${permits.length}, Cost: $${cost.cost_usd.toFixed(4)}${cost.cache_read_input_tokens ? ` (cache hit: ${cost.cache_read_input_tokens} tokens)` : ""}`);
 
+          // Auto-escalate to browser if HTTP yields 0 permits
+          if (permits.length === 0 && !config.needs_browser) {
+            console.log(`  [HTTP] 0 permits from verified source — escalating to browser: ${muniName}`);
+            browserConfigs.push({ ...config, needs_browser: true });
+            results.push({
+              municipality: muniName,
+              status: "escalated",
+              fetch_mode: "http",
+              permits: 0,
+              cost_usd: cost.cost_usd,
+              html_hash: hash
+            });
+            httpCount++;
+            return;
+          }
+
           await writeFile(
             join(EXTRACTED_DIR, `${sanitizeFilename(muniName)}_extracted.json`),
             JSON.stringify(permits, null, 2),
