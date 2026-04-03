@@ -308,15 +308,18 @@ Kör `npm test` före varje push. Alla tester ska vara gröna.
 
 ## Senast uppdaterat 2026-04-03
 
-- Homepage-lookup i QC fixad: case-insensitive + ÅÄÖ-normalisering i homepageMap (rotorsak till 137 kommuners zero-streak)
-- 144 kommuner re-discovered med nya URL:er via tre QC-batchar ($3.13 totalt)
-- Eskaleringslogik i qc.js: >20% zero-streak → expanderar maxRediscoveries automatiskt
-- max_rediscoveries_per_run: 5 → 50 i byggsignal.json
-- Täckningsrapport i agent-runner sendSummary: "X/Y kommuner med data senaste 7 dagarna"
-- Akademiska Hus: 71 fastigheter importerade till ci_properties från fastighetsförteckning 2025 PDF
-- match-properties.js: 13 bygglov-matchningar (228 properties totalt: 157 Vasakronan + 71 Akademiska Hus)
+- Homepage-lookup i QC fixad: case-insensitive + ÅÄÖ-normalisering i homepageMap
+- 23 ÅÄÖ-dubbletter raderade från discovery_configs (303 → 282 configs)
+- 141 kommuner re-discovered med nya URL:er via tre QC-batchar ($3.09)
+- Auto-eskalering HTTP → Playwright i daily-run vid 0 permits från verifierad källa
+- Verify extraction kräver >0 items för auto-approve, flaggar needs_browser vid keyword-match
+- Discovery-prompt förbättrad: letar efter listade ärenden, inte informationssidor
+- QC-alerts visar korrekta ÅÄÖ-namn via displayNameMap
+- Playwright browser-restart var 30:e source (var 80:e)
+- 7 nya tester för ÅÄÖ-hantering
+- Akademiska Hus: 71 fastigheter importerade till ci_properties
+- match-properties.js: 13 bygglov-matchningar (228 properties totalt)
 - Cron: 04:00 UTC (06:00 CEST) live efter railway up
-- .claude/worktrees rensad från git, tillagd i .gitignore
 
 ## Senast uppdaterat 2026-04-02
 
