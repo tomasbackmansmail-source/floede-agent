@@ -306,6 +306,27 @@ Kör `npm test` före varje push. Alla tester ska vara gröna.
 
 ---
 
+## Senast uppdaterat 2026-04-04
+
+- data/villaagarna-komplett.json: 290 kommuner med verifierade anslagstavle-URL:er, redo att seedas i discovery_configs
+- data/villaagarna-fixade-urls.json: 29 kommuner med korrigerade URL:er
+- data/villaagarna-validation.json: HTTP health check resultat alla 290 URL:er
+- docs/aao-standard.md: ÅÄÖ-normaliseringsstandard, NFC överallt, normalize-funktion 18 rader JS, 290 kommun-domän-mappningar
+- docs/fas0-vertikaler.md: research detaljplaner (NGP 162/290, Combify) och miljötillstånd (fragmenterat, ingen aggregator)
+- src/validate-villaagarna-urls.js: HTTP health check script, återanvändbart
+- Fas 0 formaliserad: sök alltid efter befintliga register/aggregatorer INNAN agentisk discovery
+- ByggSignal motorstatus: 148 kommuner med data, 128 failed. Villaägarna-seedning planerad söndag 6 april
+- Motorförbättringar live: eskalering vid >20% zero-streak, max_rediscoveries 50/dag, täckningsrapport i daglig mail
+- Playwright browser restart var 30:e källa (inte 80)
+- Auto-eskalering HTTP→Playwright på zero-permit verified sources
+- CI: 320+ signaler, 228 ci_properties, 13 bygglov-matchningar, TED live, projektgruppering live
+- CI cron-ordning: daily-run → QC → match-properties → ted-sync → group-signals
+- CI cron 06:00 CEST
+- ci_user_profiles med Fredriks filter seedad manuellt
+- Akademiska Hus fastighetsförteckning 2025 extraherad till ci_properties (71 fastigheter)
+- TED API: anonymt, gratis. SFV 216 träffar, Akademiska Hus 294 träffar. Stockholms stad 3, Vasakronan 0
+- Parallella CC-sessioner: starta alltid med cd ~/floede-agent i prompten
+
 ## Senast uppdaterat 2026-04-03
 
 - Homepage-lookup i QC fixad: case-insensitive + ÅÄÖ-normalisering i homepageMap
