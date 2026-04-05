@@ -62,6 +62,7 @@ async function loadApprovedConfigs(supabase) {
     approved: row[configApprovedField],
     needs_browser: row.config.needs_browser || row.needs_browser || false,
     _file: `${row[configSourceField] || row.municipality}_config.json`,
+    _id: row.id,
   }));
 }
 
@@ -229,8 +230,15 @@ async function fetchPagePlaywright(page, config) {
 
 // --- EXTRACTION ---
 
-async function extractPermits(client, html, municipalityName, sourceUrl, sourceConfig = {}) {
+async function extractPermits(client, html, municipalityName, sourceUrl, sourceConfig = {}, { forceExtract = false } = {}) {
   const cleaned = stripNonContent(html);
+  const contentHash = createHash("sha256").update(cleaned).digest("hex").slice(0, 16);
+
+  if (!forceExtract && sourceConfig.content_hash && sourceConfig.content_hash === contentHash) {
+    console.log(`  [${municipalityName}] content unchanged (hash: ${contentHash}), skipping extraction`);
+    return { permits: [], cost: { input_tokens: 0, output_tokens: 0, cache_creation_input_tokens: 0, cache_read_input_tokens: 0, cost_usd: 0 }, contentHash, skipped: true };
+  }
+
   const truncated = cleaned.length > 100000 ? cleaned.slice(0, 100000) : cleaned;
 
   const response = await withRetry(
@@ -293,7 +301,15 @@ async function extractPermits(client, html, municipalityName, sourceUrl, sourceC
               (response.usage.output_tokens * effectiveModelCost.output)
   };
 
-  return { permits, cost };
+  return { permits, cost, contentHash, skipped: false };
+}
+
+async function updateContentHash(supabase, configId, newHash) {
+  const configTable = verticalConfig.discovery?.config_table || "discovery_configs";
+  const { data } = await supabase.from(configTable).select("config").eq("id", configId).single();
+  if (data) {
+    await supabase.from(configTable).update({ config: { ...data.config, content_hash: newHash } }).eq("id", configId);
+  }
 }
 
 async function insertToSupabase(supabase, records, extractionRun) {
@@ -431,6 +447,7 @@ async function main() {
   const onlyMunis = muniArg
     ? muniArg.replace("--source=", "").replace("--municipality=", "").split(",").map((s) => s.trim().toLowerCase())
     : null;
+  const forceExtract = process.argv.includes("--force-extract");
 
   console.log(`=== Floede Agent - Daily Run ${runId} ===\n`);
 
@@ -474,6 +491,7 @@ async function main() {
   let totalCacheRead = 0;
   let httpCount = 0;
   let browserCount = 0;
+  let totalSkipped = 0;
 
   // --- Phase 1: HTTP fetch (fast, no browser) ---
   console.log(`=== Phase 1: HTTP fetch (${httpConfigs.length} sources) ===`);
@@ -493,7 +511,14 @@ async function main() {
           const htmlFile = `${sanitizeFilename(muniName)}_${runId}.html`;
           await writeFile(join(HTML_DIR, htmlFile), html, "utf-8");
 
-          const { permits, cost } = await extractPermits(client, html, muniName, config.listing_url, config);
+          const { permits, cost, contentHash, skipped } = await extractPermits(client, html, muniName, config.listing_url, config, { forceExtract });
+
+          if (skipped) {
+            results.push({ municipality: muniName, status: "unchanged", fetch_mode: "http", permits: 0, cost_usd: 0, html_hash: hash });
+            totalSkipped++;
+            return;
+          }
+
           totalCost += cost.cost_usd;
           totalPermits += permits.length;
           totalCacheCreated += cost.cache_creation_input_tokens || 0;
@@ -526,6 +551,10 @@ async function main() {
           const db = await insertToSupabase(supabase, permits, runId);
           totalInserted += db.inserted;
           console.log(`  DB: ${db.inserted} inserted, ${db.skipped} skipped, ${db.errors} errors`);
+
+          if (config._id) {
+            await updateContentHash(supabase, config._id, contentHash);
+          }
 
           results.push({
             municipality: muniName,
@@ -592,7 +621,14 @@ async function main() {
             const htmlFile = `${sanitizeFilename(muniName)}_${runId}.html`;
             await writeFile(join(HTML_DIR, htmlFile), html, "utf-8");
 
-            const { permits, cost } = await extractPermits(client, html, muniName, config.listing_url, config);
+            const { permits, cost, contentHash, skipped } = await extractPermits(client, html, muniName, config.listing_url, config, { forceExtract });
+
+            if (skipped) {
+              results.push({ municipality: muniName, status: "unchanged", fetch_mode: "browser", permits: 0, cost_usd: 0, html_hash: hash });
+              totalSkipped++;
+              return;
+            }
+
             totalCost += cost.cost_usd;
             totalPermits += permits.length;
             totalCacheCreated += cost.cache_creation_input_tokens || 0;
@@ -609,6 +645,10 @@ async function main() {
             const db = await insertToSupabase(supabase, permits, runId);
             totalInserted += db.inserted;
             console.log(`  DB: ${db.inserted} inserted, ${db.skipped} skipped, ${db.errors} errors`);
+
+            if (config._id) {
+              await updateContentHash(supabase, config._id, contentHash);
+            }
 
             results.push({
               municipality: muniName,
@@ -695,7 +735,8 @@ async function main() {
 
   const ok = results.filter((r) => r.status === "ok").length;
   const failed = results.filter((r) => r.status === "error").length;
-  console.log(`OK: ${ok}, Failed: ${failed}`);
+  const unchanged = results.filter((r) => r.status === "unchanged").length;
+  console.log(`OK: ${ok}, Failed: ${failed}${unchanged > 0 ? `, Unchanged: ${unchanged} (skipped LLM)` : ""}`);
 
   if (failed > 0) {
     console.log("Failed sources:");
