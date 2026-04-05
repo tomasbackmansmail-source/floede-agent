@@ -1,0 +1,26 @@
+[
+  {
+    "municipality": "Aneby",
+    "old_url": "https://www.aneby.se/arkiv/digital-anslagstavla/anslag/2026-03-26-kungorelse-om-beviljat-bygglov-pa-fastigheten-slapvagnen-2.html",
+    "new_url": "https://aneby.se/arkiv/digital-anslagstavla.html",
+    "reason": "old URL pointed to single dated item, not listing page"
+  },
+  {
+    "municipality": "Eslöv",
+    "old_url": "https://eslov.se/anslag",
+    "new_url": "https://eslov.se/kommun-politik/anslagstavla/",
+    "reason": "old URL was /anslag stub, not full anslagstavla"
+  },
+  {
+    "municipality": "Habo",
+    "old_url": "https://www.habo.se/anslagstavla",
+    "new_url": "https://www.habokommun.se/Kommun--politik/anslagstavla/",
+    "reason": "wrong domain — habo.se vs habokommun.se"
+  },
+  {
+    "municipality": "Nordanstig",
+    "old_url": "https://nordanstig.se/anslagstavla",
+    "new_url": "https://anslagstavlan.nordanstig.se/#!/billboard/",
+    "reason": "static page replaced by Ciceron billboard subdomain"
+  }
+]
