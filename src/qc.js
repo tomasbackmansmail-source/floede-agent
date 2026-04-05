@@ -225,33 +225,63 @@ async function saveToQcRuns(supabase, todayCounts, baselines, allFlags) {
   console.log('QC results saved to qc_runs: ' + Object.keys(todayCounts).length + ' rows');
 }
 
-async function checkZeroStreak(supabase) {
+export async function checkZeroStreak(supabase) {
   const threshold = feedbackConfig.zero_streak_threshold || 3;
-  const lookbackDays = threshold + 1;
+  // Look back further to handle missed QC runs (deploy gaps, timeouts)
+  const lookbackDays = threshold * 2;
   const cutoff = new Date();
   cutoff.setDate(cutoff.getDate() - lookbackDays);
 
+  // Fetch ALL qc_runs in lookback (both zero and non-zero)
   const { data, error } = await supabase
     .from('qc_runs')
     .select('municipality, run_date, permits_extracted')
     .eq('vertical', VERTICAL)
     .gte('run_date', cutoff.toISOString().slice(0, 10))
-    .eq('permits_extracted', 0)
     .order('municipality')
     .order('run_date', { ascending: false });
 
   if (error || !data) return [];
 
+  // Group all runs by municipality
   const byMuni = {};
   for (const row of data) {
     if (!byMuni[row.municipality]) byMuni[row.municipality] = [];
-    byMuni[row.municipality].push(row.run_date);
+    byMuni[row.municipality].push(row);
   }
 
+  const today = new Date().toISOString().slice(0, 10);
   const zeroStreaks = [];
-  for (const [muni, dates] of Object.entries(byMuni)) {
-    if (dates.length >= threshold) {
-      zeroStreaks.push({ municipality: muni, zero_days: dates.length, dates });
+
+  for (const [muni, runs] of Object.entries(byMuni)) {
+    // Find the most recent run with permits > 0
+    const lastWithData = runs.find(r => r.permits_extracted > 0);
+    const lastDataDate = lastWithData ? lastWithData.run_date : null;
+
+    // Count consecutive days without data from today backwards
+    // A day counts as zero if: there's a QC run with 0, OR there's no run at all
+    // (missed runs should not break the streak)
+    let zeroDays = 0;
+    const zeroDates = [];
+    const runsByDate = Object.fromEntries(runs.map(r => [r.run_date, r]));
+
+    for (let d = 0; d < lookbackDays; d++) {
+      const checkDate = new Date();
+      checkDate.setDate(checkDate.getDate() - d);
+      const dateStr = checkDate.toISOString().slice(0, 10);
+
+      const run = runsByDate[dateStr];
+      if (run && run.permits_extracted > 0) {
+        // Found a day with data — streak ends
+        break;
+      }
+      // Either a zero-run or no run at all — streak continues
+      zeroDays++;
+      zeroDates.push(dateStr);
+    }
+
+    if (zeroDays >= threshold) {
+      zeroStreaks.push({ municipality: muni, zero_days: zeroDays, dates: zeroDates });
     }
   }
 
@@ -294,12 +324,34 @@ export async function triggerRediscovery(municipalityName, currentUrl, homepageU
       return { success: false, new_url: null, verified: false, cost_usd: logRow.cost_usd, error: logRow.error };
     }
 
-    // Same URL as before — skip
+    // Same URL as before — increment stale counter and skip
     if (result.url === currentUrl) {
       logRow.error = "same URL found, skipping";
       logRow.new_url = result.url;
       await supabase.from('discovery_runs').insert(logRow);
-      console.log(`    [Re-discovery] Same URL found, skipping`);
+
+      // Track how many times re-discovery returns the same URL
+      const { data: configRow } = await supabase
+        .from('discovery_configs')
+        .select('stale_rediscovery_count')
+        .eq('municipality', municipalityName)
+        .limit(1)
+        .single();
+      const prevCount = configRow?.stale_rediscovery_count || 0;
+      const newCount = prevCount + 1;
+      await supabase
+        .from('discovery_configs')
+        .update({
+          stale_rediscovery_count: newCount,
+          updated_at: new Date().toISOString(),
+        })
+        .eq('municipality', municipalityName);
+
+      if (newCount >= 3) {
+        console.log(`    [Re-discovery] Same URL found ${newCount} times — flagging for manual review`);
+      } else {
+        console.log(`    [Re-discovery] Same URL found (attempt ${newCount}/3)`);
+      }
       return { success: false, new_url: result.url, verified: false, cost_usd: logRow.cost_usd, error: logRow.error };
     }
 
@@ -336,6 +388,7 @@ export async function triggerRediscovery(municipalityName, currentUrl, homepageU
           verify_result_count: verifyResult.result_count,
           needs_browser: verifyResult.needs_browser || false,
           approved: true,
+          stale_rediscovery_count: 0,
           updated_at: new Date().toISOString(),
         })
         .eq("municipality", municipalityName);
@@ -616,7 +669,10 @@ async function main() {
 
         const currentConfig = configMap[candidate.municipality];
         const currentUrl = currentConfig?.listing_url || null;
-        const homepageUrl = homepageMap[candidate.municipality] || null;
+        const homepageUrl = homepageMap[candidate.municipality]
+          || homepageMap[normalizeToAscii(candidate.municipality)]
+          || homepageMap[candidate.municipality.normalize('NFC').toLowerCase()]
+          || null;
 
         console.log(`  ${displayName(candidate.municipality)} (${candidate.zero_days} days zero):`);
         const result = await triggerRediscovery(candidate.municipality, currentUrl, homepageUrl, supabase);

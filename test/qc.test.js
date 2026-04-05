@@ -5,7 +5,8 @@ import { describe, it } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "fs";
 
-import { triggerRediscovery } from "../src/qc.js";
+import { triggerRediscovery, checkZeroStreak } from "../src/qc.js";
+import { normalizeToAscii } from "../src/utils/normalize.js";
 
 // ═══════════════════════════════════════════════
 // triggerRediscovery — parameter validation
@@ -54,6 +55,84 @@ describe("shouldApprove logic", () => {
 
   it("rejects when verified=true but result_count=0", () => {
     assert.strictEqual(shouldApprove({ verified: true, result_count: 0, needs_browser: false }), false);
+  });
+});
+
+// ═══════════════════════════════════════════════
+// checkZeroStreak — counts days-without-data, not just zero-rows
+// ═══════════════════════════════════════════════
+
+describe("checkZeroStreak", () => {
+  it("returns empty array on DB error", async () => {
+    const fakeSupabase = {
+      from: () => ({
+        select: () => ({
+          eq: () => ({
+            gte: () => ({
+              order: () => ({
+                order: () => ({ data: null, error: { message: "test" } })
+              })
+            })
+          })
+        })
+      })
+    };
+    const result = await checkZeroStreak(fakeSupabase);
+    assert.deepStrictEqual(result, []);
+  });
+});
+
+// ═══════════════════════════════════════════════
+// homepageMap ÅÄÖ lookup — matches normalized municipality names
+// ═══════════════════════════════════════════════
+
+describe("homepageMap ÅÄÖ lookup", () => {
+  // Simulates the homepageMap construction from qc.js
+  function buildHomepageMap(muniRows, sourceIdField, sourceUrlField) {
+    return Object.fromEntries(
+      muniRows.flatMap(r => {
+        const name = r[sourceIdField];
+        const url = r[sourceUrlField];
+        const ascii = normalizeToAscii(name)
+          .replace(/\s*kommun$/i, '').replace(/\s*stad$/i, '');
+        return [[name, url], [ascii, url], [name.normalize('NFC').toLowerCase(), url]];
+      })
+    );
+  }
+
+  // Simulates the lookup logic from qc.js re-discovery section
+  function lookupHomepage(homepageMap, municipality) {
+    return homepageMap[municipality]
+      || homepageMap[normalizeToAscii(municipality)]
+      || homepageMap[municipality.normalize('NFC').toLowerCase()]
+      || null;
+  }
+
+  const muniRows = [
+    { name: "Ängelholm", homepage: "https://www.engelholm.se" },
+    { name: "Österåker", homepage: "https://www.osteraker.se" },
+    { name: "Västerås", homepage: "https://www.vasteras.se" },
+  ];
+  const homepageMap = buildHomepageMap(muniRows, "name", "homepage");
+
+  it("finds Ängelholm by exact name", () => {
+    assert.strictEqual(lookupHomepage(homepageMap, "Ängelholm"), "https://www.engelholm.se");
+  });
+
+  it("finds Ängelholm by ascii-normalized name", () => {
+    assert.strictEqual(lookupHomepage(homepageMap, "Angelholm"), "https://www.engelholm.se");
+  });
+
+  it("finds Österåker by lowercase NFC", () => {
+    assert.strictEqual(lookupHomepage(homepageMap, "österåker"), "https://www.osteraker.se");
+  });
+
+  it("finds Västerås by ascii fallback", () => {
+    assert.strictEqual(lookupHomepage(homepageMap, "Vasteras"), "https://www.vasteras.se");
+  });
+
+  it("returns null for unknown municipality", () => {
+    assert.strictEqual(lookupHomepage(homepageMap, "Narnia"), null);
   });
 });
 
