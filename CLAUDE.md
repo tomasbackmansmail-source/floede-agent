@@ -306,6 +306,16 @@ Kör `npm test` före varje push. Alla tester ska vara gröna.
 
 ---
 
+## Senast uppdaterat 2026-04-05
+
+- Miljövariabler: varje vertikal i agent-runner kräver verifierade env vars i Railway INNAN den anses live. CI saknade credentials i månader utan att någon märkte.
+- Railway "succeeded" = process.exit(0), inte att alla steg lyckades. agent-runner fångar fel och exiterar OK. Läs loggarna, inte statusikonen.
+- Content hashing sparas bara vid lyckad extraction. Första körningen med nya configs triggar alltid full LLM på alla — förväntat men dyrt. Hashar byggs upp successivt.
+- execSync timeout i agent-runner är den enda tidsgränsen — Railway har ingen max-körtid för cron. Satt till 4h (14_400_000 ms) efter att 60 min inte räckte för 292 configs.
+- Railway cron: om en körning fortfarande är aktiv när nästa scheduled körning ska starta, skippas den nya. Processen måste avsluta sig själv.
+- Railway-körning triggas manuellt via railway.com-dashboarden eller railway run — INTE från CC-session. CC-körning dör när locket stängs.
+- Arbetsflödesprincip: Railway = autonomt serverside (motor, cron, nattjobb). CC = interaktivt lokalt (kod, config, felsökning). Blanda inte.
+
 ## Senast uppdaterat 2026-04-04
 
 - data/villaagarna-komplett.json: 290 kommuner med verifierade anslagstavle-URL:er, redo att seedas i discovery_configs
