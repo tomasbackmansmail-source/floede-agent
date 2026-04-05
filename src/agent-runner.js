@@ -46,7 +46,7 @@ function runShellTask(task) {
   const command = task.command || `VERTICAL=${task.vertical} node src/daily-run.js`;
   const start = Date.now();
   const result = execSync(command, {
-    timeout: 3_600_000,
+    timeout: 14_400_000,
     encoding: 'utf-8',
     stdio: ['pipe', 'pipe', 'pipe'],
     env: { ...process.env, VERTICAL: task.vertical },
@@ -98,7 +98,7 @@ function runDefaultExtraction() {
     const start = Date.now();
     try {
       const stdout = execSync(`VERTICAL=${vertical} node src/daily-run.js`, {
-        timeout: 3_600_000,
+        timeout: 14_400_000,
         encoding: 'utf-8',
         stdio: ['pipe', 'pipe', 'pipe'],
         env: { ...process.env, VERTICAL: vertical },
