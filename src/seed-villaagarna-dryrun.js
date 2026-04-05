@@ -8,16 +8,73 @@
 import { createClient } from "@supabase/supabase-js";
 import { readFile, writeFile } from "fs/promises";
 
-// Normalize URL for comparison: lowercase, strip trailing slash, strip protocol
+// Normalize URL for comparison: lowercase, strip www., strip trailing slash
 function normalizeUrl(url) {
   if (!url) return "";
   try {
     const u = new URL(url);
+    const host = u.hostname.replace(/^www\./, "");
     const path = u.pathname.replace(/\/+$/, "");
-    return (u.hostname + path).toLowerCase();
+    return (host + path).toLowerCase();
   } catch {
-    return url.toLowerCase().replace(/\/+$/, "");
+    return url.toLowerCase().replace(/^https?:\/\/(www\.)?/, "").replace(/\/+$/, "");
   }
+}
+
+// Looser normalization: strip .html extension, numeric suffixes like .1395,
+// and common path noise to detect "same page, different CMS URL"
+function looseNormalizeUrl(url) {
+  if (!url) return "";
+  try {
+    const u = new URL(url);
+    const host = u.hostname.replace(/^www\./, "");
+    let path = u.pathname.replace(/\/+$/, "");
+    // Strip .html/.htm extension
+    path = path.replace(/\.html?$/, "");
+    // Strip numeric Sitevision-style suffixes (.1395, .106.71e35e86160df3d653f28b8b)
+    path = path.replace(/\.\d[\w.]*/g, "");
+    return (host + path).toLowerCase();
+  } catch {
+    return url.toLowerCase();
+  }
+}
+
+// Classify why URLs differ
+function classifyDiff(oldUrl, newUrl) {
+  const oldNorm = normalizeUrl(oldUrl);
+  const newNorm = normalizeUrl(newUrl);
+
+  // Exact match after www/trailing-slash normalization
+  if (oldNorm === newNorm) return "minor_diff";
+
+  // Loose match: same host, same essential path (just .html or CMS suffix differs)
+  const oldLoose = looseNormalizeUrl(oldUrl);
+  const newLoose = looseNormalizeUrl(newUrl);
+  if (oldLoose === newLoose) return "minor_diff";
+
+  // Old URL looks like a single-item page (contains date patterns, specific article)
+  if (/\/\d{4}-\d{2}-\d{2}/.test(oldUrl)) return "upgrade";
+
+  // Old URL is just homepage or top-level domain
+  try {
+    const oldPath = new URL(oldUrl).pathname.replace(/\/+$/, "");
+    if (oldPath === "" || oldPath === "/") return "upgrade";
+  } catch {}
+
+  // Old URL is a generic info page (bygglov process, not listings)
+  if (/bygga-bo|tillstand.*regler|bygglov\/?$/.test(oldUrl) && !/anslagstavla|kungor/.test(oldUrl)) {
+    return "upgrade";
+  }
+
+  // Different paths on same host — likely a real URL change
+  try {
+    const oldHost = new URL(oldUrl).hostname.replace(/^www\./, "");
+    const newHost = new URL(newUrl).hostname.replace(/^www\./, "");
+    if (oldHost === newHost) return "upgrade";
+  } catch {}
+
+  // Different domains entirely
+  return "upgrade";
 }
 
 // Normalize municipality name for matching (NFC, lowercase)
@@ -85,9 +142,10 @@ async function main() {
   }
 
   const results = {
-    created: [],
-    updated: [],
+    upgrade: [],
+    minor_diff: [],
     skipped: [],
+    created: [],
     summary: {},
   };
 
@@ -98,12 +156,11 @@ async function main() {
     const existing = findConfig(configMap, kommun);
 
     if (!existing) {
-      // New — create
       results.created.push({
         municipality: kommun,
         listing_url: bastaUrl,
         needs_browser: needsBrowser,
-        action: "created",
+        category: "created",
       });
       continue;
     }
@@ -113,42 +170,53 @@ async function main() {
     const newNormalized = normalizeUrl(bastaUrl);
 
     if (existingNormalized === newNormalized) {
-      // Same URL — skip (also skip if verified=true)
       results.skipped.push({
         municipality: kommun,
         listing_url: existingUrl,
+        category: "skipped",
         reason: "same_url",
       });
       continue;
     }
 
-    // URL differs — but don't overwrite verified=true with same URL (already handled above)
-    // If verified=true and URL is different, we still update since villaägarna has a better URL
-    results.updated.push({
+    const category = classifyDiff(existingUrl, bastaUrl);
+    const row = {
       municipality: kommun,
+      db_municipality: existing.municipality,
       old_url: existingUrl || null,
       new_url: bastaUrl,
       needs_browser: needsBrowser,
       was_verified: existing.verified || false,
       was_approved: existing.approved || false,
-      action: "updated",
-    });
+      category,
+    };
+
+    if (category === "upgrade") {
+      results.upgrade.push(row);
+    } else {
+      results.minor_diff.push(row);
+    }
   }
 
   results.summary = {
     total_villaagarna: villaagarna.length,
     total_discovery_configs: configs.length,
-    created: results.created.length,
-    updated: results.updated.length,
+    upgrade: results.upgrade.length,
+    minor_diff: results.minor_diff.length,
     skipped: results.skipped.length,
+    created: results.created.length,
+    upgrade_verified: results.upgrade.filter(u => u.was_verified).length,
+    minor_diff_verified: results.minor_diff.filter(u => u.was_verified).length,
   };
 
   console.log("\n=== DRY-RUN SUMMARY ===");
   console.log(`Total kommuner i villaägarna: ${results.summary.total_villaagarna}`);
   console.log(`Total i discovery_configs:    ${results.summary.total_discovery_configs}`);
-  console.log(`Skapas (nya):                 ${results.summary.created}`);
-  console.log(`Uppdateras (ny URL):          ${results.summary.updated}`);
-  console.log(`Skippas (samma URL):          ${results.summary.skipped}`);
+  console.log(`---`);
+  console.log(`upgrade (ska uppdateras):     ${results.summary.upgrade} (${results.summary.upgrade_verified} var verified)`);
+  console.log(`minor_diff (ska INTE ändras): ${results.summary.minor_diff} (${results.summary.minor_diff_verified} var verified)`);
+  console.log(`skipped (exakt samma URL):    ${results.summary.skipped}`);
+  console.log(`created (nya):               ${results.summary.created}`);
 
   await writeFile("data/seed-dryrun.json", JSON.stringify(results, null, 2), "utf-8");
   console.log("\nRapport sparad: data/seed-dryrun.json");
