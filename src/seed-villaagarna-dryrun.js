@@ -7,6 +7,7 @@
 
 import { createClient } from "@supabase/supabase-js";
 import { readFile, writeFile } from "fs/promises";
+import { normalizeMunicipality } from "./utils/normalize.js";
 
 // Normalize URL for comparison: lowercase, strip www., strip trailing slash
 function normalizeUrl(url) {
@@ -77,9 +78,9 @@ function classifyDiff(oldUrl, newUrl) {
   return "upgrade";
 }
 
-// Normalize municipality name for matching (NFC, lowercase)
+// Normalize municipality name for matching (NFC, lowercase, strip suffixes)
 function normalizeName(name) {
-  return name.normalize("NFC").toLowerCase().trim();
+  return normalizeMunicipality(name);
 }
 
 // Villaägarna uses genitive forms that don't always map by stripping 's'

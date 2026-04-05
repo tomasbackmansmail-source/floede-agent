@@ -8,6 +8,7 @@ import { readFile, readdir, writeFile, mkdir } from "fs/promises";
 import { join } from "path";
 import { readFileSync } from "fs";
 import { discoverSource, verifyExtraction } from "./utils/discovery.js";
+import { normalizeToAscii } from "./utils/normalize.js";
 
 const VERTICAL = process.env.VERTICAL || "byggsignal";
 const verticalConfig = JSON.parse(readFileSync(new URL(`./config/verticals/${VERTICAL}.json`, import.meta.url), "utf-8"));
@@ -169,8 +170,7 @@ function populationFlags(todayCounts, baselines) {
   for (const [muniFile, count] of Object.entries(todayCounts)) {
     // Match sanitized filename to population key
     const popEntry = Object.entries(POPULATION).find(([name]) => {
-      const sanitized = name.toLowerCase()
-        .replace(/å/g, "a").replace(/ä/g, "a").replace(/ö/g, "o")
+      const sanitized = normalizeToAscii(name)
         .replace(/[^a-z0-9-]/g, "-").replace(/-+/g, "-").replace(/^-|-$/g, "");
       return sanitized === muniFile;
     });
@@ -518,10 +518,9 @@ async function main() {
     const displayNameMap = Object.fromEntries(
       (muniNameRows || []).flatMap(r => {
         const name = r[discoveryConfig.source_id_field];
-        const sanitized = name.toLowerCase().replace(/[åä]/g, 'a').replace(/ö/g, 'o')
-          .replace(/é/g, 'e').replace(/ü/g, 'u').replace(/[^a-z0-9]/g, '-')
-          .replace(/-+/g, '-').replace(/^-|-$/g, '');
-        return [[sanitized, name], [name.toLowerCase(), name], [name, name]];
+        const sanitized = normalizeToAscii(name)
+          .replace(/[^a-z0-9]/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '');
+        return [[sanitized, name], [name.normalize('NFC').toLowerCase(), name], [name, name]];
       })
     );
     const displayName = (id) => displayNameMap[id] || displayNameMap[id.toLowerCase()] || id;
@@ -598,10 +597,9 @@ async function main() {
         (muniRows || []).flatMap(r => {
           const name = r[discoveryConfig.source_id_field];
           const url = r[discoveryConfig.source_url_field];
-          const normalized = name.toLowerCase()
-            .replace(/å/g, 'a').replace(/ä/g, 'a').replace(/ö/g, 'o')
-            .replace(/\s+kommun$/i, '').replace(/\s+stad$/i, '');
-          return [[name, url], [normalized, url], [name.toLowerCase(), url]];
+          const ascii = normalizeToAscii(name)
+            .replace(/\s*kommun$/i, '').replace(/\s*stad$/i, '');
+          return [[name, url], [ascii, url], [name.normalize('NFC').toLowerCase(), url]];
         })
       );
 

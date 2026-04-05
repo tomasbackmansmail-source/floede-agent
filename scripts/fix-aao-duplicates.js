@@ -3,6 +3,7 @@
 // Dry-run (default): shows what would change. Pass --apply to execute.
 
 import { createClient } from "@supabase/supabase-js";
+import { normalizeToAscii } from "../src/utils/normalize.js";
 
 const SUPABASE_URL = process.env.SUPABASE_URL;
 const SUPABASE_KEY = process.env.SUPABASE_SERVICE_KEY;
@@ -54,10 +55,7 @@ async function main() {
 
   // 4. Find duplicates: normalize both names and check for collisions
   function normalize(name) {
-    return name.toLowerCase()
-      .replace(/å/g, 'a').replace(/ä/g, 'a').replace(/ö/g, 'o')
-      .replace(/é/g, 'e').replace(/ü/g, 'u')
-      .replace(/[^a-z]/g, '');
+    return normalizeToAscii(name).replace(/[^a-z]/g, '');
   }
 
   const byNormalized = new Map();

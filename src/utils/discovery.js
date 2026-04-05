@@ -1,6 +1,8 @@
 // Discovery utility functions — pure motor, no vertical-specific logic.
 // These are the "cheap steps" that run before any LLM calls.
 
+import { kommunToDomain, normalizeToAscii } from './normalize.js';
+
 const DEFAULT_TIMEOUT = 10000;
 const USER_AGENT_FALLBACK = "FloedAgent/0.1 (floede.se; autonomous data discovery)";
 
@@ -307,17 +309,8 @@ export async function checkSitemap(homepageUrl, searchTerms, userAgent) {
   };
 }
 
-// Normalize Swedish municipality name to hostname format
-export function normalizeToHostname(name) {
-  return name
-    .toLowerCase()
-    .replace(/\s+/g, '')
-    .replace(/å/g, 'a')
-    .replace(/ä/g, 'a')
-    .replace(/ö/g, 'o')
-    .replace(/é/g, 'e')
-    .replace(/ü/g, 'u');
-}
+// Re-export from normalize.js for backwards compatibility
+export { normalizeToAscii as normalizeToHostname } from './normalize.js';
 
 // Resolve homepage URL from municipality name.
 // IMPORTANT: This function normalizes the name for DNS lookup only.
@@ -325,10 +318,15 @@ export function normalizeToHostname(name) {
 // never the normalized hostname. See CLAUDE.md "KÄNDA PROBLEM" for context.
 export async function resolveHomepage(sourceName, userAgent) {
   const ua = userAgent || USER_AGENT_FALLBACK;
-  const normalized = normalizeToHostname(sourceName);
 
-  // Build candidate hostnames
+  // Use kommunToDomain for the primary guess (handles exceptions)
+  const domain = kommunToDomain(sourceName);
+  const normalized = normalizeToAscii(sourceName);
+
+  // Build candidate hostnames — domain-based first, then ASCII fallbacks
   const candidates = [
+    `https://www.${domain.replace(/\.se$/, '')}.se`,
+    `https://${domain}`,
     `https://www.${normalized}.se`,
     `https://${normalized}.se`,
     `https://www.${normalized}.kommun.se`,
@@ -336,16 +334,16 @@ export async function resolveHomepage(sourceName, userAgent) {
 
   // If name contains hyphen, also try without it
   if (sourceName.includes('-')) {
-    const withoutHyphen = normalizeToHostname(sourceName.replace(/-/g, ''));
+    const withoutHyphen = normalizeToAscii(sourceName.replace(/-/g, ''));
     candidates.push(`https://www.${withoutHyphen}.se`);
     candidates.push(`https://${withoutHyphen}.se`);
   }
   // If normalized has no hyphen but original had space+word, also try with hyphen
   if (sourceName.includes(' ')) {
-    const withHyphen = sourceName.toLowerCase().replace(/\s+/g, '-')
-      .replace(/å/g, 'a').replace(/ä/g, 'a').replace(/ö/g, 'o').replace(/é/g, 'e').replace(/ü/g, 'u');
-    candidates.push(`https://www.${withHyphen}.se`);
-    candidates.push(`https://${withHyphen}.se`);
+    const hyphenated = sourceName.normalize('NFC').toLowerCase().replace(/\s+/g, '-')
+      .replace(/[åä]/g, 'a').replace(/ö/g, 'o').replace(/é/g, 'e').replace(/ü/g, 'u');
+    candidates.push(`https://www.${hyphenated}.se`);
+    candidates.push(`https://${hyphenated}.se`);
   }
 
   // Deduplicate

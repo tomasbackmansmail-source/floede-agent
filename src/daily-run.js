@@ -16,6 +16,7 @@ import {
 
 } from "./utils/engine.js";
 import { readFileSync } from "fs";
+import { normalizeMunicipality as normalizeMuni } from "./utils/normalize.js";
 
 const VERTICAL = process.env.VERTICAL || "byggsignal";
 const verticalConfig = JSON.parse(readFileSync(new URL(`./config/verticals/${VERTICAL}.json`, import.meta.url), "utf-8"));
@@ -335,14 +336,13 @@ async function insertToSupabase(supabase, records, extractionRun) {
     );
   }
 
-  function normalizeMunicipality(name) {
+  function normalizeMunicipalityLookup(name) {
     if (enrichmentLookup[name]) return name;
-    const stripped = name.replace(/s?\s+kommun$/i, '').replace(/s?\s+stad$/i, '');
+    const stripped = name.normalize('NFC').replace(/s?\s+kommun$/i, '').replace(/s?\s+stad$/i, '');
     if (enrichmentLookup[stripped]) return stripped;
-    if (stripped.length >= 4) {
-      for (const mName of Object.keys(enrichmentLookup)) {
-        if (mName.toLowerCase() === stripped.toLowerCase()) return mName;
-      }
+    const normalizedInput = normalizeMuni(name);
+    for (const mName of Object.keys(enrichmentLookup)) {
+      if (normalizeMuni(mName) === normalizedInput) return mName;
     }
     return name;
   }
@@ -356,7 +356,7 @@ async function insertToSupabase(supabase, records, extractionRun) {
     if (dbConfig.enrichment && SOURCE_LABEL === "Kommun") {
       const sourceField = dbConfig.enrichment.lookup_source_field;
       if (record[sourceField]) {
-        record[sourceField] = normalizeMunicipality(record[sourceField]);
+        record[sourceField] = normalizeMunicipalityLookup(record[sourceField]);
       }
     }
 

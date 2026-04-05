@@ -8,11 +8,9 @@ export const BYGGLOV_KEYWORDS = [
 ];
 
 export function sanitizeFilename(name) {
-  return name
-    .toLowerCase()
-    .replace(/å/g, "a")
-    .replace(/ä/g, "a")
-    .replace(/ö/g, "o")
+  return name.normalize('NFC').toLowerCase()
+    .replace(/[åä]/g, "a").replace(/ö/g, "o")
+    .replace(/é/g, "e").replace(/ü/g, "u")
     .replace(/[^a-z0-9-]/g, "-")
     .replace(/-+/g, "-")
     .replace(/^-|-$/g, "");

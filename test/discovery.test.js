@@ -4,6 +4,7 @@
 import { describe, it } from "node:test";
 import assert from "node:assert/strict";
 import { detectPlatform, buildCandidateUrls, normalizeToHostname } from "../src/utils/discovery.js";
+import { normalizeToAscii } from "../src/utils/normalize.js";
 
 // ═══════════════════════════════════════════════
 // detectPlatform
@@ -406,10 +407,9 @@ describe("homepageMap ÅÄÖ matching", () => {
       rows.flatMap(r => {
         const name = r[idField];
         const url = r[urlField];
-        const normalized = name.toLowerCase()
-          .replace(/å/g, 'a').replace(/ä/g, 'a').replace(/ö/g, 'o')
-          .replace(/\s+kommun$/i, '').replace(/\s+stad$/i, '');
-        return [[name, url], [normalized, url], [name.toLowerCase(), url]];
+        const ascii = normalizeToAscii(name)
+          .replace(/\s*kommun$/i, '').replace(/\s*stad$/i, '');
+        return [[name, url], [ascii, url], [name.normalize('NFC').toLowerCase(), url]];
       })
     );
   }
@@ -446,10 +446,7 @@ describe("homepageMap ÅÄÖ matching", () => {
 
 describe("discovery_configs duplicate detection", () => {
   function normalize(name) {
-    return name.toLowerCase()
-      .replace(/å/g, 'a').replace(/ä/g, 'a').replace(/ö/g, 'o')
-      .replace(/é/g, 'e').replace(/ü/g, 'u')
-      .replace(/[^a-z]/g, '');
+    return normalizeToAscii(name).replace(/[^a-z]/g, '');
   }
 
   function findDuplicates(names) {

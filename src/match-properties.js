@@ -3,6 +3,7 @@
 // Run: node src/match-properties.js
 
 import { readFileSync } from 'node:fs';
+import { normalizeMunicipality } from './utils/normalize.js';
 
 const ciConfig = JSON.parse(readFileSync(new URL('./config/verticals/ci-pressroom.json', import.meta.url), 'utf8'));
 
@@ -102,12 +103,12 @@ async function main() {
     if (!prop.property_designation || !prop.municipality) continue;
 
     const designation = prop.property_designation.toLowerCase();
-    const municipality = prop.municipality.toLowerCase();
+    const municipalityNorm = normalizeMunicipality(prop.municipality);
 
     const matched = permits.filter((p) => {
       if (!p.address || !p.municipality) return false;
       return p.address.toLowerCase().includes(designation) &&
-             p.municipality.toLowerCase() === municipality;
+             normalizeMunicipality(p.municipality) === municipalityNorm;
     });
 
     for (const permit of matched) {
