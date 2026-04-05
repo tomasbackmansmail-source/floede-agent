@@ -1,0 +1,961 @@
+[
+  {
+    "municipality": "Alvesta",
+    "status": "updated",
+    "old_url": "https://anslagstavla.alvesta.se/#!/billboard/",
+    "new_url": "https://www.alvesta.se/kommun-och-politik/insyn-overklaga-beslut-och-rattssakerhet/kommunens-anslagstavla/",
+    "needs_browser": true
+  },
+  {
+    "municipality": "Arboga",
+    "status": "updated",
+    "old_url": "https://www.arboga.se/bygga-bo-och-miljo.html",
+    "new_url": "https://arboga.se/anslagstavla/anslagstavla",
+    "needs_browser": false
+  },
+  {
+    "municipality": "Arjeplog",
+    "status": "updated",
+    "old_url": "https://arjeplog.se/foretag-forening-och-naringsliv/tillstand-regler-och-tillsyn/bygglov/",
+    "new_url": "https://arjeplog.se/kommun--politik/politik/anslagstavla",
+    "needs_browser": false
+  },
+  {
+    "municipality": "Arvika",
+    "status": "updated",
+    "old_url": "https://www.arvika.se/anslagstavla",
+    "new_url": "https://www.arvika.se/kommunochpolitik/overklagabeslutrattssakerhet/anslagstavlaofficiell",
+    "needs_browser": false
+  },
+  {
+    "municipality": "Askersund",
+    "status": "updated",
+    "old_url": "https://www.askersund.se/anslagstavla",
+    "new_url": "https://www.askersund.se/kommun--politik/digital-anslagstavla",
+    "needs_browser": true
+  },
+  {
+    "municipality": "Avesta",
+    "status": "updated",
+    "old_url": "https://www.avesta.se/bygga-bo-och-miljo/planering-byggande-och-boende/bygglov-och-tillstand/",
+    "new_url": "https://avesta.se/kommun-demokrati/avesta-kommuns-anslagstavla/",
+    "needs_browser": false
+  },
+  {
+    "municipality": "Bengtsfors",
+    "status": "updated",
+    "old_url": "https://www.bengtsfors.se/anslagstavla",
+    "new_url": "https://www.bengtsfors.se/kommun-och-politik/anslagstavla",
+    "needs_browser": false
+  },
+  {
+    "municipality": "Boden",
+    "status": "updated",
+    "old_url": "https://anslagstavla.boden.se/",
+    "new_url": "https://boden.se/anslagstavla",
+    "needs_browser": true
+  },
+  {
+    "municipality": "Borlänge",
+    "status": "updated",
+    "old_url": "https://www.borlange.se/anslagstavla",
+    "new_url": "https://www.borlange.se/kommun-och-politik/anslagstavla",
+    "needs_browser": false
+  },
+  {
+    "municipality": "Botkyrka",
+    "status": "updated",
+    "old_url": "https://www.botkyrka.se/anslagstavla",
+    "new_url": "https://www.botkyrka.se/kommun-och-politik/digital-anslagstavla",
+    "needs_browser": false
+  },
+  {
+    "municipality": "Boxholm",
+    "status": "updated",
+    "old_url": "https://www.boxholm.se/bygga-bo-och-miljo/bygga-nytt-andra-eller-riva/bygglovsguide/bygganmalan",
+    "new_url": "https://www.boxholm.se/kommunochpolitik/anslagstavla.4.2c5b084015fcc6afb68a4379.html",
+    "needs_browser": false
+  },
+  {
+    "municipality": "Bromölla",
+    "status": "updated",
+    "old_url": "https://www.bromolla.se/anslagstavla",
+    "new_url": "https://bromolla.se/kommun-och-politik/anslagstavla/",
+    "needs_browser": false
+  },
+  {
+    "municipality": "Bräcke",
+    "status": "updated",
+    "old_url": "https://www.bracke.se/kommun--och-demokrati/beslut-insyn-och-rattssakerhet/anslagstavla",
+    "new_url": "https://www.bracke.se/kommunochpolitik/beslutinsynochrattssakerhet/officiellanslagstavla.4.448d2df3160e422a5736f46e.html",
+    "needs_browser": false
+  },
+  {
+    "municipality": "Burlöv",
+    "status": "updated",
+    "old_url": "https://www.burlov.se/anslagstavla",
+    "new_url": "https://burlov.se/kommunpolitik/motenhandlingarochprotokoll/anslagstavla.4.4b79c87d16020e13fae7172c.html",
+    "needs_browser": false
+  },
+  {
+    "municipality": "Båstad",
+    "status": "updated",
+    "old_url": "https://www.bastad.se/bo-bygga-och-miljo/bygga-nytt-andra-eller-riva/bygglov---sa-har-gar-det-till/forhandsbesked.html",
+    "new_url": "https://anslagstavla.bastad.se/#!/billboard/",
+    "needs_browser": true
+  },
+  {
+    "municipality": "Danderyd",
+    "status": "updated",
+    "old_url": "https://www.danderyd.se/bygga-bo/anslagstavla",
+    "new_url": "https://meetingsplus.danderyd.se/digital-bulletin-board",
+    "needs_browser": true
+  },
+  {
+    "municipality": "Degerfors",
+    "status": "updated",
+    "old_url": "https://www.degerfors.se/bo-bygga-trafik-och-miljo/bygga-nytt-riva-eller-andra.html",
+    "new_url": "https://anslagstavlan.degerfors.se/#!/billboard/",
+    "needs_browser": true
+  },
+  {
+    "municipality": "Eda",
+    "status": "updated",
+    "old_url": "https://www.eda.se/m%C3%B6ten-handlingar-och-protokoll/digital-anslagstavla__908",
+    "new_url": "https://eda.se/digitalanslagstavla",
+    "needs_browser": false
+  },
+  {
+    "municipality": "Eksjö",
+    "status": "updated",
+    "old_url": "https://eksjo.se/anslagstavla",
+    "new_url": "https://eksjo.se/kommun-och-politik/politik-och-paverkan/anslagstavla",
+    "needs_browser": false
+  },
+  {
+    "municipality": "Fagersta",
+    "status": "updated",
+    "old_url": "https://www.avesta.se/bygga-bo-och-miljo/planering-byggande-och-boende/bygglov-och-tillstand/bygglov/",
+    "new_url": "https://fagersta.se/organisation--styrning/anslagstavla",
+    "needs_browser": false
+  },
+  {
+    "municipality": "Falkenberg",
+    "status": "updated",
+    "old_url": "https://kommun.falkenberg.se/",
+    "new_url": "https://kommun.falkenberg.se/politik-och-demokrati/anslagstavla",
+    "needs_browser": false
+  },
+  {
+    "municipality": "Falun",
+    "status": "updated",
+    "old_url": "https://www.falun.se/anslagstavla",
+    "new_url": "https://www.falun.se/kommun--demokrati/officiell-anslagstavla.html",
+    "needs_browser": false
+  },
+  {
+    "municipality": "Finspång",
+    "status": "updated",
+    "old_url": "https://finspang.se/anslagstavla",
+    "new_url": "https://finspang.se/kommunochpolitik/anslagstavla.4.40cb2fd2166620ee929ad8f.html",
+    "needs_browser": false
+  },
+  {
+    "municipality": "Flen",
+    "status": "updated",
+    "old_url": "https://flen.se/anslagstavla",
+    "new_url": "https://flen.se/4.3910e3dd188e112b8d85f.html#query/*%3A*",
+    "needs_browser": true
+  },
+  {
+    "municipality": "Forshaga",
+    "status": "updated",
+    "old_url": "https://www.forshaga.se/anslagstavla",
+    "new_url": "https://www.forshaga.se/kommunochpolitik/overklagabeslutrattssakerhet/anslagstavla",
+    "needs_browser": true
+  },
+  {
+    "municipality": "Färgelanda",
+    "status": "updated",
+    "old_url": "https://fargelanda.se/bygga-bo-och-miljo/bygga-nytt-andra-eller-riva/vanliga-fragor-om-bygglov/",
+    "new_url": "https://www.fargelanda.se/kommun-och-politik/anslagstavla/",
+    "needs_browser": false
+  },
+  {
+    "municipality": "Gagnef",
+    "status": "updated",
+    "old_url": "https://www.gagnef.se/naringsliv/tillstand-och-tillsyn/bygglov-och-eller-bygganmalan/",
+    "new_url": "https://www.gagnef.se/kommun-och-politik/officiell-anslagstavla/",
+    "needs_browser": false
+  },
+  {
+    "municipality": "Gislaved",
+    "status": "updated",
+    "old_url": "https://www.gislaved.se/anslagstavla",
+    "new_url": "https://gislaved.se/kommun-och-politik/anslagstavla-overklaga-beslut-insyn/kommunens-officiella-anslagstavla",
+    "needs_browser": false
+  },
+  {
+    "municipality": "Gnosjö",
+    "status": "updated",
+    "old_url": "https://www.gnosjo.se/bygga-bo-trafik-och-miljo",
+    "new_url": "https://www.gnosjo.se/kommun-och-politik/handlingar-och-arkiv/digital-anslagstavla",
+    "needs_browser": false
+  },
+  {
+    "municipality": "Grums",
+    "status": "updated",
+    "old_url": "https://www.grums.se/anslagstavla",
+    "new_url": "https://www.grums.se/kommunpolitik/politikochdemokrati/anslagstavla.3898.html",
+    "needs_browser": false
+  },
+  {
+    "municipality": "Gullspång",
+    "status": "updated",
+    "old_url": "https://gullspang.se/anslagstavla",
+    "new_url": "https://gullspang.se/kommun-och-politik/digital-anslagstavla",
+    "needs_browser": false
+  },
+  {
+    "municipality": "Gällivare",
+    "status": "updated",
+    "old_url": "https://gallivare.se/anslagstavla",
+    "new_url": "https://gallivare.se/kommun-och-politik/overklaga-beslut-rattssakerhet/anslagstavla-officiell",
+    "needs_browser": false
+  },
+  {
+    "municipality": "Göteborg",
+    "status": "updated",
+    "old_url": "https://www.goteborg.se/wps/portal?uri=gbglnk%3agbg.page.b4d7866c-687f-452c-a3c5-94879c898260",
+    "new_url": "https://goteborg.se/wps/portal/start/kommun-och-politik/goteborgs-stads-anslagstavla",
+    "needs_browser": false
+  },
+  {
+    "municipality": "Hagfors",
+    "status": "updated",
+    "old_url": "https://www.hagfors.se/undersidor/bo-och-bygga/bygga/forhandsbesked.html",
+    "new_url": "https://www.hagfors.se/undersidor/politik-och-kommun/anslagstavla.html",
+    "needs_browser": false
+  },
+  {
+    "municipality": "Hallsberg",
+    "status": "updated",
+    "old_url": "https://www.hallsberg.se/anslagstavla",
+    "new_url": "https://www.hallsberg.se/organisation-och-styrning/kommunens-anslagstavla.html",
+    "needs_browser": true
+  },
+  {
+    "municipality": "Hammarö",
+    "status": "updated",
+    "old_url": "https://hammaro.se/bygga-bo-och-miljo",
+    "new_url": "https://hammaro.se/kommun-och-politik/overklaga-beslut-rattssakerhet/anslagstavla",
+    "needs_browser": false
+  },
+  {
+    "municipality": "Haninge",
+    "status": "updated",
+    "old_url": "https://www.haninge.se/anslagstavla",
+    "new_url": "https://www.haninge.se/kommun-och-politik/sa-styrs-haninge/anslagstavla/",
+    "needs_browser": false
+  },
+  {
+    "municipality": "Hedemora",
+    "status": "updated",
+    "old_url": "https://www.hedemora.se/anslagstavla",
+    "new_url": "https://hedemora.se/kommun-och-demokrati/moten-handlingar-och-protokoll/anslagstavla/",
+    "needs_browser": false
+  },
+  {
+    "municipality": "Helsingborg",
+    "status": "updated",
+    "old_url": "https://helsingborg.se/bo-bygga-och-miljo/bygga-nytt-bygga-om-bygga-till/bygglov-och-anmalan/",
+    "new_url": "https://anslagstavla.helsingborg.se/#!/billboard/",
+    "needs_browser": true
+  },
+  {
+    "municipality": "Hjo",
+    "status": "updated",
+    "old_url": "https://www.hjo.se/bostad--miljo/bygglov-och-anmalan/",
+    "new_url": "https://hjo.se/kommun--politik/politik-och-organisation/anslagstavla2/",
+    "needs_browser": false
+  },
+  {
+    "municipality": "Hultsfred",
+    "status": "updated",
+    "old_url": "https://www.hultsfred.se/anslagstavla",
+    "new_url": "https://www.hultsfred.se/artikel/anslagstavla/",
+    "needs_browser": false
+  },
+  {
+    "municipality": "Hylte",
+    "status": "updated",
+    "old_url": "https://www.hylte.se/anslagstavla",
+    "new_url": "https://www.hylte.se/kommun-och-politik/anslagstavla",
+    "needs_browser": true
+  },
+  {
+    "municipality": "Härjedalen",
+    "status": "updated",
+    "old_url": "https://www.herjedalen.se/anslagstavla",
+    "new_url": "https://www.herjedalen.se/kommun-och-politik/anslagstavla.html",
+    "needs_browser": false
+  },
+  {
+    "municipality": "Höganäs",
+    "status": "updated",
+    "old_url": "https://www.hoganas.se/anslagstavla",
+    "new_url": "https://www.hoganas.se/kommun--ledning/digital-anslagstavla.html",
+    "needs_browser": true
+  },
+  {
+    "municipality": "Högsby",
+    "status": "updated",
+    "old_url": "https://www.hogsby.se/Bygga-bo-och-miljoe/Bygga-och-planera/Bygglov",
+    "new_url": "https://www.hogsby.se/Kommun-och-politik/Anslagstavla-officiell",
+    "needs_browser": false
+  },
+  {
+    "municipality": "Höör",
+    "status": "updated",
+    "old_url": "https://www.hoor.se/bygga-bo-miljo/",
+    "new_url": "https://www.hoor.se/kommun-politik/anslagstavla/",
+    "needs_browser": true
+  },
+  {
+    "municipality": "Jokkmokk",
+    "status": "updated",
+    "old_url": "https://www.jokkmokk.se/kommun-och-politik/anslagstavla/",
+    "new_url": "https://jokkmokk.se/kommun-samhalle/kommun-och-Politik/politik-och-delaktighet/anslagstavla/",
+    "needs_browser": false
+  },
+  {
+    "municipality": "Kalmar",
+    "status": "updated",
+    "old_url": "https://www.kalmar.se/anslagstavla",
+    "new_url": "https://kalmar.se/kalmar-kommuns-anslagstavla.html",
+    "needs_browser": false
+  },
+  {
+    "municipality": "Karlskrona",
+    "status": "updated",
+    "old_url": "https://www.karlskrona.se/anslagstavla",
+    "new_url": "https://www.karlskrona.se/kommun-och-politik/sa-fungerar-kommunen/anslagstavlan/",
+    "needs_browser": false
+  },
+  {
+    "municipality": "Karlstad",
+    "status": "updated",
+    "old_url": "https://karlstad.se/anslagstavla",
+    "new_url": "https://karlstad.se/kommun-och-politik/delta-och-paverka/anslagstavla",
+    "needs_browser": true
+  },
+  {
+    "municipality": "Kinda",
+    "status": "updated",
+    "old_url": "https://www.kinda.se/anslagstavla",
+    "new_url": "https://www.kinda.se/kommunochpolitik/anslagstavla.4.fcec8c41745101e2a351d5c.html",
+    "needs_browser": false
+  },
+  {
+    "municipality": "Kiruna",
+    "status": "updated",
+    "old_url": "https://www.kiruna.se/anslagstavla",
+    "new_url": "https://kiruna.se/kommun--demokrati/sa-kan-du-paverka/anslagstavla.html",
+    "needs_browser": true
+  },
+  {
+    "municipality": "Knivsta",
+    "status": "updated",
+    "old_url": "https://knivsta.se/anslagstavla",
+    "new_url": "https://knivsta.se/politik-och-organisation/anslagstavla",
+    "needs_browser": false
+  },
+  {
+    "municipality": "Kristianstad",
+    "status": "updated",
+    "old_url": "https://www.kristianstad.se/anslagstavla",
+    "new_url": "https://www.kristianstad.se/kommunochpolitik/overklagabeslutrattssakerhet/anslagstavla.5816.html",
+    "needs_browser": false
+  },
+  {
+    "municipality": "Kristinehamn",
+    "status": "updated",
+    "old_url": "https://www.kristinehamn.se/bygga-bo-och-leva/bygga-andra-eller-riva/bygglovsguiden/",
+    "new_url": "https://www.kristinehamn.se/kommun-och-politik/anslagstavla/",
+    "needs_browser": false
+  },
+  {
+    "municipality": "Kungsbacka",
+    "status": "updated",
+    "old_url": "https://www.kungsbacka.se/anslagstavla",
+    "new_url": "https://ciceronanslagstavla.kungsbacka.se/#!/billboard/",
+    "needs_browser": true
+  },
+  {
+    "municipality": "Kungälv",
+    "status": "updated",
+    "old_url": "https://www.kungalv.se/anslagstavla",
+    "new_url": "https://www.kungalv.se/kommun--politik/officiell-anslagstavla/",
+    "needs_browser": false
+  },
+  {
+    "municipality": "Köping",
+    "status": "updated",
+    "old_url": "https://www.koping.se/boende-trafik--miljo/bygglov.html",
+    "new_url": "https://koping.se/anslagstavla/anslagstavla.html",
+    "needs_browser": true
+  },
+  {
+    "municipality": "Laholm",
+    "status": "updated",
+    "old_url": "https://www.laholm.se/bygga-bo-och-miljo/bygga-nytt-andra-eller-riva/bygglov",
+    "new_url": "https://laholm.se/kommun-och-politik/anslagstavla",
+    "needs_browser": false
+  },
+  {
+    "municipality": "Landskrona",
+    "status": "updated",
+    "old_url": "https://www.landskrona.se/anslagstavla",
+    "new_url": "https://www.landskrona.se/kommun-och-politik/overklaga-beslut-rattssakerhet/anslagstavla-officiell/",
+    "needs_browser": true
+  },
+  {
+    "municipality": "Lekeberg",
+    "status": "updated",
+    "old_url": "https://lekeberg.se/kommunochpolitik/overklagabeslutrattssakerhet/anslagstavlaofficiell.4.711bc06b14820d116bc1a0e.html",
+    "new_url": "https://lekeberg.se/kommunochpolitik/beslutinsynochrattssakerhet/anslagstavlaofficiell.4.711bc06b14820d116bc1a0e.html",
+    "needs_browser": false
+  },
+  {
+    "municipality": "Leksand",
+    "status": "updated",
+    "old_url": "https://www.leksand.se/anslagstavla",
+    "new_url": "https://leksand.se/kommun-och-politik/politik-och-demokrati/digital-anslagstavla",
+    "needs_browser": false
+  },
+  {
+    "municipality": "Lidingö",
+    "status": "updated",
+    "old_url": "https://www.lidingo.se/ovrigasidor/stadensanslagstavla.4.7a7e170815fc29ac5e455a5.html",
+    "new_url": "https://www.lidingo.se/anslagstavla",
+    "needs_browser": false
+  },
+  {
+    "municipality": "Lidköping",
+    "status": "updated",
+    "old_url": "https://lidkoping.se/kommun-och-politik/politik-och-demokrati/anslagstavla",
+    "new_url": "https://www.kulturilidkoping.se/kommun-och-politik/politik-och-demokrati/anslagstavla",
+    "needs_browser": false
+  },
+  {
+    "municipality": "Linköping",
+    "status": "updated",
+    "old_url": "https://ciceron-anslagstavlan.linkoping.se/#!/billboard/",
+    "new_url": "https://www.linkoping.se/anslagstavla/",
+    "needs_browser": false
+  },
+  {
+    "municipality": "Ljusnarsberg",
+    "status": "updated",
+    "old_url": "https://ljusnarsberg.se/anslagstavla",
+    "new_url": "https://ljusnarsberg.se/digitalanslagstavla/anslagstavlan.4.6e8e0e05162b3d64d94836cf.html",
+    "needs_browser": true
+  },
+  {
+    "municipality": "Lomma",
+    "status": "updated",
+    "old_url": "https://www.lomma.se/anslagstavla",
+    "new_url": "https://lomma.se/kommun-och-politik/overklaga-beslut-rattssakerhet/anslagstavla.html",
+    "needs_browser": true
+  },
+  {
+    "municipality": "Luleå",
+    "status": "updated",
+    "old_url": "https://www.lulea.se/anslagstavla",
+    "new_url": "https://www.lulea.se/kommun--politik/insyn-och-rattssakerhet/anslagstavla.html",
+    "needs_browser": false
+  },
+  {
+    "municipality": "Lund",
+    "status": "updated",
+    "old_url": "https://www.lund.se/bygga-och-bo/allt-om-bygglov",
+    "new_url": "https://lund.se/kommun-och-politik/anslagstavla",
+    "needs_browser": false
+  },
+  {
+    "municipality": "Mariestad",
+    "status": "updated",
+    "old_url": "https://www.mariestad.se/bygga-bo-och-miljo/bygglov-marklov-och-rivningslov",
+    "new_url": "https://mariestad.se/Mariestads-kommun/Kommun--politik/Politik-och-delaktighet/Digital-anslagstavla",
+    "needs_browser": false
+  },
+  {
+    "municipality": "Mark",
+    "status": "updated",
+    "old_url": "https://www.mark.se/anslagstavla",
+    "new_url": "https://www.mark.se/kommun-och-politik/overklaga-beslut-och-rattssakerhet/digital-anslagstavla",
+    "needs_browser": false
+  },
+  {
+    "municipality": "Mora",
+    "status": "updated",
+    "old_url": "https://morakommun.se/",
+    "new_url": "https://morakommun.se/arkiv/digital-anslagstavla.html",
+    "needs_browser": false
+  },
+  {
+    "municipality": "Motala",
+    "status": "updated",
+    "old_url": "https://www.motala.se/anslagstavla",
+    "new_url": "https://www.motala.se/kommun-och-politik/beslut-insyn-och-rattssakerhet/anslagstavla-officiell/",
+    "needs_browser": false
+  },
+  {
+    "municipality": "Mullsjö",
+    "status": "updated",
+    "old_url": "https://www.mullsjo.se/boende-miljo-och-trafik",
+    "new_url": "https://www.mullsjo.se/arkiv/anslagstavla",
+    "needs_browser": false
+  },
+  {
+    "municipality": "Mölndal",
+    "status": "updated",
+    "old_url": "https://www.molndal.se/anslagstavla",
+    "new_url": "https://www.molndal.se/startsida/kommun-och-politik/insyn-och-paverkan/anslagstavla.html",
+    "needs_browser": true
+  },
+  {
+    "municipality": "Mönsterås",
+    "status": "updated",
+    "old_url": "https://www.monsteras.se/anslagstavla",
+    "new_url": "https://www.monsteras.se/kommun-och-politik/overklaga-beslut-rattssakerhet/anslagstavla/",
+    "needs_browser": false
+  },
+  {
+    "municipality": "Mörbylånga",
+    "status": "updated",
+    "old_url": "https://www.morbylanga.se/anslagstavla",
+    "new_url": "https://www.morbylanga.se/kommun-och-politik/arkiv-och-allmanna-handlingar/anslagstavla/",
+    "needs_browser": false
+  },
+  {
+    "municipality": "Nacka",
+    "status": "updated",
+    "old_url": "https://www.nacka.se/anslagstavla",
+    "new_url": "https://www.nacka.se/kommun--politik/delta-och-paverka/anslagstavla-officiell/",
+    "needs_browser": false
+  },
+  {
+    "municipality": "Norberg",
+    "status": "updated",
+    "old_url": "https://www.avesta.se/bygga-bo-och-miljo/planering-byggande-och-boende/bygglov-och-tillstand/bygglov/",
+    "new_url": "https://norberg.se/kommun--politik/insyn-och-paverkan/kommunal-anslagstavla",
+    "needs_browser": false
+  },
+  {
+    "municipality": "Norrköping",
+    "status": "updated",
+    "old_url": "https://norrkoping.se/kommun-och-politik/riktlinjer-beslut-och-dokument/anslagstavla",
+    "new_url": "https://norrkoping.se/organisation/anslagstavla",
+    "needs_browser": false
+  },
+  {
+    "municipality": "Norrtälje",
+    "status": "updated",
+    "old_url": "https://www.norrtalje.se/anslagstavla",
+    "new_url": "https://www.norrtalje.se/info/kommun-och-politik/handlingar-och-protokoll/anslagstavla/",
+    "needs_browser": false
+  },
+  {
+    "municipality": "Nybro",
+    "status": "updated",
+    "old_url": "https://www.nybro.se/anslagstavla",
+    "new_url": "https://nybro.se/kommun-politik/politik/anslagstavlan/",
+    "needs_browser": false
+  },
+  {
+    "municipality": "Nyköping",
+    "status": "updated",
+    "old_url": "https://www.nykoping.se/bo-bygga--miljo/",
+    "new_url": "https://www.nykoping.se/e-tavla",
+    "needs_browser": false
+  },
+  {
+    "municipality": "Nynäshamn",
+    "status": "updated",
+    "old_url": "https://www.nynashamn.se/service/boende--miljo/bygga-nytt-andra-eller-riva/sa-soker-du-bygglov",
+    "new_url": "https://nynashamn.se/anslagstavlan",
+    "needs_browser": false
+  },
+  {
+    "municipality": "Nässjö",
+    "status": "updated",
+    "old_url": "https://nassjo.se/anslagstavla",
+    "new_url": "https://nassjo.se/kommun-och-politik/kommunens-anslagstavla.html",
+    "needs_browser": false
+  },
+  {
+    "municipality": "Olofström",
+    "status": "updated",
+    "old_url": "https://olofstrom.se/kommun-och-politik/overklaga-beslut-rattssakerhet/anslagstavla-officiell/kungorelser-bygglov",
+    "new_url": "https://olofstrom.se/kommun-och-politik/overklaga-beslut-rattssakerhet/anslagstavla-officiell",
+    "needs_browser": false
+  },
+  {
+    "municipality": "Osby",
+    "status": "updated",
+    "old_url": "https://www.osby.se/anslagstavla",
+    "new_url": "https://www.osby.se/diverse/anslagstavla.html",
+    "needs_browser": false
+  },
+  {
+    "municipality": "Ovanåker",
+    "status": "updated",
+    "old_url": "https://www.ovanaker.se/anslagstavla",
+    "new_url": "https://www.ovanaker.se/omkommunen/politikochdemokrati/kommunensanslagstavla.2031.html",
+    "needs_browser": false
+  },
+  {
+    "municipality": "Pajala",
+    "status": "updated",
+    "old_url": "https://www.pajala.se/kommun-politik-och-service/anslagstavla/kungorelser-bygglov/",
+    "new_url": "https://www.pajala.se/kommun-politik-och-service/anslagstavla/",
+    "needs_browser": false
+  },
+  {
+    "municipality": "Partille",
+    "status": "updated",
+    "old_url": "https://www.partille.se/anslagstavla",
+    "new_url": "https://www.partille.se/digital-anslagstavla/",
+    "needs_browser": true
+  },
+  {
+    "municipality": "Piteå",
+    "status": "updated",
+    "old_url": "https://www.pitea.se/anslagstavla",
+    "new_url": "https://www.pitea.se/site/kommunal-anslagstavla/",
+    "needs_browser": false
+  },
+  {
+    "municipality": "Robertsfors",
+    "status": "updated",
+    "old_url": "https://www.robertsfors.se/kommunochpolitik/politikochsammantraden/anslagstavlan.1097.html",
+    "new_url": "https://robertsfors-anslagstavla.ciceron.cloud/index.html#!/billboard/",
+    "needs_browser": true
+  },
+  {
+    "municipality": "Sigtuna",
+    "status": "updated",
+    "old_url": "https://www.sigtuna.se/kommun-och-politik/handlingar-beslut-och-rattssakerhet/anslagstavla.html",
+    "new_url": "https://www.sigtuna.se/kommun-och-politik/overklaga-beslut-rattssakerhet/anslagstavla-officiell.html",
+    "needs_browser": true
+  },
+  {
+    "municipality": "Simrishamn",
+    "status": "updated",
+    "old_url": "https://www.simrishamn.se/bo-och-bygga/bygglov/kungorelser-av-underrattelser-och-beslut",
+    "new_url": "https://www.simrishamn.se/politik-och-paverkan/anslagstavlan",
+    "needs_browser": false
+  },
+  {
+    "municipality": "Skellefteå",
+    "status": "updated",
+    "old_url": "https://www.skelleftea.se/kommun/anslagstavla",
+    "new_url": "https://anslagstavla.skelleftea.se/#!/billboard/",
+    "needs_browser": true
+  },
+  {
+    "municipality": "Skövde",
+    "status": "updated",
+    "old_url": "https://www.skovde.se/sv/kommun-och-politik/anslagstavla/anslagtavlan/ksau-2026-03-25/",
+    "new_url": "https://www.skovde.se/kommun-och-politik/anslagstavla/",
+    "needs_browser": false
+  },
+  {
+    "municipality": "Sollefteå",
+    "status": "updated",
+    "old_url": "https://www.solleftea.se/bygga-bo--miljo/bygglov-tillstand-och-fastighetsfragor",
+    "new_url": "https://www.solleftea.se/Kommun--politik/anslagstavla",
+    "needs_browser": false
+  },
+  {
+    "municipality": "Sollentuna",
+    "status": "updated",
+    "old_url": "https://www.sollentuna.se/anslagstavla",
+    "new_url": "https://www.sollentuna.se/kommun--politik/offentlighet-och-sekretess/anslagstavla-officiell/",
+    "needs_browser": false
+  },
+  {
+    "municipality": "Solna",
+    "status": "updated",
+    "old_url": "https://www.solna.se/anslagstavla",
+    "new_url": "https://www.solna.se/om-solna-stad/arenden-beslut-och-protokoll/anslagstavla",
+    "needs_browser": false
+  },
+  {
+    "municipality": "Sorsele",
+    "status": "updated",
+    "old_url": "https://www.sorsele.se/",
+    "new_url": "https://www.sorsele.se/kommun-och-politik/anslagstavla/",
+    "needs_browser": false
+  },
+  {
+    "municipality": "Staffanstorp",
+    "status": "updated",
+    "old_url": "https://staffanstorp.se/kommun-och-politik/beslut-insyn-och-rattssakerhet/digital-anslagstavla/",
+    "new_url": "https://www.netpublicator.com/bulletinboard/public/a1169ce3-29c0-42ba-a3d9-58bde01ef9b1",
+    "needs_browser": true
+  },
+  {
+    "municipality": "Stockholm",
+    "status": "updated",
+    "old_url": "https://meetingspublic.stockholm.se/digital-bulletin-board",
+    "new_url": "https://edokmeetings.stockholm.se/digital-bulletin-board",
+    "needs_browser": true
+  },
+  {
+    "municipality": "Strömsund",
+    "status": "updated",
+    "old_url": "https://www.stromsund.se/2251.html",
+    "new_url": "https://www.stromsund.se/kommunochpolitik/motenkallelserochprotokoll.4.5e13cbc815e56f3707419795.html",
+    "needs_browser": false
+  },
+  {
+    "municipality": "Sundsvall",
+    "status": "updated",
+    "old_url": "https://www.sundsvall.se/anslagstavla",
+    "new_url": "https://sundsvall.se/kommun-och-politik/overklaga-beslut-rattssakerhet/sundsvalls-kommuns-officiella-anslagstavla",
+    "needs_browser": true
+  },
+  {
+    "municipality": "Sunne",
+    "status": "updated",
+    "old_url": "https://www.sunne.se/kommun/anslagstavla",
+    "new_url": "https://sunne.se/kommun/kommun-och-politik/overklaga-beslut-rattssakerhet/anslagstavla-officiell/",
+    "needs_browser": true
+  },
+  {
+    "municipality": "Svalöv",
+    "status": "updated",
+    "old_url": "https://www.svalov.se/bo-bygg--miljo",
+    "new_url": "https://anslagstavlan.svalov.se/#!/billboard/",
+    "needs_browser": true
+  },
+  {
+    "municipality": "Säffle",
+    "status": "updated",
+    "old_url": "https://www.saffle.se/boende-trafik-och-miljo/samhallsutveckling-och-lediga-tomter.html",
+    "new_url": "https://saffle.se/kommun-och-politik/moten-handlingar-protokoll/digital-anslagstavla.html",
+    "needs_browser": false
+  },
+  {
+    "municipality": "Sävsjö",
+    "status": "updated",
+    "old_url": "https://www.savsjo.se/anslagstavla",
+    "new_url": "https://savsjo.se/kommun-och-politik/anslagstavla.html",
+    "needs_browser": false
+  },
+  {
+    "municipality": "Söderhamn",
+    "status": "updated",
+    "old_url": "https://www.soderhamn.se/anslagstavla",
+    "new_url": "https://www.soderhamn.se/sidor/kommun-och-politik/overklaga-beslut-rattssakerhet/anslagstavla.html",
+    "needs_browser": true
+  },
+  {
+    "municipality": "Söderköping",
+    "status": "updated",
+    "old_url": "https://www.soderkoping.se/sok/#?cludoquery=bygglov",
+    "new_url": "https://soderkoping.se/officiell-anslagstavla/digital-anslagstavla/",
+    "needs_browser": true
+  },
+  {
+    "municipality": "Södertälje",
+    "status": "updated",
+    "old_url": "https://www.sodertalje.se/anslagstavla",
+    "new_url": "https://www.sodertalje.se/kommun-och-politik/anslagstavla/",
+    "needs_browser": false
+  },
+  {
+    "municipality": "Tibro",
+    "status": "updated",
+    "old_url": "https://www.tibro.se/anslagstavla",
+    "new_url": "https://www.tibro.se/kommun-och-politik/sa-styrs-tibro-kommun/anslagstavla2/",
+    "needs_browser": false
+  },
+  {
+    "municipality": "Tjörn",
+    "status": "updated",
+    "old_url": "https://www.tjorn.se/anslagstavla",
+    "new_url": "https://tjorn.se/kommun-och-politik/motestider-protokoll-och-anslagstavla/anslagstavlan",
+    "needs_browser": false
+  },
+  {
+    "municipality": "Tranemo",
+    "status": "updated",
+    "old_url": "https://tranemo.se/kommun--politik/overklaga-beslut-rattssakerhet/officiell-anslagstavla",
+    "new_url": "https://www.tranemo.se/kommun-och-politik/digital-anslagstavla/",
+    "needs_browser": false
+  },
+  {
+    "municipality": "Trelleborg",
+    "status": "updated",
+    "old_url": "https://www.trelleborg.se/anslagstavla",
+    "new_url": "https://www.trelleborg.se/kommun-politik/beslut-insyn-och-rattssakerhet/anslagstavla/",
+    "needs_browser": false
+  },
+  {
+    "municipality": "Trollhättan",
+    "status": "updated",
+    "old_url": "https://www.trollhattan.se/anslagstavla",
+    "new_url": "https://www.trollhattan.se/startsida/kommun-och-politik/moten-handlingar-och-protokoll/anslagstavla/",
+    "needs_browser": true
+  },
+  {
+    "municipality": "Tyresö",
+    "status": "updated",
+    "old_url": "https://www.tyreso.se/anslagstavla",
+    "new_url": "https://www.tyreso.se/arkiv/anslagstavla.html",
+    "needs_browser": true
+  },
+  {
+    "municipality": "Töreboda",
+    "status": "updated",
+    "old_url": "https://toreboda.se/bygga-bo-och-miljo/bygglov-marklov-och-rivningslov",
+    "new_url": "https://toreboda.se/kommun-och-politik/anslagstavla",
+    "needs_browser": false
+  },
+  {
+    "municipality": "Upplands Väsby",
+    "status": "updated",
+    "old_url": "https://www.upplandsvasby.se/anslagstavla",
+    "new_url": "https://upplandsvasby.se/kommun-och-politik/overklaga-beslut-rattssakerhet/anslagstavla-officiell",
+    "needs_browser": true
+  },
+  {
+    "municipality": "Uppsala",
+    "status": "updated",
+    "old_url": "https://www.uppsala.se/anslagstavla",
+    "new_url": "https://www.uppsala.se/kommun-och-politik/anslagstavla/",
+    "needs_browser": false
+  },
+  {
+    "municipality": "Vadstena",
+    "status": "updated",
+    "old_url": "https://www.vadstena.se/anslagstavla",
+    "new_url": "https://www.vadstena.se/kommun-demokrati/politik-och-beslut/kommunal-anslagstavla/",
+    "needs_browser": false
+  },
+  {
+    "municipality": "Vaggeryd",
+    "status": "updated",
+    "old_url": "https://www.vaggeryd.se/bygga-bo-och-miljo/bygga-nytt-andra-eller-riva.html",
+    "new_url": "https://vaggeryd.se/kommun-och-politik/beslut-insyn-och-rattssakerhet/anslagstavla-officiell.html",
+    "needs_browser": false
+  },
+  {
+    "municipality": "Vetlanda",
+    "status": "updated",
+    "old_url": "https://www.vetlanda.se/anslagstavla",
+    "new_url": "https://vetlanda.se/kommun-och-politik/beslut-och-styrning/anslagstavla",
+    "needs_browser": false
+  },
+  {
+    "municipality": "Vänersborg",
+    "status": "updated",
+    "old_url": "https://vanersborg.se/anslagstavla",
+    "new_url": "https://vanersborg.se/kommun-och-politik/kommunens-anslagstavla",
+    "needs_browser": false
+  },
+  {
+    "municipality": "Värmdö",
+    "status": "updated",
+    "old_url": "https://www.varmdo.se/anslagstavla",
+    "new_url": "https://www.varmdo.se/underwebbar/anslagstavla.4.49f66dad193903f36c34f29.html",
+    "needs_browser": false
+  },
+  {
+    "municipality": "Växjö",
+    "status": "updated",
+    "old_url": "https://www.vaxjo.se/anslagstavla",
+    "new_url": "https://vaxjo.se/sidor/politik-och-demokrati/anslagstavla.html",
+    "needs_browser": true
+  },
+  {
+    "municipality": "Ydre",
+    "status": "updated",
+    "old_url": "https://www.ydre.se/ydre-kommun/bygga-bo-och-miljo/anslagstavla",
+    "new_url": "https://www.ydre.se/ydre-kommun/kommun-och-politik/anslagstavlan",
+    "needs_browser": false
+  },
+  {
+    "municipality": "Åstorp",
+    "status": "updated",
+    "old_url": "https://astorp.se/bygga-bo-miljo-och-trafik/bygga-nytt-andra-och-riva/bygglov-och-anmalan.html",
+    "new_url": "https://astorp.se/kommun-och-politik/moten-handlingar-och-protokoll/anslagstavla.html",
+    "needs_browser": true
+  },
+  {
+    "municipality": "Åtvidaberg",
+    "status": "updated",
+    "old_url": "https://www.atvidaberg.se/anslagstavla",
+    "new_url": "https://www.atvidaberg.se/kommun-och-politik/moten-handlingar-och-protokoll/anslagstavla",
+    "needs_browser": false
+  },
+  {
+    "municipality": "Älvsbyn",
+    "status": "updated",
+    "old_url": "https://www.alvsbyn.se/anslagstavla",
+    "new_url": "https://www.alvsbyn.se/kommun-och-politik/anslagstavla-officiell/",
+    "needs_browser": false
+  },
+  {
+    "municipality": "Ängelholm",
+    "status": "updated",
+    "old_url": "https://www.engelholm.se/bo-bygga-och-miljo/bygga-nytt-andra-och-riva.html",
+    "new_url": "https://anslagstavlan.engelholm.se/#!/billboard/",
+    "needs_browser": false
+  },
+  {
+    "municipality": "Ödeshög",
+    "status": "updated",
+    "old_url": "https://www.odeshog.se/anslagstavla",
+    "new_url": "https://www.odeshog.se/kommunpolitik/anslagstavlaofficiell.4.584708bd15fa4b9c5e511b16.html",
+    "needs_browser": false
+  },
+  {
+    "municipality": "Örebro",
+    "status": "updated",
+    "old_url": "https://www.orebro.se/bygga-bo--trafik.html",
+    "new_url": "https://www.orebro.se/kommun--politik/politik--beslut/digital-anslagstavla.html",
+    "needs_browser": false
+  },
+  {
+    "municipality": "Östersund",
+    "status": "updated",
+    "old_url": "https://www.ostersund.se/anslagstavla",
+    "new_url": "https://ostersund.se/kommun-och-politik/beslut-insyn-och-rattssakerhet/officiell-anslagstavla.html",
+    "needs_browser": true
+  },
+  {
+    "municipality": "Österåker",
+    "status": "updated",
+    "old_url": "https://www.osteraker.se/anslagstavla",
+    "new_url": "https://www.osteraker.se/kommunpolitik/arendenochhandlingar/officiellaanslagstavlan.4.592cfecd176fc0db87832a2.html",
+    "needs_browser": false
+  },
+  {
+    "municipality": "Östhammar",
+    "status": "updated",
+    "old_url": "https://www.osthammar.se/anslagstavla",
+    "new_url": "https://www.osthammar.se/kommunpolitik/for-dig-som-bor-i-kommunen/kommunens-anslagstavla2/",
+    "needs_browser": false
+  },
+  {
+    "municipality": "Östra Göinge",
+    "status": "updated",
+    "old_url": "https://www.ostragoinge.se/kommun-och-politik/anslagstavla",
+    "new_url": "https://anslagstavla-og.unikom.se/#!/billboard/",
+    "needs_browser": true
+  }
+]

@@ -1,0 +1,572 @@
+[
+  {
+    "municipality": "Aneby",
+    "db_municipality": "Aneby",
+    "old_url": "https://www.aneby.se/arkiv/digital-anslagstavla/anslag/2026-03-26-kungorelse-om-beviljat-bygglov-pa-fastigheten-slapvagnen-2.html",
+    "new_url": "https://aneby.se/arkiv/digital-anslagstavla.html",
+    "needs_browser": false,
+    "was_verified": true,
+    "was_approved": true,
+    "category": "upgrade"
+  },
+  {
+    "municipality": "Arvidsjaurs",
+    "db_municipality": "Arvidsjaur",
+    "old_url": "https://arvidsjaur.se/kommunpolitik/anslagstavla.1395.html",
+    "new_url": "https://arvidsjaur.se/kommun/anslagstavla/",
+    "needs_browser": false,
+    "was_verified": true,
+    "was_approved": true,
+    "category": "upgrade"
+  },
+  {
+    "municipality": "Bergs",
+    "db_municipality": "Berg",
+    "old_url": "https://berg.se/anslagstavla",
+    "new_url": "https://berg.se/kommun-och-politik/anslagstavla",
+    "needs_browser": false,
+    "was_verified": true,
+    "was_approved": true,
+    "category": "upgrade"
+  },
+  {
+    "municipality": "Bollebygds",
+    "db_municipality": "Bollebygd",
+    "old_url": "https://www.bollebygd.se/anslagstavla",
+    "new_url": "https://bollebygd.se/toppmeny/anslagstavla.106.71e35e86160df3d653f28b8b.html",
+    "needs_browser": false,
+    "was_verified": true,
+    "was_approved": true,
+    "category": "upgrade"
+  },
+  {
+    "municipality": "Borås",
+    "db_municipality": "Borås",
+    "old_url": "https://www.boras.se/anslagstavla",
+    "new_url": "https://www.boras.se/anslagstavlan",
+    "needs_browser": false,
+    "was_verified": true,
+    "was_approved": true,
+    "category": "upgrade"
+  },
+  {
+    "municipality": "Dals-Eds",
+    "db_municipality": "Dals-Ed",
+    "old_url": "https://www.dalsed.se/anslagstavla",
+    "new_url": "https://www.dalsed.se/kommun-och-politik/anslagstavla/",
+    "needs_browser": false,
+    "was_verified": true,
+    "was_approved": true,
+    "category": "upgrade"
+  },
+  {
+    "municipality": "Eskilstuna",
+    "db_municipality": "Eskilstuna",
+    "old_url": "https://www.eskilstuna.se/anslagstavla",
+    "new_url": "https://www.eskilstuna.se/kommun-och-politik/ta-del-av-beslut/anslagstavla",
+    "needs_browser": false,
+    "was_verified": true,
+    "was_approved": true,
+    "category": "upgrade"
+  },
+  {
+    "municipality": "Eslövs",
+    "db_municipality": "Eslöv",
+    "old_url": "https://eslov.se/anslag",
+    "new_url": "https://eslov.se/kommun-politik/anslagstavla/",
+    "needs_browser": true,
+    "was_verified": true,
+    "was_approved": true,
+    "category": "upgrade"
+  },
+  {
+    "municipality": "Filipstads",
+    "db_municipality": "Filipstad",
+    "old_url": "https://www.filipstad.se/anslagstavla",
+    "new_url": "https://www.filipstad.se/toppmeny/kommunochpolitik/politikochdemokrati/digitalanslagstavla",
+    "needs_browser": false,
+    "was_verified": true,
+    "was_approved": true,
+    "category": "upgrade"
+  },
+  {
+    "municipality": "Gnesta",
+    "db_municipality": "Gnesta",
+    "old_url": "https://www.gnesta.se/anslagstavla",
+    "new_url": "https://www.gnesta.se/politikdemokrati/digitalanslagstavla.4.1c9df6ab15feafa3763c877c.html",
+    "needs_browser": false,
+    "was_verified": true,
+    "was_approved": true,
+    "category": "upgrade"
+  },
+  {
+    "municipality": "Gotlands",
+    "db_municipality": "Gotland",
+    "old_url": "https://www.gotland.se/anslagstavla",
+    "new_url": "https://gotland.se/region-och-politik/diarium-allmanna-handlingar-och-arkiv/anslagstavla",
+    "needs_browser": false,
+    "was_verified": true,
+    "was_approved": true,
+    "category": "upgrade"
+  },
+  {
+    "municipality": "Gävle",
+    "db_municipality": "Gävle",
+    "old_url": "https://www.gavle.se/anslagstavla",
+    "new_url": "https://www.gavle.se/tyck-till-och-paverka-gavle/kommunal-anslagstavla/",
+    "needs_browser": false,
+    "was_verified": true,
+    "was_approved": true,
+    "category": "upgrade"
+  },
+  {
+    "municipality": "Götene",
+    "db_municipality": "Götene",
+    "old_url": "https://www.gotene.se/anslagstavla",
+    "new_url": "https://www.gotene.se/kommunochpolitik/politiskorganisation/anslagstavla.23380.html",
+    "needs_browser": false,
+    "was_verified": true,
+    "was_approved": true,
+    "category": "upgrade"
+  },
+  {
+    "municipality": "Habo",
+    "db_municipality": "Habo",
+    "old_url": "https://www.habo.se/anslagstavla",
+    "new_url": "https://www.habokommun.se/Kommun--politik/anslagstavla/",
+    "needs_browser": false,
+    "was_verified": true,
+    "was_approved": true,
+    "category": "upgrade"
+  },
+  {
+    "municipality": "Halmstads",
+    "db_municipality": "Halmstad",
+    "old_url": "https://www.halmstad.se/anslagstavla",
+    "new_url": "https://www.halmstad.se/kommunochpolitik/overklagabeslutrattssakerhet/anslagstavla.n330.html",
+    "needs_browser": false,
+    "was_verified": true,
+    "was_approved": true,
+    "category": "upgrade"
+  },
+  {
+    "municipality": "Håbo",
+    "db_municipality": "Håbo",
+    "old_url": "https://www.habo.se/anslagstavla",
+    "new_url": "https://www.habo.se/kommun-och-politik/anslagstavla.html",
+    "needs_browser": false,
+    "was_verified": true,
+    "was_approved": true,
+    "category": "upgrade"
+  },
+  {
+    "municipality": "Härnösands",
+    "db_municipality": "Härnösand",
+    "old_url": "https://www.harnosand.se/anslagstavla",
+    "new_url": "https://harnosand.se/kommun--styrning/anslagstavla",
+    "needs_browser": false,
+    "was_verified": true,
+    "was_approved": true,
+    "category": "upgrade"
+  },
+  {
+    "municipality": "Härryda",
+    "db_municipality": "Härryda",
+    "old_url": "https://www.harryda.se/anslagstavla",
+    "new_url": "https://www.harryda.se/kommunochpolitik/politikochdemokrati/kommunensanslagstavla.4.1439a0061817fd1d9405650.html",
+    "needs_browser": false,
+    "was_verified": true,
+    "was_approved": true,
+    "category": "upgrade"
+  },
+  {
+    "municipality": "Jönköpings",
+    "db_municipality": "Jönköping",
+    "old_url": "https://www.jonkoping.se/anslagstavla",
+    "new_url": "https://www.jonkoping.se/kommun--politik/anslagstavla-for-jonkopings-kommun",
+    "needs_browser": false,
+    "was_verified": true,
+    "was_approved": true,
+    "category": "upgrade"
+  },
+  {
+    "municipality": "Karlskoga",
+    "db_municipality": "Karlskoga",
+    "old_url": "https://www.karlskoga.se/anslagstavla",
+    "new_url": "https://karlskoga.se/kommun--politik/anslagstavla.html",
+    "needs_browser": false,
+    "was_verified": true,
+    "was_approved": true,
+    "category": "upgrade"
+  },
+  {
+    "municipality": "Katrineholms",
+    "db_municipality": "Katrineholm",
+    "old_url": "https://www.katrineholm.se/kommun-och-politik/anslagstavla.html",
+    "new_url": "https://www.katrineholm.se/kommun--demokrati/anslagstavla.html",
+    "needs_browser": false,
+    "was_verified": true,
+    "was_approved": true,
+    "category": "upgrade"
+  },
+  {
+    "municipality": "Krokoms",
+    "db_municipality": "Krokom",
+    "old_url": "https://www.krokom.se/anslagstavla",
+    "new_url": "https://krokom.se/kommun-och-demokrati/politik-och-beslut/anslagstavla.html",
+    "needs_browser": true,
+    "was_verified": true,
+    "was_approved": true,
+    "category": "upgrade"
+  },
+  {
+    "municipality": "Lerums",
+    "db_municipality": "Lerum",
+    "old_url": "https://www.lerum.se/anslagstavla",
+    "new_url": "https://lerum.se/kommun-och-politik/digital-anslagstavla",
+    "needs_browser": false,
+    "was_verified": true,
+    "was_approved": true,
+    "category": "upgrade"
+  },
+  {
+    "municipality": "Lilla Edets",
+    "db_municipality": "Lilla Edet",
+    "old_url": "https://www.lillaedet.se/anslagstavla",
+    "new_url": "https://lillaedet.se/kommun-och-politik/moten-handlingar-och-protokoll/anslagstavla",
+    "needs_browser": false,
+    "was_verified": true,
+    "was_approved": true,
+    "category": "upgrade"
+  },
+  {
+    "municipality": "Lindesbergs",
+    "db_municipality": "Lindesberg",
+    "old_url": "https://www.lindesberg.se/anslagstavla",
+    "new_url": "https://www.lindesberg.se/kommun-och-politik/overklaga-beslut-rattssakerhet/anslagstavla-officiell",
+    "needs_browser": false,
+    "was_verified": true,
+    "was_approved": true,
+    "category": "upgrade"
+  },
+  {
+    "municipality": "Ljungby",
+    "db_municipality": "Ljungby",
+    "old_url": "https://www.ljungby.se/kommun-och-politik/anslagstavla-officiell",
+    "new_url": "https://www.ljungby.se/sv/politik-och-demokrati/anslagstavla_ny/",
+    "needs_browser": false,
+    "was_verified": true,
+    "was_approved": true,
+    "category": "upgrade"
+  },
+  {
+    "municipality": "Lycksele",
+    "db_municipality": "Lycksele",
+    "old_url": "https://www.lycksele.se/anslagstavla",
+    "new_url": "https://www.lycksele.se/kommun/kommun-och-politik/anslagstavla/",
+    "needs_browser": false,
+    "was_verified": true,
+    "was_approved": true,
+    "category": "upgrade"
+  },
+  {
+    "municipality": "Lysekils",
+    "db_municipality": "Lysekil",
+    "old_url": "https://www.lysekil.se/kommun-och-politik/overklaga-beslut-rattssakerhet/kommunal-anslagstavla",
+    "new_url": "https://lysekil.se/organisation-plats-och-politik/moten-handlingar-och-protokoll/kommunal-anslagstavla.html",
+    "needs_browser": true,
+    "was_verified": true,
+    "was_approved": true,
+    "category": "upgrade"
+  },
+  {
+    "municipality": "Malung-Sälens",
+    "db_municipality": "Malung-Sälen",
+    "old_url": "https://malung-salen.se/anslagstavla",
+    "new_url": "https://malung-salen.se/om-webbplatsen/digital-anslagstavla",
+    "needs_browser": false,
+    "was_verified": true,
+    "was_approved": true,
+    "category": "upgrade"
+  },
+  {
+    "municipality": "Melleruds",
+    "db_municipality": "Mellerud",
+    "old_url": "https://www.mellerud.se/anslagstavla",
+    "new_url": "https://mellerud.se/kommun-och-politik/anslagstavla/",
+    "needs_browser": false,
+    "was_verified": true,
+    "was_approved": true,
+    "category": "upgrade"
+  },
+  {
+    "municipality": "Nora",
+    "db_municipality": "Nora",
+    "old_url": "https://www.nora.se/anslagstavla",
+    "new_url": "https://www.nora.se/kommunpolitik/kommunalanslagstavla.4.41b0ef9915f4f66e89d8402c.html",
+    "needs_browser": false,
+    "was_verified": true,
+    "was_approved": true,
+    "category": "upgrade"
+  },
+  {
+    "municipality": "Nordanstigs",
+    "db_municipality": "Nordanstig",
+    "old_url": "https://nordanstig.se/anslagstavla",
+    "new_url": "https://anslagstavlan.nordanstig.se/#!/billboard/",
+    "needs_browser": true,
+    "was_verified": true,
+    "was_approved": true,
+    "category": "upgrade"
+  },
+  {
+    "municipality": "Oskarshamns",
+    "db_municipality": "Oskarshamn",
+    "old_url": "https://www.oskarshamn.se/anslagstavla",
+    "new_url": "https://oskarshamn.se/mer-om-kommunen/politik-och-forvaltning/styrande-dokument/anslagstavla-kallelser-protokoll-delegationsbeslut/",
+    "needs_browser": true,
+    "was_verified": true,
+    "was_approved": true,
+    "category": "upgrade"
+  },
+  {
+    "municipality": "Perstorps",
+    "db_municipality": "Perstorp",
+    "old_url": "https://www.perstorp.se/anslagstavla",
+    "new_url": "https://perstorp.se/kommunpolitik/anslagstavla.4.61780eb015c1403d6348020.html",
+    "needs_browser": false,
+    "was_verified": true,
+    "was_approved": true,
+    "category": "upgrade"
+  },
+  {
+    "municipality": "Ronneby",
+    "db_municipality": "Ronneby",
+    "old_url": "https://www.ronneby.se/anslagstavla",
+    "new_url": "https://www.ronneby.se/kommun--politik/folj-politiken/beslut-insyn-och-rattssakerhet/anslagstavla.html",
+    "needs_browser": false,
+    "was_verified": true,
+    "was_approved": true,
+    "category": "upgrade"
+  },
+  {
+    "municipality": "Sala",
+    "db_municipality": "Sala",
+    "old_url": "https://www.sala.se/anslagstavla",
+    "new_url": "https://www.sala.se/info/14344",
+    "needs_browser": false,
+    "was_verified": true,
+    "was_approved": true,
+    "category": "upgrade"
+  },
+  {
+    "municipality": "Sandvikens",
+    "db_municipality": "Sandviken",
+    "old_url": "https://www.sandviken.se/kommunochpolitik/anslagochkungorelser.22958.html",
+    "new_url": "https://sandviken.se/kommunpolitik/anslagochkungorelser.22958.html",
+    "needs_browser": false,
+    "was_verified": true,
+    "was_approved": true,
+    "category": "upgrade"
+  },
+  {
+    "municipality": "Skara",
+    "db_municipality": "Skara",
+    "old_url": "https://www.skara.se/kommunochpolitik/overklagabeslutrattssakerhet/anslagstavla.740.html",
+    "new_url": "https://skara.se/kommun-och-politik/handlingar-och-arenden/anslagstavla.html",
+    "needs_browser": false,
+    "was_verified": true,
+    "was_approved": true,
+    "category": "upgrade"
+  },
+  {
+    "municipality": "Storumans",
+    "db_municipality": "Storuman",
+    "old_url": "https://www.storuman.se/anslagstavla",
+    "new_url": "https://storuman.se/kommun/Kommun--politik/anslagstavla/",
+    "needs_browser": false,
+    "was_verified": true,
+    "was_approved": true,
+    "category": "upgrade"
+  },
+  {
+    "municipality": "Strängnäs",
+    "db_municipality": "Strängnäs",
+    "old_url": "https://www.strangnas.se/anslagstavla",
+    "new_url": "https://www.strangnas.se/kommun-och-politik/overklaga-beslut-rattssakerhet/kommunal-anslagstavla",
+    "needs_browser": false,
+    "was_verified": true,
+    "was_approved": true,
+    "category": "upgrade"
+  },
+  {
+    "municipality": "Strömstads",
+    "db_municipality": "Strömstad",
+    "old_url": "https://www.stromstad.se/anslagstavla",
+    "new_url": "https://stromstad.se/kommunochpolitik/beslutinsynochrattssakerhet/anslagstavlaofficiell.4.b5400fe1453b28b6b71e706.html",
+    "needs_browser": false,
+    "was_verified": true,
+    "was_approved": true,
+    "category": "upgrade"
+  },
+  {
+    "municipality": "Sundbybergs",
+    "db_municipality": "Sundbyberg",
+    "old_url": "https://www.sundbyberg.se/kommun-och-politik/politik-och-demokrati/anslagstavla",
+    "new_url": "https://www.sundbyberg.se/kommun-politik/arenden-och-handlingar/anslagstavla.html",
+    "needs_browser": false,
+    "was_verified": true,
+    "was_approved": true,
+    "category": "upgrade"
+  },
+  {
+    "municipality": "Surahammars",
+    "db_municipality": "Surahammar",
+    "old_url": "https://surahammar.se/anslagstavla",
+    "new_url": "https://surahammar.se/anslagstavla/anslagstavla.html",
+    "needs_browser": false,
+    "was_verified": true,
+    "was_approved": true,
+    "category": "upgrade"
+  },
+  {
+    "municipality": "Svenljunga",
+    "db_municipality": "Svenljunga",
+    "old_url": "https://www.svenljunga.se/anslagstavla",
+    "new_url": "https://svenljunga.se/kommun--politik/anslagstavlan",
+    "needs_browser": false,
+    "was_verified": true,
+    "was_approved": true,
+    "category": "upgrade"
+  },
+  {
+    "municipality": "Sölvesborgs",
+    "db_municipality": "Sölvesborg",
+    "old_url": "https://www.solvesborg.se/anslagstavla",
+    "new_url": "https://solvesborg.se/kommun-och-politik-/arenden-och-handlingar/anslagstavla-officiell.html",
+    "needs_browser": false,
+    "was_verified": true,
+    "was_approved": true,
+    "category": "upgrade"
+  },
+  {
+    "municipality": "Tanums",
+    "db_municipality": "Tanum",
+    "old_url": "https://www.tanum.se/anslagstavla",
+    "new_url": "https://tanum.se/kommunpolitik/beslutinsynochrattssakerhet/anslagstavla.4.4f88636115fe7bbde0a7c027.html",
+    "needs_browser": false,
+    "was_verified": true,
+    "was_approved": true,
+    "category": "upgrade"
+  },
+  {
+    "municipality": "Torsby",
+    "db_municipality": "Torsby",
+    "old_url": "https://torsby.se/anslagstavla",
+    "new_url": "https://torsby.se/kommunpolitik/overklagabeslutrattssakerhet/anslagstavla",
+    "needs_browser": false,
+    "was_verified": true,
+    "was_approved": true,
+    "category": "upgrade"
+  },
+  {
+    "municipality": "Uddevalla",
+    "db_municipality": "Uddevalla",
+    "old_url": "https://www.uddevalla.se/kommun-och-politik/overklaga-beslut-rattsakerhet/uddevalla-kommuns-anslagstavla.html",
+    "new_url": "https://www.uddevalla.se/kommun-och-politik/overklaga-beslut-rattsakerhet/anslagstavla-officiell.html",
+    "needs_browser": false,
+    "was_verified": true,
+    "was_approved": true,
+    "category": "upgrade"
+  },
+  {
+    "municipality": "Umeå",
+    "db_municipality": "Umeå",
+    "old_url": "https://www.umea.se/anslagstavla",
+    "new_url": "https://www.umea.se/kommunochpolitik/overklagabeslutrattssakerhet/anslagstavlaofficiell",
+    "needs_browser": false,
+    "was_verified": true,
+    "was_approved": true,
+    "category": "upgrade"
+  },
+  {
+    "municipality": "Vallentuna",
+    "db_municipality": "Vallentuna",
+    "old_url": "https://www.vallentuna.se/anslagstavla",
+    "new_url": "https://www.vallentuna.se/kommun-och-politik/politik-och-demokrati/anslagstavla-officiell/",
+    "needs_browser": false,
+    "was_verified": true,
+    "was_approved": true,
+    "category": "upgrade"
+  },
+  {
+    "municipality": "Vara",
+    "db_municipality": "Vara",
+    "old_url": "https://www.vara.se/anslagstavla",
+    "new_url": "https://vara.se/kommunochpolitik/politikochsammantraden/anslagstavla.1112.html",
+    "needs_browser": false,
+    "was_verified": true,
+    "was_approved": true,
+    "category": "upgrade"
+  },
+  {
+    "municipality": "Varbergs",
+    "db_municipality": "Varberg",
+    "old_url": "https://www.varberg.se/anslagstavla",
+    "new_url": "https://varberg.se/kommun-och-politik/overklaga-beslut-rattssakerhet/kommunens-anslagstavla",
+    "needs_browser": false,
+    "was_verified": true,
+    "was_approved": true,
+    "category": "upgrade"
+  },
+  {
+    "municipality": "Vindelns",
+    "db_municipality": "Vindeln",
+    "old_url": "https://www.vindeln.se/anslagstavla",
+    "new_url": "https://vindeln.se/kommun-och-politik/politisk-styrning/anslagstavlan",
+    "needs_browser": false,
+    "was_verified": true,
+    "was_approved": true,
+    "category": "upgrade"
+  },
+  {
+    "municipality": "Vännäs",
+    "db_municipality": "Vännäs",
+    "old_url": "https://www.vannas.se/anslagstavla",
+    "new_url": "https://vannas.se/kommun-och-politik/politik-och-sammantraden/anslagstavlan",
+    "needs_browser": false,
+    "was_verified": true,
+    "was_approved": true,
+    "category": "upgrade"
+  },
+  {
+    "municipality": "Västerviks",
+    "db_municipality": "Västervik",
+    "old_url": "https://www.vastervik.se/anslagstavla",
+    "new_url": "https://www.vastervik.se/Kommun-och-politik/Overklaga-beslut-rattssakerhet/anslagstavla/",
+    "needs_browser": false,
+    "was_verified": true,
+    "was_approved": true,
+    "category": "upgrade"
+  },
+  {
+    "municipality": "Älvkarleby",
+    "db_municipality": "Älvkarleby",
+    "old_url": "https://www.alvkarleby.se/anslagstavla",
+    "new_url": "https://www.alvkarleby.se/kommun-och-politik/beslut-insyn-och-rattssakerhet/anslagstavla.html",
+    "needs_browser": false,
+    "was_verified": true,
+    "was_approved": true,
+    "category": "upgrade"
+  },
+  {
+    "municipality": "Öckerö",
+    "db_municipality": "Öckerö",
+    "old_url": "https://www.ockero.se/kommun-och-politik/anslagstavla/kungorelse-av-lovbeslut-enligt-plan--och-bygglagen-2010900",
+    "new_url": "https://www.ockero.se/kommun-och-politik/anslagstavla",
+    "needs_browser": false,
+    "was_verified": true,
+    "was_approved": true,
+    "category": "upgrade"
+  }
+]
