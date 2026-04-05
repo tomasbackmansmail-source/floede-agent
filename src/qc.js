@@ -311,8 +311,9 @@ export async function triggerRediscovery(municipalityName, currentUrl, homepageU
     logRow.verify_result_count = verifyResult.result_count;
     logRow.cost_usd += verifyResult.cost_usd || 0;
 
-    const shouldApprove = verifyResult.verified || verifyResult.needs_browser;
+    const shouldApprove = verifyResult.verified && verifyResult.result_count > 0;
     logRow.verified = verifyResult.verified;
+    logRow.needs_browser = verifyResult.needs_browser || false;
     logRow.success = shouldApprove;
 
     if (shouldApprove) {

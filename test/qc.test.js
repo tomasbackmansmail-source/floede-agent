@@ -31,6 +31,33 @@ describe("triggerRediscovery", () => {
 });
 
 // ═══════════════════════════════════════════════
+// shouldApprove logic — needs_browser alone is NOT enough
+// ═══════════════════════════════════════════════
+
+describe("shouldApprove logic", () => {
+  // This mirrors the logic in triggerRediscovery (qc.js)
+  function shouldApprove(verifyResult) {
+    return verifyResult.verified && verifyResult.result_count > 0;
+  }
+
+  it("approves when verified=true and result_count > 0", () => {
+    assert.strictEqual(shouldApprove({ verified: true, result_count: 5, needs_browser: false }), true);
+  });
+
+  it("rejects when needs_browser=true but result_count=0", () => {
+    assert.strictEqual(shouldApprove({ verified: false, result_count: 0, needs_browser: true }), false);
+  });
+
+  it("rejects when verified=false even with result_count > 0", () => {
+    assert.strictEqual(shouldApprove({ verified: false, result_count: 3, needs_browser: false }), false);
+  });
+
+  it("rejects when verified=true but result_count=0", () => {
+    assert.strictEqual(shouldApprove({ verified: true, result_count: 0, needs_browser: false }), false);
+  });
+});
+
+// ═══════════════════════════════════════════════
 // feedback config — reads correctly from vertical config
 // ═══════════════════════════════════════════════
 
