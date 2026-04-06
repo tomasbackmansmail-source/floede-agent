@@ -337,14 +337,23 @@ async function insertToSupabase(supabase, records, extractionRun) {
     );
   }
 
+  // Build a reverse lookup: normalizeMuni(name) → canonical name from reference table
+  const canonicalByNormalized = Object.fromEntries(
+    Object.keys(enrichmentLookup).map(name => [normalizeMuni(name), name])
+  );
+
   function normalizeMunicipalityLookup(name) {
+    if (!name) return name;
+    // 1. Exact match against reference table
     if (enrichmentLookup[name]) return name;
-    const stripped = name.normalize('NFC').replace(/s?\s+kommun$/i, '').replace(/s?\s+stad$/i, '');
+    // 2. Strip kommun/stad suffixes and trailing genitiv-s
+    const stripped = name.normalize('NFC')
+      .replace(/s?\s+kommun$/i, '').replace(/s?\s+stad$/i, '')
+      .replace(/s$/, '').trim();
     if (enrichmentLookup[stripped]) return stripped;
-    const normalizedInput = normalizeMuni(name);
-    for (const mName of Object.keys(enrichmentLookup)) {
-      if (normalizeMuni(mName) === normalizedInput) return mName;
-    }
+    // 3. Full normalization match (handles ÅÄÖ, case, suffixes)
+    const normalized = normalizeMuni(name);
+    if (canonicalByNormalized[normalized]) return canonicalByNormalized[normalized];
     return name;
   }
 
@@ -353,8 +362,8 @@ async function insertToSupabase(supabase, records, extractionRun) {
   let errors = 0;
 
   for (const record of records) {
-    // Normalize municipality name before mapping (e.g. "Eslövs kommun" -> "Eslöv")
-    if (dbConfig.enrichment && SOURCE_LABEL === "Kommun") {
+    // Normalize municipality/organization name before mapping (e.g. "Eslövs kommun" -> "Eslöv")
+    if (dbConfig.enrichment) {
       const sourceField = dbConfig.enrichment.lookup_source_field;
       if (record[sourceField]) {
         record[sourceField] = normalizeMunicipalityLookup(record[sourceField]);

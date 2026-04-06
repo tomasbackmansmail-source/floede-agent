@@ -15,6 +15,7 @@ import {
   parseConfigRows,
   BYGGLOV_KEYWORDS,
 } from "../src/utils/engine.js";
+import { normalizeMunicipality } from "../src/utils/normalize.js";
 
 // ═══════════════════════════════════════════════
 // sanitizeFilename
@@ -560,5 +561,59 @@ describe("integration: EPiServer-style table HTML", () => {
     const cleaned = stripNonContent(EPISERVER_HTML);
     assert.ok(cleaned.includes("<table"));
     assert.ok(cleaned.includes("BN 2026/0145"));
+  });
+});
+
+// ═══════════════════════════════════════════════
+// municipality normalization for DB insert
+// ═══════════════════════════════════════════════
+
+describe("municipality normalization for insert", () => {
+  // Simulates normalizeMunicipalityLookup from daily-run.js
+  const referenceNames = ["Eslöv", "Ängelholm", "Västerås", "Stockholm", "Göteborg", "Malmö"];
+  const canonicalByNormalized = Object.fromEntries(
+    referenceNames.map(n => [normalizeMunicipality(n), n])
+  );
+  function lookup(name) {
+    if (referenceNames.includes(name)) return name;
+    const stripped = name.normalize('NFC')
+      .replace(/s?\s+kommun$/i, '').replace(/s?\s+stad$/i, '')
+      .replace(/s$/, '').trim();
+    if (referenceNames.includes(stripped)) return stripped;
+    const normalized = normalizeMunicipality(name);
+    if (canonicalByNormalized[normalized]) return canonicalByNormalized[normalized];
+    return name;
+  }
+
+  it("returns exact name when already canonical", () => {
+    assert.strictEqual(lookup("Eslöv"), "Eslöv");
+  });
+
+  it("strips 'kommun' suffix", () => {
+    assert.strictEqual(lookup("Eslövs kommun"), "Eslöv");
+  });
+
+  it("strips 'stad' suffix", () => {
+    assert.strictEqual(lookup("Stockholms stad"), "Stockholm");
+  });
+
+  it("strips genitiv-s without kommun/stad", () => {
+    assert.strictEqual(lookup("Eslövs"), "Eslöv");
+  });
+
+  it("handles ÅÄÖ names correctly", () => {
+    assert.strictEqual(lookup("Ängelholms kommun"), "Ängelholm");
+  });
+
+  it("matches Västerås with genitiv-s", () => {
+    assert.strictEqual(lookup("Västerås"), "Västerås");
+  });
+
+  it("matches Göteborgs kommun", () => {
+    assert.strictEqual(lookup("Göteborgs kommun"), "Göteborg");
+  });
+
+  it("returns original if no match found", () => {
+    assert.strictEqual(lookup("Narnia"), "Narnia");
   });
 });
