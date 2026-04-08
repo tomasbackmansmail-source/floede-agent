@@ -306,6 +306,33 @@ Kör `npm test` före varje push. Alla tester ska vara gröna.
 
 ---
 
+## Senast uppdaterat 2026-04-08
+
+### Motor
+- 272/290 kommuner med verifierad data i permits_v2
+- Pipeline grön 4 dagar i rad
+- interactWithPage() live i discovery — Playwright + LLM navigerar dropdowns och sökfält
+- Adaptrar live: Ciceron (14), MeetingPlus (7), NetPublicator (10) — $0 LLM per kommun
+- Feedback-loop live: QC 0 ärenden 3 dagar → discoverSource automatiskt
+- Namnormalisering: strippar "kommun", "stad", genitiv-s automatiskt
+- Content hashing: full LLM vid första körning, $0 vid oförändrat innehåll
+- Discovery följer nu externa länkar (NetPublicator, MeetingPlus etc.)
+- docs/motor-insikter-april-2026.md: 10 dokumenterade lärdomar från stabiliseringsarbetet
+
+### CI
+- 320+ signaler, 228 ci_properties, 13 bygglov-matchningar
+- Alla 7 pipeline-steg körs grönt på Railway
+- CI kör autonomt för första gången (miljövariabler fixade 2026-04-05)
+- Timeout 4h (var 60 min)
+- Resend from-adress fixad
+
+### Principer
+- Adaptrar före scraping — kolla alltid om plattformen har API
+- Fas 0: sök befintliga register/aggregatorer innan agentisk discovery
+- Plan Mode obligatoriskt för alla motorändringar: claude --permission-mode plan
+- Mät med SQL, inte antaganden
+- Läs loggar, inte statusikoner
+
 ## Senast uppdaterat 2026-04-05
 
 - Miljövariabler: varje vertikal i agent-runner kräver verifierade env vars i Railway INNAN den anses live. CI saknade credentials i månader utan att någon märkte.

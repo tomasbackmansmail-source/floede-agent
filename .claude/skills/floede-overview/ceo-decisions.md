@@ -34,3 +34,34 @@
 
 ## Fas 0-princip (obligatorisk)
 Sök alltid på internet efter befintliga register och aggregatorer INNAN agentisk discovery eller resonemang. "Ingen gör det här" kräver bevis. Villaägarna/kommunkartan-läxan: 2 sekunders Google slog 4 veckors agentisk discovery
+
+## Floedes syfte (alla chattar jobbar mot detta)
+
+Floede gör fragmenterad offentlig data användbar. Motorn hittar, extraherar och underhåller datakällor autonomt utan manuellt arbete per källa. Varje källa som löses gör motorn smartare. Ovanpå motorn bygger vi nischade dataprodukter för specifika branscher, validerade med pilotkunder.
+
+Motorn är IP:t. Produkterna säljer vi. Ingen vertikal visas för kund innan tekniken bevisats stabil.
+
+## Datalöften per vertikal
+
+- ByggSignal: daglig uppdatering av bygglov från Sveriges kommuner. Täckningsgrad redovisas öppet. Ingen garanti om fullständighet — transparens om luckor.
+- CI: dagliga signaler om bevakade organisationers byggaktivitet, korsade från flera oberoende källor.
+- S&C: compliance-kontroll som aldrig får vara felaktig. Hellre ingen data än fel data.
+
+## Datakvalitet — hur vi säkerställer den
+
+1. Feedback-loop: QC 0 ärenden 3 dagar → automatisk rediscovery utan manuell insats
+2. Verify extraction kräver >0 items — godkänn aldrig en källa som ger 0 data
+3. Content hashing: upptäcker förändringar, undviker onödiga LLM-anrop
+4. Täckningsrapport i daglig mail: trend, noll-streak-lista, self-healing-bevis
+5. Namnormalisering: strippar "kommun"/"stad"/genitiv-s automatiskt
+6. Varje ny vertikal kräver verifierade env vars i Railway
+
+## Hur vi undviker misstag i produktion
+
+1. Fas 0: sök befintliga register och aggregatorer innan vi bygger
+2. Adaptrar före scraping: kolla om plattformen har API (Ciceron/MeetingPlus/NetPublicator = $0)
+3. Aldrig seeda utan verifiering via discovery-pipeline
+4. Plan Mode obligatoriskt för motorändringar
+5. Mät med SQL, inte antaganden
+6. Läs loggar, inte statusikoner
+7. Discovery måste kunna interagera med dropdowns/sökfält (interactWithPage)
