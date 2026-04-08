@@ -19,6 +19,7 @@ import { readFileSync } from "fs";
 import { normalizeMunicipality as normalizeMuni } from "./utils/normalize.js";
 import { fetchCiceronPermits, isCiceronUrl } from "./adapters/ciceron.js";
 import { fetchMeetingPlusPermits, isMeetingPlusUrl } from "./adapters/meetingplus.js";
+import { fetchNetPublicatorPermits, isNetPublicatorUrl } from "./adapters/netpublicator.js";
 
 const VERTICAL = process.env.VERTICAL || "byggsignal";
 const verticalConfig = JSON.parse(readFileSync(new URL(`./config/verticals/${VERTICAL}.json`, import.meta.url), "utf-8"));
@@ -509,11 +510,13 @@ async function main() {
   }
 
   // Separate adapter vs HTTP vs browser configs
+  const isAdapter = c => isCiceronUrl(c.listing_url) || isMeetingPlusUrl(c.listing_url) || isNetPublicatorUrl(c.listing_url);
   const ciceronConfigs = configs.filter(c => isCiceronUrl(c.listing_url));
   const meetingPlusConfigs = configs.filter(c => !isCiceronUrl(c.listing_url) && isMeetingPlusUrl(c.listing_url));
-  const httpConfigs = configs.filter(c => !c.needs_browser && !isCiceronUrl(c.listing_url) && !isMeetingPlusUrl(c.listing_url));
-  const browserConfigs = configs.filter(c => c.needs_browser && !isCiceronUrl(c.listing_url) && !isMeetingPlusUrl(c.listing_url));
-  console.log(`Found ${configs.length} approved configs (${ciceronConfigs.length} Ciceron, ${meetingPlusConfigs.length} MeetingPlus, ${httpConfigs.length} HTTP, ${browserConfigs.length} browser)\n`);
+  const netPublicatorConfigs = configs.filter(c => !isCiceronUrl(c.listing_url) && !isMeetingPlusUrl(c.listing_url) && isNetPublicatorUrl(c.listing_url));
+  const httpConfigs = configs.filter(c => !c.needs_browser && !isAdapter(c));
+  const browserConfigs = configs.filter(c => c.needs_browser && !isAdapter(c));
+  console.log(`Found ${configs.length} approved configs (${ciceronConfigs.length} Ciceron, ${meetingPlusConfigs.length} MeetingPlus, ${netPublicatorConfigs.length} NetPublicator, ${httpConfigs.length} HTTP, ${browserConfigs.length} browser)\n`);
 
   const client = new Anthropic();
   const results = [];
@@ -526,6 +529,7 @@ async function main() {
   let browserCount = 0;
   let ciceronCount = 0;
   let meetingPlusCount = 0;
+  let netPublicatorCount = 0;
   let totalSkipped = 0;
 
   // --- Phase 0: Ciceron JSON-RPC (structured data, no LLM) ---
@@ -641,6 +645,67 @@ async function main() {
           municipality: muniName,
           status: "error",
           fetch_mode: "meetingplus",
+          error: err.message,
+          permits: 0,
+          cost_usd: 0,
+        });
+      }
+
+      await new Promise((r) => setTimeout(r, 300));
+    }
+  }
+
+  // --- Phase 0c: NetPublicator JSONP (structured data, no LLM) ---
+  if (netPublicatorConfigs.length > 0) {
+    console.log(`\n=== Phase 0c: NetPublicator JSONP (${netPublicatorConfigs.length} sources) ===`);
+
+    for (const config of netPublicatorConfigs) {
+      const muniName = config.municipality;
+      console.log(`\n--- ${muniName} ---`);
+
+      try {
+        const { permits, contentHash } = await fetchNetPublicatorPermits(config.listing_url, muniName);
+
+        if (!forceExtract && contentHash && config.content_hash && config.content_hash === contentHash) {
+          console.log(`  [${muniName}] content unchanged (hash: ${contentHash}), skipping`);
+          results.push({ municipality: muniName, status: "unchanged", fetch_mode: "netpublicator", permits: 0, cost_usd: 0 });
+          totalSkipped++;
+          continue;
+        }
+
+        totalPermits += permits.length;
+        console.log(`  Permits: ${permits.length}, Cost: $0 (no LLM)`);
+
+        if (permits.length > 0) {
+          await writeFile(
+            join(EXTRACTED_DIR, `${sanitizeFilename(muniName)}_extracted.json`),
+            JSON.stringify(permits, null, 2),
+            "utf-8"
+          );
+
+          const db = await insertToSupabase(supabase, permits, runId);
+          totalInserted += db.inserted;
+          console.log(`  DB: ${db.inserted} inserted, ${db.skipped} skipped, ${db.errors} errors`);
+        }
+
+        if (config._id && contentHash) {
+          await updateContentHash(supabase, config._id, contentHash);
+        }
+
+        results.push({
+          municipality: muniName,
+          status: "ok",
+          fetch_mode: "netpublicator",
+          permits: permits.length,
+          cost_usd: 0,
+        });
+        netPublicatorCount++;
+      } catch (err) {
+        console.error(`  ERROR: ${err.message}`);
+        results.push({
+          municipality: muniName,
+          status: "error",
+          fetch_mode: "netpublicator",
           error: err.message,
           permits: 0,
           cost_usd: 0,
@@ -884,7 +949,7 @@ async function main() {
   // Summary
   console.log(`\n=== RUN COMPLETE ===`);
   console.log(`Time: ${Math.round(elapsed / 1000)}s`);
-  console.log(`Sources: ${configs.length} (${ciceronCount} Ciceron, ${meetingPlusCount} MeetingPlus, ${httpCount} HTTP, ${browserCount} browser)`);
+  console.log(`Sources: ${configs.length} (${ciceronCount} Ciceron, ${meetingPlusCount} MeetingPlus, ${netPublicatorCount} NetPublicator, ${httpCount} HTTP, ${browserCount} browser)`);
   console.log(`Permits extracted: ${totalPermits}`);
   console.log(`Permits inserted: ${totalInserted}`);
   console.log(`Cost: $${totalCost.toFixed(4)}`);
