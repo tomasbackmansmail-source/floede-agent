@@ -15,7 +15,7 @@ export function detectPlatform(html) {
     { platform: "wordpress", patterns: ["wp-content", "wp-includes", "wordpress"] },
     { platform: "municipio", patterns: ["municipio", "developer.flavor"] },
     { platform: "netpublicator", patterns: ["netpublicator", "digicomm"] },
-    { platform: "meetingsplus", patterns: ["meetingsplus", "meetings plus"] },
+    { platform: "meetingsplus", patterns: ["meetingsplus", "meetings plus", "digital-bulletin-board", "/api/dbb/"] },
   ];
 
   for (const sig of signatures) {
@@ -499,13 +499,274 @@ export async function haikuDiscovery(homepageUrl, discoveryConfig) {
 }
 
 // ═══════════════════════════════════════════════
+// Step 5: Interactive page exploration (Playwright + Haiku)
+// ═══════════════════════════════════════════════
+
+// Extract interactive elements from a Playwright page (pure browser JS).
+export async function extractInteractiveElements(page) {
+  return await page.evaluate(() => {
+    const elements = { selects: [], inputs: [], buttons: [], forms: [] };
+
+    // Native <select> elements
+    document.querySelectorAll('select').forEach(sel => {
+      const options = [...sel.options].map(o => ({
+        value: o.value,
+        text: o.textContent.trim(),
+        selected: o.selected,
+      }));
+      if (options.length > 0) {
+        const labelEl = sel.id ? document.querySelector(`label[for="${sel.id}"]`) : null;
+        elements.selects.push({
+          id: sel.id || null, name: sel.name || null,
+          label: labelEl?.textContent?.trim() || sel.getAttribute('aria-label') || null,
+          selector: sel.id ? `#${sel.id}` : sel.name ? `select[name="${sel.name}"]` : null,
+          options,
+        });
+      }
+    });
+
+    // React Select / custom dropdown patterns
+    document.querySelectorAll('[class*="react-select"], [class*="rs-picker"], [role="listbox"], [role="combobox"]').forEach(el => {
+      const text = el.textContent.trim().slice(0, 200);
+      const label = el.getAttribute('aria-label') || el.closest('[class*="form-group"]')?.querySelector('label')?.textContent?.trim() || null;
+      elements.selects.push({
+        id: el.id || null, name: null,
+        label,
+        selector: el.id ? `#${el.id}` : null,
+        options: [{ value: '__react_select__', text, selected: false }],
+        isCustom: true,
+      });
+    });
+
+    // Search/text inputs
+    document.querySelectorAll('input[type="text"], input[type="search"], input[name*="search"], input[name*="sok"], input[name*="sök"], input[placeholder]').forEach(inp => {
+      if (inp.type === 'hidden') return;
+      const labelEl = inp.id ? document.querySelector(`label[for="${inp.id}"]`) : null;
+      elements.inputs.push({
+        id: inp.id || null, name: inp.name || null, type: inp.type,
+        placeholder: inp.placeholder || null,
+        label: labelEl?.textContent?.trim() || inp.getAttribute('aria-label') || null,
+        selector: inp.id ? `#${inp.id}` : inp.name ? `input[name="${inp.name}"]` : null,
+      });
+    });
+
+    // Buttons and filter tabs
+    document.querySelectorAll('button, [role="tab"], a[class*="filter"], [class*="tab-item"]').forEach(btn => {
+      const text = btn.textContent.trim().slice(0, 100);
+      if (!text || text.length < 2) return;
+      elements.buttons.push({
+        tag: btn.tagName.toLowerCase(),
+        text,
+        id: btn.id || null,
+        selector: btn.id ? `#${btn.id}` : null,
+      });
+    });
+
+    // Forms
+    document.querySelectorAll('form').forEach(form => {
+      elements.forms.push({
+        action: form.action, method: form.method,
+        id: form.id || null,
+      });
+    });
+
+    return elements;
+  });
+}
+
+// Ask Haiku which interactive element to use.
+export async function askHaikuForInteraction(elements, searchTerms, config) {
+  const model = config.haiku_model || config.interact_page?.haiku_model || "claude-haiku-4-5-20251001";
+  const HAIKU_INPUT_COST = 0.0000008;
+  const HAIKU_OUTPUT_COST = 0.000004;
+
+  // Skip if no interactive elements found
+  const totalElements = elements.selects.length + elements.inputs.length + elements.buttons.length;
+  if (totalElements === 0) {
+    return { action: "NONE", reason: "no interactive elements found", cost_usd: 0 };
+  }
+
+  const prompt = `Du får en lista över interaktiva element (dropdowns, sökfält, knappar) från en svensk kommuns webbsida. Vi söker efter bygglovsdata.
+
+Söktermer: ${searchTerms.join(", ")}
+
+Interaktiva element:
+${JSON.stringify(elements, null, 2)}
+
+Finns det någon dropdown, sökfält eller filter som kan visa bygglovsärenden när man väljer rätt alternativ?
+
+Om en dropdown har alternativ som matchar söktermer (t.ex. "bygglov", "kungörelse", "plan- och bygglagen"), välj det alternativet.
+Om ett sökfält finns, skriv den mest relevanta söktermen.
+Om en knapp/tab matchar, klicka på den.
+
+Svara ENBART med JSON (ingen markdown, inga backticks):
+{"action": "SELECT", "selector": "CSS-selektor", "value": "option value att välja", "reason": "kort motivering"}
+eller
+{"action": "SEARCH", "selector": "CSS-selektor", "value": "sökterm att skriva", "reason": "kort motivering"}
+eller
+{"action": "CLICK", "selector": "CSS-selektor", "value": null, "reason": "kort motivering"}
+eller
+{"action": "NONE", "selector": null, "value": null, "reason": "varför inget element matchar"}`;
+
+  try {
+    const { default: Anthropic } = await import("@anthropic-ai/sdk");
+    const client = new Anthropic();
+
+    const response = await client.messages.create({
+      model,
+      max_tokens: 512,
+      messages: [{ role: "user", content: prompt }],
+    });
+
+    const costUsd = (response.usage.input_tokens * HAIKU_INPUT_COST) + (response.usage.output_tokens * HAIKU_OUTPUT_COST);
+    const reply = response.content[0].text.trim().replace(/```json\s*/g, "").replace(/```\s*/g, "");
+
+    try {
+      const parsed = JSON.parse(reply);
+      return { ...parsed, cost_usd: costUsd };
+    } catch {
+      return { action: "NONE", reason: `Haiku parse error: ${reply.slice(0, 100)}`, cost_usd: costUsd };
+    }
+  } catch (err) {
+    return { action: "NONE", reason: `Haiku API error: ${err.message}`, cost_usd: 0 };
+  }
+}
+
+// Orchestrate: load page in Playwright, extract elements, ask Haiku, interact, check result.
+export async function interactWithPage(pageUrl, searchTerms, discoveryConfig, browser) {
+  const config = discoveryConfig.interact_page || {};
+  const maxInteractions = config.max_interactions || 3;
+  const waitMs = config.wait_after_interaction_ms || 3000;
+  let totalCost = 0;
+
+  if (!browser) {
+    return { found: false, url: null, interaction_recipe: null, method: "interact_page", cost_usd: 0, reason: "no browser provided" };
+  }
+
+  const context = await browser.newContext({
+    userAgent: discoveryConfig.user_agent || USER_AGENT_FALLBACK,
+  });
+  const page = await context.newPage();
+
+  try {
+    await page.goto(pageUrl, { waitUntil: "domcontentloaded", timeout: 30000 });
+    await page.waitForTimeout(2000);
+
+    const urlBefore = page.url();
+    const steps = [];
+
+    for (let i = 0; i < maxInteractions; i++) {
+      // Extract interactive elements
+      const elements = await extractInteractiveElements(page);
+      console.log(`  [interact] Found ${elements.selects.length} selects, ${elements.inputs.length} inputs, ${elements.buttons.length} buttons`);
+
+      // Ask Haiku what to do
+      const decision = await askHaikuForInteraction(elements, searchTerms, discoveryConfig);
+      totalCost += decision.cost_usd || 0;
+      console.log(`  [interact] Haiku: ${decision.action} — ${decision.reason || ""}`);
+
+      if (decision.action === "NONE") break;
+
+      // Validate selector exists
+      const selector = decision.selector;
+      if (!selector) {
+        console.log(`  [interact] No selector provided, skipping`);
+        break;
+      }
+
+      const el = await page.$(selector);
+      if (!el) {
+        console.log(`  [interact] Selector "${selector}" not found on page`);
+        break;
+      }
+
+      // Perform the interaction
+      try {
+        if (decision.action === "SELECT") {
+          await page.selectOption(selector, decision.value);
+          steps.push({ action: "select", selector, value: decision.value });
+        } else if (decision.action === "SEARCH") {
+          await page.fill(selector, decision.value);
+          await page.press(selector, "Enter");
+          steps.push({ action: "type", selector, value: decision.value });
+        } else if (decision.action === "CLICK") {
+          await el.click();
+          steps.push({ action: "click", selector, value: null });
+        }
+      } catch (err) {
+        console.log(`  [interact] Action failed: ${err.message}`);
+        break;
+      }
+
+      await page.waitForTimeout(waitMs);
+
+      // Check if URL changed (query parameters added)
+      const urlAfter = page.url();
+      if (urlAfter !== urlBefore && urlAfter !== pageUrl) {
+        console.log(`  [interact] URL changed: ${urlAfter}`);
+        await context.close();
+        return {
+          found: true,
+          url: urlAfter,
+          interaction_recipe: null, // URL is enough
+          method: "interact_page",
+          cost_usd: totalCost,
+          details: { steps, url_before: urlBefore, url_after: urlAfter },
+        };
+      }
+    }
+
+    // URL didn't change — check if DOM changed and we have steps
+    if (steps.length > 0) {
+      // Verify the page now has relevant content
+      const pageText = await page.evaluate(() => document.body.innerText.slice(0, 5000));
+      const hasContent = searchTerms.some(t => pageText.toLowerCase().includes(t.toLowerCase()));
+
+      if (hasContent) {
+        console.log(`  [interact] DOM changed with relevant content — saving recipe`);
+        await context.close();
+        return {
+          found: true,
+          url: pageUrl,
+          interaction_recipe: { steps, wait_ms: waitMs },
+          method: "interact_page",
+          cost_usd: totalCost,
+          details: { steps, url_unchanged: true },
+        };
+      }
+    }
+
+    await context.close();
+    return {
+      found: false,
+      url: null,
+      interaction_recipe: null,
+      method: "interact_page",
+      cost_usd: totalCost,
+      reason: "no relevant interaction found",
+    };
+  } catch (err) {
+    try { await context.close(); } catch {}
+    return {
+      found: false,
+      url: null,
+      interaction_recipe: null,
+      method: "interact_page",
+      cost_usd: totalCost,
+      reason: `Page load error: ${err.message}`,
+    };
+  }
+}
+
+// ═══════════════════════════════════════════════
 // Orchestrator: try cheap steps in order, stop at first hit
 // ═══════════════════════════════════════════════
-// Contract: discoverSource(sourceName, sourceUrl, discoveryConfig)
+// Contract: discoverSource(sourceName, sourceUrl, discoveryConfig, browser?)
 //   → { found, url, method, confidence, details }
 // No vertical-specific logic. Everything comes from config.
+// browser is optional — only needed for step 5 (interactWithPage).
 
-export async function discoverSource(sourceName, sourceUrl, discoveryConfig) {
+export async function discoverSource(sourceName, sourceUrl, discoveryConfig, browser) {
   const config = discoveryConfig;
   const userAgent = config.user_agent || USER_AGENT_FALLBACK;
   const searchTerms = config.search_terms || [];
@@ -566,22 +827,50 @@ export async function discoverSource(sourceName, sourceUrl, discoveryConfig) {
     };
   }
 
-  // Step 5: All steps failed — return null
-  // Sonnet Discovery (step 6) is not called here.
-  // It will be added later, either as a direct call or via Agent SDK.
+  // Step 5: Interactive page exploration (Playwright + Haiku)
+  // Requires a browser instance — skipped if not provided.
+  let interactResult = { found: false, cost_usd: 0 };
+  if (browser && discoveryConfig.interact_page?.enabled !== false) {
+    // Try the homepage and any candidate URLs found in earlier steps
+    const pagesToTry = [sourceUrl];
+    // Add best candidates from crawl/haiku if they returned a URL but it didn't match search terms
+    if (crawlResult.url) pagesToTry.push(crawlResult.url);
+    if (haikuResult.url) pagesToTry.push(haikuResult.url);
+
+    for (const pageUrl of [...new Set(pagesToTry)]) {
+      console.log(`  [interact] Trying ${pageUrl}...`);
+      interactResult = await interactWithPage(pageUrl, searchTerms, discoveryConfig, browser);
+      if (interactResult.found) {
+        return {
+          found: true,
+          url: interactResult.url,
+          method: 'interact_page',
+          platform: urlResult.platform || 'unknown',
+          confidence: 'medium',
+          cost_usd: (haikuResult.cost_usd || 0) + interactResult.cost_usd,
+          interaction_recipe: interactResult.interaction_recipe,
+          details: interactResult,
+        };
+      }
+    }
+  }
+
+  // Step 6: All steps failed — return null
+  // Sonnet Discovery is not called here — it runs from discover.js main().
   return {
     found: false,
     url: null,
     method: null,
     platform: urlResult.platform || 'unknown',
     confidence: null,
-    cost_usd: haikuResult.cost_usd || 0,
-    steps_tried: ['url_variants', 'crawl_homepage', 'sitemap', 'haiku'],
+    cost_usd: (haikuResult.cost_usd || 0) + (interactResult.cost_usd || 0),
+    steps_tried: ['url_variants', 'crawl_homepage', 'sitemap', 'haiku', 'interact_page'],
     details: {
       url_variants: urlResult,
       crawl: crawlResult,
       sitemap: sitemapResult,
       haiku: haikuResult,
+      interact: interactResult,
     },
   };
 }

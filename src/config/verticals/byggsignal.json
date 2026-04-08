@@ -196,6 +196,12 @@
     },
     "haiku_model": "claude-haiku-4-5-20251001",
     "haiku_prompt": "Du får HTML och länkar från en svensk kommuns webbplats. Hitta sidan där kommunen publicerar BYGGLOVSBESLUT och kungörelser enligt plan- och bygglagen (PBL).\n\nVIKTIGT: Många kommuner har en GENERELL anslagstavla och en SEPARAT bygglovsanslagstavla. Vi vill ha den som visar bygglovsbeslut, inte den generella.\n\nSidan MÅSTE innehålla faktiska ärenden eller beslut med fastighetsbeteckning, diarienummer eller beslutsdatum. Ignorera sidor som bara FÖRKLARAR bygglovsprocessen. Ignorera sidor med rubriker som 'Så söker du bygglov', 'Bygglovsprocessen', 'Avgifter', 'Handläggningstider'.\n\nPrioriteringsordning:\n1. Sida som specifikt nämner bygglov, bygga, PBL i länktext eller URL\n2. Sida under /bygga/ eller /bygga-bo/ eller /bygglov/\n3. Generell anslagstavla (sista utväg)\n\nSvara ENBART med JSON:\n{\"candidates\": [{\"url\": \"https://...\", \"confidence\": \"high|medium|low\", \"reason\": \"kort förklaring\"}]}\n\nReturnera 1-3 kandidater, rankade bäst först. Om ingen relevant länk hittas:\n{\"candidates\": []}\n\nIngen annan text. Inga markdown-backticks.",
+    "interact_page": {
+      "enabled": true,
+      "max_interactions": 3,
+      "wait_after_interaction_ms": 3000,
+      "haiku_model": "claude-haiku-4-5-20251001"
+    },
     "verify_extraction": {
       "enabled": true,
       "min_expected_results": 1,

@@ -378,7 +378,10 @@ async function main() {
   for (const target of targets) {
     console.log(`\n--- ${target.name} ---`);
 
-    const cheapResult = await discoverSource(target.name, target.url, discoveryConfig);
+    // Create browser early so interactWithPage (step 5) can use it
+    if (!browser) browser = await chromium.launch({ headless: true });
+
+    const cheapResult = await discoverSource(target.name, target.url, discoveryConfig, browser);
     totalCost += cheapResult.cost_usd || 0;
 
     if (cheapResult.found) {
@@ -402,15 +405,20 @@ async function main() {
         approved: false,
       };
 
+      // If discovery returned an interaction recipe, include it in config
+      if (cheapResult.interaction_recipe) {
+        configStub.interaction_recipe = cheapResult.interaction_recipe;
+        configStub.needs_browser = true;
+      }
+
       await saveConfig(supabase, target.name, configStub);
       await verifyAndUpdateConfig(supabase, target.name, cheapResult.url);
       continue;
     }
 
-    console.log(`  [Cheap steps failed] Escalating to Sonnet...`);
+    console.log(`  [All cheap steps failed] Escalating to Sonnet...`);
 
     if (!client) client = new Anthropic();
-    if (!browser) browser = await chromium.launch({ headless: true });
 
     const sonnetResult = await sonnetDiscovery(client, browser, target);
     totalCost += sonnetResult.cost_usd;

@@ -242,7 +242,7 @@ describe("scoreLinks", () => {
 // parseSitemapUrls
 // ═══════════════════════════════════════════════
 
-import { parseSitemapUrls, scoreSitemapUrls, verifyExtraction, haikuDiscovery } from "../src/utils/discovery.js";
+import { parseSitemapUrls, scoreSitemapUrls, verifyExtraction, haikuDiscovery, interactWithPage, askHaikuForInteraction } from "../src/utils/discovery.js";
 
 describe("parseSitemapUrls", () => {
   it("extracts URLs from sitemap XML", () => {
@@ -507,5 +507,30 @@ describe("normalizeToHostname", () => {
 
   it("preserves hyphens", () => {
     assert.equal(normalizeToHostname("Upplands-Bro"), "upplands-bro");
+  });
+});
+
+// ═══════════════════════════════════════════════
+// interactWithPage
+// ═══════════════════════════════════════════════
+
+describe("interactWithPage", () => {
+  it("returns not found when no browser provided", async () => {
+    const result = await interactWithPage("https://example.com", ["bygglov"], {}, null);
+    assert.strictEqual(result.found, false);
+    assert.ok(result.reason.includes("no browser"));
+  });
+});
+
+// ═══════════════════════════════════════════════
+// askHaikuForInteraction
+// ═══════════════════════════════════════════════
+
+describe("askHaikuForInteraction", () => {
+  it("returns NONE when no interactive elements found", async () => {
+    const emptyElements = { selects: [], inputs: [], buttons: [], forms: [] };
+    const result = await askHaikuForInteraction(emptyElements, ["bygglov"], {});
+    assert.strictEqual(result.action, "NONE");
+    assert.strictEqual(result.cost_usd, 0);
   });
 });

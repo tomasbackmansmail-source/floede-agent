@@ -57,6 +57,24 @@ export const CONFIG_SCHEMA = {
         description: { type: "string" }
       }
     },
+    interaction_recipe: {
+      type: "object",
+      description: "Steps to reproduce data view if URL alone is insufficient (e.g. dropdown selection, search)",
+      properties: {
+        steps: {
+          type: "array",
+          items: {
+            type: "object",
+            properties: {
+              action: { type: "string", enum: ["select", "click", "type"] },
+              selector: { type: "string", description: "CSS selector for the element" },
+              value: { type: "string", description: "Value to select/type, or null for click" }
+            }
+          }
+        },
+        wait_ms: { type: "number", description: "Milliseconds to wait after each step", default: 3000 }
+      }
+    },
     notes: {
       type: "string",
       description: "Any observations about the site that might affect extraction"

@@ -18,6 +18,7 @@ import {
 import { readFileSync } from "fs";
 import { normalizeMunicipality as normalizeMuni } from "./utils/normalize.js";
 import { fetchCiceronPermits, isCiceronUrl } from "./adapters/ciceron.js";
+import { fetchMeetingPlusPermits, isMeetingPlusUrl } from "./adapters/meetingplus.js";
 
 const VERTICAL = process.env.VERTICAL || "byggsignal";
 const verticalConfig = JSON.parse(readFileSync(new URL(`./config/verticals/${VERTICAL}.json`, import.meta.url), "utf-8"));
@@ -137,6 +138,26 @@ async function fetchPagePlaywright(page, config) {
 
   await page.goto(url, { waitUntil: "domcontentloaded", timeout: 30000 });
   await page.waitForTimeout(2000);
+
+  // Handle interaction recipe (dropdown/search/filter steps from discovery)
+  if (config.interaction_recipe && config.interaction_recipe.steps) {
+    console.log(`  [Browser] Running ${config.interaction_recipe.steps.length} interaction steps`);
+    for (const step of config.interaction_recipe.steps) {
+      try {
+        if (step.action === 'select') {
+          await page.selectOption(step.selector, step.value);
+        } else if (step.action === 'click') {
+          await page.click(step.selector);
+        } else if (step.action === 'type') {
+          await page.fill(step.selector, step.value);
+          await page.press(step.selector, 'Enter');
+        }
+        await page.waitForTimeout(config.interaction_recipe.wait_ms || 3000);
+      } catch (err) {
+        console.log(`  [Browser] Interaction step failed: ${step.action} ${step.selector} — ${err.message}`);
+      }
+    }
+  }
 
   // Handle pagination
   if (config.pagination && config.pagination.has_pagination) {
@@ -487,11 +508,12 @@ async function main() {
     process.exit(1);
   }
 
-  // Separate Ciceron vs HTTP vs browser configs
+  // Separate adapter vs HTTP vs browser configs
   const ciceronConfigs = configs.filter(c => isCiceronUrl(c.listing_url));
-  const httpConfigs = configs.filter(c => !c.needs_browser && !isCiceronUrl(c.listing_url));
-  const browserConfigs = configs.filter(c => c.needs_browser && !isCiceronUrl(c.listing_url));
-  console.log(`Found ${configs.length} approved configs (${ciceronConfigs.length} Ciceron, ${httpConfigs.length} HTTP, ${browserConfigs.length} browser)\n`);
+  const meetingPlusConfigs = configs.filter(c => !isCiceronUrl(c.listing_url) && isMeetingPlusUrl(c.listing_url));
+  const httpConfigs = configs.filter(c => !c.needs_browser && !isCiceronUrl(c.listing_url) && !isMeetingPlusUrl(c.listing_url));
+  const browserConfigs = configs.filter(c => c.needs_browser && !isCiceronUrl(c.listing_url) && !isMeetingPlusUrl(c.listing_url));
+  console.log(`Found ${configs.length} approved configs (${ciceronConfigs.length} Ciceron, ${meetingPlusConfigs.length} MeetingPlus, ${httpConfigs.length} HTTP, ${browserConfigs.length} browser)\n`);
 
   const client = new Anthropic();
   const results = [];
@@ -503,6 +525,7 @@ async function main() {
   let httpCount = 0;
   let browserCount = 0;
   let ciceronCount = 0;
+  let meetingPlusCount = 0;
   let totalSkipped = 0;
 
   // --- Phase 0: Ciceron JSON-RPC (structured data, no LLM) ---
@@ -557,6 +580,67 @@ async function main() {
           municipality: muniName,
           status: "error",
           fetch_mode: "ciceron",
+          error: err.message,
+          permits: 0,
+          cost_usd: 0,
+        });
+      }
+
+      await new Promise((r) => setTimeout(r, 300));
+    }
+  }
+
+  // --- Phase 0b: MeetingPlus REST API (structured data, no LLM) ---
+  if (meetingPlusConfigs.length > 0) {
+    console.log(`\n=== Phase 0b: MeetingPlus REST API (${meetingPlusConfigs.length} sources) ===`);
+
+    for (const config of meetingPlusConfigs) {
+      const muniName = config.municipality;
+      console.log(`\n--- ${muniName} ---`);
+
+      try {
+        const { permits, contentHash } = await fetchMeetingPlusPermits(config.listing_url, muniName);
+
+        if (!forceExtract && contentHash && config.content_hash && config.content_hash === contentHash) {
+          console.log(`  [${muniName}] content unchanged (hash: ${contentHash}), skipping`);
+          results.push({ municipality: muniName, status: "unchanged", fetch_mode: "meetingplus", permits: 0, cost_usd: 0 });
+          totalSkipped++;
+          continue;
+        }
+
+        totalPermits += permits.length;
+        console.log(`  Permits: ${permits.length}, Cost: $0 (no LLM)`);
+
+        if (permits.length > 0) {
+          await writeFile(
+            join(EXTRACTED_DIR, `${sanitizeFilename(muniName)}_extracted.json`),
+            JSON.stringify(permits, null, 2),
+            "utf-8"
+          );
+
+          const db = await insertToSupabase(supabase, permits, runId);
+          totalInserted += db.inserted;
+          console.log(`  DB: ${db.inserted} inserted, ${db.skipped} skipped, ${db.errors} errors`);
+        }
+
+        if (config._id && contentHash) {
+          await updateContentHash(supabase, config._id, contentHash);
+        }
+
+        results.push({
+          municipality: muniName,
+          status: "ok",
+          fetch_mode: "meetingplus",
+          permits: permits.length,
+          cost_usd: 0,
+        });
+        meetingPlusCount++;
+      } catch (err) {
+        console.error(`  ERROR: ${err.message}`);
+        results.push({
+          municipality: muniName,
+          status: "error",
+          fetch_mode: "meetingplus",
           error: err.message,
           permits: 0,
           cost_usd: 0,
@@ -800,7 +884,7 @@ async function main() {
   // Summary
   console.log(`\n=== RUN COMPLETE ===`);
   console.log(`Time: ${Math.round(elapsed / 1000)}s`);
-  console.log(`Sources: ${configs.length} (${ciceronCount} Ciceron, ${httpCount} HTTP, ${browserCount} browser)`);
+  console.log(`Sources: ${configs.length} (${ciceronCount} Ciceron, ${meetingPlusCount} MeetingPlus, ${httpCount} HTTP, ${browserCount} browser)`);
   console.log(`Permits extracted: ${totalPermits}`);
   console.log(`Permits inserted: ${totalInserted}`);
   console.log(`Cost: $${totalCost.toFixed(4)}`);
