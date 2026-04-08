@@ -129,7 +129,7 @@ export async function fetchNetPublicatorPermits(url, municipality) {
 
   console.log(`  [NetPublicator] Board ${boardId}`);
 
-  // Step 1: Get setup (categories)
+  // Step 1: Get setup (categories + types)
   const setup = await fetchSetup(boardId);
   const categories = (setup.categories || []).map(c => ({
     ...c,
@@ -138,7 +138,30 @@ export async function fetchNetPublicatorPermits(url, municipality) {
   const byggCategories = categories.filter(c => BYGG_CATEGORIES.test(c.name));
   const byggCategoryIds = new Set(byggCategories.map(c => c.id));
 
+  // Build type map — noticeType can be numeric (id) or GUID
+  // setup.types has .id (GUID), .name, and .type (numeric)
+  const typeNameByNumeric = {};
+  const typeNameByGuid = {};
+  for (const t of (setup.types || [])) {
+    const name = decodeEntities(t.name);
+    if (t.type != null) typeNameByNumeric[t.type] = name;
+    if (t.id) typeNameByGuid[t.id] = name;
+  }
+
+  // Identify bygglov-related type IDs
+  const byggTypeNumerics = new Set();
+  for (const t of (setup.types || [])) {
+    const name = decodeEntities(t.name);
+    if (BYGG_NOTICE_PATTERNS.test(name)) {
+      if (t.type != null) byggTypeNumerics.add(t.type);
+    }
+  }
+
   console.log(`  [NetPublicator] ${categories.length} categories, ${byggCategories.length} bygg-related: ${byggCategories.map(c => c.name).join(", ")}`);
+  if (byggTypeNumerics.size > 0) {
+    const byggTypeNames = [...byggTypeNumerics].map(n => typeNameByNumeric[n]).filter(Boolean);
+    console.log(`  [NetPublicator] ${byggTypeNumerics.size} bygg types: ${byggTypeNames.join(", ")}`);
+  }
 
   // Step 2: Fetch all published notices
   const data = await fetchNotices(boardId);
@@ -153,34 +176,51 @@ export async function fetchNetPublicatorPermits(url, municipality) {
   const permits = [];
   for (const notice of notices) {
     const meta = {};
+    const allMetaValues = [];
     for (const m of (notice.metadata || [])) {
-      meta[decodeEntities(m.title)] = decodeEntities(m.value);
+      const title = decodeEntities(m.title);
+      const value = decodeEntities(m.value);
+      meta[title] = value;
+      if (value) allMetaValues.push(value);
     }
 
     const attachmentTitles = (notice.attachments || []).map(a => decodeEntities(a.title)).join(" ");
-    const description = meta["Beskrivning"] || meta["beskrivning"] || "";
-    const allText = [description, attachmentTitles].join(" ");
+    // Collect text from ALL metadata fields (Beskrivning, Information, etc.)
+    const allMetaText = allMetaValues.join(" ");
+    const allText = [allMetaText, attachmentTitles, notice.title || "", notice.text || ""].join(" ");
 
-    // Filter: must be in a bygg-category OR match bygglov patterns in text
+    // Notice type name (numeric or GUID lookup)
+    const typeName = typeNameByNumeric[notice.noticeType] || typeNameByGuid[notice.noticeType] || "";
+
+    // Filter: bygg-category OR bygg-type OR keyword match in any text
     const isByggCategory = byggCategoryIds.has(notice.noticeCategoryId);
+    const isByggType = byggTypeNumerics.has(notice.noticeType);
     const hasKeyword = BYGG_NOTICE_PATTERNS.test(allText);
 
-    if (!isByggCategory && !hasKeyword) continue;
+    if (!isByggCategory && !isByggType && !hasKeyword) continue;
+
+    // Use best available description field
+    const description = meta["Beskrivning"] || meta["beskrivning"]
+      || meta["Information"] || meta["information"] || "";
 
     const parsed = parseDescription(description);
-    const permitType = classifyPermitType(allText);
+    const permitType = classifyPermitType(allText + " " + typeName);
 
-    // Skip notices from bygg-category without a permit type (e.g. protocols)
-    if (isByggCategory && !hasKeyword && !permitType) continue;
+    // Skip notices without permit type unless type itself is bygglov-related
+    if (!isByggType && !permitType && !hasKeyword) continue;
 
-    const status = classifyStatus(attachmentTitles + " " + description);
+    const status = classifyStatus(allText + " " + typeName);
+
+    // Extract case_number from text: "diarienummer: BYGG 2026-000040"
+    const caseMatch = allText.match(/diarienummer:\s*([^\s.]+(?:\s+[\d-]+)?)/i);
+    const caseNumber = caseMatch ? caseMatch[1].trim().replace(/\.$/, "") : null;
 
     permits.push({
       municipality,
-      case_number: null,
+      case_number: caseNumber,
       address: parsed.address || parsed.property,
       property: parsed.address ? parsed.property : null,
-      permit_type: permitType,
+      permit_type: permitType || (isByggType ? "bygglov" : null),
       status,
       date: notice.published ? notice.published.split(" ")[0] : null,
       description: parsed.description || null,
