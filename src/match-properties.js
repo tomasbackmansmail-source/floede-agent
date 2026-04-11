@@ -128,12 +128,12 @@ async function main() {
       const signal = {
         organization_id: prop.organization_id,
         organization_name: orgName,
-        title: `${(permit.permit_type || 'okänt').charAt(0).toUpperCase() + (permit.permit_type || 'okänt').slice(1)} — ${prop.property_designation}`,
+        title: `${(permit.permit_type || 'okänt').charAt(0).toUpperCase() + (permit.permit_type || 'okänt').slice(1)} — ${prop.property_designation}${permit.case_number ? ` (${permit.case_number})` : ''}`,
         maturity: maturity,
         amount_sek: null,
         timeline: null,
         description: description,
-        source_url: permit.source_url || `permit://${permit.municipality}/${permit.address}/${permit.permit_type}`,
+        source_url: permit.source_url || (permit.case_number ? `permit://case/${permit.case_number}` : `permit://${permit.municipality}/${prop.property_designation}/${permit.permit_type}`),
         source_date: permit.date || null,
         region: permit.lan || permit.municipality || null,
       };
