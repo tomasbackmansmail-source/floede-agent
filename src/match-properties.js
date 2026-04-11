@@ -133,7 +133,7 @@ async function main() {
         amount_sek: null,
         timeline: null,
         description: description,
-        source_url: permit.source_url,
+        source_url: permit.source_url || `permit://${permit.municipality}/${permit.address}/${permit.permit_type}`,
         source_date: permit.date || null,
         region: permit.lan || permit.municipality || null,
       };
