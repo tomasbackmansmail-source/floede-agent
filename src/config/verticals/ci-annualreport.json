@@ -1,5 +1,6 @@
 {
   "name": "CI-AnnualReport",
+  "source_type_filter": "annual_report",
   "table": "ci_signals",
   "source_label": "Organisation",
   "supabase_url": "https://qvmthuylldpzcoyzryqe.supabase.co",

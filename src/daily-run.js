@@ -49,10 +49,15 @@ async function loadApprovedConfigs(supabase) {
   const configTable = verticalConfig.discovery?.config_table || "discovery_configs";
   const configApprovedField = verticalConfig.discovery?.config_approved_field || "approved";
   const configSourceField = verticalConfig.discovery?.config_source_field || "municipality";
+  const sourceTypeFilter = verticalConfig.source_type_filter || null;
 
-  const { data, error } = await supabase
+  let query = supabase
     .from(configTable)
-    .select("*")
+    .select("*");
+  if (sourceTypeFilter) {
+    query = query.eq("source_type", sourceTypeFilter);
+  }
+  const { data, error } = await query
     .eq(configApprovedField, true);
 
   if (error) {
