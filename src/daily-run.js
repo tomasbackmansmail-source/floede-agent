@@ -86,6 +86,15 @@ async function fetchPageHttp(config) {
     throw new Error(`HTTP ${response.status} ${response.statusText}`);
   }
 
+  // PDF detection via content-type
+  const contentType = response.headers.get("content-type") || "";
+  if (contentType.includes("application/pdf")) {
+    const arrayBuf = await response.arrayBuffer();
+    const buffer = Buffer.from(arrayBuf);
+    console.log(`  [HTTP] PDF detected (${buffer.length} bytes)`);
+    return { content: buffer, isPdf: true };
+  }
+
   const rawHtml = await response.text();
 
   // Handle subpages
@@ -103,7 +112,7 @@ async function fetchPageHttp(config) {
     // If no bygglov-specific links found, fallback to listing page directly
     if (bygglovLinks.length === 0) {
       console.log(`  [HTTP] No bygglov subpage links found — using listing page directly`);
-      return htmlToText(rawHtml);
+      return { content: htmlToText(rawHtml), isPdf: false };
     }
 
     const subpageTexts = [];
@@ -125,10 +134,10 @@ async function fetchPageHttp(config) {
     }
 
     console.log(`  [HTTP] Fetched ${subpageTexts.length} subpages`);
-    return subpageTexts.join("\n\n");
+    return { content: subpageTexts.join("\n\n"), isPdf: false };
   }
 
-  return htmlToText(rawHtml);
+  return { content: htmlToText(rawHtml), isPdf: false };
 }
 
 // --- PLAYWRIGHT FETCH (for needs_browser configs) ---
@@ -254,16 +263,34 @@ async function fetchPagePlaywright(page, config) {
 
 // --- EXTRACTION ---
 
-async function extractPermits(client, html, municipalityName, sourceUrl, sourceConfig = {}, { forceExtract = false } = {}) {
-  const cleaned = stripNonContent(html);
-  const contentHash = createHash("sha256").update(cleaned).digest("hex").slice(0, 16);
+async function extractPermits(client, html, municipalityName, sourceUrl, sourceConfig = {}, { forceExtract = false, isPdf = false } = {}) {
+  const contentHash = isPdf
+    ? createHash("sha256").update(html).digest("hex").slice(0, 16)
+    : createHash("sha256").update(stripNonContent(html)).digest("hex").slice(0, 16);
 
   if (!forceExtract && sourceConfig.content_hash && sourceConfig.content_hash === contentHash) {
     console.log(`  [${municipalityName}] content unchanged (hash: ${contentHash}), skipping extraction`);
     return { permits: [], cost: { input_tokens: 0, output_tokens: 0, cache_creation_input_tokens: 0, cache_read_input_tokens: 0, cost_usd: 0 }, contentHash, skipped: true };
   }
 
-  const truncated = cleaned.length > 100000 ? cleaned.slice(0, 100000) : cleaned;
+  let contentBlock;
+  if (isPdf) {
+    contentBlock = {
+      type: "document",
+      source: {
+        type: "base64",
+        media_type: "application/pdf",
+        data: html.toString("base64"),
+      },
+    };
+  } else {
+    const cleaned = stripNonContent(html);
+    const truncated = cleaned.length > 100000 ? cleaned.slice(0, 100000) : cleaned;
+    contentBlock = {
+      type: "text",
+      text: `${SOURCE_LABEL}: ${municipalityName}\n\nHTML:\n${truncated}`,
+    };
+  }
 
   const response = await withRetry(
     () => client.messages.create({
@@ -275,13 +302,12 @@ async function extractPermits(client, html, municipalityName, sourceUrl, sourceC
           content: [
             {
               type: "text",
-              text: EXTRACTION_PROMPT_V2,
+              text: isPdf
+                ? `${EXTRACTION_PROMPT_V2}\n\n${SOURCE_LABEL}: ${municipalityName}`
+                : EXTRACTION_PROMPT_V2,
               cache_control: { type: "ephemeral" }
             },
-            {
-              type: "text",
-              text: `${SOURCE_LABEL}: ${municipalityName}\n\nHTML:\n${truncated}`
-            }
+            contentBlock
           ]
         }
       ]
@@ -728,13 +754,13 @@ async function main() {
     try {
       await Promise.race([
         (async () => {
-          const html = await fetchPageHttp(config);
+          const { content: html, isPdf } = await fetchPageHttp(config);
           const hash = createHash("sha256").update(html).digest("hex").slice(0, 16);
 
-          const htmlFile = `${sanitizeFilename(muniName)}_${runId}.html`;
-          await writeFile(join(HTML_DIR, htmlFile), html, "utf-8");
+          const htmlFile = `${sanitizeFilename(muniName)}_${runId}${isPdf ? ".pdf" : ".html"}`;
+          await writeFile(join(HTML_DIR, htmlFile), html);
 
-          const { permits, cost, contentHash, skipped } = await extractPermits(client, html, muniName, config.listing_url, config, { forceExtract });
+          const { permits, cost, contentHash, skipped } = await extractPermits(client, html, muniName, config.listing_url, config, { forceExtract, isPdf });
 
           if (skipped) {
             results.push({ municipality: muniName, status: "unchanged", fetch_mode: "http", permits: 0, cost_usd: 0, html_hash: hash });
