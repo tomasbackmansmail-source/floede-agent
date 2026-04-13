@@ -1,0 +1,63 @@
+{
+  "name": "CI-AnnualReport",
+  "table": "ci_signals",
+  "source_label": "Organisation",
+  "supabase_url": "https://qvmthuylldpzcoyzryqe.supabase.co",
+  "supabase_key_env": "CI_SUPABASE_SERVICE_KEY",
+  "extraction_prompt": "Du far en PDF av en kvartalsrapport eller arsredovisning fran ett svenskt fastighetsbolag. Din uppgift ar att extrahera VARJE namngivet bygg-, ombyggnads- eller investeringsprojekt som namns i dokumentet.\n\nReturnera en JSON-array dar varje objekt representerar ETT projekt.\n\nInkludera BARA projekt med ett belopp eller en investeringsram. Hoppa over projekt som bara namns i forbigaende utan belopp.\n\nOm dokumentet innehaller en projekttabell (vanligt i Akademiska Hus-rapporter), extrahera VARJE rad.\n\nFalt per projekt:\n- title: Projektnamn exakt som det star i dokumentet (string)\n- description: Sammanfatta i 2-3 meningar: typ av projekt (nybyggnad/ombyggnad/renovering), typ av lokal, kund eller hyresgast om namnd, uthyrningsgrad om namnd, upparbetningsgrad om namnd, tillkommande yta i kvm om namnd, beraknat fardigstallande om namnt. (string)\n- amount_sek: Investeringsram eller belopp i kronor som heltal. 925 mkr = 925000000. 1,2 mdr = 1200000000. (integer eller null)\n- region: Ort mappat till lan. Stockholm/Solna/Kista/Flemingsberg = Stockholms lan. Uppsala/Ultuna = Uppsala lan. Goteborg = Vastra Gotalands lan. Lund/Malmo/Alnarp = Skane lan. Linkoping/Norrkoping = Ostergotlands lan. Umea = Vasterbottens lan. Lulea = Norrbottens lan. Om orten inte finns i listan skriv kommunnamn + lan. (string)\n- maturity: Baserat pa upparbetningsgrad om tillganglig: under 10% = planned, 10-90% = tender, over 90% = awarded. Om upparbetningsgrad saknas: pagaende = tender, planerat/beslutat = planned, fardigstallande/slutredovisat = awarded. (string)\n- category: Baserat pa typ: kontor/labb/handel = commercial, utbildning/forskning = public, bostad/studentbostad = residential, blandat = mixed. (string)\n- source_date: Rapportens publiceringsdatum i format YYYY-MM-DD. (string eller null)\n- source_url: Satt till null (fylls i av motorn). (string eller null)\n- source_type: Alltid \"annual_report\". (string)\n- timeline: Beraknat fardigstallande om namnt, t.ex. \"2028-Q2\". (string eller null)\n- organization_name: Anvand EXAKT det organisationsnamn som anges i kontexten ovanfor. (string)\n\nVIKTIGT:\n- Extrahera INTE aggregerad finansiell data (totalt driftoverskott, rantenetto etc) - det ar inte projekt.\n- Om ett projekt namns pa flera stallen i dokumentet, skapa BARA EN post med all information samlad.\n- Om ett projekt beskrivs som fardigstallande/slutredovisat, satt maturity = awarded och inkludera det anda.\n- Belopp: om rapporten skriver 925 mkr, returnera 925000000. Om 1,2 mdr, returnera 1200000000.\n- GDPR: Inga privatpersoners namn.\n- Returnera BARA JSON-arrayen, inget annat. Ingen markdown, ingen forklaring.\n- Om du inte hittar nagra projekt med belopp, returnera en tom array: []",
+  "keywords": ["investering", "projekt", "ombyggnad", "renovering", "nybyggnad", "investeringsram", "mkr", "mdr", "miljoner", "miljarder", "upparbetad", "fardigstallande"],
+  "user_agent": "FloedAgent/0.1 (clientintelligence; datainsamling fran offentliga kallor)",
+  "alert_email": "tomasbackman@mac.com",
+  "alert_from": "Floede Engine <tomasbackman@mac.com>",
+  "model": "claude-sonnet-4-6",
+  "qc": {
+    "stale_frequency_days": 90,
+    "stale_multiplier": 3,
+    "anomaly_deviation_threshold": 1.0,
+    "anomaly_min_difference": 2
+  },
+  "db": {
+    "table": "ci_signals",
+    "conflict_key": "organization_id,source_url,title",
+    "primary_id_field": "source_url",
+    "dedup_fields": ["organization_name", "title", "source_date"],
+    "field_mapping": {
+      "organization_name": "organization_name",
+      "title": "title",
+      "maturity": "maturity",
+      "amount_sek": "amount_sek",
+      "timeline": "timeline",
+      "description": "description",
+      "source_url": "source_url",
+      "source_date": "source_date",
+      "region": "region",
+      "category": "category",
+      "source_type": "source_type"
+    },
+    "enrichment": {
+      "lookup_table": "ci_organizations",
+      "lookup_key": "name",
+      "lookup_source_field": "organization_name",
+      "mappings": {
+        "id": "organization_id"
+      }
+    }
+  },
+  "feedback": {
+    "zero_streak_threshold": 999,
+    "max_rediscoveries_per_run": 0,
+    "max_cost_per_run_usd": 1.0
+  },
+  "discovery": {
+    "config_table": "ci_sources",
+    "config_source_field": "organization_name",
+    "config_approved_field": "approved",
+    "source_table": "ci_organizations",
+    "source_id_field": "name",
+    "source_url_field": "website",
+    "discovery_model": "claude-sonnet-4-6",
+    "max_navigations": 4,
+    "max_cost_per_source_usd": 0.3,
+    "search_terms": ["arsredovisning", "kvartalsrapport", "delarsrapport", "finansiella dokument"]
+  }
+}
