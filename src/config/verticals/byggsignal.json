@@ -41,6 +41,16 @@
     "stale_multiplier": 2,
     "anomaly_deviation_threshold": 0.5,
     "anomaly_min_difference": 3,
+    "validation": {
+      "source_field": "municipality",
+      "date_field": "extracted_at",
+      "required_fields": ["case_number", "address", "permit_type", "status"],
+      "allowed_values": {
+        "permit_type": ["bygglov", "rivningslov", "marklov", "forhandsbesked", "strandskyddsdispens", "anmalan"],
+        "status": ["ansokt", "beviljat", "avslag", "overklagat", "startbesked", "slutbesked"]
+      },
+      "numeric_ranges": {}
+    },
     "population": {
       "Malmö": 351749,
       "Uppsala": 233839,

@@ -15,7 +15,18 @@
     "stale_frequency_days": 90,
     "stale_multiplier": 3,
     "anomaly_deviation_threshold": 1.0,
-    "anomaly_min_difference": 2
+    "anomaly_min_difference": 2,
+    "validation": {
+      "source_field": "organization_name",
+      "date_field": "created_at",
+      "required_fields": ["title", "description", "maturity", "amount_sek", "region"],
+      "allowed_values": {
+        "maturity": ["planned", "tender", "awarded"]
+      },
+      "numeric_ranges": {
+        "amount_sek": {"min": 1000000, "max": 50000000000}
+      }
+    }
   },
   "db": {
     "table": "ci_signals",

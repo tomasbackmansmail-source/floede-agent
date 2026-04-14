@@ -26,34 +26,37 @@ const VALID_PERMIT_TYPES = verticalConfig.valid_permit_types;
 const VALID_STATUSES = verticalConfig.valid_statuses;
 
 async function loadBaselines(supabase) {
-  // Calculate baseline per municipality: average permits per extraction
+  const sourceField = verticalConfig.qc?.validation?.source_field || "municipality";
+  const dateField = verticalConfig.qc?.validation?.date_field || "extracted_at";
+
+  // Calculate baseline per source: average records per extraction
   // over the last 4 runs
   const { data, error } = await supabase
     .from(verticalConfig.db.table)
-    .select("municipality, extracted_at")
-    .order("extracted_at", { ascending: false });
+    .select(`${sourceField}, ${dateField}`)
+    .order(dateField, { ascending: false });
 
   if (error || !data) return {};
 
-  // Group by municipality and extraction date
-  const byMuni = {};
+  // Group by source and extraction date
+  const bySource = {};
   for (const row of data) {
-    const muni = row.municipality;
-    const date = row.extracted_at ? row.extracted_at.slice(0, 10) : null;
+    const source = row[sourceField];
+    const date = row[dateField] ? row[dateField].slice(0, 10) : null;
     if (!date) continue;
-    if (!byMuni[muni]) byMuni[muni] = {};
-    if (!byMuni[muni][date]) byMuni[muni][date] = 0;
-    byMuni[muni][date]++;
+    if (!bySource[source]) bySource[source] = {};
+    if (!bySource[source][date]) bySource[source][date] = 0;
+    bySource[source][date]++;
   }
 
-  // Calculate baseline: avg permits per run over last 4 unique dates
+  // Calculate baseline: avg records per run over last 4 unique dates
   const baselines = {};
-  for (const [muni, dates] of Object.entries(byMuni)) {
+  for (const [source, dates] of Object.entries(bySource)) {
     const sortedDates = Object.keys(dates).sort().reverse().slice(0, 4);
     if (sortedDates.length === 0) continue;
     const avg = sortedDates.reduce((sum, d) => sum + dates[d], 0) / sortedDates.length;
     const lastDate = sortedDates[0];
-    baselines[muni] = {
+    baselines[source] = {
       avg_permits_per_run: Math.round(avg),
       last_data_date: lastDate,
       run_count: sortedDates.length
@@ -63,45 +66,51 @@ async function loadBaselines(supabase) {
   return baselines;
 }
 
-function validatePermits(permits, municipality) {
+function validatePermits(records) {
+  const validation = verticalConfig.qc?.validation;
+  if (!validation) return [];
+
+  const { required_fields = [], allowed_values = {}, numeric_ranges = {} } = validation;
   const issues = [];
 
-  for (const p of permits) {
-    const permitIssues = [];
+  for (const r of records) {
+    const recordIssues = [];
 
-    // Validate permit_type
-    if (p.permit_type && VALID_PERMIT_TYPES && !VALID_PERMIT_TYPES.includes(p.permit_type)) {
-      permitIssues.push(`invalid permit_type: "${p.permit_type}"`);
-    }
-
-    // Validate status
-    if (p.status && VALID_STATUSES && !VALID_STATUSES.includes(p.status)) {
-      permitIssues.push(`invalid status: "${p.status}"`);
-    }
-
-    // Check for suspicious data
-    if (p.date) {
-      const date = new Date(p.date);
-      const now = new Date();
-      if (date > now) {
-        permitIssues.push(`future date: ${p.date}`);
-      }
-      const fiveYearsAgo = new Date(now.getFullYear() - 5, now.getMonth(), now.getDate());
-      if (date < fiveYearsAgo) {
-        permitIssues.push(`very old date: ${p.date}`);
+    // Check required fields
+    for (const field of required_fields) {
+      if (r[field] === null || r[field] === undefined) {
+        recordIssues.push(`missing required field: ${field}`);
       }
     }
 
-    // Check for empty critical fields
-    if (!p.case_number && !p.address && !p.description) {
-      permitIssues.push("all identifying fields are null");
+    // Check allowed values
+    for (const [field, allowed] of Object.entries(allowed_values)) {
+      if (r[field] != null && !allowed.includes(r[field])) {
+        recordIssues.push(`invalid ${field}: ${r[field]}`);
+      }
     }
 
-    if (permitIssues.length > 0) {
+    // Check numeric ranges
+    for (const [field, range] of Object.entries(numeric_ranges)) {
+      if (r[field] != null) {
+        if (range.min != null && r[field] < range.min) {
+          recordIssues.push(`${field} out of range: ${r[field]} (expected ${range.min}-${range.max})`);
+        }
+        if (range.max != null && r[field] > range.max) {
+          recordIssues.push(`${field} out of range: ${r[field]} (expected ${range.min}-${range.max})`);
+        }
+      }
+    }
+
+    if (recordIssues.length > 0) {
+      // Identify record by first available required field value, or title/case_number
+      const identifier = r.title || r.case_number ||
+        required_fields.map(f => r[f]).find(v => v != null) || "unknown";
       issues.push({
-        case_number: p.case_number,
-        address: p.address,
-        issues: permitIssues
+        case_number: r.case_number,
+        address: r.address,
+        identifier,
+        issues: recordIssues
       });
     }
   }
@@ -437,7 +446,7 @@ async function main() {
     todayCounts[muniId] = permits.length;
     totalPermits += permits.length;
 
-    const issues = validatePermits(permits, muniId);
+    const issues = validatePermits(permits);
     if (issues.length > 0) {
       allIssues[muniId] = issues;
       totalFlagged += issues.length;
