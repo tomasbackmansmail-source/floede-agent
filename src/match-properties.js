@@ -136,6 +136,7 @@ async function main() {
         source_url: permit.source_url || (permit.case_number ? `permit://case/${permit.case_number}` : `permit://${permit.municipality}/${prop.property_designation}/${permit.permit_type}`),
         source_date: permit.date || null,
         region: permit.lan || permit.municipality || null,
+        source_type: 'permit',
       };
 
       // Upsert with conflict on (organization_id, source_url, title)
