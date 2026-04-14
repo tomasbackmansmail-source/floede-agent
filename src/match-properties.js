@@ -133,7 +133,7 @@ async function main() {
         amount_sek: null,
         timeline: null,
         description: description,
-        source_url: permit.source_url || (permit.case_number ? `permit://case/${permit.case_number}` : `permit://${permit.municipality}/${prop.property_designation}/${permit.permit_type}`),
+        source_url: permit.source_url || `permit://${permit.id || permit.case_number || prop.property_designation + '/' + (permit.municipality || 'unknown')}`,
         source_date: permit.date || null,
         region: permit.lan || permit.municipality || null,
         source_type: 'permit',
