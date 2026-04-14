@@ -753,7 +753,7 @@ async function main() {
   for (const config of httpConfigs) {
     const muniName = config.municipality;
     const hasSubpages = config.requires_subpages && config.requires_subpages.required;
-    const timeout = hasSubpages ? 300000 : 60000;
+    const timeout = hasSubpages ? 300000 : 180000;
     console.log(`\n--- ${muniName} ---`);
 
     try {
