@@ -306,6 +306,20 @@ Kör `npm test` före varje push. Alla tester ska vara gröna.
 
 ---
 
+## Senast uppdaterat 2026-04-13
+
+### Motor
+- PDF-stod i daily-run: content-type detection, base64 document-typ till Messages API
+- source_type_filter i loadApprovedConfigs: vertical config kan filtrera ci_sources pa source_type
+- HTTP timeout okad till 180s for PDF och stora kallor
+- Config-driven QC validation: required_fields, allowed_values, numeric_ranges i vertical config
+- loadBaselines() config-driven: source_field och date_field fran qc.validation
+
+### CI
+- ci-annualreport.json: ny vertical config for PDF-extraktion av arsredovisningar
+- ci-pressroom extraction_prompt: source_url extraheras fran link-falt, source_type satts till "pressroom"
+- Forsta PDF-extraktion lyckad: Akademiska Hus Q1 2025, 11 projekt, $0.16
+
 ## Senast uppdaterat 2026-04-08
 
 ### Motor
