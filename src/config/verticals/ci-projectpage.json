@@ -1,0 +1,76 @@
+{
+  "name": "CI-ProjectPage",
+  "table": "ci_signals",
+  "source_label": "Organisation",
+  "source_type_filter": "project_page",
+  "supabase_url": "https://qvmthuylldpzcoyzryqe.supabase.co",
+  "supabase_key_env": "CI_SUPABASE_SERVICE_KEY",
+  "extraction_prompt": "Du far HTML fran en projektsida som listar byggprojekt och stadsutvecklingsprojekt fran en svensk organisation. Din uppgift ar att extrahera VARJE projekt som listas pa sidan.\n\nReturnera en JSON-array dar varje objekt representerar ETT projekt.\n\nFalt per projekt:\n- title: Projektnamn exakt som det star pa sidan (string)\n- description: 2-3 meningar om projektet: typ, omfattning, syfte. (string)\n- maturity: Bestam baserat pa projektstatus. planerat/kommande/forberedelse = planned. upphandling pagar/anbud inbjuds = tender. byggs/pagaende bygge/produktion = awarded. fardigt/slutfort/inflyttat = awarded. Om status saknas, anvand planned. (string)\n- amount_sek: Investeringsbelopp i kronor som heltal om det namns. 925 mkr = 925000000. 1,2 mdr = 1200000000. Null om inget belopp namns. (integer eller null)\n- timeline: Tidsram som fritext, t.ex. 'byggstart 2027, klart 2030'. Null om inget namns. (string eller null)\n- region: Stadsdel, kommun eller lan. Aldrig null - om ingen specifik plats namns, anvand organisationens hemort. (string)\n- category: EN av: commercial, residential, infrastructure, public, mixed. (string)\n- source_url: VIKTIGT - Lank till det specifika projektets detaljsida. Leta efter <a href>-lankar i projektlistan som pekar pa den enskilda projektsidan, inte bas-URL:en. Om HTML innehaller relativa lankar, kombinera dem med sidans bas-URL till en full URL. Om ingen specifik URL hittas for ett projekt, satt till null. Returnera aldrig bas-URL:en som source_url. (string eller null)\n- source_date: Publiceringsdatum eller senaste uppdatering om det syns. Format YYYY-MM-DD. Null om inget datum. (string eller null)\n- source_type: Alltid \"project_page\". (string)\n- property_designation: Fastighetsbeteckning i formatet 'Kommundel X:Y' (t.ex. 'Haga 4:35') om det namns uttryckligen. Gissa aldrig. Null om inget matchar. (string eller null)\n\nVIKTIGT:\n- Extrahera INTE navigationslankar, brodsmulor, sidfot, eller widgets med 'relaterade projekt'.\n- Om ett projekt bara namns i forbigaende utan egen rubrik/beskrivning, skippa det.\n- GDPR: Inga privatpersoners namn.\n- Returnera BARA JSON-arrayen, inget annat. Ingen markdown, ingen forklaring.\n- Om du inte hittar nagra projekt, returnera en tom array: []",
+  "keywords": ["projekt", "byggprojekt", "stadsutveckling", "nybyggnad", "ombyggnad", "utveckling"],
+  "user_agent": "FloedAgent/0.1 (clientintelligence; datainsamling fran offentliga kallor)",
+  "alert_email": null,
+  "alert_from": "Floede Engine <tomasbackman@mac.com>",
+  "model": "claude-sonnet-4-6",
+  "qc": {
+    "stale_frequency_days": 30,
+    "stale_multiplier": 3,
+    "anomaly_deviation_threshold": 1.0,
+    "anomaly_min_difference": 2,
+    "validation": {
+      "source_field": "organization_name",
+      "date_field": "created_at",
+      "required_fields": ["title", "description", "maturity", "region"],
+      "allowed_values": {
+        "maturity": ["planned", "tender", "awarded"]
+      },
+      "numeric_ranges": {
+        "amount_sek": {"min": 1000000, "max": 50000000000}
+      }
+    }
+  },
+  "db": {
+    "table": "ci_signals",
+    "conflict_key": "organization_id,source_url,title",
+    "primary_id_field": "source_url",
+    "dedup_fields": ["organization_name", "title", "source_date"],
+    "field_mapping": {
+      "organization_name": "organization_name",
+      "title": "title",
+      "maturity": "maturity",
+      "amount_sek": "amount_sek",
+      "timeline": "timeline",
+      "description": "description",
+      "source_url": "source_url",
+      "source_date": "source_date",
+      "region": "region",
+      "category": "category",
+      "source_type": "source_type",
+      "property_designation": "property_designation"
+    },
+    "enrichment": {
+      "lookup_table": "ci_organizations",
+      "lookup_key": "name",
+      "lookup_source_field": "organization_name",
+      "mappings": {
+        "id": "organization_id"
+      }
+    }
+  },
+  "feedback": {
+    "zero_streak_threshold": 7,
+    "max_rediscoveries_per_run": 2,
+    "max_cost_per_run_usd": 1.0
+  },
+  "discovery": {
+    "config_table": "ci_sources",
+    "config_source_field": "organization_name",
+    "config_approved_field": "approved",
+    "source_table": "ci_organizations",
+    "source_id_field": "name",
+    "source_url_field": "website",
+    "discovery_model": "claude-sonnet-4-6",
+    "max_navigations": 4,
+    "max_cost_per_source_usd": 0.3,
+    "search_terms": ["projekt", "byggprojekt", "stadsutveckling"]
+  }
+}

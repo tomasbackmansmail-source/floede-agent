@@ -33,6 +33,7 @@ const RUN_LOG_DIR = join(process.cwd(), "data", "runs");
 const MODEL_COSTS = {
   "claude-haiku-4-5-20251001": { input: 0.0000008, output: 0.000004 },
   "claude-sonnet-4-6": { input: 0.000003, output: 0.000015 },
+  "claude-opus-4-7": { input: 0.000005, output: 0.000025 },
 };
 const modelCost = MODEL_COSTS[verticalConfig.model] || MODEL_COSTS["claude-haiku-4-5-20251001"];
 
@@ -1000,7 +1001,7 @@ async function main() {
   }
 
   // --- Alerting: email if zero permits inserted ---
-  if (totalInserted === 0 && process.env.RESEND_API_KEY) {
+  if (totalInserted === 0 && process.env.RESEND_API_KEY && verticalConfig.alert_email) {
     console.log(`\n=== ALERT: Zero records inserted — sending email ===`);
     try {
       const alertResp = await fetch("https://api.resend.com/emails", {

@@ -10,7 +10,7 @@
   "user_agent": "FloedAgent/0.1 (clientintelligence; datainsamling fran offentliga kallor)",
   "alert_email": "tomasbackman@mac.com",
   "alert_from": "Floede Engine <tomasbackman@mac.com>",
-  "model": "claude-sonnet-4-6",
+  "model": "claude-opus-4-7",
   "qc": {
     "stale_frequency_days": 90,
     "stale_multiplier": 3,
