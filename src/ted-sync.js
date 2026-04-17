@@ -27,11 +27,66 @@ const TED_FIELDS = [
   'estimated-value-cur-proc',
   'deadline-receipt-tender-date-lot',
   'classification-cpv',
+  'place-of-performance',
 ];
 const EUR_TO_SEK = 11.5;
 
 // CPV prefixes relevant for construction/architecture
 const RELEVANT_CPV_PREFIXES = ['45', '71', '44'];
+
+const NUTS_TO_LAN = {
+  'SE110': 'Stockholms län',
+  'SE121': 'Uppsala län',
+  'SE122': 'Södermanlands län',
+  'SE123': 'Östergötlands län',
+  'SE124': 'Örebro län',
+  'SE125': 'Västmanlands län',
+  'SE211': 'Jönköpings län',
+  'SE212': 'Kronobergs län',
+  'SE213': 'Kalmar län',
+  'SE214': 'Gotlands län',
+  'SE221': 'Blekinge län',
+  'SE224': 'Skåne län',
+  'SE231': 'Hallands län',
+  'SE232': 'Västra Götalands län',
+  'SE311': 'Värmlands län',
+  'SE312': 'Dalarnas län',
+  'SE313': 'Gävleborgs län',
+  'SE321': 'Västernorrlands län',
+  'SE322': 'Jämtlands län',
+  'SE331': 'Västerbottens län',
+  'SE332': 'Norrbottens län'
+};
+
+let placeOfPerformanceSampleLogged = false;
+
+function extractSeNutsCode(placeOfPerformance) {
+  if (!placeOfPerformance) return null;
+  const items = Array.isArray(placeOfPerformance) ? placeOfPerformance : [placeOfPerformance];
+  for (const item of items) {
+    if (!item) continue;
+    if (typeof item === 'string') {
+      if (item.toUpperCase().startsWith('SE')) return item.toUpperCase();
+      continue;
+    }
+    // Try common shapes: { nuts: 'SE110' }, { code: 'SE110' }, nested arrays
+    const candidates = [item.nuts, item.code, item.nutsCode, item['nuts-code'], item.value];
+    for (const c of candidates) {
+      if (typeof c === 'string' && c.toUpperCase().startsWith('SE')) return c.toUpperCase();
+    }
+    // Recurse into arrays/objects
+    for (const key of Object.keys(item)) {
+      const v = item[key];
+      if (Array.isArray(v) || (v && typeof v === 'object')) {
+        const nested = extractSeNutsCode(v);
+        if (nested) return nested;
+      } else if (typeof v === 'string' && v.toUpperCase().startsWith('SE') && /^SE\d{3}$/i.test(v)) {
+        return v.toUpperCase();
+      }
+    }
+  }
+  return null;
+}
 
 const isBackfill = process.argv.includes('--backfill');
 
@@ -201,6 +256,14 @@ async function main() {
       const cpvCodes = notice['classification-cpv'];
       const category = mapCategory(cpvCodes, description);
 
+      if (notice['place-of-performance'] && !placeOfPerformanceSampleLogged) {
+        log('place-of-performance sample:', JSON.stringify(notice['place-of-performance']).slice(0, 200));
+        placeOfPerformanceSampleLogged = true;
+      }
+
+      const nutsCode = extractSeNutsCode(notice['place-of-performance']);
+      const region = nutsCode ? (NUTS_TO_LAN[nutsCode.toUpperCase()] || null) : null;
+
       const signal = {
         organization_id: org.id,
         organization_name: org.name,
@@ -211,9 +274,11 @@ async function main() {
         description: description || null,
         source_url: sourceUrl,
         source_date: pubDate,
-        region: null,
+        region,
         category,
         source_type: 'ted',
+        ted_reference: noticeId || null,
+        nuts_code: nutsCode,
       };
 
       try {
