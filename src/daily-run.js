@@ -121,8 +121,16 @@ export async function fetchPageHttp(config) {
       return { subpages: [{ url, content: htmlToText(rawHtml), isPdf: false }] };
     }
 
+    const seenUrls = new Set();
+    const dedupedLinks = bygglovLinks.filter(l => {
+      if (seenUrls.has(l.href)) return false;
+      seenUrls.add(l.href);
+      return true;
+    });
+    console.log(`  [HTTP] Deduplicated ${bygglovLinks.length} links to ${dedupedLinks.length} unique URLs`);
+
     const subpages = [];
-    for (const link of bygglovLinks.slice(0, maxSubpages)) {
+    for (const link of dedupedLinks.slice(0, maxSubpages)) {
       try {
         const subResp = await fetch(link.href, {
           headers: { "User-Agent": USER_AGENT },
@@ -234,8 +242,16 @@ export async function fetchPagePlaywright(page, config) {
       return { subpages: [{ url, content: text, isPdf: false }] };
     }
 
+    const seenUrls = new Set();
+    const dedupedLinks = bygglovLinks.filter(l => {
+      if (seenUrls.has(l.href)) return false;
+      seenUrls.add(l.href);
+      return true;
+    });
+    console.log(`  [Browser] Deduplicated ${bygglovLinks.length} links to ${dedupedLinks.length} unique URLs`);
+
     const subpages = [];
-    for (const link of bygglovLinks.slice(0, maxSubpages)) {
+    for (const link of dedupedLinks.slice(0, maxSubpages)) {
       try {
         await page.goto(link.href, { waitUntil: "domcontentloaded", timeout: 15000 });
         await page.waitForTimeout(500);
