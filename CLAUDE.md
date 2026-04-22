@@ -306,114 +306,50 @@ Kör `npm test` före varje push. Alla tester ska vara gröna.
 
 ---
 
-## Senast uppdaterat 2026-04-13
+## Senast uppdaterat 2026-04-21
 
-### Motor
-- PDF-stod i daily-run: content-type detection, base64 document-typ till Messages API
-- source_type_filter i loadApprovedConfigs: vertical config kan filtrera ci_sources pa source_type
-- HTTP timeout okad till 180s for PDF och stora kallor
-- Config-driven QC validation: required_fields, allowed_values, numeric_ranges i vertical config
-- loadBaselines() config-driven: source_field och date_field fran qc.validation
+### Infrastruktur
+- Railway-deploy av SHA 34e1cf3 aktiv sedan 20:49 UTC 21 april (PDF-stöd, source_type_filter, ci-annualreport, ci-projectpage, match-properties-fixar, ted-sync NUTS, ci-pressroom source_url nu i produktion)
+- GitHub auto-deploy till Railway brutet sedan 5 april, ej diagnostiserat — alla deploys via `railway up` CLI. Samma risk i clientintelligence-repot
 
-### CI
-- ci-annualreport.json: ny vertical config for PDF-extraktion av arsredovisningar
-- ci-pressroom extraction_prompt: source_url extraheras fran link-falt, source_type satts till "pressroom"
-- Forsta PDF-extraktion lyckad: Akademiska Hus Q1 2025, 11 projekt, $0.16
+### Motorbuggar identifierade (ej fixade)
+- `src/daily-run.js:448`: `row.raw_html_hash = null` hårdkodat i insertToSupabase. 0 av 10 031 rader i permits_v2 har hash. Content hashing inaktivt, LLM körs varje dag på oförändrad HTML
+- `src/daily-run.js:256–259`: accordion-expandering i fetchPagePlaywright täcker bara `<details>` och `[aria-expanded='false']`. Missar generiska klickbara element med hidden content
+- 21 kommuner drabbade av accordion-buggen (~249 permits): 100% NULL date, ~100% NULL property, 100% NULL applicant. Titlar fylls i (alltid synliga). Helsingborg 51, Tjörn 46, Örnsköldsvik 27, Tyresö 22, Ängelholm 13, Söderköping 12, Bollnäs 12, Vansbro 11, Kiruna 9, Tibro 9, Svalöv 9, Båstad 8, Åmål 6, Hörby 5, Haparanda 5, Herrljunga 2, Torsås 2, Växjö 1, Årjäng 1, Lessebo 1
 
-## Senast uppdaterat 2026-04-08
+### Prioriteringsordning (bekräftad av Tomas, ej förhandlingsbar)
+1. Fixa accordion-expandering + raw_html_hash i samma commit i daily-run.js
+2. Systematisk rediscovery av 120 misstänkt trasiga kommuner, stora först (Göteborg 32d, Uppsala 25d, Luleå 25d, Jönköping 25d, Sotenäs, Lidköping, Kungsbacka, Skellefteå, Karlstad, Täby, Härryda). 141 kommuner har 0 permits senaste 3+ dagar. Diagnostisera först via `feedback.zero_streak_threshold`, `max_rediscoveries_per_run` och `discovery_runs`-tabellen
+3. Applicant via diariesystem-enrichment: 56% har case_number, mål >20% applicant. Kedja: case_number → Public 360/Platina/Ciceron Webb → GDPR-filter. Separat enrichment-steg, inte daily-run
 
-### Motor
-- 272/290 kommuner med verifierad data i permits_v2
-- Pipeline grön 4 dagar i rad
-- interactWithPage() live i discovery — Playwright + LLM navigerar dropdowns och sökfält
-- Adaptrar live: Ciceron (14), MeetingPlus (7), NetPublicator (10) — $0 LLM per kommun
-- Feedback-loop live: QC 0 ärenden 3 dagar → discoverSource automatiskt
-- Namnormalisering: strippar "kommun", "stad", genitiv-s automatiskt
-- Content hashing: full LLM vid första körning, $0 vid oförändrat innehåll
-- Discovery följer nu externa länkar (NetPublicator, MeetingPlus etc.)
-- docs/motor-insikter-april-2026.md: 10 dokumenterade lärdomar från stabiliseringsarbetet
+### Unique constraints på permits_v2
+- `permits_v2_pkey`: PRIMARY KEY (id)
+- `permits_v2_municipality_case_number_key`: UNIQUE (municipality, case_number)
+- `idx_permits_v2_dedup_fallback`: UNIQUE (municipality, address, date)
+- pg_constraint-query missar index-baserade constraints — kolla `pg_indexes` också
 
-### CI
-- 320+ signaler, 228 ci_properties, 13 bygglov-matchningar
-- Alla 7 pipeline-steg körs grönt på Railway
-- CI kör autonomt för första gången (miljövariabler fixade 2026-04-05)
-- Timeout 4h (var 60 min)
-- Resend from-adress fixad
+### Städningar i permits_v2 (Supabase SQL, inte motorkod)
+- 39 rader DELETE `municipality='Malung Salen'` (dubletter av "Malung Sälen")
+- 5 rader UPDATE `'Falkoping'` → `'Falköping'`
+- 5 rader DELETE `'Grastorp'` (address+date-dubletter av "Grästorp", sämre data)
+- Total: 10 075 → 10 031 permits
 
-### Principer
-- Adaptrar före scraping — kolla alltid om plattformen har API
-- Fas 0: sök befintliga register/aggregatorer innan agentisk discovery
-- Plan Mode obligatoriskt för alla motorändringar: claude --permission-mode plan
-- Mät med SQL, inte antaganden
-- Läs loggar, inte statusikoner
+### CI (ci_signals i qvmthuylldpzcoyzryqe)
+- Migration: 6 nya nullable-kolumner (source_excerpt TEXT, ai_summary TEXT, structured_meta JSONB, ai_conclusion TEXT, source_quotes JSONB, match_reasons JSONB). Extraction_prompt + analyze-signals skrivs av CTO Engine
+- 39 rader DELETE i ci_signals: `title LIKE 'Bygglov —%' AND source_type='pressroom' AND source_url IS NULL` (skräp från gammal match-properties). Ny kod skriver `source_type='permit'`, `source_url='permit://case/{case_number}'`
 
-## Senast uppdaterat 2026-04-05
+### Kvarstående (ägs av CTO Engine)
+- 249 ofullständiga accordion-permits: beslut krävs om radering, markering pending re-extraction, eller tvångsomextraktion efter accordion-fix
+- ci-projectpage: 9 rader 17 april fick `source_url=bas-URL` och `organization_name=null`. LLM följde inte prompt. Fix specad (post-extraction kod-validering + config-driven enrichment), ej implementerad
+- Railway GitHub auto-deploy — rotorsak för 5 april-brottet ej diagnostiserad
 
-- Miljövariabler: varje vertikal i agent-runner kräver verifierade env vars i Railway INNAN den anses live. CI saknade credentials i månader utan att någon märkte.
-- Railway "succeeded" = process.exit(0), inte att alla steg lyckades. agent-runner fångar fel och exiterar OK. Läs loggarna, inte statusikonen.
-- Content hashing sparas bara vid lyckad extraction. Första körningen med nya configs triggar alltid full LLM på alla — förväntat men dyrt. Hashar byggs upp successivt.
-- execSync timeout i agent-runner är den enda tidsgränsen — Railway har ingen max-körtid för cron. Satt till 4h (14_400_000 ms) efter att 60 min inte räckte för 292 configs.
-- Railway cron: om en körning fortfarande är aktiv när nästa scheduled körning ska starta, skippas den nya. Processen måste avsluta sig själv.
-- Railway-körning triggas manuellt via railway.com-dashboarden eller railway run — INTE från CC-session. CC-körning dör när locket stängs.
-- Arbetsflödesprincip: Railway = autonomt serverside (motor, cron, nattjobb). CC = interaktivt lokalt (kod, config, felsökning). Blanda inte.
+## Senast uppdaterat 2026-04-22
 
-## Senast uppdaterat 2026-04-04
+- src/daily-run.js: insertToSupabase() tar rawHtmlHash som fjärde parameter, fem callsites uppdaterade (Ciceron, MeetingPlus, NetPublicator, HTTP, Browser)
+- Adaptrarna (Ciceron/MeetingPlus/NetPublicator) beräknar redan SHA-256 16-tecken hex, samma format som extractPermits()
+- Verifierat i produktion: ny Stockholm-permit 2026-04-22 har raw_html_hash satt (tidigare 0 av 10031 rader hade hash)
+- Deployad via railway up
+- npm test: 224/224 gröna
+- Bugg 2 accordion-expandering ej fixad, Fas 0-research på nationella aggregatorer (kommunkartan.se m.fl.) ej körd, väntar på CEO-beslut om strategisk riktning
 
-- data/villaagarna-komplett.json: 290 kommuner med verifierade anslagstavle-URL:er, redo att seedas i discovery_configs
-- data/villaagarna-fixade-urls.json: 29 kommuner med korrigerade URL:er
-- data/villaagarna-validation.json: HTTP health check resultat alla 290 URL:er
-- docs/aao-standard.md: ÅÄÖ-normaliseringsstandard, NFC överallt, normalize-funktion 18 rader JS, 290 kommun-domän-mappningar
-- docs/fas0-vertikaler.md: research detaljplaner (NGP 162/290, Combify) och miljötillstånd (fragmenterat, ingen aggregator)
-- src/validate-villaagarna-urls.js: HTTP health check script, återanvändbart
-- Fas 0 formaliserad: sök alltid efter befintliga register/aggregatorer INNAN agentisk discovery
-- ByggSignal motorstatus: 148 kommuner med data, 128 failed. Villaägarna-seedning planerad söndag 6 april
-- Motorförbättringar live: eskalering vid >20% zero-streak, max_rediscoveries 50/dag, täckningsrapport i daglig mail
-- Playwright browser restart var 30:e källa (inte 80)
-- Auto-eskalering HTTP→Playwright på zero-permit verified sources
-- CI: 320+ signaler, 228 ci_properties, 13 bygglov-matchningar, TED live, projektgruppering live
-- CI cron-ordning: daily-run → QC → match-properties → ted-sync → group-signals
-- CI cron 06:00 CEST
-- ci_user_profiles med Fredriks filter seedad manuellt
-- Akademiska Hus fastighetsförteckning 2025 extraherad till ci_properties (71 fastigheter)
-- TED API: anonymt, gratis. SFV 216 träffar, Akademiska Hus 294 träffar. Stockholms stad 3, Vasakronan 0
-- Parallella CC-sessioner: starta alltid med cd ~/floede-agent i prompten
-
-## Senast uppdaterat 2026-04-03
-
-- Homepage-lookup i QC fixad: case-insensitive + ÅÄÖ-normalisering i homepageMap
-- 23 ÅÄÖ-dubbletter raderade från discovery_configs (303 → 282 configs)
-- 141 kommuner re-discovered med nya URL:er via tre QC-batchar ($3.09)
-- Auto-eskalering HTTP → Playwright i daily-run vid 0 permits från verifierad källa
-- Verify extraction kräver >0 items för auto-approve, flaggar needs_browser vid keyword-match
-- Discovery-prompt förbättrad: letar efter listade ärenden, inte informationssidor
-- QC-alerts visar korrekta ÅÄÖ-namn via displayNameMap
-- Playwright browser-restart var 30:e source (var 80:e)
-- 7 nya tester för ÅÄÖ-hantering
-- Akademiska Hus: 71 fastigheter importerade till ci_properties
-- match-properties.js: 13 bygglov-matchningar (228 properties totalt)
-- Cron: 04:00 UTC (06:00 CEST) live efter railway up
-
-## Senast uppdaterat 2026-04-02
-
-- Per-källa model override i extractPermits: sourceConfig.model overridar verticalConfig.model
-- match-properties.js: matchar ci_properties mot permits_v2, skapar ci_signals, integrerad i agent-runner
-- ted-sync.js: hämtar upphandlingar från TED Search API för SFV och Akademiska Hus, integrerad i agent-runner
-- ci_projects-tabell skapad, group-signals.js grupperar signaler automatiskt via fastighetsbeteckning + Haiku
-- group-signals.js integrerad i agent-runner efter ted-sync
-- Daglig körordning: daily-run → QC → match-properties → ted-sync → group-signals
-- region i extraction_prompt: "Nationellt" istället för null för nationella signaler
-- CI dashboard live med projektgruppering, tidslinjer, source_type-badges
-- source_type-fält i ci_signals: pressroom/permit/ted
-- region-fält i ci-pressroom.json extraction
-- category-fält i ci-pressroom.json: commercial/residential/infrastructure/public/mixed
-- ci_user_profiles-tabell skapad, Fredrik Johansson seedad med Stockholms län + exkluderar residential
-- extraction_prompt: organization_name hämtas från kontext, inte HTML (koncernfix)
-- ci_signals unique constraint: (organization_id, source_url, title)
-- ci-pressroom.json: alert_email fixad från @floede.se till tomasbackman@mac.com
-- agent-runner.js: from-adress fixad, match-properties + ted-sync tillagda i fallback
-- cron ändrad från 13:00 UTC till 04:00 UTC (06:00 CEST)
-- VERTICAL-namn i docs: ci -> ci-pressroom
-- .claude/agents/: source-researcher, config-builder, qa-verifier
-- AGENTS.md skapad
-- .claude/skills/floede-overview/: 6 CEO knowledge-filer
-- Lokal körning: node --env-file=.env
+Äldre poster (2026-04-02 till 2026-04-13): se `docs/changelog.md`.
