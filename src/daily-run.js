@@ -78,7 +78,7 @@ async function loadApprovedConfigs(supabase) {
 
 // --- HTTP FETCH (default) ---
 
-async function fetchPageHttp(config) {
+export async function fetchPageHttp(config) {
   const url = config.listing_url;
   console.log(`  [HTTP] ${url}`);
 
@@ -98,7 +98,7 @@ async function fetchPageHttp(config) {
     const arrayBuf = await response.arrayBuffer();
     const buffer = Buffer.from(arrayBuf);
     console.log(`  [HTTP] PDF detected (${buffer.length} bytes)`);
-    return { content: buffer, isPdf: true };
+    return { subpages: [{ url, content: buffer, isPdf: true }] };
   }
 
   const rawHtml = await response.text();
@@ -118,10 +118,10 @@ async function fetchPageHttp(config) {
     // If no bygglov-specific links found, fallback to listing page directly
     if (bygglovLinks.length === 0) {
       console.log(`  [HTTP] No bygglov subpage links found — using listing page directly`);
-      return { content: htmlToText(rawHtml), isPdf: false };
+      return { subpages: [{ url, content: htmlToText(rawHtml), isPdf: false }] };
     }
 
-    const subpageTexts = [];
+    const subpages = [];
     for (const link of bygglovLinks.slice(0, maxSubpages)) {
       try {
         const subResp = await fetch(link.href, {
@@ -131,7 +131,7 @@ async function fetchPageHttp(config) {
         });
         if (subResp.ok) {
           const subHtml = await subResp.text();
-          subpageTexts.push(`<!-- SUBPAGE: ${link.href} -->\n${htmlToText(subHtml)}`);
+          subpages.push({ url: link.href, content: htmlToText(subHtml), isPdf: false });
         }
       } catch (err) {
         console.log(`  [HTTP] Subpage failed: ${link.href} — ${err.message}`);
@@ -139,16 +139,16 @@ async function fetchPageHttp(config) {
       await new Promise((r) => setTimeout(r, 500)); // Rate limit
     }
 
-    console.log(`  [HTTP] Fetched ${subpageTexts.length} subpages`);
-    return { content: subpageTexts.join("\n\n"), isPdf: false };
+    console.log(`  [HTTP] Fetched ${subpages.length} subpages`);
+    return { subpages };
   }
 
-  return { content: htmlToText(rawHtml), isPdf: false };
+  return { subpages: [{ url, content: htmlToText(rawHtml), isPdf: false }] };
 }
 
 // --- PLAYWRIGHT FETCH (for needs_browser configs) ---
 
-async function fetchPagePlaywright(page, config) {
+export async function fetchPagePlaywright(page, config) {
   const url = config.listing_url;
   console.log(`  [Browser] ${url}`);
 
@@ -209,7 +209,6 @@ async function fetchPagePlaywright(page, config) {
   }
 
   // Handle subpages
-  let html;
   if (config.requires_subpages && config.requires_subpages.required) {
     const linkSelector = config.requires_subpages.link_selector_hint || "a[href*='bygglov'], a[href*='kungorelse']";
     const links = await page.$$eval(linkSelector, (els) =>
@@ -228,48 +227,48 @@ async function fetchPagePlaywright(page, config) {
       console.log(`  [Browser] No bygglov subpage links found — using listing page directly`);
       await page.goto(config.listing_url, { waitUntil: "domcontentloaded", timeout: 30000 });
       await page.waitForTimeout(2000);
-      html = await page.evaluate(() => {
+      const text = await page.evaluate(() => {
         const main = document.querySelector("main, article, .pagecontent, [role='main'], #pageContent");
         return (main || document.body).innerText;
       });
-    } else {
-      const subpageTexts = [];
-      for (const link of bygglovLinks.slice(0, maxSubpages)) {
-        try {
-          await page.goto(link.href, { waitUntil: "domcontentloaded", timeout: 15000 });
-          await page.waitForTimeout(500);
-          const text = await page.evaluate(() => {
-            const main = document.querySelector("main, article, .pagecontent, [role='main']");
-            return (main || document.body).innerText;
-          });
-          subpageTexts.push(`<!-- SUBPAGE: ${link.href} -->\n${text}`);
-        } catch (err) {
-          console.log(`  [Browser] Subpage failed: ${link.href} — ${err.message}`);
-        }
-        await new Promise((r) => setTimeout(r, 1000));
-      }
-
-      console.log(`  [Browser] Fetched ${subpageTexts.length} subpages`);
-      html = subpageTexts.join("\n\n");
+      return { subpages: [{ url, content: text, isPdf: false }] };
     }
-  } else {
-    await page.evaluate(() => {
-      document.querySelectorAll("details").forEach(d => d.open = true);
-      document.querySelectorAll("[aria-expanded='false']").forEach(el => { try { el.click(); } catch {} });
-    });
-    await page.waitForTimeout(500);
-    html = await page.evaluate(() => {
-      const main = document.querySelector("main, article, .pagecontent, [role='main'], #pageContent");
-      return (main || document.body).innerText;
-    });
+
+    const subpages = [];
+    for (const link of bygglovLinks.slice(0, maxSubpages)) {
+      try {
+        await page.goto(link.href, { waitUntil: "domcontentloaded", timeout: 15000 });
+        await page.waitForTimeout(500);
+        const text = await page.evaluate(() => {
+          const main = document.querySelector("main, article, .pagecontent, [role='main']");
+          return (main || document.body).innerText;
+        });
+        subpages.push({ url: link.href, content: text, isPdf: false });
+      } catch (err) {
+        console.log(`  [Browser] Subpage failed: ${link.href} — ${err.message}`);
+      }
+      await new Promise((r) => setTimeout(r, 1000));
+    }
+
+    console.log(`  [Browser] Fetched ${subpages.length} subpages`);
+    return { subpages };
   }
 
-  return html;
+  await page.evaluate(() => {
+    document.querySelectorAll("details").forEach(d => d.open = true);
+    document.querySelectorAll("[aria-expanded='false']").forEach(el => { try { el.click(); } catch {} });
+  });
+  await page.waitForTimeout(500);
+  const text = await page.evaluate(() => {
+    const main = document.querySelector("main, article, .pagecontent, [role='main'], #pageContent");
+    return (main || document.body).innerText;
+  });
+  return { subpages: [{ url, content: text, isPdf: false }] };
 }
 
 // --- EXTRACTION ---
 
-async function extractPermits(client, html, municipalityName, sourceUrl, sourceConfig = {}, { forceExtract = false, isPdf = false } = {}) {
+export async function extractPermits(client, html, municipalityName, sourceUrl, sourceConfig = {}, { forceExtract = false, isPdf = false } = {}) {
   const contentHash = isPdf
     ? createHash("sha256").update(html).digest("hex").slice(0, 16)
     : createHash("sha256").update(stripNonContent(html)).digest("hex").slice(0, 16);
@@ -360,11 +359,14 @@ async function extractPermits(client, html, municipalityName, sourceUrl, sourceC
   return { permits, cost, contentHash, skipped: false };
 }
 
-async function updateContentHash(supabase, configId, newHash) {
+async function updateContentHash(supabase, configId, hashes, listingUrl = null) {
   const configTable = verticalConfig.discovery?.config_table || "discovery_configs";
+  const subpage_hashes = typeof hashes === "string"
+    ? { [listingUrl]: hashes }
+    : hashes;
   const { data } = await supabase.from(configTable).select("config").eq("id", configId).single();
   if (data) {
-    await supabase.from(configTable).update({ config: { ...data.config, content_hash: newHash } }).eq("id", configId);
+    await supabase.from(configTable).update({ config: { ...data.config, subpage_hashes } }).eq("id", configId);
   }
 }
 
@@ -445,7 +447,7 @@ async function insertToSupabase(supabase, records, extractionRun, rawHtmlHash = 
     // Add extraction metadata
     row.extraction_model = verticalConfig.model;
     row.extraction_cost_usd = null;
-    row.raw_html_hash = rawHtmlHash;
+    row.raw_html_hash = record._raw_html_hash || rawHtmlHash;
 
     const idValue = row[primaryIdField];
 
@@ -599,7 +601,7 @@ async function main() {
         }
 
         if (config._id && contentHash) {
-          await updateContentHash(supabase, config._id, contentHash);
+          await updateContentHash(supabase, config._id, contentHash, config.listing_url);
         }
 
         results.push({
@@ -660,7 +662,7 @@ async function main() {
         }
 
         if (config._id && contentHash) {
-          await updateContentHash(supabase, config._id, contentHash);
+          await updateContentHash(supabase, config._id, contentHash, config.listing_url);
         }
 
         results.push({
@@ -721,7 +723,7 @@ async function main() {
         }
 
         if (config._id && contentHash) {
-          await updateContentHash(supabase, config._id, contentHash);
+          await updateContentHash(supabase, config._id, contentHash, config.listing_url);
         }
 
         results.push({
@@ -760,29 +762,66 @@ async function main() {
     try {
       await Promise.race([
         (async () => {
-          const { content: html, isPdf } = await fetchPageHttp(config);
-          const hash = createHash("sha256").update(html).digest("hex").slice(0, 16);
+          const { subpages } = await fetchPageHttp(config);
 
-          const htmlFile = `${sanitizeFilename(muniName)}_${runId}${isPdf ? ".pdf" : ".html"}`;
-          await writeFile(join(HTML_DIR, htmlFile), html);
+          const isPdfSource = subpages.length === 1 && subpages[0].isPdf;
+          const archivalContent = isPdfSource
+            ? subpages[0].content
+            : subpages.map(s => s.content).join("\n\n");
+          const hash = createHash("sha256").update(archivalContent).digest("hex").slice(0, 16);
 
-          const { permits, cost, contentHash, skipped } = await extractPermits(client, html, muniName, config.listing_url, config, { forceExtract, isPdf });
+          const htmlFile = `${sanitizeFilename(muniName)}_${runId}${isPdfSource ? ".pdf" : ".html"}`;
+          await writeFile(join(HTML_DIR, htmlFile), archivalContent);
 
-          if (skipped) {
+          const oldHashes = config.subpage_hashes || {};
+          const newSubpageHashes = {};
+          const allPermits = [];
+          let aggCost = 0;
+          let aggCacheCreated = 0;
+          let aggCacheRead = 0;
+          let extractedSubpages = 0;
+          let skippedSubpages = 0;
+
+          for (const subpage of subpages) {
+            const perSubpageConfig = { ...config, content_hash: oldHashes[subpage.url] };
+            const { permits, cost, contentHash, skipped } = await extractPermits(
+              client, subpage.content, muniName, subpage.url, perSubpageConfig,
+              { forceExtract, isPdf: subpage.isPdf }
+            );
+            newSubpageHashes[subpage.url] = contentHash;
+            if (skipped) {
+              skippedSubpages++;
+              continue;
+            }
+            extractedSubpages++;
+            for (const permit of permits) {
+              permit._raw_html_hash = contentHash;
+            }
+            allPermits.push(...permits);
+            aggCost += cost.cost_usd;
+            aggCacheCreated += cost.cache_creation_input_tokens || 0;
+            aggCacheRead += cost.cache_read_input_tokens || 0;
+          }
+
+          if (extractedSubpages === 0 && skippedSubpages > 0) {
+            console.log(`  [${muniName}] all ${skippedSubpages} subpages unchanged via hash, skipping`);
+            if (config._id) {
+              await updateContentHash(supabase, config._id, newSubpageHashes);
+            }
             results.push({ municipality: muniName, status: "unchanged", fetch_mode: "http", permits: 0, cost_usd: 0, html_hash: hash });
             totalSkipped++;
             return;
           }
 
-          totalCost += cost.cost_usd;
-          totalPermits += permits.length;
-          totalCacheCreated += cost.cache_creation_input_tokens || 0;
-          totalCacheRead += cost.cache_read_input_tokens || 0;
+          totalCost += aggCost;
+          totalPermits += allPermits.length;
+          totalCacheCreated += aggCacheCreated;
+          totalCacheRead += aggCacheRead;
 
-          console.log(`  Permits: ${permits.length}, Cost: $${cost.cost_usd.toFixed(4)}${cost.cache_read_input_tokens ? ` (cache hit: ${cost.cache_read_input_tokens} tokens)` : ""}`);
+          console.log(`  Permits: ${allPermits.length} (fran ${extractedSubpages}/${subpages.length} subpages, ${skippedSubpages} skippade via hash), Cost: $${aggCost.toFixed(4)}${aggCacheRead ? ` (cache hit: ${aggCacheRead} tokens)` : ""}`);
 
-          // Auto-escalate to browser if HTTP yields 0 permits
-          if (permits.length === 0 && !config.needs_browser) {
+          // Auto-escalate to browser if HTTP yields 0 permits across all subpages
+          if (allPermits.length === 0 && !config.needs_browser) {
             console.log(`  [HTTP] 0 permits from verified source — escalating to browser: ${muniName}`);
             browserConfigs.push({ ...config, needs_browser: true });
             results.push({
@@ -790,7 +829,7 @@ async function main() {
               status: "escalated",
               fetch_mode: "http",
               permits: 0,
-              cost_usd: cost.cost_usd,
+              cost_usd: aggCost,
               html_hash: hash
             });
             httpCount++;
@@ -799,27 +838,27 @@ async function main() {
 
           await writeFile(
             join(EXTRACTED_DIR, `${sanitizeFilename(muniName)}_extracted.json`),
-            JSON.stringify(permits, null, 2),
+            JSON.stringify(allPermits, null, 2),
             "utf-8"
           );
 
-          const db = await insertToSupabase(supabase, permits, runId, contentHash);
+          const db = await insertToSupabase(supabase, allPermits, runId);
           totalInserted += db.inserted;
           console.log(`  DB: ${db.inserted} inserted, ${db.skipped} skipped, ${db.errors} errors`);
 
           if (config._id) {
-            await updateContentHash(supabase, config._id, contentHash);
+            await updateContentHash(supabase, config._id, newSubpageHashes);
           }
 
           results.push({
             municipality: muniName,
             status: "ok",
             fetch_mode: "http",
-            permits: permits.length,
+            permits: allPermits.length,
             inserted: db.inserted,
             skipped: db.skipped,
             errors: db.errors,
-            cost_usd: cost.cost_usd,
+            cost_usd: aggCost,
             html_hash: hash
           });
           httpCount++;
@@ -870,50 +909,84 @@ async function main() {
       try {
         await Promise.race([
           (async () => {
-            const html = await fetchPagePlaywright(page, config);
-            const hash = createHash("sha256").update(html).digest("hex").slice(0, 16);
+            const { subpages } = await fetchPagePlaywright(page, config);
+
+            const archivalContent = subpages.map(s => s.content).join("\n\n");
+            const hash = createHash("sha256").update(archivalContent).digest("hex").slice(0, 16);
 
             const htmlFile = `${sanitizeFilename(muniName)}_${runId}.html`;
-            await writeFile(join(HTML_DIR, htmlFile), html, "utf-8");
+            await writeFile(join(HTML_DIR, htmlFile), archivalContent, "utf-8");
 
-            const { permits, cost, contentHash, skipped } = await extractPermits(client, html, muniName, config.listing_url, config, { forceExtract });
+            const oldHashes = config.subpage_hashes || {};
+            const newSubpageHashes = {};
+            const allPermits = [];
+            let aggCost = 0;
+            let aggCacheCreated = 0;
+            let aggCacheRead = 0;
+            let extractedSubpages = 0;
+            let skippedSubpages = 0;
 
-            if (skipped) {
+            for (const subpage of subpages) {
+              const perSubpageConfig = { ...config, content_hash: oldHashes[subpage.url] };
+              const { permits, cost, contentHash, skipped } = await extractPermits(
+                client, subpage.content, muniName, subpage.url, perSubpageConfig,
+                { forceExtract, isPdf: subpage.isPdf }
+              );
+              newSubpageHashes[subpage.url] = contentHash;
+              if (skipped) {
+                skippedSubpages++;
+                continue;
+              }
+              extractedSubpages++;
+              for (const permit of permits) {
+                permit._raw_html_hash = contentHash;
+              }
+              allPermits.push(...permits);
+              aggCost += cost.cost_usd;
+              aggCacheCreated += cost.cache_creation_input_tokens || 0;
+              aggCacheRead += cost.cache_read_input_tokens || 0;
+            }
+
+            if (extractedSubpages === 0 && skippedSubpages > 0) {
+              console.log(`  [${muniName}] all ${skippedSubpages} subpages unchanged via hash, skipping`);
+              if (config._id) {
+                await updateContentHash(supabase, config._id, newSubpageHashes);
+              }
               results.push({ municipality: muniName, status: "unchanged", fetch_mode: "browser", permits: 0, cost_usd: 0, html_hash: hash });
               totalSkipped++;
               return;
             }
 
-            totalCost += cost.cost_usd;
-            totalPermits += permits.length;
-            totalCacheCreated += cost.cache_creation_input_tokens || 0;
-            totalCacheRead += cost.cache_read_input_tokens || 0;
+            totalCost += aggCost;
+            totalPermits += allPermits.length;
+            totalCacheCreated += aggCacheCreated;
+            totalCacheRead += aggCacheRead;
 
-            console.log(`  Permits: ${permits.length}, Cost: $${cost.cost_usd.toFixed(4)}`);
+            console.log(`  Permits: ${allPermits.length} (fran ${extractedSubpages}/${subpages.length} subpages, ${skippedSubpages} skippade via hash), Cost: $${aggCost.toFixed(4)}`);
 
             await writeFile(
               join(EXTRACTED_DIR, `${sanitizeFilename(muniName)}_extracted.json`),
-              JSON.stringify(permits, null, 2),
+              JSON.stringify(allPermits, null, 2),
               "utf-8"
             );
 
-            const db = await insertToSupabase(supabase, permits, runId, contentHash);
+            const db = await insertToSupabase(supabase, allPermits, runId);
             totalInserted += db.inserted;
             console.log(`  DB: ${db.inserted} inserted, ${db.skipped} skipped, ${db.errors} errors`);
 
             if (config._id) {
-              await updateContentHash(supabase, config._id, contentHash);
+              await updateContentHash(supabase, config._id, newSubpageHashes);
             }
 
             results.push({
               municipality: muniName,
               status: "ok",
               fetch_mode: "browser",
-              permits: permits.length,
+              permits: allPermits.length,
               inserted: db.inserted,
               skipped: db.skipped,
               errors: db.errors,
-              cost_usd: cost.cost_usd,
+              cost_usd: aggCost,
               html_hash: hash
             });
             browserCount++;
@@ -1043,6 +1116,8 @@ async function main() {
 
 }
 
-main()
-  .then(() => process.exit(0))
-  .catch((err) => { console.error(err); process.exit(1); });
+if (import.meta.url === `file://${process.argv[1]}`) {
+  main()
+    .then(() => process.exit(0))
+    .catch((err) => { console.error(err); process.exit(1); });
+}
