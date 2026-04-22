@@ -368,7 +368,7 @@ async function updateContentHash(supabase, configId, newHash) {
   }
 }
 
-async function insertToSupabase(supabase, records, extractionRun) {
+async function insertToSupabase(supabase, records, extractionRun, rawHtmlHash = null) {
   if (records.length === 0) return { inserted: 0, skipped: 0, errors: 0 };
 
   const dbConfig = verticalConfig.db;
@@ -445,7 +445,7 @@ async function insertToSupabase(supabase, records, extractionRun) {
     // Add extraction metadata
     row.extraction_model = verticalConfig.model;
     row.extraction_cost_usd = null;
-    row.raw_html_hash = null;
+    row.raw_html_hash = rawHtmlHash;
 
     const idValue = row[primaryIdField];
 
@@ -593,7 +593,7 @@ async function main() {
             "utf-8"
           );
 
-          const db = await insertToSupabase(supabase, permits, runId);
+          const db = await insertToSupabase(supabase, permits, runId, contentHash);
           totalInserted += db.inserted;
           console.log(`  DB: ${db.inserted} inserted, ${db.skipped} skipped, ${db.errors} errors`);
         }
@@ -654,7 +654,7 @@ async function main() {
             "utf-8"
           );
 
-          const db = await insertToSupabase(supabase, permits, runId);
+          const db = await insertToSupabase(supabase, permits, runId, contentHash);
           totalInserted += db.inserted;
           console.log(`  DB: ${db.inserted} inserted, ${db.skipped} skipped, ${db.errors} errors`);
         }
@@ -715,7 +715,7 @@ async function main() {
             "utf-8"
           );
 
-          const db = await insertToSupabase(supabase, permits, runId);
+          const db = await insertToSupabase(supabase, permits, runId, contentHash);
           totalInserted += db.inserted;
           console.log(`  DB: ${db.inserted} inserted, ${db.skipped} skipped, ${db.errors} errors`);
         }
@@ -803,7 +803,7 @@ async function main() {
             "utf-8"
           );
 
-          const db = await insertToSupabase(supabase, permits, runId);
+          const db = await insertToSupabase(supabase, permits, runId, contentHash);
           totalInserted += db.inserted;
           console.log(`  DB: ${db.inserted} inserted, ${db.skipped} skipped, ${db.errors} errors`);
 
@@ -897,7 +897,7 @@ async function main() {
               "utf-8"
             );
 
-            const db = await insertToSupabase(supabase, permits, runId);
+            const db = await insertToSupabase(supabase, permits, runId, contentHash);
             totalInserted += db.inserted;
             console.log(`  DB: ${db.inserted} inserted, ${db.skipped} skipped, ${db.errors} errors`);
 
