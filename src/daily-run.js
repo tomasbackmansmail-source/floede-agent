@@ -358,6 +358,13 @@ export async function extractPermits(client, html, municipalityName, sourceUrl, 
     }
   }
 
+  if (!sourceUrl || permits.some(p => !p.source_url)) {
+    console.log(`  [DEBUG source_url] muni=${municipalityName}`);
+    console.log(`  [DEBUG source_url] sourceUrl arg=${JSON.stringify(sourceUrl)}`);
+    console.log(`  [DEBUG source_url] permits count=${permits.length}`);
+    console.log(`  [DEBUG source_url] permit source_urls=${JSON.stringify(permits.map(p => p.source_url))}`);
+  }
+
   const cacheCreated = response.usage.cache_creation_input_tokens || 0;
   const cacheRead = response.usage.cache_read_input_tokens || 0;
 
@@ -464,6 +471,10 @@ async function insertToSupabase(supabase, records, extractionRun, rawHtmlHash = 
     row.extraction_model = verticalConfig.model;
     row.extraction_cost_usd = null;
     row.raw_html_hash = record._raw_html_hash || rawHtmlHash;
+
+    if (!row[fieldMapping.source_url || 'source_url']) {
+      console.log(`  [DEBUG insert] muni=${record.municipality || record[fieldMapping.municipality]} row_source_url=${row.source_url} record_source_url=${record.source_url} record_keys=${Object.keys(record).join(',')}`);
+    }
 
     const idValue = row[primaryIdField];
 
