@@ -1,38 +1,43 @@
-# floede-agent — Kontext för ny chatt
+# floede-agent — Kontext for ny chatt
 
-## Vad den här filen är
-Läses vid sessionsstart av claude.ai-chattar. Innehåller allt en ny chatt behöver för att fortsätta utan manuell brief.
-
-## Nuläge
-Motorn är i drift och levererar data dagligen via Railway cron 04:00 UTC. Idag 22 april fixades bugg 1 (raw_html_hash propageras nu till permits_v2). Bugg 2 (accordion-expandering för 21 kommuner med NULL date/property/applicant) är inte löst. Föregående chatt fastnade i att cykla mellan lösningsförslag utan Fas 0-research. CEO behöver ta strategiskt beslut om riktning innan kod skrivs.
+## Nulage
+Motorns subpage-refaktor live i produktion sedan 2026-04-22. Deterministisk source_url per subpage verifierad mot Vasakronan Cision (0 bas-URL-signaler av 8, tidigare 6/6). CI-leverans (source_excerpt + ai_summary i ci-pressroom.json) committad och deployad. ByggSignal bug 2 (21 kommuner med NULL-falt) oppen, Fas 0-research klar men bygg ej paborjad.
 
 ## Aktiva uppgifter
-- Bugg 2 accordion: blockerad, väntar på CEO-beslut om Fas 0-research (kommunkartan.se och andra nationella aggregatorer) ska köras först
-- 120 "misstänkt trasiga" kommuner systematisk rediscovery: ej påbörjad, prio 2 efter bugg 2
-- Applicant via diariesystem-enrichment: ej påbörjad, prio 3
-- Analyze-signals + group-signals flyttas till CI-repot: CTO CI kopierar imorgon torsdag, parallellkörning torsdag, borttagning från motorn fredag
+- ByggSignal bug 2: 21 kommuner med NULL date/property/applicant. Fas 0 klar, bygg ej paborjad. Vantar pa riktningsbeslut.
+- Applicant-enrichment via diariesystem: prio 3, $65 budget godkand.
+- 120 kommuner med misstankt trasig data (Goteborg, Uppsala, Lulea m.fl.): prio 2 efter bugg 2.
 
 ## Pilotkundstatus
-Ingen direkt pilotkundskontakt från motorsidan. Motorn betjänar ByggSignal (Chair6 via ByggSignal Dev), CI (Fredrik Johansson på Skanska via CTO CI) och S&C (Nordic Point via CTO S&C).
+- Chair6 (ByggSignal beta): live, inga kanda problem.
+- Fredrik Johansson (Skanska, CI pilot): vantar pa att motor + dashboard ar fullt verifierade innan kontakt.
 
-## Senaste 5 besluten (nyaste överst)
-2026-04-22: Bugg 1 och bugg 2 ska fixas i separata commits med separata verifieringar, inte samma commit. Olika riskprofiler kräver olika hantering.
-2026-04-22: Analyze-signals.js och group-signals.js flyttas från floede-agent till clientintelligence-repot. Match-properties.js stannar i motorn. Koordinerad flytt över tre dagar med parallellkörning.
-2026-04-22: CEO-beslut väntas om strategisk riktning för bugg 2. Fas 0-research på kommunkartan.se och andra nationella aggregatorer ska köras innan click_all eller liknande kod-ändringar övervägs.
-2026-04-21: Datakvalitet först, inte nya features. Systematisk rediscovery av 120 misstänkt trasiga kommuner är prio 2.
-2026-04-14: analyze-signals.js skapad i floede-agent. Opus-driven AI-analys som korsar årsredovisningar, pressmeddelanden, TED och bygglov.
+## Senaste besluten (nyaste overst)
+- 2026-04-22: En LLM-anrop per subpage istallet for konkatenering. Deterministisk source_url, per-record raw_html_hash. Commit 4f4baff.
+- 2026-04-22: Dedup av subpage-URL:er innan extraction. Cision listar artiklar tva ganger (bild + rubrik). Commit 1512e8e.
+- 2026-04-22: ci-pressroom.json utokad med source_excerpt (full artikeltext, max 10000 tecken) och ai_summary (3-5 meningar, analytisk ton, max 500 tecken). Ingen retroaktiv backfill av gamla signaler.
+- 2026-04-22: analyze-signals.js ligger redan i clientintelligence-repot sedan 14 april. Ingen flytt fran motorn behovs.
+- 2026-04-22: Cron-tidsregel: alltid UTC med svensk tid som kommentar, CEST/CET explicit.
 
-## Kända knepiga saker just nu
-- GitHub auto-deploy till Railway är brutet sedan 5 april. Alla deploys sker via "railway up" CLI. Ej diagnostiserat. Samma risk på clientintelligence-projektet enligt CTO CI.
-- Railway vs lokal divergens: samma kod, samma parametrar kan ge olika resultat pga SPA-rendering-timing. Upptäckt 22 april på Helsingborg (lokal får 93 tecken body, Railway får fullständig lista). Kan indikera att nuvarande fetch-logik är skör.
-- Helsingborgs anslagstavla är inte en ren bygglovskälla. Blandar bygglov med skadeanmälningar, skolskjuts, andra kommunala anslag. Gäller sannolikt fler av de 21 drabbade kommunerna. Extraction klassificerar icke-bygglov som bygglov.
-- Ny svensk lag från 1 december 2025: kommuner ska publicera bygglovskungörelser på digital anslagstavla. Systemleverantörer bygger RESTapp-integrationer just nu. Många kommuner publicerar manuellt övergångsvis. Ej utrett om standardformat eller API finns.
-- interactWithPage() i src/utils/discovery.js är designad för "klicka dig fram" max 3 klick, inte för "expandera N listelement på en sida". Infrastrukturen för interaction_recipe finns men 0 av 292 godkända configs använder den.
-- CTO CI förväntar sig ping från CTO Engine när CI:s backfill av 3 analys-signaler är verifierad idag. Det är CI:s leverans, bara vänta på deras ping.
+## Fas 0-research ByggSignal bug 2
+- Geoplan.se (Inquisit AB): direkt konkurrent, 60-70k bygglov/ar, partneravtal Lantmateriet, B2B-forsaljning, samma malgrupp.
+- Ny PBL 1 dec 2025: alla kommuner publicerar bygglovskungorelser pa digital anslagstavla (ej PoIT).
+- Soleil (Sitevision Platinum Partner): RESTapp for Sitevision-kungorelser — potentiell adapter-kalla.
+- Cision Web Solutions: publikt JSON/XML-feed — Cision-adapter skulle ge $0 LLM for SFV, Vasakronan, Trafikverket m.fl.
+- Kommunkartan.se: sparrar oss vid scraping, bekraftat.
 
-## Nästa konkreta steg
-Om Tomas inte säger något annat, börja med att fråga om CEO har tagit beslut om strategisk riktning för bugg 2. Föreslå inte lösningar, spekulera inte. Vänta på riktning.
+## Kanda knepiga saker just nu
+- Railway auto-deploy fran GitHub ar opalitlig. Alla deploys sker via railway up --service floede-agent.
+- Deploy-fonster: undvik 13:00-15:00 UTC.
+- raw_html_hash-format andrat: gamla rader har aggregat-hash, nya har per-subpage-hash. Ingen kodvag laser faltet for jamforelse (bara skrivning), sa ingen regression. Men i framtida dedup-logik: vet att format skilde sig fore/efter 2026-04-22.
+- Config.subpage_hashes ersatter config.content_hash. Forsta cron efter deploy blir dyrare (alla subpages bearbetas som om de var nya). Gammal content_hash ignoreras helt.
+- CTO-chattar kan inte klona git repos — de hanger varje gang. All kodlasning sker via filer Tomas klistrar in eller laddar upp.
 
-Om CEO säger "kör Fas 0": sök på internet efter kommunkartan.se och andra nationella aggregatorer för svensk bygglovsdata. Verifiera vad de innehåller (fastighetsbeteckning? sökande? timing? täckning?). Rapportera fynd till Tomas innan kod skrivs.
+## Nasta konkreta steg
+Om Tomas inte sager nagot annat, borja med att ga igenom ByggSignal bug 2. Fas 0 ar klar (se ovan). Naste steg ar att valja riktning: (a) utreda Sitevision/Soleil-RESTapp for standardiserad endpoint, (b) bygga per-kommun-recept for de 21, eller (c) bygga Cision-adapter forst (stor gemensam vinst for CI ocksa).
 
-Om CEO säger "kör per-kommun-fix": börja inte med click_all-spekulationen från föregående chatt. Gör egen diagnostik på Helsingborg och 2-3 andra drabbade kommuner först. Verifiera vad som faktiskt behövs innan du rör motorns kod.
+## Kontext-tips till Claude
+- Klockan: anvand bash `date -u` + TZ-date. Antag aldrig.
+- Tomas kor SQL i Supabase och klistrar resultat. Skriv kodboxar tydligt, en i taget.
+- CC-prompter slutar alltid med git add -A && git commit -m "..." && git push
+- En CC-instans per repo. CC far aldrig skriva kod till ett repo den inte ar briefad for.
