@@ -358,6 +358,17 @@ export async function extractPermits(client, html, municipalityName, sourceUrl, 
     }
   }
 
+  // Set source_type from config (LLM should not set this anymore)
+  const defaultSourceType = sourceConfig.source_type_override
+    || verticalConfig.default_source_type;
+  if (defaultSourceType) {
+    for (const p of permits) {
+      if (!p.source_type) {
+        p.source_type = defaultSourceType;
+      }
+    }
+  }
+
   if (!sourceUrl || permits.some(p => !p.source_url)) {
     console.log(`  [DEBUG source_url] muni=${municipalityName}`);
     console.log(`  [DEBUG source_url] sourceUrl arg=${JSON.stringify(sourceUrl)}`);
