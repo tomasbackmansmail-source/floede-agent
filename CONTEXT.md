@@ -1,21 +1,21 @@
 # floede-agent — Kontext for ny chatt
 
-## Nulage
-Empty-HTML-incident 2026-04-25: 60 kommuner gav 0 arenden i 6 dagar pga tom HTML hashades och respekterades trots overifierad config. Fyra fixar deployade i commit 81393cb: 500-byte-troskel i extractPermits, hash-check kraver verified===true, hash-skip-raknare i rapport/mail, weekday active-muni-larm i QC. 42 ByggSignal + 2 CI configs rensade i Supabase. Forsta verifieringsfonster ar cron 26 apr 06:00 CEST.
+## Nuläge
+Lördag 25 april 2026. Hash-incident löst (commit 81393cb), cron-tid korrigerad (commit abbf76f), datakontrakt v0.1 etablerat (commit 47d8ff4). 42 ByggSignal-configs och 2 CI-källor rensade i Supabase efter hash-bug. Nästa cron 26 apr 06:00 CEST är första verifiering — förväntat att ~42 kommuner producerar igen.
 
-Datakontrakt v0.1 etablerat 2026-04-25: Lager 1 (motorgarantier) i docs/data-contract-engine.md ags av CTO Engine. Lager 2 (produktkvalitet per vertikal) i respektive vertikal-repo. ByggSignal Lager 2 incheckad i byggsignal/docs/data-contract-byggsignal.md (commit d3b2567). CI Lager 2 = v0.2, S&C Lager 2 = v0.3.
+Datakontrakt v0.1: Lager 1 (motorgarantier) i floede-agent/docs/data-contract-engine.md, ägs av CTO Engine. Lager 2 (produktkvalitet per vertikal) i respektive vertikal-repo. ByggSignal Lager 2 incheckad i byggsignal/docs/data-contract-byggsignal.md (commit d3b2567). CI Lager 2 = v0.2 (CTO CI informerad). S&C Lager 2 = v0.3 (CTO S&C informerad).
 
-Motorns subpage-refaktor fortsatt live sedan 2026-04-22. CI-leverans (source_excerpt + ai_summary) committad och deployad. ByggSignal bug 2 (21 kommuner med NULL-falt) oppen, Fas 0-research klar men bygg ej paborjad.
+Princip etablerad: motorn reflekterar källans faktiska rytm. Brytpunktsdatum framför backfill. Tröskelvärden är affärsbeslut (Lager 2), inte tekniska invarianter (Lager 1).
 
 ## Aktiva uppgifter
-- source_quality_daily-tabellen ska byggas. Schema definieras nar trosklarna i Lager 2 ByggSignal sektion 2.2 ska tillampas. Inte paborjat.
+- source_quality_daily-tabellen ska byggas. Schema designas mot Lager 2 ByggSignal sektion 2.2 trösklar. CTO ByggSignal pingar när första 7 dagars data finns. Inte påbörjat.
 - Hash-incident verifiering: cron 26 apr 06:00 CEST ar forsta test. Forvantat: ~42 kommuner producerar igen.
 - Stockholm/Norrtalje source_url null: kvar ooppnat. Identifierad rotorsak (subpage-traversal failar pga filterByKeywords matchar inte lanktext). Fix planerad efter helgen.
 - Bug 2 (21 kommuner NULL date/property/applicant): kvar ooppnat. Inte 21 specifika kommuner utan minst tre olika buggar enligt dagens matning.
 - 5 totalt trasiga kommuner (Nassjo, Ystad, Mellerud, Dals-Ed, Vansbro): kvar ooppnat. Lag prio.
 
 ## Pilotkundstatus
-- Chair6 (ByggSignal beta): live, inga klagomal. Hash-incident kan ha paverkat tackning for 42 kommuner i 6 dagar — inte rapporterat av Chair6 men teoretiskt mojligt.
+- Chair6 (ByggSignal beta): live, inga klagomål rapporterade. Hash-incident kan ha påverkat täckning för 42 kommuner i 6 dagar (22-25 april) — inte rapporterat av Chair6. Verifiera vid nästa avstämning.
 - Fredrik Johansson (Skanska, CI pilot): vantar fortfarande. CI Lager 2 = v0.2 efter forankring med CTO CI.
 
 ## Senaste besluten (nyaste overst)
@@ -49,8 +49,12 @@ Motorns subpage-refaktor fortsatt live sedan 2026-04-22. CI-leverans (source_exc
 - Config.subpage_hashes ersatter config.content_hash. Forsta cron efter deploy blir dyrare (alla subpages bearbetas som om de var nya). Gammal content_hash ignoreras helt.
 - CTO-chattar kan inte klona git repos — de hanger varje gang. All kodlasning sker via filer Tomas klistrar in eller laddar upp.
 
-## Nasta konkreta steg
-Om Tomas inte sager nagot annat: vanta pa cron 26 apr 06:00 CEST resultat. Om hash-incident-fixen fungerar: ~42 kommuner producerar igen. Pinga CTO ByggSignal. Sen borja diskussion om source_quality_daily-tabellen och timing for Stockholm/Norrtalje fix.
+## Nästa konkreta steg
+1. Söndag/måndag morgon: verifiera cron 26 apr 06:00 CEST. SQL i ByggSignal Supabase: SELECT COUNT(*) FROM permits_v2 WHERE created_at > '2026-04-26' AND municipality IN (rensade 42). Förväntat: >0 per kommun.
+2. Pinga CTO ByggSignal när rensade kommuner producerar normalt — det är milstolpe 1 av 3 innan notify-fixen kan deployas.
+3. Sen börja diagnostisera Stockholm/Norrtälje source_url-bug (rotorsak identifierad: filterByKeywords matchar inte länktext för dessa kommuner). Det är milstolpe 2.
+4. Bug 2 (21 kommuner NULL date/property/applicant) — minst tre olika buggar, inte 21 specifika kommuner. Diagnostisera efter Stockholm. Milstolpe 3.
+5. När alla tre milstolpar är gröna: börja bygga source_quality_daily-tabellen.
 
 ## Kontext-tips till Claude
 - Klockan: anvand bash `date -u` + TZ-date. Antag aldrig.
