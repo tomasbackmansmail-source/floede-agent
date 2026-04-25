@@ -57,7 +57,7 @@ Fields that cannot be extracted = null. Never guess.
 
 ## Deploy to Railway (cron job)
 
-The pipeline runs daily at 14:00 CET (13:00 UTC) via Railway cron.
+The pipeline runs daily at 06:00 CEST / 05:00 CET (04:00 UTC) via Railway cron.
 
 ```bash
 # 1. Install Railway CLI and log in

@@ -1,8 +1,8 @@
 // Health check: verify that daily extraction actually ran and produced data.
 // Catches: Railway down, container crash, cron not firing.
-// Schedule: Railway cron at 13:30 UTC (15:30 CET) — 30min after expected completion.
+// Schedule: Railway cron at 04:30 UTC (06:30 CEST) — 30min after cron starts at 04:00 UTC.
 //
-// Logic: check if permits_v2 has any rows with created_at > today 12:30 UTC (14:30 CET).
+// Logic: check if permits_v2 has any rows with created_at > today 03:30 UTC (05:30 CEST).
 // If not, the daily run either didn't start or failed silently.
 
 import { createClient } from "@supabase/supabase-js";
@@ -22,12 +22,12 @@ async function main() {
 
   const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_KEY);
 
-  // Check: any permits created today after 12:30 UTC (= after cron should have started)
+  // Check: any permits created today after 03:30 UTC (= 30 min before cron starts at 04:00 UTC)
   const today = new Date();
   const checkAfter = new Date(today);
-  checkAfter.setUTCHours(12, 30, 0, 0);
+  checkAfter.setUTCHours(3, 30, 0, 0);
 
-  // If it's before 13:30 UTC, we're running too early — skip
+  // If it's before 03:30 UTC, we're running too early — skip
   if (today < checkAfter) {
     console.log("Too early to check. Cron hasn't run yet.");
     process.exit(0);
@@ -53,7 +53,7 @@ async function main() {
     console.log("ALERT: No permits created today. Daily run may not have executed.");
     await sendAlert(
       `ALERT: Floede Engine — no data today (${today.toISOString().slice(0, 10)})`,
-      `Health check found 0 new permits in permits_v2 after ${checkAfter.toISOString()}.\n\nThis means the daily extraction either:\n- Did not start (Railway cron failure, container crash)\n- Started but inserted 0 rows (all municipalities failed)\n- Started but hasn't finished yet (unlikely at 15:30 CET)\n\nCheck Railway logs: https://railway.app/project/1532683d-ba9a-405b-83b4-a75d0101d3a0`
+      `Health check found 0 new permits in permits_v2 after ${checkAfter.toISOString()}.\n\nThis means the daily extraction either:\n- Did not start (Railway cron failure, container crash)\n- Started but inserted 0 rows (all municipalities failed)\n- Started but hasn't finished yet (unlikely at 06:30 CEST)\n\nCheck Railway logs: https://railway.app/project/1532683d-ba9a-405b-83b4-a75d0101d3a0`
     );
   } else {
     console.log(`OK: ${count} permits created today. Engine is healthy.`);

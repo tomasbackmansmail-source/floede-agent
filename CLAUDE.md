@@ -107,7 +107,7 @@ npm test                                         # kör ALLTID innan push
 git add -A && git commit -m "..." && git push
 railway up --service floede-agent --detach       # manuell deploy — GitHub-triggern skör
 ```
-**Deploya ALDRIG mellan 13:00–15:00 UTC** (cron kör kl 13:00).
+**Deploya ALDRIG mellan 03:00–05:00 UTC** (cron kör 04:00 UTC = 06:00 CEST).
 
 ## ENV-VARIABLER
 
@@ -202,6 +202,7 @@ Vercel är helt avvecklat.
 - Hash-skip-räknare i daily-run-rapporten + Resend-mail (`Hash-skipped: X/Y källor`).
 - QC: aktiva kommuner (≥5 permits/30d) med 0 ärenden mån-fre triggar direktlarm via Resend om antalet > 30 (parallellt med 3-dagarsregeln).
 - `loadApprovedConfigs` + `parseConfigRows` exponerar `verified` på config-objektet.
+- Cron-tid korrigerad i kod och docs: 04:00 UTC, inte 13:00.
 
 ## Senast uppdaterat 2026-04-24
 - Motorn satter source_type fran config (verticalConfig.default_source_type eller sourceConfig.source_type_override), inte LLM. extractPermits rad 361-367.

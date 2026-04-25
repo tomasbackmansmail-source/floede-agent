@@ -12,14 +12,14 @@ OBS: Ingen vertikal är lanserad med betalande kunder. Alla features, planer och
 - Feedback-loop: QC detekterar zero-streak och triggar re-discovery automatiskt
 - Homepage auto-resolve för kommuner utan homepage i DB
 - 177 tester, alla gröna
-- Daily extraction: Railway cron 14:00 CET, driftkostnad ~$2/dag
+- Daily extraction: Railway cron 04:00 UTC (06:00 CEST), driftkostnad ~$2/dag
 - Config-separation: extraction-prompt, QC-trösklar, keywords, enums — allt i vertikal-config
 - Vertikalagnostisk bevisad: CI körde utan motorkodändring
 - Per-vertikal Supabase-credentials (supabase_url + supabase_key_env i config)
 - CLI-flagga --source= (bakåtkompatibelt med --municipality=)
 - Generiska loggmeddelanden (sources/records istället för municipalities/permits)
 - source_url sätts på alla extraherade records
-- Agent-runner.js live i produktion: shell-jobb + QC, Railway cron 13:00 UTC, Resend-sammanfattning
+- Agent-runner.js live i produktion: shell-jobb + QC, Railway cron 04:00 UTC (06:00 CEST), Resend-sammanfattning
 - Kodstädning: gamla ByggSignal-specifika scripts borttagna
 
 ### Under bygge

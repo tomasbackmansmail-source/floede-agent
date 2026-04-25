@@ -36,7 +36,7 @@ Empty-HTML-incident 2026-04-25: 60 kommuner gav 0 arenden i 6 dagar pga tom HTML
 
 ## Kanda knepiga saker just nu
 - Railway auto-deploy fran GitHub ar opalitlig. Alla deploys sker via railway up --service floede-agent.
-- Deploy-fonster: undvik 13:00-15:00 UTC.
+- Deploy-fonster: undvik 03:00-05:00 UTC (cron kor 04:00 UTC = 06:00 CEST).
 - raw_html_hash-format andrat: gamla rader har aggregat-hash, nya har per-subpage-hash. Ingen kodvag laser faltet for jamforelse (bara skrivning), sa ingen regression. Men i framtida dedup-logik: vet att format skilde sig fore/efter 2026-04-22.
 - Config.subpage_hashes ersatter config.content_hash. Forsta cron efter deploy blir dyrare (alla subpages bearbetas som om de var nya). Gammal content_hash ignoreras helt.
 - CTO-chattar kan inte klona git repos — de hanger varje gang. All kodlasning sker via filer Tomas klistrar in eller laddar upp.

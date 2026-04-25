@@ -1,5 +1,5 @@
 // Daily runner: fetch HTML → extract with LLM → insert to database → QC
-// This is what Railway cron runs daily at 14:00 CET.
+// This is what Railway cron runs daily at 04:00 UTC = 06:00 CEST / 05:00 CET.
 // Default: HTTP fetch (no browser). Playwright only for needs_browser configs.
 
 import Anthropic from "@anthropic-ai/sdk";
