@@ -4,15 +4,19 @@
 Motorns subpage-refaktor live i produktion sedan 2026-04-22. Deterministisk source_url per subpage verifierad mot Vasakronan Cision (0 bas-URL-signaler av 8, tidigare 6/6). CI-leverans (source_excerpt + ai_summary i ci-pressroom.json) committad och deployad. ByggSignal bug 2 (21 kommuner med NULL-falt) oppen, Fas 0-research klar men bygg ej paborjad.
 
 ## Aktiva uppgifter
-- ByggSignal bug 2: 21 kommuner med NULL date/property/applicant. Fas 0 klar, bygg ej paborjad. Vantar pa riktningsbeslut.
-- Applicant-enrichment via diariesystem: prio 3, $65 budget godkand.
-- 120 kommuner med misstankt trasig data (Goteborg, Uppsala, Lulea m.fl.): prio 2 efter bugg 2.
+- ByggSignal source_url null for Stockholm + Norrtalje: 80+56 rader senaste veckan. Debug-loggning ej deployad. Vantar pa beslut om vidare diagnostik vs annan prio.
+- ByggSignal bug 2 (21 kommuner med NULL date/property/applicant): oppen, riktningsbeslut ej taget. Fas 0 klar.
+- 114 kommuner saknas i municipality_platforms. Klassificeringsscript finns i src/utils/discovery.js, ej kort an for dessa.
+- HTTP HEAD-optimering for snabbare cron: identifierat som potentiell forbattring (62 min shell-tid for 291 kommuner med hashing aktivt). Inte prioriterat.
 
 ## Pilotkundstatus
-- Chair6 (ByggSignal beta): live, inga kanda problem.
-- Fredrik Johansson (Skanska, CI pilot): vantar pa att motor + dashboard ar fullt verifierade innan kontakt.
+- Chair6 (ByggSignal beta): live, inga kanda problem rapporterade. NULL-falt-buggen ar oppen men har inte triggat klagomal an.
+- Fredrik Johansson (Skanska, CI pilot): vantar fortfarande pa motor + dashboard verifierade. CTO CI verifierar TYP A/B-utfall efter cron 25 apr 06:01.
 
 ## Senaste besluten (nyaste overst)
+- 2026-04-24: Motorn satter source_type fran config, inte LLM. Default via verticalConfig.default_source_type. Override per kalla via discovery_configs.config.source_type_override. Ci-pressroom default = "pressroom". (commit d58e937)
+- 2026-04-24: ci-pressroom extraction_prompt hanterar TYP A (artikel/pressmeddelande) och TYP B (lista/upphandling/arenden) i samma prompt. Stramad delprojekt-regel: separat signal endast om eget namn + egen plats + minst ett eget varde. (commit d58e937)
+- 2026-04-24: GitHub auto-deploy triggade inte for d58e937. Manuell railway up kravdes. Bekraftar att auto-deploy ar opalitlig.
 - 2026-04-22: En LLM-anrop per subpage istallet for konkatenering. Deterministisk source_url, per-record raw_html_hash. Commit 4f4baff.
 - 2026-04-22: Dedup av subpage-URL:er innan extraction. Cision listar artiklar tva ganger (bild + rubrik). Commit 1512e8e.
 - 2026-04-22: ci-pressroom.json utokad med source_excerpt (full artikeltext, max 10000 tecken) och ai_summary (3-5 meningar, analytisk ton, max 500 tecken). Ingen retroaktiv backfill av gamla signaler.
@@ -34,7 +38,9 @@ Motorns subpage-refaktor live i produktion sedan 2026-04-22. Deterministisk sour
 - CTO-chattar kan inte klona git repos — de hanger varje gang. All kodlasning sker via filer Tomas klistrar in eller laddar upp.
 
 ## Nasta konkreta steg
-Om Tomas inte sager nagot annat, borja med att ga igenom ByggSignal bug 2. Fas 0 ar klar (se ovan). Naste steg ar att valja riktning: (a) utreda Sitevision/Soleil-RESTapp for standardiserad endpoint, (b) bygga per-kommun-recept for de 21, eller (c) bygga Cision-adapter forst (stor gemensam vinst for CI ocksa).
+Om Tomas inte sager nagot annat: vanta pa CTO CI:s rapport efter cron 25 apr 06:01 (Stockholmshem + SISAB forsta skarpa test av TYP A/B). Om gront: hjalp CTO CI vidare med Opus-prompt for analyze-signals. Om tunt eller inkonsekvent: analysera output med CTO CI.
+
+Parallellt oppet: ByggSignal source_url-bug for Stockholm + Norrtalje vantar pa beslut om diagnostik. Bug 2-riktningsbeslut vantar.
 
 ## Kontext-tips till Claude
 - Klockan: anvand bash `date -u` + TZ-date. Antag aldrig.

@@ -191,10 +191,15 @@ priser, roadmap, lärdomar). Ägs av CEO. Ändra aldrig utan Tomas godkännande.
 
 Vercel är helt avvecklat.
 
+## Senast uppdaterat 2026-04-24
+- Motorn satter source_type fran config (verticalConfig.default_source_type eller sourceConfig.source_type_override), inte LLM. extractPermits rad 361-367.
+- ci-pressroom.json har default_source_type = "pressroom" pa top-level.
+- ci-pressroom extraction_prompt hanterar TYP A + TYP B i samma prompt med stramad delprojekt-regel.
+
 ## Senast uppdaterat 2026-04-22
 - fetchPage-funktionerna returnerar `{subpages: [...]}` (commit 4f4baff)
 - Subpage-URL dedup innan extraction (commit 1512e8e)
 - raw_html_hash per-record från subpage-hash
 - ci-pressroom.json utökad med source_excerpt + ai_summary
 
-Äldre poster: se `docs/changelog.md`.
+Äldre poster: se `docs/changelog.md` (notera: 2026-04-22-posten ska flyttas dit nasta gang den ar 2-3 veckor gammal).
