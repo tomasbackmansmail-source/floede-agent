@@ -175,6 +175,11 @@ priser, roadmap, lärdomar). Ägs av CEO. Ändra aldrig utan Tomas godkännande.
 - **`normalizeMunicipality()`** strippar "kommun"/"stad"-suffix. Körs bara
   när `SOURCE_LABEL === "Kommun"` — inte för CI.
 - **Kostnadsberäkning** via `MODEL_COSTS`-objekt, inte hårdkodade konstanter.
+- **Innehåll < 500 bytes efter `stripNonContent` får aldrig hashas.**
+  Returnera `content_too_small`-fel från `extractPermits`.
+- **Daily-run respekterar `subpage_hashes` / `content_hash` bara om
+  `config.verified === true`.** Overifierade configs körs alltid utan
+  hash-skip — annars kan tom HTML hashas och låsa källan permanent.
 
 ## INFRASTRUKTUR
 
@@ -190,6 +195,13 @@ priser, roadmap, lärdomar). Ägs av CEO. Ändra aldrig utan Tomas godkännande.
 | Cloudflare | DNS | byggsignal.se, searchandcompliance.com |
 
 Vercel är helt avvecklat.
+
+## Senast uppdaterat 2026-04-25
+- Empty-HTML-tröskel (500 bytes) i `extractPermits` — returnerar `content_too_small`, hash + LLM skippas.
+- Daily-run hash-check kräver nu `config.verified === true` (subpage- och adapter-grenarna).
+- Hash-skip-räknare i daily-run-rapporten + Resend-mail (`Hash-skipped: X/Y källor`).
+- QC: aktiva kommuner (≥5 permits/30d) med 0 ärenden mån-fre triggar direktlarm via Resend om antalet > 30 (parallellt med 3-dagarsregeln).
+- `loadApprovedConfigs` + `parseConfigRows` exponerar `verified` på config-objektet.
 
 ## Senast uppdaterat 2026-04-24
 - Motorn satter source_type fran config (verticalConfig.default_source_type eller sourceConfig.source_type_override), inte LLM. extractPermits rad 361-367.

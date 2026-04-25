@@ -1,7 +1,7 @@
 # floede-agent — Kontext for ny chatt
 
 ## Nulage
-Motorns subpage-refaktor live i produktion sedan 2026-04-22. Deterministisk source_url per subpage verifierad mot Vasakronan Cision (0 bas-URL-signaler av 8, tidigare 6/6). CI-leverans (source_excerpt + ai_summary i ci-pressroom.json) committad och deployad. ByggSignal bug 2 (21 kommuner med NULL-falt) oppen, Fas 0-research klar men bygg ej paborjad.
+Empty-HTML-incident 2026-04-25: 60 kommuner gav 0 arenden i 6 dagar pga tom HTML hashades och respekterades trots overifierad config. Fyra fixar deployade i commit 81393cb: 500-byte-troskel i extractPermits, hash-check kraver verified===true, hash-skip-raknare i rapport/mail, weekday active-muni-larm i QC. Vantar pa Tomas SQL-cleanup av gamla null-hashes (~42 rader) och Goteborg-manual-verifiering. Motorns subpage-refaktor fortsatt live sedan 2026-04-22. CI-leverans (source_excerpt + ai_summary) committad och deployad. ByggSignal bug 2 (21 kommuner med NULL-falt) oppen, Fas 0-research klar men bygg ej paborjad.
 
 ## Aktiva uppgifter
 - ByggSignal source_url null for Stockholm + Norrtalje: 80+56 rader senaste veckan. Debug-loggning ej deployad. Vantar pa beslut om vidare diagnostik vs annan prio.
@@ -14,6 +14,10 @@ Motorns subpage-refaktor live i produktion sedan 2026-04-22. Deterministisk sour
 - Fredrik Johansson (Skanska, CI pilot): vantar fortfarande pa motor + dashboard verifierade. CTO CI verifierar TYP A/B-utfall efter cron 25 apr 06:01.
 
 ## Senaste besluten (nyaste overst)
+- 2026-04-25: Empty-HTML-troskel 500 bytes i extractPermits — returnerar content_too_small, ingen hash, ingen LLM. Forhindrar att tom HTML hashas och las kallan permanent. (commit 81393cb)
+- 2026-04-25: Daily-run respekterar hash bara om config.verified === true. Overifierade configs kors alltid. Galler subpage- och adapter-grenarna (Ciceron, MeetingPlus, NetPublicator). (commit 81393cb)
+- 2026-04-25: Hash-skip-raknare i daily-run-rapport och Resend-mail. Synlighet for hur manga kallor som skippades via hash. (commit 81393cb)
+- 2026-04-25: QC vardagslarm — om mon-fre och fler an 30 aktiva kommuner (>=5 permits senaste 30d) har 0 idag, skickas direktlarm via Resend. Behaller 3-dagarsregeln parallellt. (commit 81393cb)
 - 2026-04-24: Motorn satter source_type fran config, inte LLM. Default via verticalConfig.default_source_type. Override per kalla via discovery_configs.config.source_type_override. Ci-pressroom default = "pressroom". (commit d58e937)
 - 2026-04-24: ci-pressroom extraction_prompt hanterar TYP A (artikel/pressmeddelande) och TYP B (lista/upphandling/arenden) i samma prompt. Stramad delprojekt-regel: separat signal endast om eget namn + egen plats + minst ett eget varde. (commit d58e937)
 - 2026-04-24: GitHub auto-deploy triggade inte for d58e937. Manuell railway up kravdes. Bekraftar att auto-deploy ar opalitlig.
