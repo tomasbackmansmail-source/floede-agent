@@ -97,7 +97,7 @@ async function fetchDetail(baseUrl, announcementId) {
 /**
  * Parse a MeetingPlus announcement into a permit record.
  */
-function parseAnnouncement(announcement, detail, municipality, typeName) {
+function parseAnnouncement(announcement, detail, municipality, typeName, baseUrl, announcementId) {
   const title = announcement.Title || announcement.title || "";
   const description = detail?.Description || detail?.description || "";
   const startDate = announcement.StartDate || announcement.startDate || null;
@@ -140,7 +140,7 @@ function parseAnnouncement(announcement, detail, municipality, typeName) {
     date: startDate,
     description: cleanDescription(title),
     applicant: extractApplicant(description),
-    source_url: null,
+    source_url: `${baseUrl}/digital-bulletin-board/announcements/${announcementId}`,
   };
 }
 
@@ -250,7 +250,7 @@ export async function fetchMeetingPlusPermits(url, municipality) {
       console.log(`  [MeetingPlus] Detail fetch failed for ${annId}: ${err.message}`);
     }
 
-    const permit = parseAnnouncement(ann, detail, municipality, ann._typeName);
+    const permit = parseAnnouncement(ann, detail, municipality, ann._typeName, baseUrl, annId);
     // Accept permits with a classified type, or if the type name itself indicates PBL
     if (permit.permit_type || permit.case_number) {
       permits.push(permit);

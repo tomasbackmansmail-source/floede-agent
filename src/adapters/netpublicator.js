@@ -215,6 +215,10 @@ export async function fetchNetPublicatorPermits(url, municipality) {
     const caseMatch = allText.match(/diarienummer:\s*([^\s.]+(?:\s+[\d-]+)?)/i);
     const caseNumber = caseMatch ? caseMatch[1].trim().replace(/\.$/, "") : null;
 
+    const sourceUrl = notice.id
+      ? `${BASE_URL}/bulletinboard/public/${boardId}/${notice.id}`
+      : url;
+
     permits.push({
       municipality,
       case_number: caseNumber,
@@ -225,7 +229,7 @@ export async function fetchNetPublicatorPermits(url, municipality) {
       date: notice.published ? notice.published.split(" ")[0] : null,
       description: parsed.description || null,
       applicant: null,
-      source_url: null,
+      source_url: sourceUrl,
     });
   }
 
