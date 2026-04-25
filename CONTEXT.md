@@ -1,19 +1,27 @@
 # floede-agent — Kontext for ny chatt
 
 ## Nulage
-Empty-HTML-incident 2026-04-25: 60 kommuner gav 0 arenden i 6 dagar pga tom HTML hashades och respekterades trots overifierad config. Fyra fixar deployade i commit 81393cb: 500-byte-troskel i extractPermits, hash-check kraver verified===true, hash-skip-raknare i rapport/mail, weekday active-muni-larm i QC. Vantar pa Tomas SQL-cleanup av gamla null-hashes (~42 rader) och Goteborg-manual-verifiering. Motorns subpage-refaktor fortsatt live sedan 2026-04-22. CI-leverans (source_excerpt + ai_summary) committad och deployad. ByggSignal bug 2 (21 kommuner med NULL-falt) oppen, Fas 0-research klar men bygg ej paborjad.
+Empty-HTML-incident 2026-04-25: 60 kommuner gav 0 arenden i 6 dagar pga tom HTML hashades och respekterades trots overifierad config. Fyra fixar deployade i commit 81393cb: 500-byte-troskel i extractPermits, hash-check kraver verified===true, hash-skip-raknare i rapport/mail, weekday active-muni-larm i QC. 42 ByggSignal + 2 CI configs rensade i Supabase. Forsta verifieringsfonster ar cron 26 apr 06:00 CEST.
+
+Datakontrakt v0.1 etablerat 2026-04-25: Lager 1 (motorgarantier) i docs/data-contract-engine.md ags av CTO Engine. Lager 2 (produktkvalitet per vertikal) i respektive vertikal-repo. ByggSignal Lager 2 incheckad i byggsignal/docs/data-contract-byggsignal.md (commit d3b2567). CI Lager 2 = v0.2, S&C Lager 2 = v0.3.
+
+Motorns subpage-refaktor fortsatt live sedan 2026-04-22. CI-leverans (source_excerpt + ai_summary) committad och deployad. ByggSignal bug 2 (21 kommuner med NULL-falt) oppen, Fas 0-research klar men bygg ej paborjad.
 
 ## Aktiva uppgifter
-- ByggSignal source_url null for Stockholm + Norrtalje: 80+56 rader senaste veckan. Debug-loggning ej deployad. Vantar pa beslut om vidare diagnostik vs annan prio.
-- ByggSignal bug 2 (21 kommuner med NULL date/property/applicant): oppen, riktningsbeslut ej taget. Fas 0 klar.
-- 114 kommuner saknas i municipality_platforms. Klassificeringsscript finns i src/utils/discovery.js, ej kort an for dessa.
-- HTTP HEAD-optimering for snabbare cron: identifierat som potentiell forbattring (62 min shell-tid for 291 kommuner med hashing aktivt). Inte prioriterat.
+- source_quality_daily-tabellen ska byggas. Schema definieras nar trosklarna i Lager 2 ByggSignal sektion 2.2 ska tillampas. Inte paborjat.
+- Hash-incident verifiering: cron 26 apr 06:00 CEST ar forsta test. Forvantat: ~42 kommuner producerar igen.
+- Stockholm/Norrtalje source_url null: kvar ooppnat. Identifierad rotorsak (subpage-traversal failar pga filterByKeywords matchar inte lanktext). Fix planerad efter helgen.
+- Bug 2 (21 kommuner NULL date/property/applicant): kvar ooppnat. Inte 21 specifika kommuner utan minst tre olika buggar enligt dagens matning.
+- 5 totalt trasiga kommuner (Nassjo, Ystad, Mellerud, Dals-Ed, Vansbro): kvar ooppnat. Lag prio.
 
 ## Pilotkundstatus
-- Chair6 (ByggSignal beta): live, inga kanda problem rapporterade. NULL-falt-buggen ar oppen men har inte triggat klagomal an.
-- Fredrik Johansson (Skanska, CI pilot): vantar fortfarande pa motor + dashboard verifierade. CTO CI verifierar TYP A/B-utfall efter cron 25 apr 06:01.
+- Chair6 (ByggSignal beta): live, inga klagomal. Hash-incident kan ha paverkat tackning for 42 kommuner i 6 dagar — inte rapporterat av Chair6 men teoretiskt mojligt.
+- Fredrik Johansson (Skanska, CI pilot): vantar fortfarande. CI Lager 2 = v0.2 efter forankring med CTO CI.
 
 ## Senaste besluten (nyaste overst)
+- 2026-04-25: Datakontrakt v0.1 last. Tvalagermodell: Lager 1 motorgarantier (CTO Engine), Lager 2 produktkvalitet per vertikal (CEO + vertikal-CTO). Princip: motorn reflekterar kallans faktiska rytm, brytpunktsdatum framfor backfill.
+- 2026-04-25: Hash-incident lost. 60 kommuner med 0 arenden i 6 dagar pga (a) tom HTML hashades och laste kalla, (b) daily-run respekterade hash aven for overifierade configs. Fix i commit 81393cb. 42 ByggSignal + 2 CI configs rensade i Supabase.
+- 2026-04-25: Cron-tid korrigerad i kod och docs. Tidigare felaktigt "13:00 UTC" i CLAUDE.md och "14:00 CET" i daily-run.js — verklig tid ar 04:00 UTC = 06:00 CEST / 05:00 CET. Commit abbf76f.
 - 2026-04-25: Empty-HTML-troskel 500 bytes i extractPermits — returnerar content_too_small, ingen hash, ingen LLM. Forhindrar att tom HTML hashas och las kallan permanent. (commit 81393cb)
 - 2026-04-25: Daily-run respekterar hash bara om config.verified === true. Overifierade configs kors alltid. Galler subpage- och adapter-grenarna (Ciceron, MeetingPlus, NetPublicator). (commit 81393cb)
 - 2026-04-25: Hash-skip-raknare i daily-run-rapport och Resend-mail. Synlighet for hur manga kallor som skippades via hash. (commit 81393cb)
@@ -42,9 +50,7 @@ Empty-HTML-incident 2026-04-25: 60 kommuner gav 0 arenden i 6 dagar pga tom HTML
 - CTO-chattar kan inte klona git repos — de hanger varje gang. All kodlasning sker via filer Tomas klistrar in eller laddar upp.
 
 ## Nasta konkreta steg
-Om Tomas inte sager nagot annat: vanta pa CTO CI:s rapport efter cron 25 apr 06:01 (Stockholmshem + SISAB forsta skarpa test av TYP A/B). Om gront: hjalp CTO CI vidare med Opus-prompt for analyze-signals. Om tunt eller inkonsekvent: analysera output med CTO CI.
-
-Parallellt oppet: ByggSignal source_url-bug for Stockholm + Norrtalje vantar pa beslut om diagnostik. Bug 2-riktningsbeslut vantar.
+Om Tomas inte sager nagot annat: vanta pa cron 26 apr 06:00 CEST resultat. Om hash-incident-fixen fungerar: ~42 kommuner producerar igen. Pinga CTO ByggSignal. Sen borja diskussion om source_quality_daily-tabellen och timing for Stockholm/Norrtalje fix.
 
 ## Kontext-tips till Claude
 - Klockan: anvand bash `date -u` + TZ-date. Antag aldrig.

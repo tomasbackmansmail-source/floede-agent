@@ -131,6 +131,7 @@ railway up --service floede-agent --detach       # manuell deploy — GitHub-tri
 - Fält som inte kan extraheras = null. Aldrig gissning.
 - Alla å, ä, ö korrekta. Inga emojis.
 - Ett repo = en CC-instans. Aldrig flera parallella CC på samma repo.
+- Datakontrakt: alla schemaändringar och nya invarianter måste matcha `docs/data-contract-engine.md`. Ändringar kräver versionsbump och CEO-godkännande. Brytpunktsdatum framför backfill.
 
 ### Cron-tider
 - Alltid UTC med svensk tid som kommentar:
@@ -203,6 +204,7 @@ Vercel är helt avvecklat.
 - QC: aktiva kommuner (≥5 permits/30d) med 0 ärenden mån-fre triggar direktlarm via Resend om antalet > 30 (parallellt med 3-dagarsregeln).
 - `loadApprovedConfigs` + `parseConfigRows` exponerar `verified` på config-objektet.
 - Cron-tid korrigerad i kod och docs: 04:00 UTC, inte 13:00.
+- Datakontrakt v0.1 etablerat: Lager 1 i `docs/data-contract-engine.md`, Lager 2 ByggSignal i byggsignal-repot. Tvålagermodell godkänd av CEO.
 
 ## Senast uppdaterat 2026-04-24
 - Motorn satter source_type fran config (verticalConfig.default_source_type eller sourceConfig.source_type_override), inte LLM. extractPermits rad 361-367.
