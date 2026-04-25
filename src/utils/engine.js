@@ -124,6 +124,7 @@ export function parseConfigRows(rows) {
   return rows.map((row) => ({
     ...row.config,
     approved: row.approved,
+    verified: row.verified === true,
     needs_browser: row.config.needs_browser || row.needs_browser || false,
     _file: `${row.municipality}_config.json`,
   }));

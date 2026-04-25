@@ -234,6 +234,48 @@ async function saveToQcRuns(supabase, todayCounts, baselines, allFlags) {
   console.log('QC results saved to qc_runs: ' + Object.keys(todayCounts).length + ' rows');
 }
 
+// Active-municipality zero-today detector: returns munis with ≥5 permits in
+// last 30 days but zero today. Used as an immediate weekday signal — separate
+// from the 3-day zero streak.
+export async function checkActiveZeroToday(supabase) {
+  const sourceField = verticalConfig.qc?.validation?.source_field || "municipality";
+  const dateField = verticalConfig.qc?.validation?.date_field || "extracted_at";
+  const table = verticalConfig.db.table;
+
+  const today = new Date().toISOString().slice(0, 10);
+  const cutoff = new Date();
+  cutoff.setDate(cutoff.getDate() - 30);
+  const cutoffStr = cutoff.toISOString().slice(0, 10);
+
+  const { data, error } = await supabase
+    .from(table)
+    .select(`${sourceField}, ${dateField}`)
+    .gte(dateField, cutoffStr);
+
+  if (error || !data) return [];
+
+  const totalsByMuni = {};
+  const todayByMuni = {};
+  for (const row of data) {
+    const muni = row[sourceField];
+    if (!muni) continue;
+    const dateStr = row[dateField] ? String(row[dateField]).slice(0, 10) : null;
+    totalsByMuni[muni] = (totalsByMuni[muni] || 0) + 1;
+    if (dateStr === today) {
+      todayByMuni[muni] = (todayByMuni[muni] || 0) + 1;
+    }
+  }
+
+  const activeZero = [];
+  for (const [muni, count] of Object.entries(totalsByMuni)) {
+    if (count >= 5 && !todayByMuni[muni]) {
+      activeZero.push(muni);
+    }
+  }
+
+  return activeZero;
+}
+
 export async function checkZeroStreak(supabase) {
   const threshold = feedbackConfig.zero_streak_threshold || 3;
   // Look back further to handle missed QC runs (deploy gaps, timeouts)
@@ -697,6 +739,39 @@ async function main() {
       }
 
       console.log(`\nRe-discovery: ${candidates.length} triggered, ${succeeded} succeeded, ${failed} failed, $${totalRediscoveryCost.toFixed(4)} spent`);
+    }
+  }
+
+  // --- Weekday signal: many active munis with 0 today ---
+  const dayOfWeek = new Date().getUTCDay();
+  const isWeekday = dayOfWeek >= 1 && dayOfWeek <= 5;
+  if (isWeekday) {
+    const activeZero = await checkActiveZeroToday(supabase);
+    console.log(`\n[QC] Active munis with 0 permits today: ${activeZero.length}`);
+    if (activeZero.length > 30) {
+      console.log(`=== ACTIVE-MUNI ALERT: ${activeZero.length} aktiva kommuner med 0 ärenden idag ===`);
+      if (process.env.RESEND_API_KEY && verticalConfig.alert_email) {
+        const muniList = activeZero.sort().map(m => `- ${m}`).join('\n');
+        try {
+          const resp = await fetch('https://api.resend.com/emails', {
+            method: 'POST',
+            headers: {
+              'Authorization': `Bearer ${process.env.RESEND_API_KEY}`,
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              from: verticalConfig.alert_from,
+              to: [verticalConfig.alert_email],
+              subject: `QC ALERT: ${activeZero.length} aktiva kommuner med 0 ärenden idag`,
+              text: `Aktiv kommun = minst 5 ärenden senaste 30 dagarna.\n${activeZero.length} sådana kommuner har 0 ärenden idag (vardag).\n\n${muniList}\n\nKontrollera daily-run-loggar och discovery_configs.`,
+            }),
+          });
+          if (resp.ok) console.log('  Active-muni alert email sent.');
+          else console.error(`  Active-muni alert email failed: ${resp.status}`);
+        } catch (err) {
+          console.error(`  Active-muni alert email error: ${err.message}`);
+        }
+      }
     }
   }
 

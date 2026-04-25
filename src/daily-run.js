@@ -70,6 +70,7 @@ async function loadApprovedConfigs(supabase) {
     ...row.config,
     municipality: row[configSourceField] || row.municipality,
     approved: row[configApprovedField],
+    verified: row.verified === true,
     needs_browser: row.config.needs_browser || row.needs_browser || false,
     _file: `${row[configSourceField] || row.municipality}_config.json`,
     _id: row.id,
@@ -284,12 +285,25 @@ export async function fetchPagePlaywright(page, config) {
 
 // --- EXTRACTION ---
 
-export async function extractPermits(client, html, municipalityName, sourceUrl, sourceConfig = {}, { forceExtract = false, isPdf = false } = {}) {
-  const contentHash = isPdf
-    ? createHash("sha256").update(html).digest("hex").slice(0, 16)
-    : createHash("sha256").update(stripNonContent(html)).digest("hex").slice(0, 16);
+export const MIN_CONTENT_BYTES = 500;
 
-  if (!forceExtract && sourceConfig.content_hash && sourceConfig.content_hash === contentHash) {
+export async function extractPermits(client, html, municipalityName, sourceUrl, sourceConfig = {}, { forceExtract = false, isPdf = false } = {}) {
+  const stripped = isPdf ? html : stripNonContent(html);
+
+  if (!isPdf && Buffer.byteLength(stripped, "utf8") < MIN_CONTENT_BYTES) {
+    console.log(`  [${municipalityName}] content too small (${Buffer.byteLength(stripped, "utf8")} bytes), skipping hash + extraction`);
+    return {
+      permits: [],
+      cost: { input_tokens: 0, output_tokens: 0, cache_creation_input_tokens: 0, cache_read_input_tokens: 0, cost_usd: 0 },
+      contentHash: null,
+      skipped: false,
+      error: "content_too_small"
+    };
+  }
+
+  const contentHash = createHash("sha256").update(stripped).digest("hex").slice(0, 16);
+
+  if (!forceExtract && sourceConfig.verified === true && sourceConfig.content_hash && sourceConfig.content_hash === contentHash) {
     console.log(`  [${municipalityName}] content unchanged (hash: ${contentHash}), skipping extraction`);
     return { permits: [], cost: { input_tokens: 0, output_tokens: 0, cache_creation_input_tokens: 0, cache_read_input_tokens: 0, cost_usd: 0 }, contentHash, skipped: true };
   }
@@ -305,8 +319,7 @@ export async function extractPermits(client, html, municipalityName, sourceUrl, 
       },
     };
   } else {
-    const cleaned = stripNonContent(html);
-    const truncated = cleaned.length > 100000 ? cleaned.slice(0, 100000) : cleaned;
+    const truncated = stripped.length > 100000 ? stripped.slice(0, 100000) : stripped;
     contentBlock = {
       type: "text",
       text: `${SOURCE_LABEL}: ${municipalityName}\n\nHTML:\n${truncated}`,
@@ -615,8 +628,8 @@ async function main() {
       try {
         const { permits, contentHash } = await fetchCiceronPermits(config.listing_url, muniName);
 
-        // Content hash check (same logic as extractPermits)
-        if (!forceExtract && contentHash && config.content_hash && config.content_hash === contentHash) {
+        // Content hash check (same logic as extractPermits) — only respect hash for verified configs
+        if (!forceExtract && config.verified === true && contentHash && config.content_hash && config.content_hash === contentHash) {
           console.log(`  [${muniName}] content unchanged (hash: ${contentHash}), skipping`);
           results.push({ municipality: muniName, status: "unchanged", fetch_mode: "ciceron", permits: 0, cost_usd: 0 });
           totalSkipped++;
@@ -677,7 +690,7 @@ async function main() {
       try {
         const { permits, contentHash } = await fetchMeetingPlusPermits(config.listing_url, muniName);
 
-        if (!forceExtract && contentHash && config.content_hash && config.content_hash === contentHash) {
+        if (!forceExtract && config.verified === true && contentHash && config.content_hash && config.content_hash === contentHash) {
           console.log(`  [${muniName}] content unchanged (hash: ${contentHash}), skipping`);
           results.push({ municipality: muniName, status: "unchanged", fetch_mode: "meetingplus", permits: 0, cost_usd: 0 });
           totalSkipped++;
@@ -738,7 +751,7 @@ async function main() {
       try {
         const { permits, contentHash } = await fetchNetPublicatorPermits(config.listing_url, muniName);
 
-        if (!forceExtract && contentHash && config.content_hash && config.content_hash === contentHash) {
+        if (!forceExtract && config.verified === true && contentHash && config.content_hash && config.content_hash === contentHash) {
           console.log(`  [${muniName}] content unchanged (hash: ${contentHash}), skipping`);
           results.push({ municipality: muniName, status: "unchanged", fetch_mode: "netpublicator", permits: 0, cost_usd: 0 });
           totalSkipped++;
@@ -826,7 +839,9 @@ async function main() {
               client, subpage.content, muniName, subpage.url, perSubpageConfig,
               { forceExtract, isPdf: subpage.isPdf }
             );
-            newSubpageHashes[subpage.url] = contentHash;
+            if (contentHash) {
+              newSubpageHashes[subpage.url] = contentHash;
+            }
             if (skipped) {
               skippedSubpages++;
               continue;
@@ -970,7 +985,9 @@ async function main() {
                 client, subpage.content, muniName, subpage.url, perSubpageConfig,
                 { forceExtract, isPdf: subpage.isPdf }
               );
-              newSubpageHashes[subpage.url] = contentHash;
+              if (contentHash) {
+                newSubpageHashes[subpage.url] = contentHash;
+              }
               if (skipped) {
                 skippedSubpages++;
                 continue;
@@ -1102,7 +1119,9 @@ async function main() {
   const ok = results.filter((r) => r.status === "ok").length;
   const failed = results.filter((r) => r.status === "error").length;
   const unchanged = results.filter((r) => r.status === "unchanged").length;
+  const hashSkipped = results.filter((r) => r.status === "unchanged").length;
   console.log(`OK: ${ok}, Failed: ${failed}${unchanged > 0 ? `, Unchanged: ${unchanged} (skipped LLM)` : ""}`);
+  console.log(`Hash-skipped: ${hashSkipped}/${results.length} källor`);
 
   if (failed > 0) {
     console.log("Failed sources:");
@@ -1125,7 +1144,7 @@ async function main() {
           from: verticalConfig.alert_from,
           to: [verticalConfig.alert_email],
           subject: `ALERT: Floede Engine — 0 records inserted (${runId})`,
-          text: `Floede Engine daily run ${runId} finished with 0 records inserted.\n\nConfigs: ${configs.length}\nExtracted: ${totalPermits}\nInserted: ${totalInserted}\nFailed sources: ${failed}\nCost: $${totalCost.toFixed(4)}\nElapsed: ${Math.round(elapsed / 1000)}s\n\nCheck Railway logs for details.`,
+          text: `Floede Engine daily run ${runId} finished with 0 records inserted.\n\nConfigs: ${configs.length}\nExtracted: ${totalPermits}\nInserted: ${totalInserted}\nFailed sources: ${failed}\nHash-skipped: ${hashSkipped} av ${results.length} källor.\nCost: $${totalCost.toFixed(4)}\nElapsed: ${Math.round(elapsed / 1000)}s\n\nCheck Railway logs for details.`,
         }),
       });
       if (alertResp.ok) {
