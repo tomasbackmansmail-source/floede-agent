@@ -10,15 +10,19 @@ Princip etablerad: motorn reflekterar källans faktiska rytm. Brytpunktsdatum fr
 ## Aktiva uppgifter
 - source_quality_daily-tabellen ska byggas. Schema designas mot Lager 2 ByggSignal sektion 2.2 trösklar. CTO ByggSignal pingar när första 7 dagars data finns. Inte påbörjat.
 - Hash-incident verifiering: cron 26 apr 06:00 CEST ar forsta test. Forvantat: ~42 kommuner producerar igen.
-- Stockholm/Norrtalje source_url null: kvar ooppnat. Identifierad rotorsak (subpage-traversal failar pga filterByKeywords matchar inte lanktext). Fix planerad efter helgen.
+- Stockholm/Norrtalje source_url null: rotorsak var MeetingPlus-adaptern (inte filterByKeywords som tidigare antogs). Fixad i 1e72d56, deployad. Nya rader fran cron 26 apr ska ha source_url satt — verifiera 07:30.
 - Bug 2 (21 kommuner NULL date/property/applicant): kvar ooppnat. Inte 21 specifika kommuner utan minst tre olika buggar enligt dagens matning.
 - 5 totalt trasiga kommuner (Nassjo, Ystad, Mellerud, Dals-Ed, Vansbro): kvar ooppnat. Lag prio.
+- BACKFILL 6916 null source_url-rader (16 mar - 22 apr, 232 kommuner). Separat projekt. Kraver per-kommun strategi: kommuner med case_number kan matchas mot kalla, kommuner utan kraver omhamtning. Inte paborjat. Ska prioriteras innan volymtrafik.
+- HTTP/Playwright source_url-lacka kvar (~5 rader/dag). Sitevision (Tranas, Ange), WordPress (Staffanstorp), Episerver (Danderyd). Rotorsak okand — sourceUrl-argument kommer in null till extractPermits fran fetchPageHttp/fetchPagePlaywright. Diagnos ej paborjad.
+- Angebug i MeetingPlus: case_number=null pa alla 6 permits trots att Beslut om bygglov-typen har Description med "Diarienummer:". Parsing-regex traffar inte. Lag prio, separat fix.
 
 ## Pilotkundstatus
 - Chair6 (ByggSignal beta): live, inga klagomål rapporterade. Hash-incident kan ha påverkat täckning för 42 kommuner i 6 dagar (22-25 april) — inte rapporterat av Chair6. Verifiera vid nästa avstämning.
 - Fredrik Johansson (Skanska, CI pilot): vantar fortfarande. CI Lager 2 = v0.2 efter forankring med CTO CI.
 
 ## Senaste besluten (nyaste overst)
+- 2026-04-25: MeetingPlus + NetPublicator-adaptrar fixade. Bada satte explicit source_url=null. Commit 1e72d56 deployad pa Railway, verifierad live (Ange: source_url byggs som baseUrl/digital-bulletin-board/announcements/{id}). Tacker ~88% av nya null-rader efter 22 apr.
 - 2026-04-25: Datakontrakt v0.1 last. Tvalagermodell: Lager 1 motorgarantier (CTO Engine), Lager 2 produktkvalitet per vertikal (CEO + vertikal-CTO). Princip: motorn reflekterar kallans faktiska rytm, brytpunktsdatum framfor backfill.
 - 2026-04-25: Hash-incident lost. 60 kommuner med 0 arenden i 6 dagar pga (a) tom HTML hashades och laste kalla, (b) daily-run respekterade hash aven for overifierade configs. Fix i commit 81393cb. 42 ByggSignal + 2 CI configs rensade i Supabase.
 - 2026-04-25: Cron-tid korrigerad i kod och docs. Tidigare felaktigt "13:00 UTC" i CLAUDE.md och "14:00 CET" i daily-run.js — verklig tid ar 04:00 UTC = 06:00 CEST / 05:00 CET. Commit abbf76f.
@@ -48,11 +52,12 @@ Princip etablerad: motorn reflekterar källans faktiska rytm. Brytpunktsdatum fr
 - raw_html_hash-format andrat: gamla rader har aggregat-hash, nya har per-subpage-hash. Ingen kodvag laser faltet for jamforelse (bara skrivning), sa ingen regression. Men i framtida dedup-logik: vet att format skilde sig fore/efter 2026-04-22.
 - Config.subpage_hashes ersatter config.content_hash. Forsta cron efter deploy blir dyrare (alla subpages bearbetas som om de var nya). Gammal content_hash ignoreras helt.
 - CTO-chattar kan inte klona git repos — de hanger varje gang. All kodlasning sker via filer Tomas klistrar in eller laddar upp.
+- Tidigare CONTEXT.md havdade Stockholm/Norrtalje source_url null = "filterByKeywords matchar inte lanktext". Det var fel diagnos. Verklig orsak var MeetingPlus-adaptern som returnerade source_url=null. Nu fixad.
 
 ## Nästa konkreta steg
 1. Söndag/måndag morgon: verifiera cron 26 apr 06:00 CEST. SQL i ByggSignal Supabase: SELECT COUNT(*) FROM permits_v2 WHERE created_at > '2026-04-26' AND municipality IN (rensade 42). Förväntat: >0 per kommun.
 2. Pinga CTO ByggSignal när rensade kommuner producerar normalt — det är milstolpe 1 av 3 innan notify-fixen kan deployas.
-3. Sen börja diagnostisera Stockholm/Norrtälje source_url-bug (rotorsak identifierad: filterByKeywords matchar inte länktext för dessa kommuner). Det är milstolpe 2.
+3. HTTP/Playwright source_url-läcka kvar (~5 rader/dag). Sitevision (Tranas, Ange), WordPress (Staffanstorp), Episerver (Danderyd). sourceUrl-argument kommer in null till extractPermits fran fetchPageHttp/fetchPagePlaywright. Diagnos ej paborjad. Detta ar milstolpe 2.
 4. Bug 2 (21 kommuner NULL date/property/applicant) — minst tre olika buggar, inte 21 specifika kommuner. Diagnostisera efter Stockholm. Milstolpe 3.
 5. När alla tre milstolpar är gröna: börja bygga source_quality_daily-tabellen.
 

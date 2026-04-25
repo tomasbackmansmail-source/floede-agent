@@ -205,6 +205,7 @@ Vercel är helt avvecklat.
 - `loadApprovedConfigs` + `parseConfigRows` exponerar `verified` på config-objektet.
 - Cron-tid korrigerad i kod och docs: 04:00 UTC, inte 13:00.
 - Datakontrakt v0.1 etablerat: Lager 1 i `docs/data-contract-engine.md`, Lager 2 ByggSignal i byggsignal-repot. Tvålagermodell godkänd av CEO.
+- MeetingPlus + NetPublicator-adaptrarna sätter nu source_url per record (var null, orsakade 6916 null-rader sedan 16 mar och blockerade Ånge inserts via unique constraint). Commit 1e72d56.
 
 ## Senast uppdaterat 2026-04-24
 - Motorn satter source_type fran config (verticalConfig.default_source_type eller sourceConfig.source_type_override), inte LLM. extractPermits rad 361-367.
