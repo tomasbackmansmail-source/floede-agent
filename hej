@@ -1,0 +1,31 @@
+=== Floede Agent - Daily Run 2026-04-25T14-47-48 ===
+
+Found 291 approved configs (16 Ciceron, 5 MeetingPlus, 11 NetPublicator, 68 HTTP, 191 browser)
+
+=== Phase 0: Ciceron JSON-RPC (16 sources) ===
+
+--- Ängelholm ---
+  [Ciceron] https://anslagstavlan.engelholm.se (JSON-RPC)
+  [Ciceron] 250 total cases on billboard
+  [Ciceron] 6 bygglov-related (of 250 fetched)
+  Permits: 6, Cost: $0 (no LLM)
+  DB: 6 inserted, 0 skipped, 0 errors
+
+--- Bollnäs ---
+  [Ciceron] https://anslagstavlan.bollnas.se (JSON-RPC)
+  ERROR: fetch failed
+
+--- Falköping ---
+  [Ciceron] https://anslagstavlan.falkoping.se (JSON-RPC)
+  [Ciceron] 0 total cases on billboard
+  Permits: 0, Cost: $0 (no LLM)
+
+--- Torsås ---
+  [Ciceron] https://anslagstavlan.torsas.se (JSON-RPC)
+  [Ciceron] 250 total cases on billboard
+  [Ciceron] 2 bygglov-related (of 250 fetched)
+  Permits: 2, Cost: $0 (no LLM)
+  DB: 2 inserted, 0 skipped, 0 errors
+
+--- Haparanda ---
+  [Ciceron] https://haparanda-anslagstavla.ciceron.cloud (JSON-RPC)

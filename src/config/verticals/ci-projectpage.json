@@ -45,7 +45,9 @@
       "region": "region",
       "category": "category",
       "source_type": "source_type",
-      "property_designation": "property_designation"
+      "property_designation": "property_designation",
+      "source_excerpt": "source_excerpt",
+      "ai_summary": "ai_summary"
     },
     "enrichment": {
       "lookup_table": "ci_organizations",
