@@ -1,13 +1,16 @@
 # floede-agent — Kontext for ny chatt
 
 ## Nuläge
-Lördag 25 april 2026. Hash-incident löst (commit 81393cb), cron-tid korrigerad (commit abbf76f), datakontrakt v0.1 etablerat (commit 47d8ff4). 42 ByggSignal-configs och 2 CI-källor rensade i Supabase efter hash-bug. Nästa cron 26 apr 06:00 CEST är första verifiering — förväntat att ~42 kommuner producerar igen.
+Söndag 26 april 2026. ci-projectpage source_excerpt + ai_summary fixade (42eca91, 7af38a6). Verifieringskörning gav 12 inserts men avslöjade ny bug: 12/12 organization_name=NULL. Pause på alla nya motorändringar — kartläggning av 19 öppna motor-trådar visade flera parkerade buggar sedan 18 mars. ByggSignal-cron 26 april gav 11 permits/7 kommuner (söndag = låg volym, förväntat). Måndag 27 april = första riktiga test efter hash-incident-fix (commit 81393cb).
 
 Datakontrakt v0.1: Lager 1 (motorgarantier) i floede-agent/docs/data-contract-engine.md, ägs av CTO Engine. Lager 2 (produktkvalitet per vertikal) i respektive vertikal-repo. ByggSignal Lager 2 incheckad i byggsignal/docs/data-contract-byggsignal.md (commit d3b2567). CI Lager 2 = v0.2 (CTO CI informerad). S&C Lager 2 = v0.3 (CTO S&C informerad).
 
 Princip etablerad: motorn reflekterar källans faktiska rytm. Brytpunktsdatum framför backfill. Tröskelvärden är affärsbeslut (Lager 2), inte tekniska invarianter (Lager 1).
 
 ## Aktiva uppgifter
+- Enrichment-design för organization_name på project_page (CTO CI väntar). Inte kodändring förrän design är klar och avstämd med CTO CI som äger ci_sources-schemat.
+- 19 öppna motor-trådar kartlagda 26 april. Lista i nästa CTO Engine-chatt.
+- Verifiera ByggSignal-cron 27 april 06:00 CEST. Första riktiga test efter hash-incident-fix (commit 81393cb 25 april).
 - source_quality_daily-tabellen ska byggas. Schema designas mot Lager 2 ByggSignal sektion 2.2 trösklar. CTO ByggSignal pingar när första 7 dagars data finns. Inte påbörjat.
 - Hash-incident verifiering: cron 26 apr 06:00 CEST ar forsta test. Forvantat: ~42 kommuner producerar igen.
 - Stockholm/Norrtalje source_url null: rotorsak var MeetingPlus-adaptern (inte filterByKeywords som tidigare antogs). Fixad i 1e72d56, deployad. Nya rader fran cron 26 apr ska ha source_url satt — verifiera 07:30.
@@ -22,6 +25,8 @@ Princip etablerad: motorn reflekterar källans faktiska rytm. Brytpunktsdatum fr
 - Fredrik Johansson (Skanska, CI pilot): vantar fortfarande. CI Lager 2 = v0.2 efter forankring med CTO CI.
 
 ## Senaste besluten (nyaste overst)
+- 2026-04-26: ci-projectpage source_excerpt + ai_summary fixade i field_mapping (42eca91) och extraction_prompt (7af38a6). max_subpages höjt 15→100 för 4 project_page-källor i ci_sources. Akademiska Hus rad 2 (78e2d1a6) fullkonfigurerad. Verifieringskörning gav 12 inserts, 12/12 source_excerpt populerat, 3/12 ai_summary, men 12/12 organization_name=NULL (ny bug).
+- 2026-04-26: Pause på alla nya motorändringar. Sökning i historiken visade att flera buggar parkerats utan fix sedan 18 mars-24 april. Behov av enrichment-design för organization_name (CTO CI flaggade detta 18 april — parkerades). Kartläggning av öppna trådar pågår.
 - 2026-04-25: MeetingPlus + NetPublicator-adaptrar fixade. Bada satte explicit source_url=null. Commit 1e72d56 deployad pa Railway, verifierad live (Ange: source_url byggs som baseUrl/digital-bulletin-board/announcements/{id}). Tacker ~88% av nya null-rader efter 22 apr.
 - 2026-04-25: Datakontrakt v0.1 last. Tvalagermodell: Lager 1 motorgarantier (CTO Engine), Lager 2 produktkvalitet per vertikal (CEO + vertikal-CTO). Princip: motorn reflekterar kallans faktiska rytm, brytpunktsdatum framfor backfill.
 - 2026-04-25: Hash-incident lost. 60 kommuner med 0 arenden i 6 dagar pga (a) tom HTML hashades och laste kalla, (b) daily-run respekterade hash aven for overifierade configs. Fix i commit 81393cb. 42 ByggSignal + 2 CI configs rensade i Supabase.
@@ -53,6 +58,8 @@ Princip etablerad: motorn reflekterar källans faktiska rytm. Brytpunktsdatum fr
 - Config.subpage_hashes ersatter config.content_hash. Forsta cron efter deploy blir dyrare (alla subpages bearbetas som om de var nya). Gammal content_hash ignoreras helt.
 - CTO-chattar kan inte klona git repos — de hanger varje gang. All kodlasning sker via filer Tomas klistrar in eller laddar upp.
 - Tidigare CONTEXT.md havdade Stockholm/Norrtalje source_url null = "filterByKeywords matchar inte lanktext". Det var fel diagnos. Verklig orsak var MeetingPlus-adaptern som returnerade source_url=null. Nu fixad.
+- Söndagar och röda dagar = låg publiceringsvolym i kommuner. 11 permits/7 kommuner på söndag är förväntat, inte motorbug. Måndag är första riktiga test efter helgen.
+- ASCII-svenska i alla vertikalconfigs (byggsignal.json, ci-pressroom.json, ci-projectpage.json) bryter mot CLAUDE.md regel om åäö. Bekräftat 26 april. Separat städprojekt, inte akut.
 
 ## Nästa konkreta steg
 1. Söndag/måndag morgon: verifiera cron 26 apr 06:00 CEST. SQL i ByggSignal Supabase: SELECT COUNT(*) FROM permits_v2 WHERE created_at > '2026-04-26' AND municipality IN (rensade 42). Förväntat: >0 per kommun.
