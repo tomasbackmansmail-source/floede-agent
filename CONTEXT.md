@@ -14,8 +14,8 @@ Princip etablerad: motorn reflekterar källans faktiska rytm. Brytpunktsdatum fr
 - source_quality_daily-tabellen ska byggas. Schema designas mot Lager 2 ByggSignal sektion 2.2 trösklar. CTO ByggSignal pingar när första 7 dagars data finns. Inte påbörjat.
 - Hash-incident verifiering: cron 26 apr 06:00 CEST ar forsta test. Forvantat: ~42 kommuner producerar igen.
 - Stockholm/Norrtalje source_url null: rotorsak var MeetingPlus-adaptern (inte filterByKeywords som tidigare antogs). Fixad i 1e72d56, deployad. Nya rader fran cron 26 apr ska ha source_url satt — verifiera 07:30.
-- property=NULL extraction-bug i ~20 kommuner (Säter, Mora, Järfälla, Pajala, Älvdalen, Kramfors, Vara, Götene, Orsa, Fagersta, Heby m.fl.). 0% null date men 100% null property. Diagnos behövs först (3-kommun-stickprov mot källa). Ej påbörjad.
-- date=NULL extraction-bug i ~10 kommuner (Svalöv, Söderköping, Bollnäs, Helsingborg, Kungsbacka, Tjörn, Härryda, Nynäshamn, Hjo, Örnsköldsvik, Sundsvall, Halmstad). 100% null date trots producerande extraction. Diagnos behövs först. Lägre prio. Ej påbörjad.
+- Hälsodashboard ej byggd. Första uppgift för nästa Engine CTO. 3-4 SQL-frågor i docs/health-queries.md som varje session börjar med. Bevisar motorns aktuella hälsa innan vi pratar buggar.
+- Enrichment-pipeline för applicant/property/description ej byggd. Scopad i docs/enrichment-scope.md (8 april), $65 budget godkänd. Verklig flaskhals för datakvalitet.
 - 5 totalt trasiga kommuner (Nassjo, Ystad, Mellerud, Dals-Ed, Vansbro): kvar ooppnat. Lag prio.
 - BACKFILL 6916 null source_url-rader (16 mar - 22 apr, 232 kommuner). Separat projekt. Kraver per-kommun strategi: kommuner med case_number kan matchas mot kalla, kommuner utan kraver omhamtning. Inte paborjat. Ska prioriteras innan volymtrafik.
 - HTTP/Playwright source_url-lacka kvar (~5 rader/dag). Sitevision (Tranas, Ange), WordPress (Staffanstorp), Episerver (Danderyd). Rotorsak okand — sourceUrl-argument kommer in null till extractPermits fran fetchPageHttp/fetchPagePlaywright. Diagnos ej paborjad.
@@ -26,8 +26,10 @@ Princip etablerad: motorn reflekterar källans faktiska rytm. Brytpunktsdatum fr
 - Fredrik Johansson (Skanska, CI pilot): vantar fortfarande. CI Lager 2 = v0.2 efter forankring med CTO CI.
 
 ## Senaste besluten (nyaste overst)
+- 2026-04-27: Property-bugg avfärdad. Stickprov mot Kävlinge visade att 82 NULL-property-rader är historisk skada från 29 mars-händelse, inte aktiv bug. Färska rader efter 11 april har property korrekt. Lärdom: SQL som aggregerar 30 dagar blandar historisk skada med aktuellt beteende. Alltid tidsfiltrera vid bug-diagnos.
+- 2026-04-27: applicant=NULL bekräftad som källans natur, inte bug. Verifierat via Lerum + tidigare research mars-april. Diariesystem-enrichment är lösningen, inte motorfix.
+- 2026-04-27: Sju misstag identifierade i dagens session — alla samma rotorsak: valde tempo över noggrannhet. Disciplin skriven in i CLAUDE.md som permanent regel.
 - 2026-04-27: Cron 06:00 CEST verifierad grön. 107 permits / 4 kommuner (måndag morgon, normal volym jämfört med 13 apr 10/5 och 20 apr 3/2). Source_url-fix håller (107/107). Hash-incident-fix verifierad.
-- 2026-04-27: applicant=NULL bekräftad som källans natur, inte bug. Verifierat via Lerum anslagstavla + tidigare research mars-april 2026. CONTEXT.md "Bug 2 (21 kommuner)" rättad — det var tre olika buggar med olika rotorsaker, inte en. property=NULL och date=NULL kvar som riktiga buggar. applicant=NULL löses via diariesystem-enrichment (separat projekt, ej påbörjat).
 - 2026-04-26: ci-projectpage source_excerpt + ai_summary fixade i field_mapping (42eca91) och extraction_prompt (7af38a6). max_subpages höjt 15→100 för 4 project_page-källor i ci_sources. Akademiska Hus rad 2 (78e2d1a6) fullkonfigurerad. Verifieringskörning gav 12 inserts, 12/12 source_excerpt populerat, 3/12 ai_summary, men 12/12 organization_name=NULL (ny bug).
 - 2026-04-26: Pause på alla nya motorändringar. Sökning i historiken visade att flera buggar parkerats utan fix sedan 18 mars-24 april. Behov av enrichment-design för organization_name (CTO CI flaggade detta 18 april — parkerades). Kartläggning av öppna trådar pågår.
 - 2026-04-25: MeetingPlus + NetPublicator-adaptrar fixade. Bada satte explicit source_url=null. Commit 1e72d56 deployad pa Railway, verifierad live (Ange: source_url byggs som baseUrl/digital-bulletin-board/announcements/{id}). Tacker ~88% av nya null-rader efter 22 apr.
@@ -65,11 +67,10 @@ Princip etablerad: motorn reflekterar källans faktiska rytm. Brytpunktsdatum fr
 - ASCII-svenska i alla vertikalconfigs (byggsignal.json, ci-pressroom.json, ci-projectpage.json) bryter mot CLAUDE.md regel om åäö. Bekräftat 26 april. Separat städprojekt, inte akut.
 
 ## Nästa konkreta steg
-1. Söndag/måndag morgon: verifiera cron 26 apr 06:00 CEST. SQL i ByggSignal Supabase: SELECT COUNT(*) FROM permits_v2 WHERE created_at > '2026-04-26' AND municipality IN (rensade 42). Förväntat: >0 per kommun.
-2. Pinga CTO ByggSignal när rensade kommuner producerar normalt — det är milstolpe 1 av 3 innan notify-fixen kan deployas.
-3. HTTP/Playwright source_url-läcka kvar (~5 rader/dag). Sitevision (Tranas, Ange), WordPress (Staffanstorp), Episerver (Danderyd). sourceUrl-argument kommer in null till extractPermits fran fetchPageHttp/fetchPagePlaywright. Diagnos ej paborjad. Detta ar milstolpe 2.
-4. property=NULL diagnos: välj 3 kommuner med 100% null property men 0% null date. Manuell kontroll mot källa för att avgöra om property finns på listsida, djupsida, eller saknas helt.
-5. När alla tre milstolpar är gröna: börja bygga source_quality_daily-tabellen.
+1. Bygg hälsodashboard. 3-4 SQL-frågor som svarar på: producerar motorn idag, är aktuell datakvalitet ok, finns aktiva extraktionsbuggar, vad är historisk skada vs aktivt fel.
+2. Kör hälsodashboard. Då vet vi vad som faktiskt behöver fixas.
+3. Om dashboard visar att motorn är stabil: starta enrichment-design.
+4. Om dashboard hittar aktiva buggar: prioritera dessa.
 
 ## Kontext-tips till Claude
 - Klockan: anvand bash `date -u` + TZ-date. Antag aldrig.

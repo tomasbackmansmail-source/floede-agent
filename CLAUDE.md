@@ -182,6 +182,34 @@ priser, roadmap, lärdomar). Ägs av CEO. Ändra aldrig utan Tomas godkännande.
   `config.verified === true`.** Overifierade configs körs alltid utan
   hash-skip — annars kan tom HTML hashas och låsa källan permanent.
 
+## DIAGNOS-DISCIPLIN
+
+Sex regler för hur Engine CTO arbetar. Bryts dessa förlorar motorn
+sin stabilitet — inte i koden, i arbetssättet.
+
+1. Hälsodashboard först. Varje session börjar med att köra
+   docs/health-queries.md. Inte gissa motorns tillstånd — verifiera.
+
+2. Tidsfiltrera all bug-diagnos. SQL utan filter blandar historisk
+   skada med aktuellt beteende. Använd alltid created_at > [senaste
+   fix-datum] när du letar aktiva buggar.
+
+3. Sök chatthistorik före resonemang. conversation_search är första
+   steget när en fråga låter bekant. Tidigare CTO:er har troligen
+   redan utrett den.
+
+4. Stanna mellan SQL-resultat och slutsats. Skriv: "fakta jag ser
+   är A, B, C. Möjliga förklaringar: 1, 2, 3. För att avgöra
+   behöver jag X." Inte direkt slutsats.
+
+5. Aldrig gissa konfigurationsvärden eller schema. Fråga
+   information_schema, fråga Tomas, läs filen. Aldrig gissa
+   kolumnnamn, fältformat, env-variabler eller URL:er.
+
+6. Skilj dokumentationsarbete från motorarbete. Att uppdatera
+   CONTEXT.md är städning. Att fixa en bugg kräver kodändring.
+   Förväxla aldrig de två.
+
 ## INFRASTRUKTUR
 
 | Tjänst | Vad | Detaljer |
