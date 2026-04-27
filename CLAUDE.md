@@ -225,6 +225,13 @@ sin stabilitet — inte i koden, i arbetssättet.
 
 Vercel är helt avvecklat.
 
+## Senast uppdaterat 2026-04-27 (kväll)
+- Hälsodashboard byggd: docs/health-queries.md med Q1-Q5. Bevisad mot live-data 27 april. Varje framtida CTO Engine-session börjar här.
+- qc_runs.permits_inserted = 0 på 13000+ körningar senaste 30 dagarna. QC-systemet är blint. Self-healing-loopen är beroende av detta — fungerar inte.
+- 20 stora kommuner tysta sedan 17 mars - 26 april (Göteborg, Norrköping, Uppsala, Luleå, Jönköping m.fl.). Configs har verified=false + verify_result_count=0 sedan 5 april. Manuell re-discovery krävs.
+- Kommunnamn-mismatch: Region Gotland / Gotland / gotland samma kommun under tre namn. permits_v2 (203 rader) + qc_runs (12 rader). Ej fixat.
+- Q4-fynd: address-NULL ökade från 30% till 63% efter fix — drivs av kommun-mix (Region Gotland, Västerås, Gävle, Sundsvall publicerar 100% utan adress). Ej regression.
+
 ## Senast uppdaterat 2026-04-26
 - ci-projectpage.json field_mapping + extraction_prompt utökade med source_excerpt och ai_summary (commit 42eca91, 7af38a6).
 - max_subpages höjt 15→100 för 4 project_page-källor i ci_sources.
