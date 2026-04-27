@@ -197,6 +197,10 @@ priser, roadmap, lärdomar). Ägs av CEO. Ändra aldrig utan Tomas godkännande.
 
 Vercel är helt avvecklat.
 
+## Senast uppdaterat 2026-04-26
+- ci-projectpage.json field_mapping + extraction_prompt utökade med source_excerpt och ai_summary (commit 42eca91, 7af38a6).
+- max_subpages höjt 15→100 för 4 project_page-källor i ci_sources.
+
 ## Senast uppdaterat 2026-04-25
 - Empty-HTML-tröskel (500 bytes) i `extractPermits` — returnerar `content_too_small`, hash + LLM skippas.
 - Daily-run hash-check kräver nu `config.verified === true` (subpage- och adapter-grenarna).
