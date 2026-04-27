@@ -222,4 +222,4 @@ Vercel är helt avvecklat.
 - raw_html_hash per-record från subpage-hash
 - ci-pressroom.json utökad med source_excerpt + ai_summary
 
-Äldre poster: se `docs/changelog.md` (notera: 2026-04-22-posten ska flyttas dit nasta gang den ar 2-3 veckor gammal).
+Äldre poster: se `docs/changelog.md` (notera: 2026-04-22-posten ska flyttas dit vid nästa sessionstart, >2 veckor gammal).
