@@ -18,6 +18,11 @@ Cron 06:00 CEST verifierad grön: 107 permits / 4 kommuner. Source_url-fix håll
 
 Sedan: kör batch på de 20 tysta kommunerna. Verifiera resultat med Q3 i hälsodashboarden. Det validerar både fixet och dashboarden.
 
+## CI-koordinering (status)
+- Webhook + cron_events: inte påbörjat
+- Stockholm KF-POC: inte påbörjat
+- Nästa: bygg webhook först, KF-POC efter
+
 ## Aktiva uppgifter
 - Bygg src/rediscover-batch.js (wrapper för batch-discovery)
 - Kör re-discovery på 20 tysta kommuner (lista i Senaste besluten 2026-04-27)
