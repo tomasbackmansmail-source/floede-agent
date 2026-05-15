@@ -294,7 +294,7 @@ async function main() {
       };
 
       try {
-        const res = await fetch(`${CI_SUPABASE_URL}/rest/v1/ci_signals`, {
+        const res = await fetch(`${CI_SUPABASE_URL}/rest/v1/ci_signals?on_conflict=organization_id,source_url,title`, {
           method: 'POST',
           headers: {
             ...ciHeaders,

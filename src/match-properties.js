@@ -155,7 +155,7 @@ async function main() {
 
       // Upsert with conflict on (organization_id, source_url, title)
       try {
-        const url = `${CI_SUPABASE_URL}/rest/v1/ci_signals`;
+        const url = `${CI_SUPABASE_URL}/rest/v1/ci_signals?on_conflict=organization_id,source_url,title`;
         const res = await fetch(url, {
           method: 'POST',
           headers: {
