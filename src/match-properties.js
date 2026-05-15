@@ -125,6 +125,19 @@ async function main() {
         ? permit.description.slice(0, 200)
         : null;
 
+      const excerptLines = [
+        `Bygglov: ${permit.permit_type || 'okand typ'}`,
+        permit.case_number ? `Diarienummer: ${permit.case_number}` : null,
+        permit.status ? `Status: ${permit.status}` : null,
+        permit.applicant ? `Sokande: ${permit.applicant}` : null,
+        permit.address ? `Adress: ${permit.address}` : null,
+        permit.property ? `Fastighet: ${permit.property}` : null,
+        permit.municipality ? `Kommun: ${permit.municipality}` : null,
+        permit.date ? `Datum: ${permit.date}` : null,
+        permit.description ? `\n${permit.description}` : null,
+      ].filter(Boolean);
+      const sourceExcerpt = excerptLines.length > 0 ? excerptLines.join('\n') : null;
+
       const signal = {
         organization_id: prop.organization_id,
         organization_name: orgName,
@@ -137,6 +150,7 @@ async function main() {
         source_date: permit.date || null,
         region: permit.lan || permit.municipality || null,
         source_type: 'permit',
+        source_excerpt: sourceExcerpt,
       };
 
       // Upsert with conflict on (organization_id, source_url, title)

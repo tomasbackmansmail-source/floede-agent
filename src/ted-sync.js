@@ -237,7 +237,8 @@ async function main() {
       const title = (titleObj.swe || titleObj.eng || '(okänd titel)').slice(0, 80);
 
       const descObj = notice['description-proc'] || {};
-      const description = (descObj.swe || descObj.eng || '').slice(0, 200);
+      const descFull = descObj.swe || descObj.eng || '';
+      const description = descFull.slice(0, 200);
 
       const pubDate = parsePublicationDate(notice['publication-date']);
       const noticeId = notice['publication-number'];
@@ -264,6 +265,16 @@ async function main() {
       const nutsCode = extractSeNutsCode(notice['place-of-performance']);
       const region = nutsCode ? (NUTS_TO_LAN[nutsCode.toUpperCase()] || null) : null;
 
+      const excerptParts = [];
+      const fullTitle = titleObj.swe || titleObj.eng;
+      if (fullTitle) excerptParts.push(`Titel: ${fullTitle}`);
+      if (descFull) excerptParts.push(descFull.slice(0, 9000));
+      if (cpvCodes && cpvCodes.length > 0) excerptParts.push(`CPV: ${cpvCodes.join(', ')}`);
+      if (amount) excerptParts.push(`Uppskattat varde: ${amount.toLocaleString('sv-SE')} SEK`);
+      if (timeline) excerptParts.push(timeline);
+      if (nutsCode) excerptParts.push(`NUTS: ${nutsCode}`);
+      const sourceExcerpt = excerptParts.length > 0 ? excerptParts.join('\n\n') : null;
+
       const signal = {
         organization_id: org.id,
         organization_name: org.name,
@@ -277,6 +288,7 @@ async function main() {
         region,
         category,
         source_type: 'ted',
+        source_excerpt: sourceExcerpt,
         ted_reference: noticeId || null,
         nuts_code: nutsCode,
       };
