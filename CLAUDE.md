@@ -225,6 +225,15 @@ sin stabilitet — inte i koden, i arbetssättet.
 
 Vercel är helt avvecklat.
 
+## Senast uppdaterat 2026-05-18
+- Pressroom-diagnos: 195/374 rader saknar source_excerpt, alla pre-22-april-legacy. Forward-fix bevisad i prod (2026-05 = 0% NULL). Ingen backfill — brytpunktsdatum §1.4.
+- 93 Vasakronan-rader trigger_type=NULL: inte bug, taxonomi-mismatch (uthyrning + delårsrapporter passar ingen av 6 trigger_type-värden). Haiku-NULL är korrekt svar.
+- ci-pressroom.json extraction_prompt utökad: skippar uthyrning av befintliga lokaler + Q-rapporter + sponsringar. Behåller nybyggnation med namngiven hyresgäst. Dummy-test mot Sonnet grön (3/3).
+- ci-projectpage.json: organization_name tillagd i extraction_prompt + default_source_type på top-level. Backfill: 16 UPDATE, 25 DELETE (dubletter), 0 orphans kvar (commit b904db6).
+- TED source_excerpt-fix aktiverad i prod via deploy 7eaa3c98. Lokalt verifierad: 72/72 nya TED-rader non-null. Källa till buggen var deploy-drift (Railway gick på 25 april-image i 23 dagar).
+- Trafikverket onboardad: org-rad + 2 ci_sources (Cision-pressroom + 2 project_page-län). 77+ signaler skapade på första körningen (5 pressroom, 72 TED, 9 project_page).
+- docs/BACKLOG.md skapad: subsidiary-bolag (Stockholmshem, SISAB) sparas felaktigt under "Stockholms stad". MEDIUM-prio, ej blockerare.
+
 ## Senast uppdaterat 2026-04-27 (kväll)
 - Hälsodashboard byggd: docs/health-queries.md med Q1-Q5. Bevisad mot live-data 27 april. Varje framtida CTO Engine-session börjar här.
 - qc_runs.permits_inserted = 0 på 13000+ körningar senaste 30 dagarna. QC-systemet är blint. Self-healing-loopen är beroende av detta — fungerar inte.
@@ -251,10 +260,4 @@ Vercel är helt avvecklat.
 - ci-pressroom.json har default_source_type = "pressroom" pa top-level.
 - ci-pressroom extraction_prompt hanterar TYP A + TYP B i samma prompt med stramad delprojekt-regel.
 
-## Senast uppdaterat 2026-04-22
-- fetchPage-funktionerna returnerar `{subpages: [...]}` (commit 4f4baff)
-- Subpage-URL dedup innan extraction (commit 1512e8e)
-- raw_html_hash per-record från subpage-hash
-- ci-pressroom.json utökad med source_excerpt + ai_summary
-
-Äldre poster: se `docs/changelog.md` (notera: 2026-04-22-posten ska flyttas dit vid nästa sessionstart, >2 veckor gammal).
+Äldre poster: se `docs/changelog.md`.

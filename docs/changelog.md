@@ -4,6 +4,12 @@
 
 ---
 
+## Senast uppdaterat 2026-04-22
+- fetchPage-funktionerna returnerar `{subpages: [...]}` (commit 4f4baff)
+- Subpage-URL dedup innan extraction (commit 1512e8e)
+- raw_html_hash per-record från subpage-hash
+- ci-pressroom.json utökad med source_excerpt + ai_summary
+
 ## Senast uppdaterat 2026-04-13
 
 ### Motor
