@@ -119,7 +119,9 @@ railway up --service floede-agent --detach       # manuell deploy — GitHub-tri
 | CI_SUPABASE_SERVICE_KEY | CI-projektet |
 | RESEND_API_KEY | Mailutskick |
 | CRON_SECRET | Skyddar cron-endpoint |
-| NOTIFY_URL | Trigger bevakningsmail efter daily-run |
+| NOTIFY_URL | Trigger bevakningsmail efter daily-run (ByggSignal) |
+| CI_ENGINE_WEBHOOK_URL | Post-run webhook till CI-appen (Phase 5, per vertikal via post_run_webhook-block i config). Skickas som X-Cron-Secret-header (rå) |
+| CI_WEBHOOK_SECRET | Secret för CI:s engine-webhook (synkad från CI:s Railway: CI_WEBHOOK_SECRET) |
 | AGENT_MAX_COST_PER_RUN_USD | Budget per agent-körning (default 10.00) |
 
 ## REGLER
@@ -226,6 +228,7 @@ sin stabilitet — inte i koden, i arbetssättet.
 Vercel är helt avvecklat.
 
 ## Senast uppdaterat 2026-05-18
+- Phase 5 post_run_webhook implementerad. Config-driven per vertikal (post_run_webhook-block: url_env + secret_env + method). Aktiv på ci-pressroom, ci-projectpage, ci-annualreport. Body: {vertical, run_id, signal_ids, total_inserted, started_at, finished_at}. Header: X-Cron-Secret med råvärdet (CI använder timingSafeEqual). Non-fatal: webhook-fel påverkar inte batchen. insertToSupabase returnerar nu insertedIds via .select('id'). Nya env-vars: CI_ENGINE_WEBHOOK_URL + CI_WEBHOOK_SECRET (synka från CI:s Railway CI_WEBHOOK_SECRET). NOTIFY_URL behållen för ByggSignal.
 - Pressroom-diagnos: 195/374 rader saknar source_excerpt, alla pre-22-april-legacy. Forward-fix bevisad i prod (2026-05 = 0% NULL). Ingen backfill — brytpunktsdatum §1.4.
 - 93 Vasakronan-rader trigger_type=NULL: inte bug, taxonomi-mismatch (uthyrning + delårsrapporter passar ingen av 6 trigger_type-värden). Haiku-NULL är korrekt svar.
 - ci-pressroom.json extraction_prompt utökad: skippar uthyrning av befintliga lokaler + Q-rapporter + sponsringar. Behåller nybyggnation med namngiven hyresgäst. Dummy-test mot Sonnet grön (3/3).

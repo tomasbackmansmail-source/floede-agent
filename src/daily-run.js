@@ -418,7 +418,7 @@ async function updateContentHash(supabase, configId, hashes, listingUrl = null) 
 }
 
 async function insertToSupabase(supabase, records, extractionRun, rawHtmlHash = null) {
-  if (records.length === 0) return { inserted: 0, skipped: 0, errors: 0 };
+  if (records.length === 0) return { inserted: 0, skipped: 0, errors: 0, insertedIds: [] };
 
   const dbConfig = verticalConfig.db;
   const table = dbConfig.table;
@@ -463,6 +463,7 @@ async function insertToSupabase(supabase, records, extractionRun, rawHtmlHash = 
   let inserted = 0;
   let skipped = 0;
   let errors = 0;
+  const insertedIds = [];
 
   for (const record of records) {
     // Normalize municipality/organization name before mapping (e.g. "Eslövs kommun" -> "Eslöv")
@@ -503,22 +504,27 @@ async function insertToSupabase(supabase, records, extractionRun, rawHtmlHash = 
     const idValue = row[primaryIdField];
 
     if (idValue) {
-      // Has primary ID — upsert with conflict handling
-      const { error } = await withRetry(
+      // Has primary ID — upsert with conflict handling. .select('id') returnerar
+      // bara faktiskt insertade rader (ignoreDuplicates utelämnar dupes).
+      const { data, error } = await withRetry(
         () => supabase
           .from(table)
           .upsert(row, {
             onConflict: conflictKey,
             ignoreDuplicates: true
-          }),
+          })
+          .select('id'),
         { maxRetries: 3, baseDelay: 5000, label: `DB ${idValue}` }
       );
 
       if (error) {
         if (error.code === '23505') { skipped++; }
         else { errors++; console.log(`  [DB] Error inserting ${idValue}: ${error.message}`); }
-      } else {
+      } else if (data && data.length > 0) {
         inserted++;
+        insertedIds.push(data[0].id);
+      } else {
+        skipped++;
       }
     } else {
       // No primary ID — check for duplicates using dedup fields
@@ -541,17 +547,20 @@ async function insertToSupabase(supabase, records, extractionRun, rawHtmlHash = 
       if (count > 0) {
         skipped++;
       } else {
-        const { error } = await withRetry(
-          () => supabase.from(table).insert(row),
+        const { data, error } = await withRetry(
+          () => supabase.from(table).insert(row).select('id'),
           { maxRetries: 3, baseDelay: 5000, label: `DB insert ${row[fieldMapping.address] || 'unknown'}` }
         );
         if (error) { errors++; console.log(`  [DB] Error inserting: ${error.message}`); }
-        else { inserted++; }
+        else {
+          inserted++;
+          if (data && data.length > 0) insertedIds.push(data[0].id);
+        }
       }
     }
   }
 
-  return { inserted, skipped, errors };
+  return { inserted, skipped, errors, insertedIds };
 }
 
 async function main() {
@@ -608,6 +617,8 @@ async function main() {
   let totalCost = 0;
   let totalPermits = 0;
   let totalInserted = 0;
+  const allInsertedIds = [];
+  const startedAt = new Date().toISOString();
   let totalCacheCreated = 0;
   let totalCacheRead = 0;
   let httpCount = 0;
@@ -648,6 +659,7 @@ async function main() {
 
           const db = await insertToSupabase(supabase, permits, runId, contentHash);
           totalInserted += db.inserted;
+          allInsertedIds.push(...db.insertedIds);
           console.log(`  DB: ${db.inserted} inserted, ${db.skipped} skipped, ${db.errors} errors`);
         }
 
@@ -709,6 +721,7 @@ async function main() {
 
           const db = await insertToSupabase(supabase, permits, runId, contentHash);
           totalInserted += db.inserted;
+          allInsertedIds.push(...db.insertedIds);
           console.log(`  DB: ${db.inserted} inserted, ${db.skipped} skipped, ${db.errors} errors`);
         }
 
@@ -770,6 +783,7 @@ async function main() {
 
           const db = await insertToSupabase(supabase, permits, runId, contentHash);
           totalInserted += db.inserted;
+          allInsertedIds.push(...db.insertedIds);
           console.log(`  DB: ${db.inserted} inserted, ${db.skipped} skipped, ${db.errors} errors`);
         }
 
@@ -897,6 +911,7 @@ async function main() {
 
           const db = await insertToSupabase(supabase, allPermits, runId);
           totalInserted += db.inserted;
+          allInsertedIds.push(...db.insertedIds);
           console.log(`  DB: ${db.inserted} inserted, ${db.skipped} skipped, ${db.errors} errors`);
 
           if (config._id) {
@@ -1027,6 +1042,7 @@ async function main() {
 
             const db = await insertToSupabase(supabase, allPermits, runId);
             totalInserted += db.inserted;
+            allInsertedIds.push(...db.insertedIds);
             console.log(`  DB: ${db.inserted} inserted, ${db.skipped} skipped, ${db.errors} errors`);
 
             if (config._id) {
@@ -1168,6 +1184,45 @@ async function main() {
       console.log('Notify response:', JSON.stringify(result));
     } catch (err) {
       console.error('Notify trigger failed (non-fatal):', err.message);
+    }
+  }
+
+  // --- Phase 5: Post-run webhook (config-driven, per vertikal) ---
+  const postRunWebhook = verticalConfig.post_run_webhook;
+  if (postRunWebhook) {
+    const url = process.env[postRunWebhook.url_env];
+    const secret = process.env[postRunWebhook.secret_env];
+    if (!url || !secret) {
+      console.error(`Post-run webhook skipped: missing ${!url ? postRunWebhook.url_env : postRunWebhook.secret_env}`);
+    } else {
+      console.log(`\n=== Phase 5: Post-run webhook (${allInsertedIds.length} signal_ids) ===`);
+      const finishedAt = new Date().toISOString();
+      const body = {
+        vertical: process.env.VERTICAL || verticalConfig.name,
+        run_id: runId,
+        signal_ids: allInsertedIds,
+        total_inserted: totalInserted,
+        started_at: startedAt,
+        finished_at: finishedAt
+      };
+      try {
+        const resp = await fetch(url, {
+          method: postRunWebhook.method || 'POST',
+          headers: {
+            'X-Cron-Secret': secret,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(body)
+        });
+        if (resp.ok) {
+          console.log(`Post-run webhook OK (${resp.status})`);
+        } else {
+          const text = await resp.text();
+          console.error(`Post-run webhook failed (non-fatal): ${resp.status} ${text}`);
+        }
+      } catch (err) {
+        console.error(`Post-run webhook error (non-fatal): ${err.message}`);
+      }
     }
   }
 

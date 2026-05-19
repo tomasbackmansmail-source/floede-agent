@@ -75,5 +75,10 @@
     "max_navigations": 4,
     "max_cost_per_source_usd": 0.3,
     "search_terms": ["projekt", "byggprojekt", "stadsutveckling"]
+  },
+  "post_run_webhook": {
+    "url_env": "CI_ENGINE_WEBHOOK_URL",
+    "secret_env": "CI_WEBHOOK_SECRET",
+    "method": "POST"
   }
 }
