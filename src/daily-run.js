@@ -7,7 +7,7 @@ import { createClient } from "@supabase/supabase-js";
 import { chromium } from "playwright";
 import { writeFile, mkdir } from "fs/promises";
 import { join } from "path";
-import { createHash } from "crypto";
+import { createHash, randomUUID } from "crypto";
 
 import { withRetry } from "./utils/retry.js";
 import {
@@ -1197,7 +1197,13 @@ async function main() {
     } else {
       console.log(`\n=== Phase 5: Post-run webhook (${allInsertedIds.length} signal_ids) ===`);
       const finishedAt = new Date().toISOString();
+      const batchId = randomUUID();
       const body = {
+        // CI:s nuvarande endpoint-kontrakt (batch_id krävs som uuid)
+        batch_id: batchId,
+        signals_inserted: totalInserted,
+        completed_at: finishedAt,
+        // Utökat kontrakt (CI:s endpoint uppgraderas separat att läsa signal_ids)
         vertical: process.env.VERTICAL || verticalConfig.name,
         run_id: runId,
         signal_ids: allInsertedIds,
