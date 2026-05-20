@@ -18,6 +18,7 @@ import {
 import { readFileSync } from "fs";
 import { normalizeMunicipality as normalizeMuni } from "./utils/normalize.js";
 import { classifySignal } from "./utils/classify.js";
+import { findParentSignalId, findOrphanChildIds, isParentLinkConfig } from "./utils/parent-link.js";
 import { fetchCiceronPermits, isCiceronUrl } from "./adapters/ciceron.js";
 import { fetchMeetingPlusPermits, isMeetingPlusUrl } from "./adapters/meetingplus.js";
 import { fetchNetPublicatorPermits, isNetPublicatorUrl } from "./adapters/netpublicator.js";
@@ -438,6 +439,9 @@ async function insertToSupabase(supabase, records, extractionRun, rawHtmlHash = 
   const primaryIdField = dbConfig.primary_id_field;
   const conflictKey = dbConfig.conflict_key;
   const dedupFields = dbConfig.dedup_fields || [];
+  const parentLink = isParentLinkConfig(verticalConfig.parent_link) ? verticalConfig.parent_link : null;
+  let forwardLinked = 0;
+  let backLinked = 0;
 
   // Enrichment: lookup from reference table (e.g. municipality -> county)
   let enrichmentLookup = {};
@@ -513,6 +517,21 @@ async function insertToSupabase(supabase, records, extractionRun, rawHtmlHash = 
       console.log(`  [DEBUG insert] muni=${record.municipality || record[fieldMapping.municipality]} row_source_url=${row.source_url} record_source_url=${record.source_url} record_keys=${Object.keys(record).join(',')}`);
     }
 
+    // Forward parent linking: if this record is a CHILD, find a parent
+    // (e.g. annual_report row links to financial_report row for same org/date).
+    if (parentLink) {
+      const parentIdCol = parentLink.parent_id_column || "parent_signal_id";
+      try {
+        const parentId = await findParentSignalId(supabase, table, row, parentLink);
+        if (parentId) {
+          row[parentIdCol] = parentId;
+          forwardLinked++;
+        }
+      } catch (err) {
+        console.log(`  [parent-link] forward lookup failed: ${err.message}`);
+      }
+    }
+
     const idValue = row[primaryIdField];
 
     if (idValue) {
@@ -535,6 +554,7 @@ async function insertToSupabase(supabase, records, extractionRun, rawHtmlHash = 
       } else if (data && data.length > 0) {
         inserted++;
         insertedIds.push(data[0].id);
+        backLinked += await retroLinkChildren(supabase, table, row, data[0].id, parentLink);
       } else {
         skipped++;
       }
@@ -566,13 +586,44 @@ async function insertToSupabase(supabase, records, extractionRun, rawHtmlHash = 
         if (error) { errors++; console.log(`  [DB] Error inserting: ${error.message}`); }
         else {
           inserted++;
-          if (data && data.length > 0) insertedIds.push(data[0].id);
+          if (data && data.length > 0) {
+            insertedIds.push(data[0].id);
+            backLinked += await retroLinkChildren(supabase, table, row, data[0].id, parentLink);
+          }
         }
       }
     }
   }
 
-  return { inserted, skipped, errors, insertedIds };
+  if (parentLink && (forwardLinked > 0 || backLinked > 0)) {
+    console.log(`  [parent-link] forward-linked=${forwardLinked} back-linked=${backLinked}`);
+  }
+
+  return { inserted, skipped, errors, insertedIds, forwardLinked, backLinked };
+}
+
+// Backwards-linking: when a PARENT (e.g. financial_report) is inserted, find
+// orphan CHILD rows (annual_report) within ±window_days and update them.
+async function retroLinkChildren(supabase, table, parentRow, parentId, parentLink) {
+  if (!parentLink) return 0;
+  const parentIdCol = parentLink.parent_id_column || "parent_signal_id";
+  try {
+    const orphanIds = await findOrphanChildIds(supabase, table, parentRow, parentId, parentLink);
+    if (orphanIds.length === 0) return 0;
+    const { error } = await supabase
+      .from(table)
+      .update({ [parentIdCol]: parentId })
+      .in("id", orphanIds);
+    if (error) {
+      console.log(`  [parent-link] retro-link update failed: ${error.message}`);
+      return 0;
+    }
+    console.log(`  [parent-link] retro-linked ${orphanIds.length} ${parentLink.child_source_type} → ${parentId}`);
+    return orphanIds.length;
+  } catch (err) {
+    console.log(`  [parent-link] retro-link lookup failed: ${err.message}`);
+    return 0;
+  }
 }
 
 async function main() {
