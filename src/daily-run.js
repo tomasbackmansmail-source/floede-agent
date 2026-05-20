@@ -17,6 +17,7 @@ import {
 } from "./utils/engine.js";
 import { readFileSync } from "fs";
 import { normalizeMunicipality as normalizeMuni } from "./utils/normalize.js";
+import { classifySignal } from "./utils/classify.js";
 import { fetchCiceronPermits, isCiceronUrl } from "./adapters/ciceron.js";
 import { fetchMeetingPlusPermits, isMeetingPlusUrl } from "./adapters/meetingplus.js";
 import { fetchNetPublicatorPermits, isNetPublicatorUrl } from "./adapters/netpublicator.js";
@@ -379,6 +380,17 @@ export async function extractPermits(client, html, municipalityName, sourceUrl, 
       if (!p.source_type) {
         p.source_type = defaultSourceType;
       }
+    }
+  }
+
+  // Apply title-based reclassification rules (e.g. lift a pressroom signal to
+  // financial_report when its title matches "Bokslutskommuniké 2025"). Generic
+  // and config-driven — source-level overrides vertical-level.
+  const classifierRules = sourceConfig.signal_classifier_rules
+    || verticalConfig.signal_classifier_rules;
+  if (classifierRules) {
+    for (const p of permits) {
+      classifySignal(p, classifierRules);
     }
   }
 
