@@ -19,6 +19,7 @@ import { readFileSync } from "fs";
 import { normalizeMunicipality as normalizeMuni } from "./utils/normalize.js";
 import { classifySignal } from "./utils/classify.js";
 import { findParentSignalId, findOrphanChildIds, isParentLinkConfig } from "./utils/parent-link.js";
+import { findReportDuplicate, isReportDedupConfig } from "./utils/report-dedup.js";
 import { fetchCiceronPermits, isCiceronUrl } from "./adapters/ciceron.js";
 import { fetchMeetingPlusPermits, isMeetingPlusUrl } from "./adapters/meetingplus.js";
 import { fetchNetPublicatorPermits, isNetPublicatorUrl } from "./adapters/netpublicator.js";
@@ -440,8 +441,10 @@ async function insertToSupabase(supabase, records, extractionRun, rawHtmlHash = 
   const conflictKey = dbConfig.conflict_key;
   const dedupFields = dbConfig.dedup_fields || [];
   const parentLink = isParentLinkConfig(verticalConfig.parent_link) ? verticalConfig.parent_link : null;
+  const reportDedup = isReportDedupConfig(verticalConfig.report_dedup) ? verticalConfig.report_dedup : null;
   let forwardLinked = 0;
   let backLinked = 0;
+  let reportDeduped = 0;
 
   // Enrichment: lookup from reference table (e.g. municipality -> county)
   let enrichmentLookup = {};
@@ -513,8 +516,33 @@ async function insertToSupabase(supabase, records, extractionRun, rawHtmlHash = 
     row.extraction_cost_usd = null;
     row.raw_html_hash = record._raw_html_hash || rawHtmlHash;
 
+    // Persist document_kind (set by signal_classifier_rules) into structured_meta
+    // so downstream queries (report-dedup, analytics) can filter on it without
+    // re-running the classifier.
+    if (record.document_kind) {
+      const kindColumn = (reportDedup && reportDedup.kind_column) || "structured_meta";
+      const kindField = (reportDedup && reportDedup.kind_field) || "document_kind";
+      row[kindColumn] = { ...(row[kindColumn] || {}), [kindField]: record.document_kind };
+    }
+
     if (!row[fieldMapping.source_url || 'source_url']) {
       console.log(`  [DEBUG insert] muni=${record.municipality || record[fieldMapping.municipality]} row_source_url=${row.source_url} record_source_url=${record.source_url} record_keys=${Object.keys(record).join(',')}`);
+    }
+
+    // Report-style dedupe: same org + source_date + document_kind = same publication
+    // even if URL/title differ across channels (press release vs Cision mirror).
+    if (reportDedup && record.source_type === reportDedup.applies_to_source_type) {
+      try {
+        const dupId = await findReportDuplicate(supabase, table, row, record.document_kind, reportDedup);
+        if (dupId) {
+          console.log(`  [report-dedup] skip duplicate ${reportDedup.applies_to_source_type}/${record.document_kind} (existing=${dupId}): ${row.title || "(no title)"}`);
+          skipped++;
+          reportDeduped++;
+          continue;
+        }
+      } catch (err) {
+        console.log(`  [report-dedup] lookup failed: ${err.message}`);
+      }
     }
 
     // Forward parent linking: if this record is a CHILD, find a parent
@@ -598,8 +626,11 @@ async function insertToSupabase(supabase, records, extractionRun, rawHtmlHash = 
   if (parentLink && (forwardLinked > 0 || backLinked > 0)) {
     console.log(`  [parent-link] forward-linked=${forwardLinked} back-linked=${backLinked}`);
   }
+  if (reportDedup && reportDeduped > 0) {
+    console.log(`  [report-dedup] skipped ${reportDeduped} duplicate ${reportDedup.applies_to_source_type} rows`);
+  }
 
-  return { inserted, skipped, errors, insertedIds, forwardLinked, backLinked };
+  return { inserted, skipped, errors, insertedIds, forwardLinked, backLinked, reportDeduped };
 }
 
 // Backwards-linking: when a PARENT (e.g. financial_report) is inserted, find
