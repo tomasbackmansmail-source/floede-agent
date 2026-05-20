@@ -66,18 +66,25 @@ async function loadBaselines(supabase) {
   return baselines;
 }
 
-function validatePermits(records) {
-  const validation = verticalConfig.qc?.validation;
+export function validateRecords(records, validation) {
   if (!validation) return [];
 
-  const { required_fields = [], allowed_values = {}, numeric_ranges = {} } = validation;
+  const {
+    required_fields = [],
+    allowed_values = {},
+    numeric_ranges = {},
+    skip_required_for_source_type = {}
+  } = validation;
   const issues = [];
 
   for (const r of records) {
     const recordIssues = [];
+    const skipFields = skip_required_for_source_type[r.source_type] || [];
 
-    // Check required fields
+    // Check required fields (some fields may be skipped per source_type, e.g.
+    // maturity is not applicable to financial_report rows).
     for (const field of required_fields) {
+      if (skipFields.includes(field)) continue;
       if (r[field] === null || r[field] === undefined) {
         recordIssues.push(`missing required field: ${field}`);
       }
@@ -116,6 +123,10 @@ function validatePermits(records) {
   }
 
   return issues;
+}
+
+function validatePermits(records) {
+  return validateRecords(records, verticalConfig.qc?.validation);
 }
 
 function detectStale(baselines, extractedToday) {
