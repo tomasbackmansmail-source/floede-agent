@@ -478,13 +478,16 @@ describe("integration: Sitevision-style HTML processing", () => {
     assert.ok(links[1].href.includes("kfks-2024-00601"));
   });
 
-  it("filterByBygglovKeywords filters on link text (not surrounding HTML)", () => {
+  it("filterByBygglovKeywords matches text or href (not surrounding HTML)", () => {
     const allLinks = extractLinks(SITEVISION_HTML, "https://www.nacka.se/anslagstavla/");
     const filtered = filterByBygglovKeywords(allLinks);
-    // "Läs mer" links don't contain bygglov keywords — so they are correctly filtered out.
-    // Only links like "Bygga & bo" that happen to be in nav would remain, but nav is not stripped by extractLinks.
-    // This confirms: filterByBygglovKeywords only looks at anchor text, not page context.
-    assert.ok(filtered.every(l => BYGGLOV_KEYWORDS.some(kw => l.text.toLowerCase().includes(kw))));
+    // Each surviving link must hit a bygglov keyword somewhere on the link itself
+    // (anchor text OR URL) — but never on surrounding HTML chrome.
+    assert.ok(filtered.every(l =>
+      BYGGLOV_KEYWORDS.some(kw =>
+        l.text.toLowerCase().includes(kw) || l.href.toLowerCase().includes(kw)
+      )
+    ));
   });
 
   it("full pipeline: selector hint is needed to find subpage links", () => {

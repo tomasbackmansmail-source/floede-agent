@@ -110,8 +110,9 @@ export async function fetchPageHttp(config) {
   // Handle subpages
   if (config.requires_subpages && config.requires_subpages.required) {
     const selectorHint = config.requires_subpages.link_selector_hint || "a[href*='bygglov'], a[href*='kungorelse']";
+    const allowPdf = config.allow_pdf_subpages === true;
     const allLinks = extractLinks(rawHtml, url, selectorHint);
-    const domainFiltered = filterLinks(allLinks.map(l => l.href), url);
+    const domainFiltered = filterLinks(allLinks.map(l => l.href), url, { allowPdf });
     // Re-attach text for keyword filtering
     const domainFilteredWithText = allLinks.filter(l => domainFiltered.includes(l.href));
     const bygglovLinks = filterByKeywords(domainFilteredWithText, verticalConfig.keywords);
@@ -138,12 +139,18 @@ export async function fetchPageHttp(config) {
       try {
         const subResp = await fetch(link.href, {
           headers: { "User-Agent": USER_AGENT },
-          signal: AbortSignal.timeout(15000),
+          signal: AbortSignal.timeout(30000),
           redirect: "follow",
         });
         if (subResp.ok) {
-          const subHtml = await subResp.text();
-          subpages.push({ url: link.href, content: htmlToText(subHtml), isPdf: false });
+          const subContentType = subResp.headers.get("content-type") || "";
+          if (subContentType.includes("application/pdf")) {
+            const arrayBuf = await subResp.arrayBuffer();
+            subpages.push({ url: link.href, content: Buffer.from(arrayBuf), isPdf: true });
+          } else {
+            const subHtml = await subResp.text();
+            subpages.push({ url: link.href, content: htmlToText(subHtml), isPdf: false });
+          }
         }
       } catch (err) {
         console.log(`  [HTTP] Subpage failed: ${link.href} — ${err.message}`);
@@ -223,11 +230,12 @@ export async function fetchPagePlaywright(page, config) {
   // Handle subpages
   if (config.requires_subpages && config.requires_subpages.required) {
     const linkSelector = config.requires_subpages.link_selector_hint || "a[href*='bygglov'], a[href*='kungorelse']";
+    const allowPdf = config.allow_pdf_subpages === true;
     const links = await page.$$eval(linkSelector, (els) =>
       els.map((el) => ({ href: el.href, text: el.textContent || "" })).filter((l) => l.href && l.href.startsWith("http"))
     );
 
-    const domainFiltered = filterLinks(links.map(l => l.href), config.listing_url);
+    const domainFiltered = filterLinks(links.map(l => l.href), config.listing_url, { allowPdf });
     const domainFilteredWithText = links.filter(l => domainFiltered.includes(l.href));
     const bygglovLinks = filterByKeywords(domainFilteredWithText, verticalConfig.keywords);
     const maxSubpages = config.requires_subpages.max_subpages || 200;
@@ -257,13 +265,28 @@ export async function fetchPagePlaywright(page, config) {
     const subpages = [];
     for (const link of dedupedLinks.slice(0, maxSubpages)) {
       try {
-        await page.goto(link.href, { waitUntil: "domcontentloaded", timeout: 15000 });
-        await page.waitForTimeout(500);
-        const text = await page.evaluate(() => {
-          const main = document.querySelector("main, article, .pagecontent, [role='main']");
-          return (main || document.body).innerText;
-        });
-        subpages.push({ url: link.href, content: text, isPdf: false });
+        // PDF subpages: fetch via raw HTTP (Playwright doesn't return PDF bytes
+        // from a goto). Detection by URL suffix is enough — these sources are
+        // explicitly opted into allow_pdf_subpages.
+        if (allowPdf && /\.pdf(\?|$)/i.test(link.href)) {
+          const subResp = await fetch(link.href, {
+            headers: { "User-Agent": USER_AGENT },
+            signal: AbortSignal.timeout(30000),
+            redirect: "follow",
+          });
+          if (subResp.ok) {
+            const arrayBuf = await subResp.arrayBuffer();
+            subpages.push({ url: link.href, content: Buffer.from(arrayBuf), isPdf: true });
+          }
+        } else {
+          await page.goto(link.href, { waitUntil: "domcontentloaded", timeout: 15000 });
+          await page.waitForTimeout(500);
+          const text = await page.evaluate(() => {
+            const main = document.querySelector("main, article, .pagecontent, [role='main']");
+            return (main || document.body).innerText;
+          });
+          subpages.push({ url: link.href, content: text, isPdf: false });
+        }
       } catch (err) {
         console.log(`  [Browser] Subpage failed: ${link.href} — ${err.message}`);
       }

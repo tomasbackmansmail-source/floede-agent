@@ -67,11 +67,14 @@ export function extractLinks(html, baseUrl, selectorHint) {
   return links;
 }
 
-// Filter links by keyword list (generic — works for any vertical)
+// Filter links by keyword list (generic — works for any vertical).
+// Matches against link text + href together, so a keyword can hit either the
+// visible label or the URL (handles HTML-encoded labels like "&#xC5;rsredovisning"
+// that wouldn't match on text alone).
 export function filterByKeywords(links, keywords) {
   return links.filter(l => {
-    const text = l.text.toLowerCase();
-    return keywords.some(kw => text.includes(kw));
+    const haystack = (l.text + " " + l.href).toLowerCase();
+    return keywords.some(kw => haystack.includes(kw.toLowerCase()));
   });
 }
 
@@ -80,11 +83,15 @@ export function filterByBygglovKeywords(links) {
   return filterByKeywords(links, BYGGLOV_KEYWORDS);
 }
 
-// Filter links: remove binaries and external domains
-export function filterLinks(links, configUrl) {
+// Filter links: remove binaries and external domains. Set allowPdf=true for
+// sources that explicitly target PDF subpages (financial-report indexes etc).
+export function filterLinks(links, configUrl, { allowPdf = false } = {}) {
   const configDomain = new URL(configUrl).hostname.replace(/^www\./, "");
+  const binaryRegex = allowPdf
+    ? /\.(doc|docx|xlsx|xls|zip|png|jpg|jpeg|gif)$/i
+    : /\.(pdf|doc|docx|xlsx|xls|zip|png|jpg|jpeg|gif)$/i;
   return [...new Set(links)].filter((url) => {
-    if (/\.(pdf|doc|docx|xlsx|xls|zip|png|jpg|jpeg|gif)$/i.test(url)) return false;
+    if (binaryRegex.test(url)) return false;
     try {
       const host = new URL(url).hostname.replace(/^www\./, "");
       return host === configDomain || host.endsWith(`.${configDomain}`);
