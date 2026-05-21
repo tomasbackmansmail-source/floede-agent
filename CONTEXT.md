@@ -1,7 +1,7 @@
 # floede-agent — Kontext för ny chatt
 
 ## Nuläge
-Måndag 18 maj 2026. CI-pressroom-diagnos klar och åtgärdad. Engine producerar 2026-05 = 0% NULL excerpt på alla pilot-orgs (bevisat). Trafikverket onboardad som femte pilot-org. Deploy-drift (23 dagar gammal image från 25 april) upptäckt och fixad via tredje deploy-försök (7eaa3c98).
+Torsdag 21 maj 2026. CI financial_report-rullout deployad i 5 steg (1→3→5→2→4). Vasakronan + SFV levererar nu rapport-data i prod; Akademiska Hus blockerad av nyupptäckt vertikal-agnostisk race-bugg i timeout-mekaniken (se nedan). Steg 4 stängt som DELVIS LEVERERAT — 3 av 4 pilot-orgs (Stockholms stad skippad enligt plan).
 
 Tre status-block:
 
@@ -25,6 +25,7 @@ Sedan: kör batch på de 20 tysta kommunerna. Verifiera resultat med Q3 i hälso
 
 ## Aktiva uppgifter
 - Akademiska Hus project_page Playwright-timeout (akademiskahus.se svarar inte under 30s) — separat utredning behövs.
+- Akademiska Hus annual_report producerar 0 rader pga race-bugg i timeout-mekaniken (se Kritiska motorbuggar). Selector + keywords fungerar — det är inte ett config-problem.
 - Trafikverket TED buyer-ID verifiera mot ted.europa.eu UI för att säkerställa täckning av alla TRV-upphandlingar.
 - Regleringsbrev-PDF för Trafikverket (annual_report) onboardas — researchad, ej tillagd ännu.
 - Subsidiary-bolag under Stockholms stad (Stockholmshem, SISAB): se docs/BACKLOG.md.
@@ -45,6 +46,8 @@ Sedan: kör batch på de 20 tysta kommunerna. Verifiera resultat med Q3 i hälso
 - Fredrik Johansson (Skanska, CI pilot): väntar fortfarande. CI Lager 2 = v0.2 efter förankring med CTO CI.
 
 ## Senaste besluten (nyaste överst)
+- 2026-05-21: CI financial_report-rullout deployad i 5 commits (3d0c0c7 → 37d0d67). Generic titel-klassificerare lyfter source_type från pressroom → financial_report (12 kinds). parent_signal_id-länkning forward + retro (95 befintliga annual_report-rader redo för retro-koppling när första financial_report skapas). Conditional validation: maturity tillåts vara null för financial_report. report_dedup på (org+date+document_kind). PDF-subpage-stöd via allow_pdf_subpages + filterByKeywords matchar nu text+href. Live LLM-test 3/3 grön $0.02. Prod-verifiering 21 maj: Vasakronan delårsrapport + 14 projekt-rader (5 forward-linked), SFV 103 annual_report-rader. Akademiska Hus blockerad av race-bugg.
+- 2026-05-21: Race-bugg i daily-run.js:945-1054 + 1095 identifierad och bevisad. Promise.race utan abort-signal orsakar tyst dataförlust + falsk-positiva inserts + logg-cross-contamination. Markerad som KÄNT KRITISKT PROBLEM, fix tas i egen session.
 - 2026-05-18: Pressroom-fix klar. ci-pressroom.json extraktion utökad med uthyrnings- + Q-rapport-filter (Vasakronan-mönster, dummy-test 3/3 grön). 195 legacy NULL_excerpt-rader får leva enligt §1.4 brytpunktsdatum. Backlog-rad om subsidiary-bolag (Stockholmshem/SISAB) skapad.
 - 2026-05-18: ci-projectpage.json prompt-fix + backfill (16 UPDATE + 25 DELETE dubletter). Trafikverket onboardad (org-rad + 2 ci_sources). TED-fix deployad till prod efter 23 dagars deploy-drift. Engine produktionsklar för CI-pilot.
 - 2026-04-27 (kväll): Hälsodashboard byggd. Q1-Q5 i docs/health-queries.md, bevisad mot live-data. Mäter mot permits_v2 (sanning), inte qc_runs (trasigt).
@@ -58,6 +61,27 @@ Sedan: kör batch på de 20 tysta kommunerna. Verifiera resultat med Q3 i hälso
 - 2026-04-25: Hash-incident löst. Empty-HTML-tröskel + verified-config-krav (commit 81393cb).
 - 2026-04-25: Datakontrakt v0.1 läst. Tvålagermodell godkänd.
 - 2026-04-25: MeetingPlus + NetPublicator-adaptrar fixade (commit 1e72d56).
+
+## Kritiska motorbuggar (vertikal-agnostiska)
+
+### Race-bugg i timeout-mekaniken (daily-run.js:945-1054 + 1095)
+**Status**: känd, ej fixad. Blockerar Akademiska Hus annual_report-extraktion (producerar 0 DB-rader). Drabbar alla källor med timeout-risk: ByggSignal-storkommuner, Trafikverket TED, framtida verticals.
+
+**Rotorsak**: `Promise.race([innerWork, timeoutPromise])` saknar abort-signal. När timeout-promisen vinner kastar JS error från race, men inner async-funktionen **fortsätter köra i bakgrunden** utan signal — JavaScript stoppar inte oresolverade promises.
+
+**Tre konsekvenser bevisade i prod (CI körning 2026-05-21 04:15 UTC)**:
+1. **Tyst dataförlust**: Akademiska Hus extraherade 5 PDF:er via Opus 4-7 (~$8 brände), inner promise dog mitt under extractPermits-loop, `insertToSupabase` kördes aldrig, 0 rader i DB, inget bokföringsspår.
+2. **Falsk-positiva inserts efter timeout**: SFV markerades `Failed` med "Municipality timeout: 300s exceeded" men 103 rader hamnade ändå i DB — SFV:s inner promise slutförde inserts ~11 minuter efter yttre timeout slagit. Tidsstämplar 04:26:31-37 bevisar detta.
+3. **Logg-cross-contamination**: SFV:s "Permits: 114" och "DB: 103 inserted, 11 skipped" loggades mitt under `--- Akademiska Hus ---` header (sekventiell stdout, parallella beräkningar). Siffrorna matchar exakt `statens-fastighetsverk_extracted.json` — bevisar SFV-ursprung.
+
+**Fix-skiss (för egen session med plan mode)**:
+- `AbortController` per källa, signaltrigga abort vid timeout
+- Passa `signal` till `fetch()` (stödjs), Anthropic SDK (stödjs), supabase queries (wrapper kan behövas)
+- Vid abort: rollback partial inserts eller markera explicit `partial`-state i `results`-arrayen
+- Tagga loggar med kort prefix (`[Vasakronan]`, `[SFV]`) för att förhindra cross-contamination
+- Regressionstest med mock-fetcher som hänger > timeout, asserta att data är konsistent (allt-eller-inget)
+
+**Tills fixet är klart**: Akademiska Hus annual_report producerar 0 rader trots att selectorn fungerar. Vasakronan + SFV levererar pilotvärde till Fredrik.
 
 ## Kända knepiga saker just nu
 - qc_runs är inte tillförlitlig signal. Använd permits_v2 direkt för all hälsoanalys. docs/health-queries.md gör detta.
