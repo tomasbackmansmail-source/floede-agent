@@ -3,6 +3,8 @@
 ## Nuläge
 Torsdag 21 maj 2026. CI financial_report-rullout deployad i 5 steg (1→3→5→2→4). Vasakronan + SFV levererar nu rapport-data i prod; Akademiska Hus blockerad av nyupptäckt vertikal-agnostisk race-bugg i timeout-mekaniken (se nedan). Steg 4 stängt som DELVIS LEVERERAT — 3 av 4 pilot-orgs (Stockholms stad skippad enligt plan).
 
+Managed Agents-utvärdering klar (se docs/MANAGED_AGENTS_DECISION.md). Beslut: adoptera inte, stjäl Dreaming-idén, fixa resten själva. Eget bygge prioriterat i 4-stegs arbetsplan, race-bugg först.
+
 Tre status-block:
 
 1. **CI pressroom-feed redo för Fredrik-aktivering.** 4 av 5 pilotorgs producerar dagligen, Trafikverket onboardad idag med 77+ signaler från första körning. Forward-fix för source_excerpt verifierad. Filter mot uthyrning + kvartalsrapporter aktivt (Vasakronan-mönstret).
@@ -24,6 +26,14 @@ Sedan: kör batch på de 20 tysta kommunerna. Verifiera resultat med Q3 i hälso
 - Nästa: bygg webhook först, KF-POC efter
 
 ## Aktiva uppgifter
+
+**Arbetsplan från Managed Agents-beslut (prioritetsordning):**
+1. Race-bugg-fix i daily-run.js:945/1095 (egen session, plan mode) — HÖGST. AbortController per källa, abort-signal till fetch/Anthropic SDK, taggade loggar. Bevisat kritisk i prod (Akademiska Hus + SFV 2026-05-21).
+2. permits_inserted-fix (qc.js:232 hårdkodad nolla → faktisk insert-count, koppla till checkZeroStreak). ~35-55 rader, två filer.
+3. Avvikelse-övervakning i daily cron (sänk checkActiveZeroToday-tröskel, koppla till triggerRediscovery med kostnadstak + cooldown). ~50 rader.
+4. Cross-source-lärande (discovered_patterns-tabell + skriv/läs i utils/discovery.js, Dreaming-inspirerat egenbygge). ~3-4 dagar.
+
+**Övriga öppna spår:**
 - Akademiska Hus project_page Playwright-timeout (akademiskahus.se svarar inte under 30s) — separat utredning behövs.
 - Akademiska Hus annual_report producerar 0 rader pga race-bugg i timeout-mekaniken (se Kritiska motorbuggar). Selector + keywords fungerar — det är inte ett config-problem.
 - Trafikverket TED buyer-ID verifiera mot ted.europa.eu UI för att säkerställa täckning av alla TRV-upphandlingar.
@@ -46,6 +56,7 @@ Sedan: kör batch på de 20 tysta kommunerna. Verifiera resultat med Q3 i hälso
 - Fredrik Johansson (Skanska, CI pilot): väntar fortfarande. CI Lager 2 = v0.2 efter förankring med CTO CI.
 
 ## Senaste besluten (nyaste överst)
+- 2026-05-21: Managed Agents-utvärdering klar. Beslut: bygg eget, stjäl Dreaming-idén, race-fix först. Tre svagheter kartlagda i docs/ENGINE_ARCHITECTURE_SNAPSHOT.md; två är triviala egna fixar utan Managed Agents-koppling (permits_inserted hårdkodad nolla, avvikelse-övervakning 70% redan byggt), tredje matchar Dreaming men egenbygge vinner pga kostnadsmodellkrock ($0.08/session-h vs vår HTTP/Haiku/hash-skip-ekonomi) och förlust av modell-routing. Outcomes avfärdat (vill ha deterministisk SQL-QC), multi-agent orchestration avfärdat (race-fix ger kontrollen istället). Beslutsdokument: docs/MANAGED_AGENTS_DECISION.md.
 - 2026-05-21: CI financial_report-rullout deployad i 5 commits (3d0c0c7 → 37d0d67). Generic titel-klassificerare lyfter source_type från pressroom → financial_report (12 kinds). parent_signal_id-länkning forward + retro (95 befintliga annual_report-rader redo för retro-koppling när första financial_report skapas). Conditional validation: maturity tillåts vara null för financial_report. report_dedup på (org+date+document_kind). PDF-subpage-stöd via allow_pdf_subpages + filterByKeywords matchar nu text+href. Live LLM-test 3/3 grön $0.02. Prod-verifiering 21 maj: Vasakronan delårsrapport + 14 projekt-rader (5 forward-linked), SFV 103 annual_report-rader. Akademiska Hus blockerad av race-bugg.
 - 2026-05-21: Race-bugg i daily-run.js:945-1054 + 1095 identifierad och bevisad. Promise.race utan abort-signal orsakar tyst dataförlust + falsk-positiva inserts + logg-cross-contamination. Markerad som KÄNT KRITISKT PROBLEM, fix tas i egen session.
 - 2026-05-18: Pressroom-fix klar. ci-pressroom.json extraktion utökad med uthyrnings- + Q-rapport-filter (Vasakronan-mönster, dummy-test 3/3 grön). 195 legacy NULL_excerpt-rader får leva enligt §1.4 brytpunktsdatum. Backlog-rad om subsidiary-bolag (Stockholmshem/SISAB) skapad.

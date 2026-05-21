@@ -227,6 +227,10 @@ sin stabilitet — inte i koden, i arbetssättet.
 
 Vercel är helt avvecklat.
 
+## Senast uppdaterat 2026-05-21
+- docs/ENGINE_ARCHITECTURE_SNAPSHOT.md skapad: faktabaserad kartläggning av motorns discovery pipeline för Managed Agents-utvärdering. Tre topp-svagheter rangordnade (blind självläkning, ingen avvikelse-övervakning, inget cross-source-lärande).
+- docs/MANAGED_AGENTS_DECISION.md skapad: beslut att inte adoptera Anthropics Managed Agents-plattform. Stjäl Dreaming-arkitekturidén som eget Railway-jobb, bygg svaghet 1+2 som triviala fixar, outcomes + multi-agent orchestration avfärdade. 4-stegs arbetsplan med race-bugg-fix först.
+
 ## Senast uppdaterat 2026-05-18
 - Phase 5 post_run_webhook implementerad. Config-driven per vertikal (post_run_webhook-block: url_env + secret_env + method). Aktiv på ci-pressroom, ci-projectpage, ci-annualreport. Body: {vertical, run_id, signal_ids, total_inserted, started_at, finished_at}. Header: X-Cron-Secret med råvärdet (CI använder timingSafeEqual). Non-fatal: webhook-fel påverkar inte batchen. insertToSupabase returnerar nu insertedIds via .select('id'). Nya env-vars: CI_ENGINE_WEBHOOK_URL + CI_WEBHOOK_SECRET (synka från CI:s Railway CI_WEBHOOK_SECRET). NOTIFY_URL behållen för ByggSignal.
 - Pressroom-diagnos: 195/374 rader saknar source_excerpt, alla pre-22-april-legacy. Forward-fix bevisad i prod (2026-05 = 0% NULL). Ingen backfill — brytpunktsdatum §1.4.
