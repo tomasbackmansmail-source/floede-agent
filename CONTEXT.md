@@ -1,7 +1,9 @@
 # floede-agent — Kontext för ny chatt
 
 ## Nuläge
-Torsdag 21 maj 2026. CI financial_report-rullout deployad i 5 steg (1→3→5→2→4). Vasakronan + SFV levererar nu rapport-data i prod; Akademiska Hus blockerad av nyupptäckt vertikal-agnostisk race-bugg i timeout-mekaniken (se nedan). Steg 4 stängt som DELVIS LEVERERAT — 3 av 4 pilot-orgs (Stockholms stad skippad enligt plan).
+Lördag 24 maj 2026. Race-buggen i timeout-mekaniken FIXAD och deployad (commits b4a0f21 + 8354576) — se Kritiska motorbuggar. Återstår prod-verifiering att Akademiska Hus annual_report nu producerar rader.
+
+Torsdag 21 maj 2026. CI financial_report-rullout deployad i 5 steg (1→3→5→2→4). Vasakronan + SFV levererar nu rapport-data i prod; Akademiska Hus var blockerad av den nu fixade race-buggen i timeout-mekaniken. Steg 4 stängt som DELVIS LEVERERAT — 3 av 4 pilot-orgs (Stockholms stad skippad enligt plan).
 
 Managed Agents-utvärdering klar (se docs/MANAGED_AGENTS_DECISION.md). Beslut: adoptera inte, stjäl Dreaming-idén, fixa resten själva. Eget bygge prioriterat i 4-stegs arbetsplan, race-bugg först.
 
@@ -28,14 +30,14 @@ Sedan: kör batch på de 20 tysta kommunerna. Verifiera resultat med Q3 i hälso
 ## Aktiva uppgifter
 
 **Arbetsplan från Managed Agents-beslut (prioritetsordning):**
-1. Race-bugg-fix i daily-run.js:945/1095 (egen session, plan mode) — HÖGST. AbortController per källa, abort-signal till fetch/Anthropic SDK, taggade loggar. Bevisat kritisk i prod (Akademiska Hus + SFV 2026-05-21).
+1. ~~Race-bugg-fix i daily-run.js~~ — KLAR 2026-05-24 (commits b4a0f21 + 8354576, deployad). AbortController per källa, signal genom fetch/SDK/supabase, allt-eller-inget med partial-state, taggade loggar, regressionstest. Återstår: prod-verifiering (Akademiska Hus 0 → rader).
 2. permits_inserted-fix (qc.js:232 hårdkodad nolla → faktisk insert-count, koppla till checkZeroStreak). ~35-55 rader, två filer.
 3. Avvikelse-övervakning i daily cron (sänk checkActiveZeroToday-tröskel, koppla till triggerRediscovery med kostnadstak + cooldown). ~50 rader.
 4. Cross-source-lärande (discovered_patterns-tabell + skriv/läs i utils/discovery.js, Dreaming-inspirerat egenbygge). ~3-4 dagar.
 
 **Övriga öppna spår:**
 - Akademiska Hus project_page Playwright-timeout (akademiskahus.se svarar inte under 30s) — separat utredning behövs.
-- Akademiska Hus annual_report producerar 0 rader pga race-bugg i timeout-mekaniken (se Kritiska motorbuggar). Selector + keywords fungerar — det är inte ett config-problem.
+- Akademiska Hus annual_report: race-buggen som blockerade (0 rader) är fixad 2026-05-24. Verifiera att rader nu produceras efter nästa daily-run. Selector + keywords fungerar.
 - Trafikverket TED buyer-ID verifiera mot ted.europa.eu UI för att säkerställa täckning av alla TRV-upphandlingar.
 - Regleringsbrev-PDF för Trafikverket (annual_report) onboardas — researchad, ej tillagd ännu.
 - Subsidiary-bolag under Stockholms stad (Stockholmshem, SISAB): se docs/BACKLOG.md.
@@ -75,24 +77,23 @@ Sedan: kör batch på de 20 tysta kommunerna. Verifiera resultat med Q3 i hälso
 
 ## Kritiska motorbuggar (vertikal-agnostiska)
 
-### Race-bugg i timeout-mekaniken (daily-run.js:945-1054 + 1095)
-**Status**: känd, ej fixad. Blockerar Akademiska Hus annual_report-extraktion (producerar 0 DB-rader). Drabbar alla källor med timeout-risk: ByggSignal-storkommuner, Trafikverket TED, framtida verticals.
+### Race-bugg i timeout-mekaniken (daily-run.js) — FIXAD 2026-05-24
+**Status**: FIXAD i två commits (b4a0f21 utbrytning + 8354576 abort-mekanik), deployad. Återstår: prod-verifiering att Akademiska Hus annual_report nu producerar rader (Q1/Q2-baslinje, körs efter nästa daily-run).
 
-**Rotorsak**: `Promise.race([innerWork, timeoutPromise])` saknar abort-signal. När timeout-promisen vinner kastar JS error från race, men inner async-funktionen **fortsätter köra i bakgrunden** utan signal — JavaScript stoppar inte oresolverade promises.
+**Rotorsak (historik)**: `Promise.race([innerWork, timeoutPromise])` saknade abort-signal. När timeout-promisen vann kastade JS error från race, men inner async-funktionen fortsatte köra i bakgrunden — JS stoppar inte oresolverade promises.
 
 **Tre konsekvenser bevisade i prod (CI körning 2026-05-21 04:15 UTC)**:
-1. **Tyst dataförlust**: Akademiska Hus extraherade 5 PDF:er via Opus 4-7 (~$8 brände), inner promise dog mitt under extractPermits-loop, `insertToSupabase` kördes aldrig, 0 rader i DB, inget bokföringsspår.
-2. **Falsk-positiva inserts efter timeout**: SFV markerades `Failed` med "Municipality timeout: 300s exceeded" men 103 rader hamnade ändå i DB — SFV:s inner promise slutförde inserts ~11 minuter efter yttre timeout slagit. Tidsstämplar 04:26:31-37 bevisar detta.
-3. **Logg-cross-contamination**: SFV:s "Permits: 114" och "DB: 103 inserted, 11 skipped" loggades mitt under `--- Akademiska Hus ---` header (sekventiell stdout, parallella beräkningar). Siffrorna matchar exakt `statens-fastighetsverk_extracted.json` — bevisar SFV-ursprung.
+1. Tyst dataförlust: Akademiska Hus extraherade 5 PDF:er via Opus (~$8), inner promise dog mitt under extractPermits-loop, `insertToSupabase` kördes aldrig, 0 rader.
+2. Falsk-positiva inserts efter timeout: SFV markerades Failed men 103 rader hamnade ändå i DB ~11 min efter timeout (tidsstämplar 04:26:31-37).
+3. Logg-cross-contamination: SFV:s "Permits: 114" / "DB: 103 inserted" loggades under `--- Akademiska Hus ---`.
 
-**Fix-skiss (för egen session med plan mode)**:
-- `AbortController` per källa, signaltrigga abort vid timeout
-- Passa `signal` till `fetch()` (stödjs), Anthropic SDK (stödjs), supabase queries (wrapper kan behövas)
-- Vid abort: rollback partial inserts eller markera explicit `partial`-state i `results`-arrayen
-- Tagga loggar med kort prefix (`[Vasakronan]`, `[SFV]`) för att förhindra cross-contamination
-- Regressionstest med mock-fetcher som hänger > timeout, asserta att data är konsistent (allt-eller-inget)
-
-**Tills fixet är klart**: Akademiska Hus annual_report producerar 0 rader trots att selectorn fungerar. Vasakronan + SFV levererar pilotvärde till Fredrik.
+**Vad fixet gör**:
+- `runWithTimeout(timeoutMs, fn)` (exporterad): AbortController per källa, timern ABORTAR signalen istället för att race:a; timern clearas alltid.
+- Signal genom kedjan: fetch (`requestSignal` = källsignal + per-request `AbortSignal.timeout` via `AbortSignal.any`, manuell fallback < Node 20.3), Anthropic SDK (`messages.create(params,{signal})`), Supabase (`.abortSignal`). `withRetry` har avbrytbar backoff (`abortableSleep`).
+- Allt-eller-inget: checkpoint omedelbart före insert (enda DB-muterande steget) + checkpoint överst i insertToSupabase record-loopen. Abort mitt i insert → status `partial`, INGEN rollback — idempotent upsert/dedup kompletterar nästa körning.
+- `processHttpSource`/`processBrowserSource` exporterade modulnivå-funktioner som returnerar resultatobjekt (ingen sen closure-mutation); `applyResult` i main() applicerar på synkron retur-väg.
+- Loggtaggar per källa (`taggedLog` → `[muniName]`) genom fetch/extract/insert.
+- Regressionstest: test/daily-run-timeout.test.js (5 tester, kärn-assertion: ingen insert efter abort). npm test 271/271.
 
 ## Kända knepiga saker just nu
 - qc_runs är inte tillförlitlig signal. Använd permits_v2 direkt för all hälsoanalys. docs/health-queries.md gör detta.

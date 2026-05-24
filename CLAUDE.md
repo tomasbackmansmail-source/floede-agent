@@ -227,6 +227,12 @@ sin stabilitet — inte i koden, i arbetssättet.
 
 Vercel är helt avvecklat.
 
+## Senast uppdaterat 2026-05-24
+- Race-bugg i daily-run timeout fixad (commits b4a0f21 utbrytning + 8354576 abort-mekanik). Promise.race ersatt av runWithTimeout + AbortController per källa; signal genom fetch (requestSignal/AbortSignal.any med fallback < Node 20.3), Anthropic SDK (messages.create params,{signal}), Supabase (.abortSignal); withRetry har avbrytbar backoff (abortableSleep).
+- Allt-eller-inget per källa: checkpoint före insertToSupabase + överst i dess record-loop. Abort mitt i insert → status "partial" i results (ingen rollback; idempotent upsert/dedup kompletterar nästa körning). Summary visar Partial-rader.
+- processHttpSource/processBrowserSource exporterade modulnivå-funktioner som returnerar resultatobjekt; applyResult i main() applicerar räknare på synkron retur-väg (ingen sen orphan-mutation). Loggtaggar per källa (taggedLog → [muniName]) genom fetch/extract/insert.
+- Regressionstest test/daily-run-timeout.test.js (5 tester). npm test 271/271.
+
 ## Senast uppdaterat 2026-05-21
 - docs/ENGINE_ARCHITECTURE_SNAPSHOT.md skapad: faktabaserad kartläggning av motorns discovery pipeline för Managed Agents-utvärdering. Tre topp-svagheter rangordnade (blind självläkning, ingen avvikelse-övervakning, inget cross-source-lärande).
 - docs/MANAGED_AGENTS_DECISION.md skapad: beslut att inte adoptera Anthropics Managed Agents-plattform. Stjäl Dreaming-arkitekturidén som eget Railway-jobb, bygg svaghet 1+2 som triviala fixar, outcomes + multi-agent orchestration avfärdade. 4-stegs arbetsplan med race-bugg-fix först.
