@@ -1,9 +1,30 @@
 // Retry wrapper with exponential backoff for API rate limits (429) and transient errors (502, 503)
 
-export async function withRetry(fn, { maxRetries = 3, baseDelay = 30000, label = "request" } = {}) {
+// Sleep that resolves after `ms`, or rejects early if `signal` aborts. Used so a
+// source stuck in retry-backoff bails immediately when its per-source timeout fires
+// instead of ignoring the abort for up to baseDelay*2^n seconds.
+export function abortableSleep(ms, signal) {
+  return new Promise((resolve, reject) => {
+    if (signal?.aborted) {
+      reject(signal.reason ?? new Error("aborted"));
+      return;
+    }
+    const timer = setTimeout(resolve, ms);
+    if (signal) {
+      signal.addEventListener("abort", () => {
+        clearTimeout(timer);
+        reject(signal.reason ?? new Error("aborted"));
+      }, { once: true });
+    }
+  });
+}
+
+export async function withRetry(fn, { maxRetries = 3, baseDelay = 30000, label = "request", signal } = {}) {
   let lastError;
 
   for (let attempt = 1; attempt <= maxRetries + 1; attempt++) {
+    if (signal?.aborted) throw signal.reason ?? new Error("aborted");
+
     try {
       return await fn();
     } catch (err) {
@@ -19,7 +40,7 @@ export async function withRetry(fn, { maxRetries = 3, baseDelay = 30000, label =
       // Exponential backoff: 30s, 60s, 120s
       const delay = baseDelay * Math.pow(2, attempt - 1);
       console.log(`  [Retry] ${label} got ${status}, attempt ${attempt}/${maxRetries}. Waiting ${delay / 1000}s...`);
-      await new Promise((r) => setTimeout(r, delay));
+      await abortableSleep(delay, signal);
     }
   }
 

@@ -43,6 +43,49 @@ const modelCost = MODEL_COSTS[verticalConfig.model] || MODEL_COSTS["claude-haiku
 const USER_AGENT = verticalConfig.user_agent;
 const SOURCE_LABEL = verticalConfig.source_label || "Kommun";
 
+// Per-request fetch signal: the source-level abort signal combined with a
+// per-request timeout, so an individual fetch dies at 30s AND the whole source
+// aborts when its budget runs out. AbortSignal.any needs Node >= 20.3 — fall
+// back to a manual combinator on older runtimes.
+function requestSignal(sourceSignal, timeoutMs = 30000) {
+  const timeoutSignal = AbortSignal.timeout(timeoutMs);
+  if (!sourceSignal) return timeoutSignal;
+  if (typeof AbortSignal.any === "function") {
+    return AbortSignal.any([sourceSignal, timeoutSignal]);
+  }
+  const ac = new AbortController();
+  const forward = (s) => () => { if (!ac.signal.aborted) ac.abort(s.reason); };
+  if (sourceSignal.aborted) ac.abort(sourceSignal.reason);
+  else sourceSignal.addEventListener("abort", forward(sourceSignal), { once: true });
+  timeoutSignal.addEventListener("abort", forward(timeoutSignal), { once: true });
+  return ac.signal;
+}
+
+// Prefixes every log line with the source name so interleaved output (e.g. an
+// in-flight Playwright call that finishes late) stays attributable to its source
+// instead of cross-contaminating the next source's section.
+function taggedLog(tag) {
+  return (...args) => console.log(`[${tag}]`, ...args);
+}
+
+// Runs `fn(signal)` with a per-source timeout. When the timer fires it ABORTS the
+// signal — fetch, the Anthropic SDK and Supabase all receive it and reject, and
+// the explicit checkpoints throw — so the work actually terminates instead of
+// orphaning in the background like the old Promise.race did. The timer is always
+// cleared (no leaked timers keeping the process alive).
+export async function runWithTimeout(timeoutMs, fn) {
+  const ac = new AbortController();
+  const timer = setTimeout(
+    () => ac.abort(new Error(`Municipality timeout: ${timeoutMs / 1000}s exceeded`)),
+    timeoutMs
+  );
+  try {
+    return await fn(ac.signal);
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
 async function ensureDirs() {
   for (const dir of [HTML_DIR, EXTRACTED_DIR, COST_DIR, RUN_LOG_DIR]) {
     await mkdir(dir, { recursive: true });
@@ -82,13 +125,13 @@ async function loadApprovedConfigs(supabase) {
 
 // --- HTTP FETCH (default) ---
 
-export async function fetchPageHttp(config) {
+export async function fetchPageHttp(config, signal, log = console.log) {
   const url = config.listing_url;
-  console.log(`  [HTTP] ${url}`);
+  log(`  [HTTP] ${url}`);
 
   const response = await fetch(url, {
     headers: { "User-Agent": USER_AGENT },
-    signal: AbortSignal.timeout(30000),
+    signal: requestSignal(signal),
     redirect: "follow",
   });
 
@@ -101,7 +144,7 @@ export async function fetchPageHttp(config) {
   if (contentType.includes("application/pdf")) {
     const arrayBuf = await response.arrayBuffer();
     const buffer = Buffer.from(arrayBuf);
-    console.log(`  [HTTP] PDF detected (${buffer.length} bytes)`);
+    log(`  [HTTP] PDF detected (${buffer.length} bytes)`);
     return { subpages: [{ url, content: buffer, isPdf: true }] };
   }
 
@@ -118,11 +161,11 @@ export async function fetchPageHttp(config) {
     const bygglovLinks = filterByKeywords(domainFilteredWithText, verticalConfig.keywords);
     const maxSubpages = config.requires_subpages.max_subpages || 200;
 
-    console.log(`  [HTTP] Found ${allLinks.length} links, ${domainFiltered.length} after domain filter, ${bygglovLinks.length} matching bygglov keywords`);
+    log(`  [HTTP] Found ${allLinks.length} links, ${domainFiltered.length} after domain filter, ${bygglovLinks.length} matching bygglov keywords`);
 
     // If no bygglov-specific links found, fallback to listing page directly
     if (bygglovLinks.length === 0) {
-      console.log(`  [HTTP] No bygglov subpage links found — using listing page directly`);
+      log(`  [HTTP] No bygglov subpage links found — using listing page directly`);
       return { subpages: [{ url, content: htmlToText(rawHtml), isPdf: false }] };
     }
 
@@ -132,14 +175,15 @@ export async function fetchPageHttp(config) {
       seenUrls.add(l.href);
       return true;
     });
-    console.log(`  [HTTP] Deduplicated ${bygglovLinks.length} links to ${dedupedLinks.length} unique URLs`);
+    log(`  [HTTP] Deduplicated ${bygglovLinks.length} links to ${dedupedLinks.length} unique URLs`);
 
     const subpages = [];
     for (const link of dedupedLinks.slice(0, maxSubpages)) {
+      if (signal?.aborted) break;
       try {
         const subResp = await fetch(link.href, {
           headers: { "User-Agent": USER_AGENT },
-          signal: AbortSignal.timeout(30000),
+          signal: requestSignal(signal),
           redirect: "follow",
         });
         if (subResp.ok) {
@@ -153,12 +197,12 @@ export async function fetchPageHttp(config) {
           }
         }
       } catch (err) {
-        console.log(`  [HTTP] Subpage failed: ${link.href} — ${err.message}`);
+        log(`  [HTTP] Subpage failed: ${link.href} — ${err.message}`);
       }
       await new Promise((r) => setTimeout(r, 500)); // Rate limit
     }
 
-    console.log(`  [HTTP] Fetched ${subpages.length} subpages`);
+    log(`  [HTTP] Fetched ${subpages.length} subpages`);
     return { subpages };
   }
 
@@ -167,17 +211,20 @@ export async function fetchPageHttp(config) {
 
 // --- PLAYWRIGHT FETCH (for needs_browser configs) ---
 
-export async function fetchPagePlaywright(page, config) {
+export async function fetchPagePlaywright(page, config, signal, log = console.log) {
+  const checkpoint = () => { if (signal?.aborted) throw signal.reason ?? new Error("aborted"); };
   const url = config.listing_url;
-  console.log(`  [Browser] ${url}`);
+  log(`  [Browser] ${url}`);
 
+  checkpoint();
   await page.goto(url, { waitUntil: "domcontentloaded", timeout: 30000 });
   await page.waitForTimeout(2000);
 
   // Handle interaction recipe (dropdown/search/filter steps from discovery)
   if (config.interaction_recipe && config.interaction_recipe.steps) {
-    console.log(`  [Browser] Running ${config.interaction_recipe.steps.length} interaction steps`);
+    log(`  [Browser] Running ${config.interaction_recipe.steps.length} interaction steps`);
     for (const step of config.interaction_recipe.steps) {
+      checkpoint();
       try {
         if (step.action === 'select') {
           await page.selectOption(step.selector, step.value);
@@ -189,7 +236,7 @@ export async function fetchPagePlaywright(page, config) {
         }
         await page.waitForTimeout(config.interaction_recipe.wait_ms || 3000);
       } catch (err) {
-        console.log(`  [Browser] Interaction step failed: ${step.action} ${step.selector} — ${err.message}`);
+        log(`  [Browser] Interaction step failed: ${step.action} ${step.selector} — ${err.message}`);
       }
     }
   }
@@ -222,7 +269,7 @@ export async function fetchPagePlaywright(page, config) {
           }
         }
       } catch (err) {
-        console.log(`  [Browser] Could not set page size: ${err.message}`);
+        log(`  [Browser] Could not set page size: ${err.message}`);
       }
     }
   }
@@ -240,11 +287,11 @@ export async function fetchPagePlaywright(page, config) {
     const bygglovLinks = filterByKeywords(domainFilteredWithText, verticalConfig.keywords);
     const maxSubpages = config.requires_subpages.max_subpages || 200;
 
-    console.log(`  [Browser] Found ${links.length} links, ${domainFiltered.length} after domain filter, ${bygglovLinks.length} matching bygglov keywords`);
+    log(`  [Browser] Found ${links.length} links, ${domainFiltered.length} after domain filter, ${bygglovLinks.length} matching bygglov keywords`);
 
     // If no bygglov-specific links found, fallback to listing page directly
     if (bygglovLinks.length === 0) {
-      console.log(`  [Browser] No bygglov subpage links found — using listing page directly`);
+      log(`  [Browser] No bygglov subpage links found — using listing page directly`);
       await page.goto(config.listing_url, { waitUntil: "domcontentloaded", timeout: 30000 });
       await page.waitForTimeout(2000);
       const text = await page.evaluate(() => {
@@ -260,10 +307,11 @@ export async function fetchPagePlaywright(page, config) {
       seenUrls.add(l.href);
       return true;
     });
-    console.log(`  [Browser] Deduplicated ${bygglovLinks.length} links to ${dedupedLinks.length} unique URLs`);
+    log(`  [Browser] Deduplicated ${bygglovLinks.length} links to ${dedupedLinks.length} unique URLs`);
 
     const subpages = [];
     for (const link of dedupedLinks.slice(0, maxSubpages)) {
+      if (signal?.aborted) break;
       try {
         // PDF subpages: fetch via raw HTTP (Playwright doesn't return PDF bytes
         // from a goto). Detection by URL suffix is enough — these sources are
@@ -271,7 +319,7 @@ export async function fetchPagePlaywright(page, config) {
         if (allowPdf && /\.pdf(\?|$)/i.test(link.href)) {
           const subResp = await fetch(link.href, {
             headers: { "User-Agent": USER_AGENT },
-            signal: AbortSignal.timeout(30000),
+            signal: requestSignal(signal),
             redirect: "follow",
           });
           if (subResp.ok) {
@@ -288,12 +336,12 @@ export async function fetchPagePlaywright(page, config) {
           subpages.push({ url: link.href, content: text, isPdf: false });
         }
       } catch (err) {
-        console.log(`  [Browser] Subpage failed: ${link.href} — ${err.message}`);
+        log(`  [Browser] Subpage failed: ${link.href} — ${err.message}`);
       }
       await new Promise((r) => setTimeout(r, 1000));
     }
 
-    console.log(`  [Browser] Fetched ${subpages.length} subpages`);
+    log(`  [Browser] Fetched ${subpages.length} subpages`);
     return { subpages };
   }
 
@@ -313,11 +361,11 @@ export async function fetchPagePlaywright(page, config) {
 
 export const MIN_CONTENT_BYTES = 500;
 
-export async function extractPermits(client, html, municipalityName, sourceUrl, sourceConfig = {}, { forceExtract = false, isPdf = false } = {}) {
+export async function extractPermits(client, html, municipalityName, sourceUrl, sourceConfig = {}, { forceExtract = false, isPdf = false, signal, log = console.log } = {}) {
   const stripped = isPdf ? html : stripNonContent(html);
 
   if (!isPdf && Buffer.byteLength(stripped, "utf8") < MIN_CONTENT_BYTES) {
-    console.log(`  [${municipalityName}] content too small (${Buffer.byteLength(stripped, "utf8")} bytes), skipping hash + extraction`);
+    log(`  [${municipalityName}] content too small (${Buffer.byteLength(stripped, "utf8")} bytes), skipping hash + extraction`);
     return {
       permits: [],
       cost: { input_tokens: 0, output_tokens: 0, cache_creation_input_tokens: 0, cache_read_input_tokens: 0, cost_usd: 0 },
@@ -330,7 +378,7 @@ export async function extractPermits(client, html, municipalityName, sourceUrl, 
   const contentHash = createHash("sha256").update(stripped).digest("hex").slice(0, 16);
 
   if (!forceExtract && sourceConfig.verified === true && sourceConfig.content_hash && sourceConfig.content_hash === contentHash) {
-    console.log(`  [${municipalityName}] content unchanged (hash: ${contentHash}), skipping extraction`);
+    log(`  [${municipalityName}] content unchanged (hash: ${contentHash}), skipping extraction`);
     return { permits: [], cost: { input_tokens: 0, output_tokens: 0, cache_creation_input_tokens: 0, cache_read_input_tokens: 0, cost_usd: 0 }, contentHash, skipped: true };
   }
 
@@ -371,22 +419,22 @@ export async function extractPermits(client, html, municipalityName, sourceUrl, 
           ]
         }
       ]
-    }),
-    { maxRetries: 3, baseDelay: 30000, label: municipalityName }
+    }, { signal }),
+    { maxRetries: 3, baseDelay: 30000, label: municipalityName, signal }
   );
 
   const rawText = response.content[0].text.trim()
     .replace(/```json\s*/g, "").replace(/```\s*/g, "");
 
   if (sourceConfig.model && sourceConfig.model !== verticalConfig.model) {
-    console.log(`  [Extract] Using per-source model: ${sourceConfig.model}`);
+    log(`  [Extract] Using per-source model: ${sourceConfig.model}`);
   }
 
   let permits = [];
   try {
     permits = JSON.parse(rawText);
   } catch {
-    console.log(`  [Extract] JSON parse error for ${municipalityName}`);
+    log(`  [Extract] JSON parse error for ${municipalityName}`);
     permits = [];
   }
 
@@ -420,10 +468,10 @@ export async function extractPermits(client, html, municipalityName, sourceUrl, 
   }
 
   if (!sourceUrl || permits.some(p => !p.source_url)) {
-    console.log(`  [DEBUG source_url] muni=${municipalityName}`);
-    console.log(`  [DEBUG source_url] sourceUrl arg=${JSON.stringify(sourceUrl)}`);
-    console.log(`  [DEBUG source_url] permits count=${permits.length}`);
-    console.log(`  [DEBUG source_url] permit source_urls=${JSON.stringify(permits.map(p => p.source_url))}`);
+    log(`  [DEBUG source_url] muni=${municipalityName}`);
+    log(`  [DEBUG source_url] sourceUrl arg=${JSON.stringify(sourceUrl)}`);
+    log(`  [DEBUG source_url] permits count=${permits.length}`);
+    log(`  [DEBUG source_url] permit source_urls=${JSON.stringify(permits.map(p => p.source_url))}`);
   }
 
   const cacheCreated = response.usage.cache_creation_input_tokens || 0;
@@ -454,8 +502,8 @@ async function updateContentHash(supabase, configId, hashes, listingUrl = null) 
   }
 }
 
-async function insertToSupabase(supabase, records, extractionRun, rawHtmlHash = null) {
-  if (records.length === 0) return { inserted: 0, skipped: 0, errors: 0, insertedIds: [] };
+async function insertToSupabase(supabase, records, extractionRun, rawHtmlHash = null, { signal, log = console.log } = {}) {
+  if (records.length === 0) return { inserted: 0, skipped: 0, errors: 0, insertedIds: [], aborted: false };
 
   const dbConfig = verticalConfig.db;
   const table = dbConfig.table;
@@ -505,9 +553,15 @@ async function insertToSupabase(supabase, records, extractionRun, rawHtmlHash = 
   let inserted = 0;
   let skipped = 0;
   let errors = 0;
+  let aborted = false;
   const insertedIds = [];
 
   for (const record of records) {
+    // All-or-nothing inside the insert loop: if the source's timeout fired
+    // mid-batch, stop here. Rows already committed stay (idempotent upsert /
+    // dedup completes the rest next run); the caller marks the source partial.
+    if (signal?.aborted) { aborted = true; break; }
+
     // Normalize municipality/organization name before mapping (e.g. "Eslövs kommun" -> "Eslöv")
     if (dbConfig.enrichment) {
       const sourceField = dbConfig.enrichment.lookup_source_field;
@@ -549,7 +603,7 @@ async function insertToSupabase(supabase, records, extractionRun, rawHtmlHash = 
     }
 
     if (!row[fieldMapping.source_url || 'source_url']) {
-      console.log(`  [DEBUG insert] muni=${record.municipality || record[fieldMapping.municipality]} row_source_url=${row.source_url} record_source_url=${record.source_url} record_keys=${Object.keys(record).join(',')}`);
+      log(`  [DEBUG insert] muni=${record.municipality || record[fieldMapping.municipality]} row_source_url=${row.source_url} record_source_url=${record.source_url} record_keys=${Object.keys(record).join(',')}`);
     }
 
     // Report-style dedupe: same org + source_date + document_kind = same publication
@@ -558,13 +612,13 @@ async function insertToSupabase(supabase, records, extractionRun, rawHtmlHash = 
       try {
         const dupId = await findReportDuplicate(supabase, table, row, record.document_kind, reportDedup);
         if (dupId) {
-          console.log(`  [report-dedup] skip duplicate ${reportDedup.applies_to_source_type}/${record.document_kind} (existing=${dupId}): ${row.title || "(no title)"}`);
+          log(`  [report-dedup] skip duplicate ${reportDedup.applies_to_source_type}/${record.document_kind} (existing=${dupId}): ${row.title || "(no title)"}`);
           skipped++;
           reportDeduped++;
           continue;
         }
       } catch (err) {
-        console.log(`  [report-dedup] lookup failed: ${err.message}`);
+        log(`  [report-dedup] lookup failed: ${err.message}`);
       }
     }
 
@@ -579,7 +633,7 @@ async function insertToSupabase(supabase, records, extractionRun, rawHtmlHash = 
           forwardLinked++;
         }
       } catch (err) {
-        console.log(`  [parent-link] forward lookup failed: ${err.message}`);
+        log(`  [parent-link] forward lookup failed: ${err.message}`);
       }
     }
 
@@ -589,19 +643,23 @@ async function insertToSupabase(supabase, records, extractionRun, rawHtmlHash = 
       // Has primary ID — upsert with conflict handling. .select('id') returnerar
       // bara faktiskt insertade rader (ignoreDuplicates utelämnar dupes).
       const { data, error } = await withRetry(
-        () => supabase
-          .from(table)
-          .upsert(row, {
-            onConflict: conflictKey,
-            ignoreDuplicates: true
-          })
-          .select('id'),
-        { maxRetries: 3, baseDelay: 5000, label: `DB ${idValue}` }
+        () => {
+          let q = supabase
+            .from(table)
+            .upsert(row, {
+              onConflict: conflictKey,
+              ignoreDuplicates: true
+            })
+            .select('id');
+          if (signal) q = q.abortSignal(signal);
+          return q;
+        },
+        { maxRetries: 3, baseDelay: 5000, label: `DB ${idValue}`, signal }
       );
 
       if (error) {
         if (error.code === '23505') { skipped++; }
-        else { errors++; console.log(`  [DB] Error inserting ${idValue}: ${error.message}`); }
+        else { errors++; log(`  [DB] Error inserting ${idValue}: ${error.message}`); }
       } else if (data && data.length > 0) {
         inserted++;
         insertedIds.push(data[0].id);
@@ -621,20 +679,25 @@ async function insertToSupabase(supabase, records, extractionRun, rawHtmlHash = 
         if (row[dbField]) query.eq(dbField, row[dbField]);
         else query.is(dbField, null);
       }
+      if (signal) query.abortSignal(signal);
 
       const { count } = await withRetry(
         () => query,
-        { maxRetries: 3, baseDelay: 5000, label: `DB check ${row[fieldMapping.address] || 'unknown'}` }
+        { maxRetries: 3, baseDelay: 5000, label: `DB check ${row[fieldMapping.address] || 'unknown'}`, signal }
       );
 
       if (count > 0) {
         skipped++;
       } else {
         const { data, error } = await withRetry(
-          () => supabase.from(table).insert(row).select('id'),
-          { maxRetries: 3, baseDelay: 5000, label: `DB insert ${row[fieldMapping.address] || 'unknown'}` }
+          () => {
+            let q = supabase.from(table).insert(row).select('id');
+            if (signal) q = q.abortSignal(signal);
+            return q;
+          },
+          { maxRetries: 3, baseDelay: 5000, label: `DB insert ${row[fieldMapping.address] || 'unknown'}`, signal }
         );
-        if (error) { errors++; console.log(`  [DB] Error inserting: ${error.message}`); }
+        if (error) { errors++; log(`  [DB] Error inserting: ${error.message}`); }
         else {
           inserted++;
           if (data && data.length > 0) {
@@ -647,13 +710,13 @@ async function insertToSupabase(supabase, records, extractionRun, rawHtmlHash = 
   }
 
   if (parentLink && (forwardLinked > 0 || backLinked > 0)) {
-    console.log(`  [parent-link] forward-linked=${forwardLinked} back-linked=${backLinked}`);
+    log(`  [parent-link] forward-linked=${forwardLinked} back-linked=${backLinked}`);
   }
   if (reportDedup && reportDeduped > 0) {
-    console.log(`  [report-dedup] skipped ${reportDeduped} duplicate ${reportDedup.applies_to_source_type} rows`);
+    log(`  [report-dedup] skipped ${reportDeduped} duplicate ${reportDedup.applies_to_source_type} rows`);
   }
 
-  return { inserted, skipped, errors, insertedIds, forwardLinked, backLinked, reportDeduped };
+  return { inserted, skipped, errors, insertedIds, forwardLinked, backLinked, reportDeduped, aborted };
 }
 
 // Backwards-linking: when a PARENT (e.g. financial_report) is inserted, find
@@ -678,6 +741,223 @@ async function retroLinkChildren(supabase, table, parentRow, parentId, parentLin
     console.log(`  [parent-link] retro-link lookup failed: ${err.message}`);
     return 0;
   }
+}
+
+// Fetch -> extract -> insert for one HTTP source. Pure: returns a result object
+// instead of mutating run-level state, so it is unit-testable and so a timed-out
+// call can be discarded by the caller with no late side effects. `signal` aborts
+// fetch, the LLM call and the insert; the explicit checkpoint right before the
+// insert is the all-or-nothing gate — a source that timed out during fetch/extract
+// never reaches the DB (the only mutating step).
+export async function processHttpSource(config, {
+  runId, supabase, client, forceExtract = false, signal, log = console.log,
+  htmlDir = HTML_DIR, extractedDir = EXTRACTED_DIR,
+  fetchPage = fetchPageHttp, extractFn = extractPermits,
+  insertFn = insertToSupabase, updateHashFn = updateContentHash,
+} = {}) {
+  const muniName = config.municipality;
+  const { subpages } = await fetchPage(config, signal, log);
+
+  const isPdfSource = subpages.length === 1 && subpages[0].isPdf;
+  const archivalContent = isPdfSource
+    ? subpages[0].content
+    : subpages.map(s => s.content).join("\n\n");
+  const hash = createHash("sha256").update(archivalContent).digest("hex").slice(0, 16);
+
+  const htmlFile = `${sanitizeFilename(muniName)}_${runId}${isPdfSource ? ".pdf" : ".html"}`;
+  await writeFile(join(htmlDir, htmlFile), archivalContent);
+
+  const oldHashes = config.subpage_hashes || {};
+  const newSubpageHashes = {};
+  const allPermits = [];
+  let aggCost = 0;
+  let aggCacheCreated = 0;
+  let aggCacheRead = 0;
+  let extractedSubpages = 0;
+  let skippedSubpages = 0;
+
+  for (const subpage of subpages) {
+    if (signal?.aborted) throw signal.reason ?? new Error("aborted");
+    const perSubpageConfig = { ...config, content_hash: oldHashes[subpage.url] };
+    const { permits, cost, contentHash, skipped } = await extractFn(
+      client, subpage.content, muniName, subpage.url, perSubpageConfig,
+      { forceExtract, isPdf: subpage.isPdf, signal, log }
+    );
+    if (contentHash) {
+      newSubpageHashes[subpage.url] = contentHash;
+    }
+    if (skipped) {
+      skippedSubpages++;
+      continue;
+    }
+    extractedSubpages++;
+    for (const permit of permits) {
+      permit._raw_html_hash = contentHash;
+    }
+    allPermits.push(...permits);
+    aggCost += cost.cost_usd;
+    aggCacheCreated += cost.cache_creation_input_tokens || 0;
+    aggCacheRead += cost.cache_read_input_tokens || 0;
+  }
+
+  if (extractedSubpages === 0 && skippedSubpages > 0) {
+    log(`  all ${skippedSubpages} subpages unchanged via hash, skipping`);
+    if (config._id) {
+      await updateHashFn(supabase, config._id, newSubpageHashes);
+    }
+    return {
+      result: { municipality: muniName, status: "unchanged", fetch_mode: "http", permits: 0, cost_usd: 0, html_hash: hash },
+      addedCost: 0, addedPermits: 0, addedCacheCreated: 0, addedCacheRead: 0,
+      inserted: 0, insertedIds: [], escalateConfig: null, bump: "skipped",
+    };
+  }
+
+  log(`  Permits: ${allPermits.length} (fran ${extractedSubpages}/${subpages.length} subpages, ${skippedSubpages} skippade via hash), Cost: $${aggCost.toFixed(4)}${aggCacheRead ? ` (cache hit: ${aggCacheRead} tokens)` : ""}`);
+
+  const totals = {
+    addedCost: aggCost, addedPermits: allPermits.length,
+    addedCacheCreated: aggCacheCreated, addedCacheRead: aggCacheRead,
+  };
+
+  // Auto-escalate to browser if HTTP yields 0 permits across all subpages
+  if (allPermits.length === 0 && !config.needs_browser) {
+    log(`  [HTTP] 0 permits from verified source — escalating to browser: ${muniName}`);
+    return {
+      result: { municipality: muniName, status: "escalated", fetch_mode: "http", permits: 0, cost_usd: aggCost, html_hash: hash },
+      ...totals, inserted: 0, insertedIds: [],
+      escalateConfig: { ...config, needs_browser: true }, bump: "http",
+    };
+  }
+
+  await writeFile(
+    join(extractedDir, `${sanitizeFilename(muniName)}_extracted.json`),
+    JSON.stringify(allPermits, null, 2),
+    "utf-8"
+  );
+
+  // All-or-nothing gate: the insert is the only DB-mutating step. A source whose
+  // timeout fired during fetch/extract must never reach it. This is what stops the
+  // post-timeout false-positive inserts and the silent paid-for-but-discarded loss.
+  if (signal?.aborted) throw signal.reason ?? new Error("aborted");
+
+  const db = await insertFn(supabase, allPermits, runId, null, { signal, log });
+  log(`  DB: ${db.inserted} inserted, ${db.skipped} skipped, ${db.errors} errors`);
+
+  if (config._id) {
+    await updateHashFn(supabase, config._id, newSubpageHashes);
+  }
+
+  // Abort landed mid-insert: some rows committed, some not. Mark partial — the
+  // idempotent upsert / dedup completes the rest on the next run, so we never roll
+  // back already-extracted, already-paid-for data.
+  const status = db.aborted ? "partial" : "ok";
+  return {
+    result: {
+      municipality: muniName, status, fetch_mode: "http",
+      permits: allPermits.length, inserted: db.inserted, skipped: db.skipped,
+      errors: db.errors, cost_usd: aggCost, html_hash: hash,
+      ...(db.aborted ? { aborted: true } : {}),
+    },
+    ...totals, inserted: db.inserted, insertedIds: db.insertedIds,
+    escalateConfig: null, bump: "http",
+  };
+}
+
+// Browser equivalent of processHttpSource (Playwright fetch). No HTTP escalation
+// path. Same all-or-nothing gate and result-object contract.
+export async function processBrowserSource(config, page, {
+  runId, supabase, client, forceExtract = false, signal, log = console.log,
+  htmlDir = HTML_DIR, extractedDir = EXTRACTED_DIR,
+  fetchPage = fetchPagePlaywright, extractFn = extractPermits,
+  insertFn = insertToSupabase, updateHashFn = updateContentHash,
+} = {}) {
+  const muniName = config.municipality;
+  const { subpages } = await fetchPage(page, config, signal, log);
+
+  const archivalContent = subpages.map(s => s.content).join("\n\n");
+  const hash = createHash("sha256").update(archivalContent).digest("hex").slice(0, 16);
+
+  const htmlFile = `${sanitizeFilename(muniName)}_${runId}.html`;
+  await writeFile(join(htmlDir, htmlFile), archivalContent, "utf-8");
+
+  const oldHashes = config.subpage_hashes || {};
+  const newSubpageHashes = {};
+  const allPermits = [];
+  let aggCost = 0;
+  let aggCacheCreated = 0;
+  let aggCacheRead = 0;
+  let extractedSubpages = 0;
+  let skippedSubpages = 0;
+
+  for (const subpage of subpages) {
+    if (signal?.aborted) throw signal.reason ?? new Error("aborted");
+    const perSubpageConfig = { ...config, content_hash: oldHashes[subpage.url] };
+    const { permits, cost, contentHash, skipped } = await extractFn(
+      client, subpage.content, muniName, subpage.url, perSubpageConfig,
+      { forceExtract, isPdf: subpage.isPdf, signal, log }
+    );
+    if (contentHash) {
+      newSubpageHashes[subpage.url] = contentHash;
+    }
+    if (skipped) {
+      skippedSubpages++;
+      continue;
+    }
+    extractedSubpages++;
+    for (const permit of permits) {
+      permit._raw_html_hash = contentHash;
+    }
+    allPermits.push(...permits);
+    aggCost += cost.cost_usd;
+    aggCacheCreated += cost.cache_creation_input_tokens || 0;
+    aggCacheRead += cost.cache_read_input_tokens || 0;
+  }
+
+  if (extractedSubpages === 0 && skippedSubpages > 0) {
+    log(`  all ${skippedSubpages} subpages unchanged via hash, skipping`);
+    if (config._id) {
+      await updateHashFn(supabase, config._id, newSubpageHashes);
+    }
+    return {
+      result: { municipality: muniName, status: "unchanged", fetch_mode: "browser", permits: 0, cost_usd: 0, html_hash: hash },
+      addedCost: 0, addedPermits: 0, addedCacheCreated: 0, addedCacheRead: 0,
+      inserted: 0, insertedIds: [], escalateConfig: null, bump: "skipped",
+    };
+  }
+
+  log(`  Permits: ${allPermits.length} (fran ${extractedSubpages}/${subpages.length} subpages, ${skippedSubpages} skippade via hash), Cost: $${aggCost.toFixed(4)}`);
+
+  const totals = {
+    addedCost: aggCost, addedPermits: allPermits.length,
+    addedCacheCreated: aggCacheCreated, addedCacheRead: aggCacheRead,
+  };
+
+  await writeFile(
+    join(extractedDir, `${sanitizeFilename(muniName)}_extracted.json`),
+    JSON.stringify(allPermits, null, 2),
+    "utf-8"
+  );
+
+  if (signal?.aborted) throw signal.reason ?? new Error("aborted");
+
+  const db = await insertFn(supabase, allPermits, runId, null, { signal, log });
+  log(`  DB: ${db.inserted} inserted, ${db.skipped} skipped, ${db.errors} errors`);
+
+  if (config._id) {
+    await updateHashFn(supabase, config._id, newSubpageHashes);
+  }
+
+  const status = db.aborted ? "partial" : "ok";
+  return {
+    result: {
+      municipality: muniName, status, fetch_mode: "browser",
+      permits: allPermits.length, inserted: db.inserted, skipped: db.skipped,
+      errors: db.errors, cost_usd: aggCost, html_hash: hash,
+      ...(db.aborted ? { aborted: true } : {}),
+    },
+    ...totals, inserted: db.inserted, insertedIds: db.insertedIds,
+    escalateConfig: null, bump: "browser",
+  };
 }
 
 async function main() {
@@ -932,203 +1212,23 @@ async function main() {
     }
   }
 
-  // Per-source extraction bodies, extracted verbatim from the Phase 1/2 loops.
-  // Nested in main() so they keep closing over the same run-level counters and
-  // arrays (no behaviour change). The timeout still lives in Promise.race in the
-  // loops below — abort handling is added in a separate change.
-  async function processHttpSource(config) {
-    const muniName = config.municipality;
-    const { subpages } = await fetchPageHttp(config);
-
-    const isPdfSource = subpages.length === 1 && subpages[0].isPdf;
-    const archivalContent = isPdfSource
-      ? subpages[0].content
-      : subpages.map(s => s.content).join("\n\n");
-    const hash = createHash("sha256").update(archivalContent).digest("hex").slice(0, 16);
-
-    const htmlFile = `${sanitizeFilename(muniName)}_${runId}${isPdfSource ? ".pdf" : ".html"}`;
-    await writeFile(join(HTML_DIR, htmlFile), archivalContent);
-
-    const oldHashes = config.subpage_hashes || {};
-    const newSubpageHashes = {};
-    const allPermits = [];
-    let aggCost = 0;
-    let aggCacheCreated = 0;
-    let aggCacheRead = 0;
-    let extractedSubpages = 0;
-    let skippedSubpages = 0;
-
-    for (const subpage of subpages) {
-      const perSubpageConfig = { ...config, content_hash: oldHashes[subpage.url] };
-      const { permits, cost, contentHash, skipped } = await extractPermits(
-        client, subpage.content, muniName, subpage.url, perSubpageConfig,
-        { forceExtract, isPdf: subpage.isPdf }
-      );
-      if (contentHash) {
-        newSubpageHashes[subpage.url] = contentHash;
-      }
-      if (skipped) {
-        skippedSubpages++;
-        continue;
-      }
-      extractedSubpages++;
-      for (const permit of permits) {
-        permit._raw_html_hash = contentHash;
-      }
-      allPermits.push(...permits);
-      aggCost += cost.cost_usd;
-      aggCacheCreated += cost.cache_creation_input_tokens || 0;
-      aggCacheRead += cost.cache_read_input_tokens || 0;
-    }
-
-    if (extractedSubpages === 0 && skippedSubpages > 0) {
-      console.log(`  [${muniName}] all ${skippedSubpages} subpages unchanged via hash, skipping`);
-      if (config._id) {
-        await updateContentHash(supabase, config._id, newSubpageHashes);
-      }
-      results.push({ municipality: muniName, status: "unchanged", fetch_mode: "http", permits: 0, cost_usd: 0, html_hash: hash });
-      totalSkipped++;
-      return;
-    }
-
-    totalCost += aggCost;
-    totalPermits += allPermits.length;
-    totalCacheCreated += aggCacheCreated;
-    totalCacheRead += aggCacheRead;
-
-    console.log(`  Permits: ${allPermits.length} (fran ${extractedSubpages}/${subpages.length} subpages, ${skippedSubpages} skippade via hash), Cost: $${aggCost.toFixed(4)}${aggCacheRead ? ` (cache hit: ${aggCacheRead} tokens)` : ""}`);
-
-    // Auto-escalate to browser if HTTP yields 0 permits across all subpages
-    if (allPermits.length === 0 && !config.needs_browser) {
-      console.log(`  [HTTP] 0 permits from verified source — escalating to browser: ${muniName}`);
-      browserConfigs.push({ ...config, needs_browser: true });
-      results.push({
-        municipality: muniName,
-        status: "escalated",
-        fetch_mode: "http",
-        permits: 0,
-        cost_usd: aggCost,
-        html_hash: hash
-      });
-      httpCount++;
-      return;
-    }
-
-    await writeFile(
-      join(EXTRACTED_DIR, `${sanitizeFilename(muniName)}_extracted.json`),
-      JSON.stringify(allPermits, null, 2),
-      "utf-8"
-    );
-
-    const db = await insertToSupabase(supabase, allPermits, runId);
-    totalInserted += db.inserted;
-    allInsertedIds.push(...db.insertedIds);
-    console.log(`  DB: ${db.inserted} inserted, ${db.skipped} skipped, ${db.errors} errors`);
-
-    if (config._id) {
-      await updateContentHash(supabase, config._id, newSubpageHashes);
-    }
-
-    results.push({
-      municipality: muniName,
-      status: "ok",
-      fetch_mode: "http",
-      permits: allPermits.length,
-      inserted: db.inserted,
-      skipped: db.skipped,
-      errors: db.errors,
-      cost_usd: aggCost,
-      html_hash: hash
-    });
-    httpCount++;
-  }
-
-  async function processBrowserSource(config, page) {
-    const muniName = config.municipality;
-    const { subpages } = await fetchPagePlaywright(page, config);
-
-    const archivalContent = subpages.map(s => s.content).join("\n\n");
-    const hash = createHash("sha256").update(archivalContent).digest("hex").slice(0, 16);
-
-    const htmlFile = `${sanitizeFilename(muniName)}_${runId}.html`;
-    await writeFile(join(HTML_DIR, htmlFile), archivalContent, "utf-8");
-
-    const oldHashes = config.subpage_hashes || {};
-    const newSubpageHashes = {};
-    const allPermits = [];
-    let aggCost = 0;
-    let aggCacheCreated = 0;
-    let aggCacheRead = 0;
-    let extractedSubpages = 0;
-    let skippedSubpages = 0;
-
-    for (const subpage of subpages) {
-      const perSubpageConfig = { ...config, content_hash: oldHashes[subpage.url] };
-      const { permits, cost, contentHash, skipped } = await extractPermits(
-        client, subpage.content, muniName, subpage.url, perSubpageConfig,
-        { forceExtract, isPdf: subpage.isPdf }
-      );
-      if (contentHash) {
-        newSubpageHashes[subpage.url] = contentHash;
-      }
-      if (skipped) {
-        skippedSubpages++;
-        continue;
-      }
-      extractedSubpages++;
-      for (const permit of permits) {
-        permit._raw_html_hash = contentHash;
-      }
-      allPermits.push(...permits);
-      aggCost += cost.cost_usd;
-      aggCacheCreated += cost.cache_creation_input_tokens || 0;
-      aggCacheRead += cost.cache_read_input_tokens || 0;
-    }
-
-    if (extractedSubpages === 0 && skippedSubpages > 0) {
-      console.log(`  [${muniName}] all ${skippedSubpages} subpages unchanged via hash, skipping`);
-      if (config._id) {
-        await updateContentHash(supabase, config._id, newSubpageHashes);
-      }
-      results.push({ municipality: muniName, status: "unchanged", fetch_mode: "browser", permits: 0, cost_usd: 0, html_hash: hash });
-      totalSkipped++;
-      return;
-    }
-
-    totalCost += aggCost;
-    totalPermits += allPermits.length;
-    totalCacheCreated += aggCacheCreated;
-    totalCacheRead += aggCacheRead;
-
-    console.log(`  Permits: ${allPermits.length} (fran ${extractedSubpages}/${subpages.length} subpages, ${skippedSubpages} skippade via hash), Cost: $${aggCost.toFixed(4)}`);
-
-    await writeFile(
-      join(EXTRACTED_DIR, `${sanitizeFilename(muniName)}_extracted.json`),
-      JSON.stringify(allPermits, null, 2),
-      "utf-8"
-    );
-
-    const db = await insertToSupabase(supabase, allPermits, runId);
-    totalInserted += db.inserted;
-    allInsertedIds.push(...db.insertedIds);
-    console.log(`  DB: ${db.inserted} inserted, ${db.skipped} skipped, ${db.errors} errors`);
-
-    if (config._id) {
-      await updateContentHash(supabase, config._id, newSubpageHashes);
-    }
-
-    results.push({
-      municipality: muniName,
-      status: "ok",
-      fetch_mode: "browser",
-      permits: allPermits.length,
-      inserted: db.inserted,
-      skipped: db.skipped,
-      errors: db.errors,
-      cost_usd: aggCost,
-      html_hash: hash
-    });
-    browserCount++;
+  // Applies one source's result to the run-level counters and arrays. Called only
+  // on the synchronous return path after runWithTimeout resolves — a source that
+  // hits its timeout throws instead, so it can never mutate these late from a
+  // background task the way the old orphaned Promise.race body could.
+  function applyResult(res) {
+    if (!res) return;
+    if (res.result) results.push(res.result);
+    totalCost += res.addedCost || 0;
+    totalPermits += res.addedPermits || 0;
+    totalCacheCreated += res.addedCacheCreated || 0;
+    totalCacheRead += res.addedCacheRead || 0;
+    totalInserted += res.inserted || 0;
+    if (res.insertedIds?.length) allInsertedIds.push(...res.insertedIds);
+    if (res.escalateConfig) browserConfigs.push(res.escalateConfig);
+    if (res.bump === "http") httpCount++;
+    else if (res.bump === "browser") browserCount++;
+    else if (res.bump === "skipped") totalSkipped++;
   }
 
   // --- Phase 1: HTTP fetch (fast, no browser) ---
@@ -1138,17 +1238,16 @@ async function main() {
     const muniName = config.municipality;
     const hasSubpages = config.requires_subpages && config.requires_subpages.required;
     const timeout = hasSubpages ? 300000 : 180000;
+    const log = taggedLog(muniName);
     console.log(`\n--- ${muniName} ---`);
 
     try {
-      await Promise.race([
-        processHttpSource(config),
-        new Promise((_, reject) =>
-          setTimeout(() => reject(new Error(`Municipality timeout: ${timeout / 1000}s exceeded`)), timeout)
-        )
-      ]);
+      const res = await runWithTimeout(timeout, (signal) =>
+        processHttpSource(config, { runId, supabase, client, forceExtract, signal, log })
+      );
+      applyResult(res);
     } catch (err) {
-      console.error(`  ERROR: ${err.message}`);
+      log(`ERROR: ${err.message}`);
       results.push({
         municipality: muniName,
         status: "error",
@@ -1184,17 +1283,16 @@ async function main() {
       const muniName = config.municipality;
       const hasSubpages = config.requires_subpages && config.requires_subpages.required;
       const timeout = hasSubpages ? 300000 : 60000;
+      const log = taggedLog(muniName);
       console.log(`\n--- ${muniName} ---`);
 
       try {
-        await Promise.race([
-          processBrowserSource(config, page),
-          new Promise((_, reject) =>
-            setTimeout(() => reject(new Error(`Municipality timeout: ${timeout / 1000}s exceeded`)), timeout)
-          )
-        ]);
+        const res = await runWithTimeout(timeout, (signal) =>
+          processBrowserSource(config, page, { runId, supabase, client, forceExtract, signal, log })
+        );
+        applyResult(res);
       } catch (err) {
-        console.error(`  ERROR: ${err.message}`);
+        log(`ERROR: ${err.message}`);
         results.push({
           municipality: muniName,
           status: "error",
@@ -1261,15 +1359,23 @@ async function main() {
 
   const ok = results.filter((r) => r.status === "ok").length;
   const failed = results.filter((r) => r.status === "error").length;
+  const partial = results.filter((r) => r.status === "partial").length;
   const unchanged = results.filter((r) => r.status === "unchanged").length;
   const hashSkipped = results.filter((r) => r.status === "unchanged").length;
-  console.log(`OK: ${ok}, Failed: ${failed}${unchanged > 0 ? `, Unchanged: ${unchanged} (skipped LLM)` : ""}`);
+  console.log(`OK: ${ok}, Failed: ${failed}${partial > 0 ? `, Partial: ${partial} (timeout mid-insert)` : ""}${unchanged > 0 ? `, Unchanged: ${unchanged} (skipped LLM)` : ""}`);
   console.log(`Hash-skipped: ${hashSkipped}/${results.length} källor`);
 
   if (failed > 0) {
     console.log("Failed sources:");
     results.filter((r) => r.status === "error").forEach((r) => {
       console.log(`  - ${r.municipality} [${r.fetch_mode}]: ${r.error}`);
+    });
+  }
+
+  if (partial > 0) {
+    console.log("Partial sources (aborted mid-insert — next run completes via idempotent upsert):");
+    results.filter((r) => r.status === "partial").forEach((r) => {
+      console.log(`  - ${r.municipality} [${r.fetch_mode}]: ${r.inserted} inserted before abort`);
     });
   }
 
