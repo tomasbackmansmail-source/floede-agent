@@ -9,6 +9,7 @@ import { join } from "path";
 import { readFileSync } from "fs";
 import { discoverSource, verifyExtraction } from "./utils/discovery.js";
 import { normalizeToAscii } from "./utils/normalize.js";
+import { sanitizeFilename } from "./utils/engine.js";
 
 const VERTICAL = process.env.VERTICAL || "byggsignal";
 const verticalConfig = JSON.parse(readFileSync(new URL(`./config/verticals/${VERTICAL}.json`, import.meta.url), "utf-8"));
@@ -18,6 +19,7 @@ const discoveryConfig = verticalConfig.discovery;
 const QC_DIR = join(process.cwd(), "data", "qc");
 const COST_DIR = join(process.cwd(), "data", "costs");
 const CONFIG_DIR = join(process.cwd(), "data", "discovery");
+const RUN_LOG_DIR = join(process.cwd(), "data", "runs");
 
 const SONNET_INPUT_COST = 0.000003;
 const SONNET_OUTPUT_COST = 0.000015;
@@ -215,12 +217,58 @@ function populationFlags(todayCounts, baselines) {
 }
 
 
-async function saveToQcRuns(supabase, todayCounts, baselines, allFlags) {
+// Reads today's daily-run log(s) and returns { slug: insertedCount } where slug =
+// sanitizeFilename(municipality), matching the extracted-file slugs used as qc_runs
+// keys. Only sources that actually ran today appear here — sources absent from the
+// map are "unknown" (did not run today / no fresh run log), which the caller records
+// as NULL rather than 0, so a real "ran but inserted 0" is never confused with
+// "did not run". Honest insert-count source: daily-run knows db.inserted per source;
+// qc.js only sees DB state, so it cannot derive it — it must read the run log.
+export async function loadInsertedBySlug(runLogDir = RUN_LOG_DIR) {
+  const today = new Date().toISOString().slice(0, 10);
+  let files;
+  try {
+    files = (await readdir(runLogDir))
+      .filter((f) => f.startsWith('run_') && f.endsWith('.json'))
+      .sort(); // ascending by runId (ISO timestamp) → later runs overwrite earlier
+  } catch {
+    return {};
+  }
+
+  const insertedBySlug = {};
+  for (const file of files) {
+    let log;
+    try {
+      log = JSON.parse(await readFile(join(runLogDir, file), 'utf-8'));
+    } catch {
+      continue;
+    }
+    // Freshness: only trust logs from today, so a stale run log never writes
+    // yesterday's inserted counts onto today's qc_runs rows.
+    if (!log.run_at || String(log.run_at).slice(0, 10) !== today) continue;
+
+    for (const r of (log.results || [])) {
+      // unchanged / escalated / error results carry no numeric `inserted` — skip them
+      // (they remain "unknown" → NULL). ok / partial / adapter-ok carry the real count.
+      if (!r || typeof r.inserted !== 'number' || !r.municipality) continue;
+      insertedBySlug[sanitizeFilename(r.municipality)] = r.inserted;
+    }
+  }
+  return insertedBySlug;
+}
+
+async function saveToQcRuns(supabase, todayCounts, baselines, allFlags, insertedBySlug = {}) {
   const today = new Date().toISOString().slice(0, 10);
 
   for (const [muniId, count] of Object.entries(todayCounts)) {
     const baseline = baselines[muniId];
     const flags = allFlags[muniId] || [];
+
+    // Honest tri-state: real count when the source ran today, NULL when unknown
+    // (ran 0 => 0; did not run / no fresh run log => NULL). Never 0-as-unknown.
+    const permitsInserted = Object.prototype.hasOwnProperty.call(insertedBySlug, muniId)
+      ? insertedBySlug[muniId]
+      : null;
 
     const { error } = await supabase
       .from('qc_runs')
@@ -229,7 +277,7 @@ async function saveToQcRuns(supabase, todayCounts, baselines, allFlags) {
         municipality: muniId,
         run_date: today,
         permits_extracted: count,
-        permits_inserted: 0,
+        permits_inserted: permitsInserted,
         expected_avg: baseline ? baseline.avg_permits_per_run : null,
         flags: flags,
         alert_sent: false
@@ -297,7 +345,7 @@ export async function checkZeroStreak(supabase) {
   // Fetch ALL qc_runs in lookback (both zero and non-zero)
   const { data, error } = await supabase
     .from('qc_runs')
-    .select('municipality, run_date, permits_extracted')
+    .select('municipality, run_date, permits_extracted, permits_inserted')
     .eq('vertical', VERTICAL)
     .gte('run_date', cutoff.toISOString().slice(0, 10))
     .order('municipality')
@@ -343,7 +391,15 @@ export async function checkZeroStreak(supabase) {
     }
 
     if (zeroDays >= threshold) {
-      zeroStreaks.push({ municipality: muni, zero_days: zeroDays, dates: zeroDates });
+      // Parallel signal (does NOT affect the streak break above, which stays on
+      // permits_extracted so re-discovery semantics are unchanged): of the silent
+      // days, how many had a run that confirmed 0 inserts. permits_inserted NULL =
+      // unknown (did not run / pre-honest-count legacy) and is NOT counted as zero.
+      const insertedZeroDays = zeroDates.filter((d) => {
+        const run = runsByDate[d];
+        return run && run.permits_inserted === 0;
+      }).length;
+      zeroStreaks.push({ municipality: muni, zero_days: zeroDays, dates: zeroDates, inserted_zero_days: insertedZeroDays });
     }
   }
 
@@ -622,7 +678,10 @@ async function main() {
     if (flags.length > 0) allFlags[muni] = flags;
   }
 
-  await saveToQcRuns(supabase, todayCounts, baselines, allFlags);
+  // Honest permits_inserted comes from daily-run's run log (db.inserted per source),
+  // not derivable from DB state alone. Sources not in today's run log → NULL (unknown).
+  const insertedBySlug = await loadInsertedBySlug();
+  await saveToQcRuns(supabase, todayCounts, baselines, allFlags, insertedBySlug);
 
   // --- Check for three-day zero streaks ---
   const zeroStreaks = await checkZeroStreak(supabase);
