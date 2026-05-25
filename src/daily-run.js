@@ -1047,6 +1047,7 @@ async function main() {
         totalPermits += permits.length;
         console.log(`  Permits: ${permits.length}, Cost: $0 (no LLM)`);
 
+        let inserted = 0;
         if (permits.length > 0) {
           await writeFile(
             join(EXTRACTED_DIR, `${sanitizeFilename(muniName)}_extracted.json`),
@@ -1055,6 +1056,7 @@ async function main() {
           );
 
           const db = await insertToSupabase(supabase, permits, runId, contentHash);
+          inserted = db.inserted;
           totalInserted += db.inserted;
           allInsertedIds.push(...db.insertedIds);
           console.log(`  DB: ${db.inserted} inserted, ${db.skipped} skipped, ${db.errors} errors`);
@@ -1069,6 +1071,7 @@ async function main() {
           status: "ok",
           fetch_mode: "ciceron",
           permits: permits.length,
+          inserted,
           cost_usd: 0,
         });
         ciceronCount++;
@@ -1109,6 +1112,7 @@ async function main() {
         totalPermits += permits.length;
         console.log(`  Permits: ${permits.length}, Cost: $0 (no LLM)`);
 
+        let inserted = 0;
         if (permits.length > 0) {
           await writeFile(
             join(EXTRACTED_DIR, `${sanitizeFilename(muniName)}_extracted.json`),
@@ -1117,6 +1121,7 @@ async function main() {
           );
 
           const db = await insertToSupabase(supabase, permits, runId, contentHash);
+          inserted = db.inserted;
           totalInserted += db.inserted;
           allInsertedIds.push(...db.insertedIds);
           console.log(`  DB: ${db.inserted} inserted, ${db.skipped} skipped, ${db.errors} errors`);
@@ -1131,6 +1136,7 @@ async function main() {
           status: "ok",
           fetch_mode: "meetingplus",
           permits: permits.length,
+          inserted,
           cost_usd: 0,
         });
         meetingPlusCount++;
@@ -1171,6 +1177,7 @@ async function main() {
         totalPermits += permits.length;
         console.log(`  Permits: ${permits.length}, Cost: $0 (no LLM)`);
 
+        let inserted = 0;
         if (permits.length > 0) {
           await writeFile(
             join(EXTRACTED_DIR, `${sanitizeFilename(muniName)}_extracted.json`),
@@ -1179,6 +1186,7 @@ async function main() {
           );
 
           const db = await insertToSupabase(supabase, permits, runId, contentHash);
+          inserted = db.inserted;
           totalInserted += db.inserted;
           allInsertedIds.push(...db.insertedIds);
           console.log(`  DB: ${db.inserted} inserted, ${db.skipped} skipped, ${db.errors} errors`);
@@ -1193,6 +1201,7 @@ async function main() {
           status: "ok",
           fetch_mode: "netpublicator",
           permits: permits.length,
+          inserted,
           cost_usd: 0,
         });
         netPublicatorCount++;
