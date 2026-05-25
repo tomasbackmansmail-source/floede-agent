@@ -31,7 +31,7 @@ Sedan: kör batch på de 20 tysta kommunerna. Verifiera resultat med Q3 i hälso
 
 **Arbetsplan från Managed Agents-beslut (prioritetsordning):**
 1. ~~Race-bugg-fix i daily-run.js~~ — KLAR 2026-05-24 (commits b4a0f21 + 8354576, deployad). AbortController per källa, signal genom fetch/SDK/supabase, allt-eller-inget med partial-state, taggade loggar, regressionstest. Återstår: prod-verifiering (Akademiska Hus 0 → rader).
-2. permits_inserted-fix (qc.js:232 hårdkodad nolla → faktisk insert-count, koppla till checkZeroStreak). ~35-55 rader, två filer.
+2. ~~permits_inserted-fix~~ — KOD KLAR 2026-05-25 (commits 096cca6 migration + 3a89522 daily-run + 0baf2b5 qc, pushad). qc.js läser dagens run-logg → ärlig permits_inserted (N / 0 / NULL-okänt), checkZeroStreak exponerar inserted_zero_days (bryter fortf. på extracted). **BLOCKERANDE: sql/004 måste appliceras i Supabase (ByggSignal) före nästa cron 2026-05-26 04:00 UTC** — annars NOT NULL-fel på NULL-skrivningar. Verifiera morgondagens körning skriver verkliga siffror, inte 0.
 3. Avvikelse-övervakning i daily cron (sänk checkActiveZeroToday-tröskel, koppla till triggerRediscovery med kostnadstak + cooldown). ~50 rader.
 4. Cross-source-lärande (discovered_patterns-tabell + skriv/läs i utils/discovery.js, Dreaming-inspirerat egenbygge). ~3-4 dagar.
 

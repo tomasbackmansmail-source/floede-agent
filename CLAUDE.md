@@ -227,6 +227,13 @@ sin stabilitet — inte i koden, i arbetssättet.
 
 Vercel är helt avvecklat.
 
+## Senast uppdaterat 2026-05-25
+- permits_inserted-fix (commits 096cca6 migration + 3a89522 daily-run + 0baf2b5 qc). qc.js:232 hårdkodade 0 (dött fält); nu läser qc loadInsertedBySlug() dagens run-logg (data/runs/run_*.json, run_at==idag) och mappar sanitizeFilename(municipality) → db.inserted (last-wins för escalated→browser + --source-omkörningar).
+- saveToQcRuns skriver tri-state permits_inserted: verklig N (inkl 0 = körde-men-sparade-inget) när känd, NULL när okänd (körde inte / ingen färsk run-logg). "Körde 0" och "körde inte" slås aldrig ihop.
+- Adapter-resultaten (Ciceron/MeetingPlus/NetPublicator) bär nu inserted i run-loggen (uplyft let inserted=0 per adapter).
+- checkZeroStreak selekterar permits_inserted + exponerar inserted_zero_days; bryt-villkor oförändrat på permits_extracted (rediscovery-semantik orörd).
+- sql/004: ALTER permits_inserted nullable + DROP DEFAULT + idempotent DO-block som ger onConflict(vertical,municipality,run_date) en verklig UNIQUE-constraint (promotar befintligt bart unikt index). MÅSTE appliceras i Supabase före qc-deploy kör mot prod. qc_runs ej i datakontraktet. npm test 276/276.
+
 ## Senast uppdaterat 2026-05-24
 - Race-bugg i daily-run timeout fixad (commits b4a0f21 utbrytning + 8354576 abort-mekanik). Promise.race ersatt av runWithTimeout + AbortController per källa; signal genom fetch (requestSignal/AbortSignal.any med fallback < Node 20.3), Anthropic SDK (messages.create params,{signal}), Supabase (.abortSignal); withRetry har avbrytbar backoff (abortableSleep).
 - Allt-eller-inget per källa: checkpoint före insertToSupabase + överst i dess record-loop. Abort mitt i insert → status "partial" i results (ingen rollback; idempotent upsert/dedup kompletterar nästa körning). Summary visar Partial-rader.
