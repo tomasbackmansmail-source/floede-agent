@@ -232,7 +232,10 @@ Vercel är helt avvecklat.
 - saveToQcRuns skriver tri-state permits_inserted: verklig N (inkl 0 = körde-men-sparade-inget) när känd, NULL när okänd (körde inte / ingen färsk run-logg). "Körde 0" och "körde inte" slås aldrig ihop.
 - Adapter-resultaten (Ciceron/MeetingPlus/NetPublicator) bär nu inserted i run-loggen (uplyft let inserted=0 per adapter).
 - checkZeroStreak selekterar permits_inserted + exponerar inserted_zero_days; bryt-villkor oförändrat på permits_extracted (rediscovery-semantik orörd).
-- sql/004: ALTER permits_inserted nullable + DROP DEFAULT + idempotent DO-block som ger onConflict(vertical,municipality,run_date) en verklig UNIQUE-constraint (promotar befintligt bart unikt index). MÅSTE appliceras i Supabase före qc-deploy kör mot prod. qc_runs ej i datakontraktet. npm test 276/276.
+- sql/004 APPLICERAD i prod (ByggSignal): permits_inserted nullable + DROP DEFAULT + UNIQUE-constraint på (vertical,municipality,run_date) promotad från befintligt bart unikt index (inget dubblett). qc_runs ej i datakontraktet. npm test 276/276.
+- sql/004 DO-block rättat efter två PL/pgSQL-typfel som nådde prod: name[]=text[] (array_agg(attname) är name[] → ::text-cast) och unnest(int2vector) finns ej (indkey är int2vector → använd a.attnum = ANY(...) istället för unnest). Lärdom: schema-DDL kan inte verifieras lokalt utan postgres — kandidat för code-reviewer-subagent.
+- Steg 1 + 2 VERIFIERADE I PROD 2026-05-25: race-fix (Akademiska Hus avbryter rent, 0 inserted/2 skipped, inga falsk-positiva); permits_inserted (Stockholm 217→8, Malmö 16→2, Göteborg ärligt 0 ej NULL i qc_runs).
+- Nya buggar 2026-05-25: PRIO 1 notify-trigger ger HTML ej JSON på CI+ByggSignal (kund-påverkande, Chair6-mail kan vara trasigt); PRIO 3 Stockholm subsidiary-källor (SISAB/Stockholmshem/Micasa) kraschar page.goto undefined URL. Se CONTEXT.md.
 
 ## Senast uppdaterat 2026-05-24
 - Race-bugg i daily-run timeout fixad (commits b4a0f21 utbrytning + 8354576 abort-mekanik). Promise.race ersatt av runWithTimeout + AbortController per källa; signal genom fetch (requestSignal/AbortSignal.any med fallback < Node 20.3), Anthropic SDK (messages.create params,{signal}), Supabase (.abortSignal); withRetry har avbrytbar backoff (abortableSleep).
