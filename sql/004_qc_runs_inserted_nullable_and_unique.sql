@@ -19,6 +19,11 @@ ALTER TABLE qc_runs ALTER COLUMN permits_inserted DROP DEFAULT;
 ALTER TABLE qc_runs ALTER COLUMN permits_inserted DROP NOT NULL;
 
 -- (2) Verklig UNIQUE-backning för upserten
+--
+-- Två typ-fällor undviks här (PL/pgSQL kör inte rent annars):
+--  * array_agg(attname) blir name[]; jämförelse name[] = text[] saknar operator -> attname::text.
+--  * indkey är int2vector, som unnest() inte tar; conkey är int2[] och hade fungerat. Vi använder
+--    det kanoniska a.attnum = ANY(...) för båda istället, så ingen unnest/int2vector-fälla finns.
 DO $$
 DECLARE
   v_idx text;
@@ -30,10 +35,11 @@ BEGIN
     FROM pg_constraint c
     WHERE c.conrelid = 'qc_runs'::regclass
       AND c.contype = 'u'
+      AND cardinality(c.conkey) = 3
       AND (
-        SELECT array_agg(a.attname ORDER BY a.attname)
-        FROM unnest(c.conkey) AS k(attnum)
-        JOIN pg_attribute a ON a.attrelid = c.conrelid AND a.attnum = k.attnum
+        SELECT array_agg(a.attname::text ORDER BY a.attname)
+        FROM pg_attribute a
+        WHERE a.attrelid = c.conrelid AND a.attnum = ANY(c.conkey)
       ) = ARRAY['municipality', 'run_date', 'vertical']
   ) INTO v_has_constraint;
 
@@ -50,9 +56,9 @@ BEGIN
     AND x.indisunique
     AND x.indnatts = 3
     AND (
-      SELECT array_agg(a.attname ORDER BY a.attname)
-      FROM unnest(x.indkey) AS k(attnum)
-      JOIN pg_attribute a ON a.attrelid = x.indrelid AND a.attnum = k.attnum
+      SELECT array_agg(a.attname::text ORDER BY a.attname)
+      FROM pg_attribute a
+      WHERE a.attrelid = x.indrelid AND a.attnum = ANY(x.indkey)
     ) = ARRAY['municipality', 'run_date', 'vertical']
   LIMIT 1;
 
