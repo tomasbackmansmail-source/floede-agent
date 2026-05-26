@@ -229,6 +229,7 @@ Vercel är helt avvecklat.
 
 ## Senast uppdaterat 2026-05-26
 - Notify-404 rotorsak hittad: routen /api/cron/notify monterades aldrig i byggsignal server.js (bara Vercel-funktion, Vercel avvecklat 29 mars). Felklassning rättad i CONTEXT.md (inte PRIO 1 kund-påverkande utan parkerat ByggSignal-tillstånd, ej Engine); NOTIFY_URL borttagen från motorns Railway (Phase 4 skippas, 404-brus upphör); aktivering parkerad hos ByggSignal tills datakvaliteten håller.
+- Phase 5 CI-webhook verifierad icke-bugg ("failar på CI" var ärvt antagande från Phase 4; Phase 5 anropar aldrig resp.json(), non-fatal, env satta — positivt Railway-loggbevis väntar på nästa CI-cron). Subagent-utvärdering klar: source-researcher behålls / config-builder uppdateras / qa-verifier pensioneras. Ny öppen utredning: qc.js validerar ej CI-vertikalen (ByggSignal-schema mot CI, qc_runs saknas i CI-projektet) — motorbugg, relevant för CI-piloten.
 
 ## Senast uppdaterat 2026-05-25
 - permits_inserted-fix (commits 096cca6 migration + 3a89522 daily-run + 0baf2b5 qc). qc.js:232 hårdkodade 0 (dött fält); nu läser qc loadInsertedBySlug() dagens run-logg (data/runs/run_*.json, run_at==idag) och mappar sanitizeFilename(municipality) → db.inserted (last-wins för escalated→browser + --source-omkörningar).

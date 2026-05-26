@@ -22,7 +22,9 @@ Tre status-block:
 Cron 04:00 UTC = 06:00 CEST. Senaste deploy 7eaa3c98 aktiv. Tidigare deploys 7246397a + f9e97dd8 misslyckades — klassificerade som transient infrastructure issues.
 
 ## Nästa konkreta steg
-**PRIO 1 är ledig.** Notify-buggen är omklassad till parkerat ByggSignal-tillstånd (se Kritiska motorbuggar) och är inte längre en Engine-uppgift. Nästa Engine-arbete är steg 3 — avvikelse-övervakning enligt Managed Agents-arbetsplanen: sänk checkActiveZeroToday-tröskel, koppla till triggerRediscovery med kostnadstak + cooldown (~50 rader). Konkret testfall: Göteborg (0 bytes via browser, tyst sedan mars).
+**PRIO 1 är ledig.** Notify omklassat till parkerat ByggSignal-tillstånd, Phase 5 verifierad icke-bugg (se Kritiska motorbuggar) — ingen av dem är en Engine-uppgift. Två kandidater framåt:
+- (a) Steg 3 avvikelse-övervakning (Managed Agents-arbetsplanen): sänk checkActiveZeroToday-tröskel, koppla till triggerRediscovery med kostnadstak + cooldown (~50 rader). Testfall: Göteborg (0 bytes via browser, tyst sedan mars).
+- (b) Steg 4 cross-source-lärande (discovered_patterns) — också svaret på "bästa tekniken för datainsamling". Kräver egen session med plan mode. source-researchers bedömningslogik (HTTP-vs-JS, rankning) återanvänds, men dess markdown-filformat ersätts av en strukturerad rad i discovered_patterns. Subagenterna ska INTE vara grunden för steg 4 — de är manuella lager-2-verktyg, ej wirade i automatpipelinen.
 
 ## CI-koordinering (status)
 - Webhook + cron_events: inte påbörjat
@@ -41,12 +43,16 @@ Cron 04:00 UTC = 06:00 CEST. Senaste deploy 7eaa3c98 aktiv. Tidigare deploys 724
 1. ~~PRIO 1 — Notify-trigger~~ — OMKLASSAD 2026-05-26: inte en Engine-bugg. Rotorsak: routen `/api/cron/notify` monterades aldrig i byggsignal server.js, fanns bara som Vercel-funktion (Vercel avvecklat 29 mars). Chair6-bevakningsmail har därför inte gått ut sedan 29 mars — medvetet parkerat i byggsignal CONTEXT.md tills datakvaliteten (applicant/adress) håller. NOTIFY_URL borttagen från motorns Railway-variabler 26 maj, så Phase 4 hoppas över och 404-bruset upphör. Ägs av ByggSignal-vertikalen. (Se Kritiska motorbuggar.)
 2. PRIO 1 (nu överst) — Steg 3 avvikelse-övervakning (se arbetsplan ovan).
 3. PRIO 2 — Stockholms stad: tre subsidiary-källor (SISAB/Stockholmshem/Micasa) kraschar `page.goto: url: expected string, got undefined` — configs har undefined URL. Blockerar inte pilot men förlorar data.
-4. Öppen separat fråga — CI Phase 5 post_run_webhook: verifieras för sig, blanda inte ihop med ByggSignal-notify ovan (annat fel, annan mekanism).
+4. ~~CI Phase 5 post_run_webhook~~ — VERIFIERAD ICKE-BUGG 2026-05-26 (ärvt antagande från Phase 4-notify; Phase 5 anropar aldrig resp.json()). Se Kritiska motorbuggar. Öppen verifieringspunkt: positivt Railway-loggbevis väntar på nästa CI-cron, ej brådskande.
 
-**Parkerat spår (eget, efter prio 1-3):**
-- Subagent-utvärdering: source-researcher/config-builder/qa-verifier i .claude/agents är 6 veckor gamla — oklart om de fungerar mot dagens motorarkitektur. floede-incident-diagnosis-skill är manuell = invokas inte. Förslag: code-reviewer-subagent med GDPR/å-ä-ö/schema-verifiering inkodat (hade fångat migrations-typfelen som nådde prod idag — name[]=text[] + unnest(int2vector)). Utvärdera och testa innan något byggs.
+**Subagent-utvärdering KLAR 2026-05-26 (mot faktisk kod):**
+- source-researcher: FUNGERAR. Inga stale beroenden, arkitektur-agnostisk (rör ingen motorfunktion/schema), bevisad i results/. Behåll oförändrad.
+- config-builder: BEHÖVER UPPDATERING. Mekaniken lever (--source-flaggan finns, config_table-vägen stämmer), men regeluppsättningen är blind för verified-grinden, datakontrakt v0.1 och raw_html_hash (alla tillkomna efter 3 april). Latent risk, ej aktivt fel.
+- qa-verifier: PENSIONERAS. `qc.js --source` har aldrig fungerat för CI (qc.js parsar inte --source), pekar på opålitlig qc_runs, föråldrad maturity-enum (rumor borta ur projectpage/annualreport). Ersätts av planerad code-reviewer-subagent med GDPR/å-ä-ö/schema-verifiering inkodat (hade fångat migrations-typfelen 25 maj — name[]=text[] + unnest(int2vector)).
+- Not: subagenterna är manuella lager-2-verktyg, inte wirade i automatpipelinen (inga `.claude/agents`-referenser i src/).
 
 **Övriga öppna spår:**
+- NY UTREDNING 2026-05-26 (MOTORBUGG, ej agent-svaghet): qc.js validerar troligen INTE CI-vertikalen korrekt. qa-verifierns april-QA-fil (results/ci-akademiskahus-qa.md) dokumenterar att qc.js använder ByggSignal-schema (municipality-baserat) även mot CI och att qc_runs saknas i CI:s Supabase-projekt. Relevant för CI-piloten (Fredrik). Egen utredning, ej verifierad ännu.
 - Akademiska Hus project_page Playwright-timeout (akademiskahus.se svarar inte under 30s) — separat utredning behövs.
 - Akademiska Hus annual_report: race-buggen som blockerade (0 rader) är fixad 2026-05-24. Verifiera att rader nu produceras efter nästa daily-run. Selector + keywords fungerar.
 - Trafikverket TED buyer-ID verifiera mot ted.europa.eu UI för att säkerställa täckning av alla TRV-upphandlingar.
@@ -99,8 +105,11 @@ Cron 04:00 UTC = 06:00 CEST. Senaste deploy 7eaa3c98 aktiv. Tidigare deploys 724
 **Åtgärd 2026-05-26**: NOTIFY_URL borttagen från floede-agents Railway-variabler. Phase 4 i daily-run.js hoppas därför över (`if (process.env.NOTIFY_URL)`) — 404-bruset upphör. Ingen kodändring gjord, ingen behövs.
 **Framtida arkitektur (CC byggsignal-bedömning)**: notify blir ett schemalagt jobb i byggsignal (`npm run notify`), inte ett HTTP-anrop från motorn. Aktivering väntar på datakvalitet och ägs av CTO ByggSignal.
 
-### CI Phase 5 post_run_webhook — SEPARAT ÖPPEN FRÅGA
-**Status**: öppen, verifieras för sig. Blanda INTE ihop med ByggSignal-notify ovan — annat fel, annan mekanism (per-vertikal post_run_webhook-block, X-Cron-Secret-header). Verifiera CI-webhooken separat innan slutsats dras.
+### CI Phase 5 post_run_webhook — VERIFIERAD ICKE-BUGG, 2026-05-26
+**Status**: inte en bugg. "Failar på CI" var ett ärvt antagande från Phase 4-notify-felet (ByggSignal ovan).
+**Bevis i kod (daily-run.js:1432-1475)**: Phase 5 anropar ALDRIG `resp.json()` — den läser bara `resp.ok` och `resp.text()`. Den kan därför strukturellt inte ge `Unexpected token '<'` (det felet är JSON.parse på HTML och kommer uteslutande från Phase 4:1425). Felklassningen var alltså ett antagande, inte en observation. Koden är non-fatal och robust i alla grenar (saknad env → skip-logg; icke-ok → felmeddelande; fetch-kast → catch). Configs med blocket: ci-pressroom/ci-projectpage/ci-annualreport (POST, X-Cron-Secret-header).
+**Env-variabler**: CI_ENGINE_WEBHOOK_URL + CI_WEBHOOK_SECRET bekräftade satta i floede-agent Railway 2026-05-26.
+**ÖPPEN VERIFIERINGSPUNKT (ej brådskande)**: positivt bevis (`Post-run webhook OK` i Railway-loggen) väntar på nästa CI-cron. Tills dess: verifierad icke-bugg via kodläsning, runtime-bekräftelse utestående.
 
 ### Stockholms stad subsidiary-källor kraschar på undefined URL — PRIO 2, upptäckt 2026-05-25
 **Status**: känd, ej fixad. Blockerar inte pilot, men förlorar data.
