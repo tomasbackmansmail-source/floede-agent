@@ -227,6 +227,9 @@ sin stabilitet — inte i koden, i arbetssättet.
 
 Vercel är helt avvecklat.
 
+## Senast uppdaterat 2026-05-26
+- Notify-404 rotorsak hittad: routen /api/cron/notify monterades aldrig i byggsignal server.js (bara Vercel-funktion, Vercel avvecklat 29 mars). Felklassning rättad i CONTEXT.md (inte PRIO 1 kund-påverkande utan parkerat ByggSignal-tillstånd, ej Engine); NOTIFY_URL borttagen från motorns Railway (Phase 4 skippas, 404-brus upphör); aktivering parkerad hos ByggSignal tills datakvaliteten håller.
+
 ## Senast uppdaterat 2026-05-25
 - permits_inserted-fix (commits 096cca6 migration + 3a89522 daily-run + 0baf2b5 qc). qc.js:232 hårdkodade 0 (dött fält); nu läser qc loadInsertedBySlug() dagens run-logg (data/runs/run_*.json, run_at==idag) och mappar sanitizeFilename(municipality) → db.inserted (last-wins för escalated→browser + --source-omkörningar).
 - saveToQcRuns skriver tri-state permits_inserted: verklig N (inkl 0 = körde-men-sparade-inget) när känd, NULL när okänd (körde inte / ingen färsk run-logg). "Körde 0" och "körde inte" slås aldrig ihop.

@@ -5,7 +5,7 @@ Måndag 25 maj 2026. Två motorfixar KLARA OCH BEVISADE I PROD idag:
 - **Steg 1 (race-bugg):** Akademiska Hus extraherar nu via browser och avbryter rent (0 inserted / 2 skipped, inga falsk-positiva, ingen tyst förlust). 21 maj gav samma källa tyst 0. Commits b4a0f21/8354576/ccf10df, 271/271 test.
 - **Steg 2 (permits_inserted):** migration sql/004 applicerad (permits_inserted nullable + UNIQUE-constraint på vertical,municipality,run_date promotad från befintligt index), ärlig count bevisad. Manuell körning: Stockholm 217 extraherade→8 inserted, Malmö 16→2, Göteborg 0→0 i qc_runs.permits_inserted (tidigare hårdkodad 0 på 14194 rader). Tri-state verifierad: Göteborg ärligt 0, inte NULL. Commits 096cca6/3a89522/0baf2b5/7c155c1, 276/276 test.
 
-Tre nya buggar upptäckta idag (prioriterade i Aktiva uppgifter + Kritiska motorbuggar): PRIO 1 notify-trigger failar på BÅDE CI och ByggSignal (kund-påverkande, Chair6-bevakningsmail kan vara trasigt), PRIO 2 steg 3 avvikelse-övervakning (har nu ärlig signal), PRIO 3 Stockholm subsidiary-källor kraschar på undefined URL.
+Notify-buggen (upptäckt 25 maj) omklassad 26 maj: inte en ny/oupptäckt PRIO 1-regression utan ett medvetet parkerat tillstånd som ägs av ByggSignal-vertikalen, ej Engine — se Kritiska motorbuggar. PRIO 1 är därmed ledig; nästa Engine-arbete är steg 3 avvikelse-övervakning (har nu ärlig signal från steg 2). Kvarstår även: Stockholm subsidiary-källor kraschar på undefined URL. CI Phase 5-webhooken är en separat öppen fråga (verifieras för sig).
 
 Torsdag 21 maj 2026. CI financial_report-rullout deployad i 5 steg (1→3→5→2→4). Vasakronan + SFV levererar nu rapport-data i prod; Akademiska Hus var blockerad av den nu fixade race-buggen. Steg 4 stängt som DELVIS LEVERERAT — 3 av 4 pilot-orgs (Stockholms stad skippad enligt plan).
 
@@ -22,7 +22,7 @@ Tre status-block:
 Cron 04:00 UTC = 06:00 CEST. Senaste deploy 7eaa3c98 aktiv. Tidigare deploys 7246397a + f9e97dd8 misslyckades — klassificerade som transient infrastructure issues.
 
 ## Nästa konkreta steg
-**PRIO 1 — notify-trigger-fix i egen Engine-session.** Notify-triggern failar på BÅDE CI och ByggSignal: `Notify trigger failed (non-fatal): Unexpected token '<', <!DOCTYPE...` — endpointen svarar HTML istället för JSON. Kund-påverkande: ByggSignals bevakningsmail till Chair6 (betalande beta) kan vara trasigt. Första uppgift: verifiera om mail faktiskt går ut, hitta varför endpointen ger HTML (fel URL / route / auth-redirect), åtgärda. Högst prio just för kundpåverkan.
+**PRIO 1 är ledig.** Notify-buggen är omklassad till parkerat ByggSignal-tillstånd (se Kritiska motorbuggar) och är inte längre en Engine-uppgift. Nästa Engine-arbete är steg 3 — avvikelse-övervakning enligt Managed Agents-arbetsplanen: sänk checkActiveZeroToday-tröskel, koppla till triggerRediscovery med kostnadstak + cooldown (~50 rader). Konkret testfall: Göteborg (0 bytes via browser, tyst sedan mars).
 
 ## CI-koordinering (status)
 - Webhook + cron_events: inte påbörjat
@@ -38,9 +38,10 @@ Cron 04:00 UTC = 06:00 CEST. Senaste deploy 7eaa3c98 aktiv. Tidigare deploys 724
 4. Cross-source-lärande (discovered_patterns-tabell + skriv/läs i utils/discovery.js, Dreaming-inspirerat egenbygge). ~3-4 dagar.
 
 **Nya buggar upptäckta 2026-05-25 (prioritetsordning, ej åtgärdade):**
-1. PRIO 1 — Notify-trigger failar på BÅDE CI och ByggSignal: `Unexpected token '<', <!DOCTYPE...` (endpoint svarar HTML, inte JSON). Risk: Chair6-bevakningsmail (betalande beta) kan vara trasigt. Verifiera om mail går ut. Kund-påverkande = högst prio. Egen Engine-session (se Nästa konkreta steg).
-2. PRIO 2 — Steg 3 avvikelse-övervakning (se arbetsplan ovan).
-3. PRIO 3 — Stockholms stad: tre subsidiary-källor (SISAB/Stockholmshem/Micasa) kraschar `page.goto: url: expected string, got undefined` — configs har undefined URL. Blockerar inte pilot men förlorar data.
+1. ~~PRIO 1 — Notify-trigger~~ — OMKLASSAD 2026-05-26: inte en Engine-bugg. Rotorsak: routen `/api/cron/notify` monterades aldrig i byggsignal server.js, fanns bara som Vercel-funktion (Vercel avvecklat 29 mars). Chair6-bevakningsmail har därför inte gått ut sedan 29 mars — medvetet parkerat i byggsignal CONTEXT.md tills datakvaliteten (applicant/adress) håller. NOTIFY_URL borttagen från motorns Railway-variabler 26 maj, så Phase 4 hoppas över och 404-bruset upphör. Ägs av ByggSignal-vertikalen. (Se Kritiska motorbuggar.)
+2. PRIO 1 (nu överst) — Steg 3 avvikelse-övervakning (se arbetsplan ovan).
+3. PRIO 2 — Stockholms stad: tre subsidiary-källor (SISAB/Stockholmshem/Micasa) kraschar `page.goto: url: expected string, got undefined` — configs har undefined URL. Blockerar inte pilot men förlorar data.
+4. Öppen separat fråga — CI Phase 5 post_run_webhook: verifieras för sig, blanda inte ihop med ByggSignal-notify ovan (annat fel, annan mekanism).
 
 **Parkerat spår (eget, efter prio 1-3):**
 - Subagent-utvärdering: source-researcher/config-builder/qa-verifier i .claude/agents är 6 veckor gamla — oklart om de fungerar mot dagens motorarkitektur. floede-incident-diagnosis-skill är manuell = invokas inte. Förslag: code-reviewer-subagent med GDPR/å-ä-ö/schema-verifiering inkodat (hade fångat migrations-typfelen som nådde prod idag — name[]=text[] + unnest(int2vector)). Utvärdera och testa innan något byggs.
@@ -68,9 +69,10 @@ Cron 04:00 UTC = 06:00 CEST. Senaste deploy 7eaa3c98 aktiv. Tidigare deploys 724
 - Fredrik Johansson (Skanska, CI pilot): väntar fortfarande. CI Lager 2 = v0.2 efter förankring med CTO CI.
 
 ## Senaste besluten (nyaste överst)
+- 2026-05-26: Notify-felklassning rättad. Rotorsak verifierad mot byggsignal-repot: routen `/api/cron/notify` monterades aldrig i byggsignal server.js (fanns bara som Vercel-funktion, Vercel avvecklat 29 mars) → endpointen gav HTML. Inte en ny PRIO 1-regression utan medvetet parkerat ByggSignal-tillstånd (mail har inte gått sedan 29 mars, aktivering väntar på datakvalitet). NOTIFY_URL borttagen från motorns Railway → Phase 4 skippas, 404-brus upphör. Ägs av ByggSignal-vertikalen. PRIO 1 nu ledig; nästa Engine-arbete är steg 3 avvikelse-övervakning. CI Phase 5-webhooken hålls som separat öppen fråga.
 - 2026-05-25: Steg 1 race-bugg verifierad i prod. Akademiska Hus extraherar via browser, avbryter rent (0 inserted/2 skipped, inga falsk-positiva, ingen tyst förlust). 21 maj gav tyst 0. Commits b4a0f21/8354576/ccf10df, 271/271 test.
 - 2026-05-25: Steg 2 permits_inserted verifierad i prod. Migration sql/004 applicerad (permits_inserted nullable + UNIQUE-constraint på vertical,municipality,run_date promotad från befintligt index — inget dubblett-index). Manuell körning: Stockholm 217→8, Malmö 16→2, Göteborg 0→0. Tri-state bevisad: Göteborg ärligt 0, inte NULL. qc.js läser run-loggen för ärlig count. Commits 096cca6/3a89522/0baf2b5/7c155c1, 276/276 test.
-- 2026-05-25: Tre nya buggar prioriterade. PRIO 1 notify-trigger ger HTML ej JSON på CI+ByggSignal (kund-påverkande, Chair6-mail). PRIO 2 steg 3 avvikelse-övervakning (näst på tur). PRIO 3 Stockholm subsidiary undefined URL. Parkerat: subagent-utvärdering + ev. code-reviewer-subagent med GDPR/å-ä-ö/schema-checks.
+- 2026-05-25: Tre nya buggar prioriterade. Notify-trigger ger HTML ej JSON (då tänkt PRIO 1 — omklassad 2026-05-26 till parkerat ByggSignal-tillstånd, ej Engine). Steg 3 avvikelse-övervakning (näst på tur). Stockholm subsidiary undefined URL. Parkerat: subagent-utvärdering + ev. code-reviewer-subagent med GDPR/å-ä-ö/schema-checks.
 - 2026-05-21: Managed Agents-utvärdering klar. Beslut: bygg eget, stjäl Dreaming-idén, race-fix först. Tre svagheter kartlagda i docs/ENGINE_ARCHITECTURE_SNAPSHOT.md; två är triviala egna fixar utan Managed Agents-koppling (permits_inserted hårdkodad nolla, avvikelse-övervakning 70% redan byggt), tredje matchar Dreaming men egenbygge vinner pga kostnadsmodellkrock ($0.08/session-h vs vår HTTP/Haiku/hash-skip-ekonomi) och förlust av modell-routing. Outcomes avfärdat (vill ha deterministisk SQL-QC), multi-agent orchestration avfärdat (race-fix ger kontrollen istället). Beslutsdokument: docs/MANAGED_AGENTS_DECISION.md.
 - 2026-05-21: CI financial_report-rullout deployad i 5 commits (3d0c0c7 → 37d0d67). Generic titel-klassificerare lyfter source_type från pressroom → financial_report (12 kinds). parent_signal_id-länkning forward + retro (95 befintliga annual_report-rader redo för retro-koppling när första financial_report skapas). Conditional validation: maturity tillåts vara null för financial_report. report_dedup på (org+date+document_kind). PDF-subpage-stöd via allow_pdf_subpages + filterByKeywords matchar nu text+href. Live LLM-test 3/3 grön $0.02. Prod-verifiering 21 maj: Vasakronan delårsrapport + 14 projekt-rader (5 forward-linked), SFV 103 annual_report-rader. Akademiska Hus blockerad av race-bugg.
 - 2026-05-21: Race-bugg i daily-run.js:945-1054 + 1095 identifierad och bevisad. Promise.race utan abort-signal orsakar tyst dataförlust + falsk-positiva inserts + logg-cross-contamination. Markerad som KÄNT KRITISKT PROBLEM, fix tas i egen session.
@@ -90,13 +92,17 @@ Cron 04:00 UTC = 06:00 CEST. Senaste deploy 7eaa3c98 aktiv. Tidigare deploys 724
 
 ## Kritiska motorbuggar (vertikal-agnostiska)
 
-### Notify-trigger failar (CI + ByggSignal) — PRIO 1, upptäckt 2026-05-25
-**Status**: känd, ej fixad. Kund-påverkande.
-**Symptom**: `Notify trigger failed (non-fatal): Unexpected token '<', <!DOCTYPE...` på BÅDE CI och ByggSignal. Endpointen (NOTIFY_URL / motsv.) svarar HTML istället för JSON — sannolikt fel URL, route eller auth-redirect till en inloggningssida.
-**Risk**: ByggSignals bevakningsmail till Chair6 (betalande beta) kan vara trasigt. Felet är fångat som non-fatal i daily-run, så batchen påverkas inte — men notifieringen kan tyst utebli.
-**Nästa steg**: verifiera om mail faktiskt går ut, spåra varför endpointen ger HTML, åtgärda. Egen Engine-session.
+### ByggSignal notify-trigger — PARKERAT (ej Engine-bugg), omklassat 2026-05-26
+**Status**: inte en motorbugg, inte en oupptäckt regression. Medvetet parkerat tillstånd. Ägs av ByggSignal-vertikalen, ej Engine.
+**Rotorsak (verifierad mot byggsignal-repot 2026-05-26)**: routen `/api/cron/notify` monterades aldrig i byggsignal server.js — den fanns bara som Vercel-funktion. Vercel är avvecklat sedan 29 mars. Därför svarade endpointen HTML (`Unexpected token '<', <!DOCTYPE...`) istället för JSON.
+**Konsekvens**: bevakningsmail till Chair6 har inte gått ut sedan 29 mars. Detta är dokumenterat och medvetet parkerat i byggsignal CONTEXT.md: notify aktiveras inte förrän datakvaliteten (applicant/adress) håller, annars skickas värdelösa leads.
+**Åtgärd 2026-05-26**: NOTIFY_URL borttagen från floede-agents Railway-variabler. Phase 4 i daily-run.js hoppas därför över (`if (process.env.NOTIFY_URL)`) — 404-bruset upphör. Ingen kodändring gjord, ingen behövs.
+**Framtida arkitektur (CC byggsignal-bedömning)**: notify blir ett schemalagt jobb i byggsignal (`npm run notify`), inte ett HTTP-anrop från motorn. Aktivering väntar på datakvalitet och ägs av CTO ByggSignal.
 
-### Stockholms stad subsidiary-källor kraschar på undefined URL — PRIO 3, upptäckt 2026-05-25
+### CI Phase 5 post_run_webhook — SEPARAT ÖPPEN FRÅGA
+**Status**: öppen, verifieras för sig. Blanda INTE ihop med ByggSignal-notify ovan — annat fel, annan mekanism (per-vertikal post_run_webhook-block, X-Cron-Secret-header). Verifiera CI-webhooken separat innan slutsats dras.
+
+### Stockholms stad subsidiary-källor kraschar på undefined URL — PRIO 2, upptäckt 2026-05-25
 **Status**: känd, ej fixad. Blockerar inte pilot, men förlorar data.
 **Symptom**: tre subsidiary-källor (SISAB/Stockholmshem/Micasa) kraschar `page.goto: url: expected string, got undefined` — configrader har undefined listing_url. Relaterat till backlog-raden om subsidiary-bolag (docs/BACKLOG.md).
 
