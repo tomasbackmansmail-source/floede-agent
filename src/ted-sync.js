@@ -28,6 +28,12 @@ const TED_FIELDS = [
   'deadline-receipt-tender-date-lot',
   'classification-cpv',
   'place-of-performance',
+  'notice-type',
+  'organisation-name-tenderer',
+  'organisation-identifier-tenderer',
+  'total-value',
+  'total-value-cur',
+  'contract-duration-end-date-lot',
 ];
 const EUR_TO_SEK = 11.5;
 
@@ -128,6 +134,102 @@ function parseAmount(value, currency) {
   return Math.round(num);
 }
 
+// notice-type can arrive as a string or a single-element array.
+function firstOf(value) {
+  return Array.isArray(value) ? value[0] : value;
+}
+
+// can-standard = contract award → awarded; cn-standard = tender. Anything else
+// keeps the tender fallback (logged, never crashes).
+function mapMaturity(noticeType) {
+  const t = firstOf(noticeType);
+  if (t === 'can-standard') return 'awarded';
+  if (t === 'cn-standard') return 'tender';
+  warn(`notice-type "${t}" not mapped, defaulting maturity=tender`);
+  return 'tender';
+}
+
+// Awarded value from total-value. SEK = raw, EUR = ×11.5, anything else → null.
+function totalValueToSek(value, currencyRaw) {
+  if (value == null) return null;
+  const num = parseFloat(value);
+  if (isNaN(num)) return null;
+  const cur = firstOf(currencyRaw);
+  if (cur === 'SEK') return Math.round(num);
+  if (cur === 'EUR') return Math.round(num * EUR_TO_SEK);
+  warn(`TED currency ${cur} not handled, skipping amount_sek`);
+  return null;
+}
+
+// Swedish org-nr in hyphenated form. TED often delivers 10 bare digits — insert
+// the hyphen after digit 6. Already-formatted values round-trip unchanged.
+// Missing identifier → null.
+function formatOrgNr(raw) {
+  if (raw == null) return null;
+  const s = String(raw).trim();
+  if (!s) return null;
+  const digits = s.replace(/\D/g, '');
+  if (digits.length === 10) {
+    return `${digits.slice(0, 6)}-${digits.slice(6)}`;
+  }
+  return s;
+}
+
+// GDPR guard: a 10-digit identifier starting with "19" or "20" is personnummer
+// format, not an org-nr. Defensive — TED organisation-* fields are orgs by
+// definition, but this mirrors ByggSignal's applicant rule.
+function looksLikePrivatePerson(raw) {
+  if (raw == null) return false;
+  const digits = String(raw).replace(/\D/g, '');
+  return digits.length === 10 && (digits.startsWith('19') || digits.startsWith('20'));
+}
+
+// Build [{name, org_nr}] from TED's parallel arrays. names: language-keyed
+// object ({swe:[...]} preferred over {eng:[...]}) or a bare array. ids: bare
+// array, may be shorter/absent. Returns null when there are no tenderers.
+function buildCounterparties(nameField, idField) {
+  let names = null;
+  if (Array.isArray(nameField)) {
+    names = nameField;
+  } else if (nameField && typeof nameField === 'object') {
+    names = Array.isArray(nameField.swe) ? nameField.swe
+      : Array.isArray(nameField.eng) ? nameField.eng
+      : null;
+  }
+  if (!names || names.length === 0) return null;
+
+  const ids = Array.isArray(idField) ? idField : [];
+  if (ids.length > 0 && ids.length !== names.length) {
+    warn(`counterparties length mismatch: ${names.length} names vs ${ids.length} ids — pairing min`);
+  }
+  const count = ids.length > 0 ? Math.min(names.length, ids.length) : names.length;
+
+  const out = [];
+  for (let i = 0; i < count; i++) {
+    const name = names[i];
+    const rawId = ids.length > 0 ? ids[i] : null;
+    if (looksLikePrivatePerson(rawId) || looksLikePrivatePerson(name)) {
+      warn(`counterparties: skipping suspected private-person entry (id ${rawId})`);
+      continue;
+    }
+    out.push({ name, org_nr: formatOrgNr(rawId) });
+  }
+  return out.length > 0 ? out : null;
+}
+
+// contract-duration-end-date-lot is an array of e.g. "2025-09-30+02:00".
+// Take the first, parse to YYYY-MM-DD. Unparseable → null (logged).
+function parseContractEndDate(field) {
+  const val = firstOf(field);
+  if (!val) return null;
+  const m = String(val).match(/^(\d{4}-\d{2}-\d{2})/);
+  if (!m) {
+    warn(`contract_end_date unparseable: ${JSON.stringify(val)}`);
+    return null;
+  }
+  return m[1];
+}
+
 function mapCategory(cpvCodes, description) {
   if (!cpvCodes || cpvCodes.length === 0) return 'commercial';
   const first = String(cpvCodes[0]);
@@ -153,7 +255,10 @@ function mapCategory(cpvCodes, description) {
 // ── TED API ──────────────────────────────────────────────────────────
 
 async function searchTed(orgName, startDate) {
-  const query = `organisation-name-buyer = "*${orgName}*" AND organisation-country-buyer = "SWE" AND publication-date > ${startDate}`;
+  // SORT BY publication-date DESC: TED default is ASC (oldest first), verified
+  // empirically. Without this, limit:100 without pagination returns the oldest
+  // notices in the window and the pilot never sees fresh awards.
+  const query = `organisation-name-buyer = "*${orgName}*" AND organisation-country-buyer = "SWE" AND publication-date > ${startDate} SORT BY publication-date DESC`;
 
   const allNotices = [];
   let page = 1;
@@ -249,10 +354,19 @@ async function main() {
         ? `Anbudsfrist: ${parsePublicationDate(deadlines[0])}`
         : null;
 
-      const amount = parseAmount(
-        notice['estimated-value-proc'],
-        notice['estimated-value-cur-proc']
+      const maturity = mapMaturity(notice['notice-type']);
+
+      // Awarded notices carry the final contract value in total-value; tender
+      // notices keep the existing estimated-value logic unchanged.
+      const amount = maturity === 'awarded'
+        ? totalValueToSek(notice['total-value'], notice['total-value-cur'])
+        : parseAmount(notice['estimated-value-proc'], notice['estimated-value-cur-proc']);
+
+      const counterparties = buildCounterparties(
+        notice['organisation-name-tenderer'],
+        notice['organisation-identifier-tenderer']
       );
+      const contractEndDate = parseContractEndDate(notice['contract-duration-end-date-lot']);
 
       const cpvCodes = notice['classification-cpv'];
       const category = mapCategory(cpvCodes, description);
@@ -279,7 +393,7 @@ async function main() {
         organization_id: org.id,
         organization_name: org.name,
         title,
-        maturity: 'tender',
+        maturity,
         amount_sek: amount,
         timeline,
         description: description || null,
@@ -291,6 +405,8 @@ async function main() {
         source_excerpt: sourceExcerpt,
         ted_reference: noticeId || null,
         nuts_code: nutsCode,
+        counterparties,
+        contract_end_date: contractEndDate,
       };
 
       try {
