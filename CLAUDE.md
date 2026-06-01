@@ -227,6 +227,9 @@ sin stabilitet — inte i koden, i arbetssättet.
 
 Vercel är helt avvecklat.
 
+## Senast uppdaterat 2026-06-01
+- TED-fix implementerad (commit 8259f13): vinnare/värde/längd + notice-type-driven maturity (can-standard=awarded) + SORT BY publication-date DESC fixade pre-existing sort-bugg (drog 100 äldsta i stället för nyaste). JSONB counterparties + contract_end_date mappas för CAN, GDPR-guard mot personnummerformat. Forward-only, 46/46 CAN med counterparties live, 276/276 test. Öppna ej brådskande spår: TED-paginering (Trafikverket-svans) + EUR→SEK hårdkodning (×11.5 kursdrift).
+
 ## Senast uppdaterat 2026-05-26
 - Notify-404 rotorsak hittad: routen /api/cron/notify monterades aldrig i byggsignal server.js (bara Vercel-funktion, Vercel avvecklat 29 mars). Felklassning rättad i CONTEXT.md (inte PRIO 1 kund-påverkande utan parkerat ByggSignal-tillstånd, ej Engine); NOTIFY_URL borttagen från motorns Railway (Phase 4 skippas, 404-brus upphör); aktivering parkerad hos ByggSignal tills datakvaliteten håller.
 - Phase 5 CI-webhook verifierad icke-bugg ("failar på CI" var ärvt antagande från Phase 4; Phase 5 anropar aldrig resp.json(), non-fatal, env satta — positivt Railway-loggbevis väntar på nästa CI-cron). Subagent-utvärdering klar: source-researcher behålls / config-builder uppdateras / qa-verifier pensioneras. Ny öppen utredning: qc.js validerar ej CI-vertikalen (ByggSignal-schema mot CI, qc_runs saknas i CI-projektet) — motorbugg, relevant för CI-piloten.
