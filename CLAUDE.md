@@ -227,6 +227,9 @@ sin stabilitet — inte i koden, i arbetssättet.
 
 Vercel är helt avvecklat.
 
+## Senast uppdaterat 2026-06-02
+- Fas 0 för Stockholm investeringskälla klar (research, ingen kod): meetingspublic.stockholm.se kör MeetingPlus by Formpipe men adapter-räckvidd ~0% (alla högvärdessignaler är PDF-bilagor till möten, ej anslagstavledata); ingen tredjepartsaggregator på projektnivå; oväntat fynd: 46/54 befintliga Sthlm annual_report-signaler har null amount_sek som >50 mnkr-bilagan skulle fylla; relä till CTO CI med prio-val, bollen hos CTO CI.
+
 ## Senast uppdaterat 2026-06-01
 - TED-fix implementerad (commit 8259f13): vinnare/värde/längd + notice-type-driven maturity (can-standard=awarded) + SORT BY publication-date DESC fixade pre-existing sort-bugg (drog 100 äldsta i stället för nyaste). JSONB counterparties + contract_end_date mappas för CAN, GDPR-guard mot personnummerformat. Forward-only, 46/46 CAN med counterparties live, 276/276 test. Öppna ej brådskande spår: TED-paginering (Trafikverket-svans) + EUR→SEK hårdkodning (×11.5 kursdrift).
 
