@@ -7,6 +7,8 @@ import { readFileSync } from 'node:fs';
 
 const ciConfig = JSON.parse(readFileSync(new URL('./config/verticals/ci-pressroom.json', import.meta.url), 'utf8'));
 
+const TED_SYNC_EXCLUDE = ['Trafikverket'];   // buyers vars TED-sync är pausad (kundpassning, ej Fredrik-relevant)
+
 const CI_SUPABASE_URL = ciConfig.supabase_url;
 const CI_SUPABASE_KEY = process.env.CI_SUPABASE_SERVICE_KEY;
 
@@ -319,6 +321,10 @@ async function main() {
 
   // 2. Search TED per organization
   for (const org of organizations) {
+    if (TED_SYNC_EXCLUDE.includes(org.name)) {
+      log(`  ${org.name}: TED-sync pausad (exclude-lista), hoppar över`);
+      continue;
+    }
     const notices = await searchTed(org.name, startDate);
     if (notices.length === 0) continue;
 
