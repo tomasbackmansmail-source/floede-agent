@@ -228,6 +228,9 @@ sin stabilitet — inte i koden, i arbetssättet.
 Vercel är helt avvecklat.
 
 ## Senast uppdaterat 2026-06-02
+- TRV TED-sync pausad via exclude-lista (TED_SYNC_EXCLUDE i src/ted-sync.js, commit 01f939e). Guard överst i org-loopen, continue om org.name finns i listan. ci_organizations orört, urvalet fortfarande select=id,name över hela tabellen. Reversibelt.
+- ci_signals.source_id ifylls inte av CI-insert — koppling signal→källa via denormaliserade fält, inte FK. Eget spår.
+- Opera-dedup: accretionen slår inte ihop syndikerade republiceringar av samma milstolpe (titel-Jaccard missar rubrikvarianter). Strukturfälts-dedup planerad i plan mode. Se CONTEXT.
 - Fas 0 för Stockholm investeringskälla klar (research, ingen kod): meetingspublic.stockholm.se kör MeetingPlus by Formpipe men adapter-räckvidd ~0% (alla högvärdessignaler är PDF-bilagor till möten, ej anslagstavledata); ingen tredjepartsaggregator på projektnivå; oväntat fynd: 46/54 befintliga Sthlm annual_report-signaler har null amount_sek som >50 mnkr-bilagan skulle fylla; relä till CTO CI med prio-val, bollen hos CTO CI.
 
 ## Senast uppdaterat 2026-06-01

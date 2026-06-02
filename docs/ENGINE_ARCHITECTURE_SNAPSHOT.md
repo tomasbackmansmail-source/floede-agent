@@ -1,5 +1,10 @@
 # Floede Engine — Arkitektursnapshot
 
+> VARNING (2026-06-02): Punktbild från 2026-05-21, inte nuläge. Topp-svaghet 1
+> (permits_inserted hårdkodad) och topp-svaghet 3 (race-bug i timeout) är
+> ÅTGÄRDADE sedan dess (commits 096cca6/3a89522/0baf2b5 + b4a0f21/8354576,
+> verifierat i prod 25 maj). Läs som historik, inte aktuellt motortillstånd.
+
 > Faktabaserad kartläggning av motorn för att bedöma om/var Anthropics
 > Managed Agents-plattform (memory, dreaming, outcomes, multi-agent
 > orchestration) löser ett verkligt problem snarare än byter ut något

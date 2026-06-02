@@ -1,6 +1,16 @@
 # floede-agent — Kontext för ny chatt
 
 ## Nuläge
+Tisdag 2026-06-02. CI-piloten (Fredrik) i förberedelse. Aktuellt läge:
+- **TRV pausat för Fredrik-piloten** (kundpassning: Fredrik = hus, TRV = väg/järnväg). Två spakar: ci_sources 3 rader approved=false (org eea26bbc) + TED-sync exclude-lista TED_SYNC_EXCLUDE=['Trafikverket'] (commit 01f939e). Forward-only, reversibelt. Se Senaste besluten.
+- **Ask 1-research klar.** 2 källor för piloten (Akademiska Hus + vaxer.stockholm), inte 4. docs/ci-ask1-source-research.md (899f016).
+- **Opera-dedupens diagnos korrigerad** (inte project_id-fragmentering utan syndikering + över-merge) och spec låst med CTO CI. Byggs i plan mode.
+- **Ask 2-kontraktet (rapportnarrativ)** påbörjat med CTO CI (financial_report, per-fält-proveniens, Opus).
+
+Nästa steg: **AH project_page-fix** (grönljust, oberoende, ~halvdag).
+
+Nedan: tidigare nuläge (historik, ej arkiverat).
+
 Måndag 25 maj 2026. Två motorfixar KLARA OCH BEVISADE I PROD idag:
 - **Steg 1 (race-bugg):** Akademiska Hus extraherar nu via browser och avbryter rent (0 inserted / 2 skipped, inga falsk-positiva, ingen tyst förlust). 21 maj gav samma källa tyst 0. Commits b4a0f21/8354576/ccf10df, 271/271 test.
 - **Steg 2 (permits_inserted):** migration sql/004 applicerad (permits_inserted nullable + UNIQUE-constraint på vertical,municipality,run_date promotad från befintligt index), ärlig count bevisad. Manuell körning: Stockholm 217 extraherade→8 inserted, Malmö 16→2, Göteborg 0→0 i qc_runs.permits_inserted (tidigare hårdkodad 0 på 14194 rader). Tri-state verifierad: Göteborg ärligt 0, inte NULL. Commits 096cca6/3a89522/0baf2b5/7c155c1, 276/276 test.
@@ -33,6 +43,13 @@ Cron 04:00 UTC = 06:00 CEST. Senaste deploy 7eaa3c98 aktiv. Tidigare deploys 724
 
 ## Aktiva uppgifter
 
+**CI-pilot (Fredrik) — Ask-spår (prioritetsordning):**
+- **AH project_page-fix (NÄST PÅ TUR, grönljust, oberoende, ~halvdag).** Producerar 0 signaler idag. Aktiv config pekar på byggnadskatalog (/campus--fastigheter/vara-byggnader/) via bruten browser-väg. Fungerande ren-HTTP-URL: /om-oss/utveckling/projekt/ (CC-research). Fix = repeka listing_url, needs_browser:false, verify extraction >0, approve.
+- **vaxer GeoJSON-ombygge (efter AH, ~1-2 dagar).** Lever men 23 av ~921 projekt (tyst sedan 19 maj), subpage-crawl i stället för inbäddad GeoJSON. Fas semi-deterministisk (poiType-kategori + LLM för mognad).
+- **Opera-dedup.** Väntar på plan mode + kodläsning av accretionen (group-signals.js/analyze-signals.js). Se Senaste besluten.
+- **Ask 2 rapportnarrativ-kontrakt (köad efter Ask 1).** Skissa fält + typer + per-fält-proveniens, lås ihop med CTO CI (CI-sidans CI_ENGINE_INTERFACE.md). Start Vasakronan + SFV.
+- **Ask 3 leadership_change (köad efter Ask 2-scoping).** Engine Kontrakt 1.
+
 **Arbetsplan från Managed Agents-beslut (prioritetsordning):**
 1. ~~Race-bugg-fix i daily-run.js~~ — KLAR + VERIFIERAD I PROD 2026-05-25 (commits b4a0f21/8354576/ccf10df). Akademiska Hus extraherar via browser och avbryter rent (0 inserted/2 skipped, inga falsk-positiva). 271/271 test.
 2. ~~permits_inserted-fix~~ — KLAR + VERIFIERAD I PROD 2026-05-25 (commits 096cca6/3a89522/0baf2b5/7c155c1). sql/004 applicerad (nullable + UNIQUE promotad). Stockholm 217→8, Malmö 16→2, Göteborg ärligt 0 (ej NULL) i qc_runs.permits_inserted. 276/276 test.
@@ -53,7 +70,7 @@ Cron 04:00 UTC = 06:00 CEST. Senaste deploy 7eaa3c98 aktiv. Tidigare deploys 724
 
 **Övriga öppna spår:**
 - NY UTREDNING 2026-05-26 (MOTORBUGG, ej agent-svaghet): qc.js validerar troligen INTE CI-vertikalen korrekt. qa-verifierns april-QA-fil (results/ci-akademiskahus-qa.md) dokumenterar att qc.js använder ByggSignal-schema (municipality-baserat) även mot CI och att qc_runs saknas i CI:s Supabase-projekt. Relevant för CI-piloten (Fredrik). Egen utredning, ej verifierad ännu.
-- Akademiska Hus project_page Playwright-timeout (akademiskahus.se svarar inte under 30s) — separat utredning behövs.
+- Akademiska Hus project_page: INTE en ren timeout (korrigerat 2026-06-02). Den aktiva configen pekar på fel/tung URL (byggnadskatalog /campus--fastigheter/vara-byggnader/ via browser-väg). Fungerande ren-HTTP-URL hittad: /om-oss/utveckling/projekt/. Åtgärdas av AH project_page-fix (se Aktiva uppgifter).
 - Akademiska Hus annual_report: race-buggen som blockerade (0 rader) är fixad 2026-05-24. Verifiera att rader nu produceras efter nästa daily-run. Selector + keywords fungerar.
 - Trafikverket TED buyer-ID verifiera mot ted.europa.eu UI för att säkerställa täckning av alla TRV-upphandlingar.
 - Regleringsbrev-PDF för Trafikverket (annual_report) onboardas — researchad, ej tillagd ännu.
@@ -80,6 +97,11 @@ Cron 04:00 UTC = 06:00 CEST. Senaste deploy 7eaa3c98 aktiv. Tidigare deploys 724
 - Fredrik Johansson (Skanska, CI pilot): väntar fortfarande. CI Lager 2 = v0.2 efter förankring med CTO CI.
 
 ## Senaste besluten (nyaste överst)
+- 2026-06-02: TRV pausat för Fredrik-piloten (kundpassning: Fredrik = hus, TRV = väg/järnväg). Två spakar: ci_sources 3 rader approved=false (org eea26bbc), och TED-sync exclude-lista TED_SYNC_EXCLUDE=['Trafikverket'] i ted-sync.js (commit 01f939e, 276/276). Forward-only, befintliga TRV-rader orörda, reversibelt. Runtime-bevis väntar på nästa CI-cron-logg. TRV var största CI-bidraget via TED (168 rader) och drog tokens i analyssteget. Framåtnot: approved är global på/av per pilot; framtida behov = källfiltrering per användare/revir (CI-sidan).
+- 2026-06-02: Opera-dedup-spec låst med CTO CI. (a) syndikerade republiceringar dedupas till EN händelse på strukturfält (project + datum + belopp + maturity), (b) delpaket = egen event_key under delad project_id (löser beloppsspannet), (c) kanoniskt per händelse = frontier maturity + belopp-vid-fasen, NULL om okänt. Byggs i plan mode efter kodläsning. CI heuristik-mergar inte (stående beslut) — fixen sitter i accretionen.
+- 2026-06-02: Ask 2 rapportnarrativ-kontrakt påbörjat (source_type financial_report, Opus). HÅRD INVARIANT: per-fält-proveniens för VARJE påstående, text som siffra — varje extraherat fält bär source_excerpt, saknas den → kod NULL:ar fältet/släpper påståendet. Anti-hallucination, compliance-grad. KPI-fält visas inte för kund förrän precision verifierats på Vasakronan + SFV. det/LLM-uppdelning överens (report_year/type deterministiskt, horisont hybrid, resten LLM, fördelning/KPI:er i structured_meta).
+- 2026-06-02: Ask 1 = 2 källor för piloten (AH + vaxer), inte 4. TRV inköpstidplan + vara-projekt strukna med TRV; inköpstidplanen hade krävt ny XLSX-adapter (motorn saknar binärväg). Stockholm-bruset (119 procurement-signaler, Stockholmshem/SISAB) hanteras på CI-sidan via ramavtalScope-nedprioritering, ingen blanket-filter. Research: docs/ci-ask1-source-research.md (899f016).
+- 2026-06-02: >50 mnkr Stockholm-bilaga = C, parkerat (CTO CI). Ej Engine-uppgift.
 - 2026-06-02: Fas 0-research för Stockholms stads kommunala investeringskälla klar (ingen kod). meetingspublic.stockholm.se kör MeetingPlus by Formpipe — plattformsmatch men adapter-räckvidd ~0%: alla högvärdessignaler (>50 mnkr-tabell, budget 2026, inriktnings-/genomförandebeslut, markanvisningar) är PDF-bilagor till möten, inte anslagstavledata som MeetingPlus-adaptern (`/api/dbb/`) läser. Ingen tredjepartsaggregator finns på projektnivå (SKR/SCB är makro) — bygga själva är enda vägen. Oväntat fynd: fastighetsnämndens verksamhetsberättelse 2025 är redan onboardad som annual_report och producerar 54 signaler för Stockholm, men 46/54 (85%) har null amount_sek och filtreras bort av CI:s >50 mnkr-tröskel — >50 mnkr-bilagan i mötesportalen bär just de saknade beloppen (berikning av befintlig data, inte ny pipeline). Relä skickat till CTO CI med tre alternativ (bygg >50 mnkr-extraktion / vänta på Fredrik-validering / annan ordning). Bollen hos CTO CI.
 - 2026-06-01: TED vinnare/värde/längd implementerad (commit 8259f13). 6 nya fält i TED_FIELDS (notice-type + organisation-name/identifier-tenderer + total-value/-cur + contract-duration-end-date-lot); `SORT BY publication-date DESC` i query fixade pre-existing bugg (limit:100 utan paginering drog 100 äldsta i stället för 100 nyaste); notice-type-driven maturity (can-standard=awarded, cn-standard=tender, fallback tender loggas); JSONB counterparties [{name, org_nr}] mappas för CAN (swe före eng, org_nr hyphenerat); amount_sek från total-value för CAN (SEK rått / EUR ×11.5), estimated-value oförändrad för tender; contract_end_date från contract-duration-end-date-lot; GDPR-guard för personnummerformat (10 siffror 19/20). Live: 46/46 awarded med counterparties, 0/255 tender, inga varningar. Forward-only, 266 befintliga rader orörda. 276/276 test. CI har lagt counterparties (jsonb) + contract_end_date (date) på ci_signals.
 - 2026-05-26: Notify-felklassning rättad. Rotorsak verifierad mot byggsignal-repot: routen `/api/cron/notify` monterades aldrig i byggsignal server.js (fanns bara som Vercel-funktion, Vercel avvecklat 29 mars) → endpointen gav HTML. Inte en ny PRIO 1-regression utan medvetet parkerat ByggSignal-tillstånd (mail har inte gått sedan 29 mars, aktivering väntar på datakvalitet). NOTIFY_URL borttagen från motorns Railway → Phase 4 skippas, 404-brus upphör. Ägs av ByggSignal-vertikalen. PRIO 1 nu ledig; nästa Engine-arbete är steg 3 avvikelse-övervakning. CI Phase 5-webhooken hålls som separat öppen fråga.
@@ -141,6 +163,8 @@ Cron 04:00 UTC = 06:00 CEST. Senaste deploy 7eaa3c98 aktiv. Tidigare deploys 724
 - Regressionstest: test/daily-run-timeout.test.js (5 tester, kärn-assertion: ingen insert efter abort). npm test 271/271.
 
 ## Kända knepiga saker just nu
+- ci_signals.source_id är inte ifylld — koppling signal→källa sker via denormaliserade fält (organization_name/source_type/source_url), inte FK. Eget Engine-spår, ingen åtgärd nu.
+- Opera (project 60933ceb) är INTE project_id-fragmenterat (vanlig felbild). Allt delar project_id, alla analysrader delar event_key. Problemet är (a) syndikering: samma milstolpe = N analysrader (t.ex. 5× Skanska awarded 2025-11-24 3,5 mdr) för att accretionen inte slår ihop syndikerade republiceringar, och (b) över-merge: fasad/tak (133-177 mkr) under samma project_id som totalrenoveringen (3,5 mdr). Rör inte accretion-nyckeln utan plan mode.
 - qc_runs är inte tillförlitlig signal. Använd permits_v2 direkt för all hälsoanalys. docs/health-queries.md gör detta.
 - Kommunnamn-mismatch (Region Gotland/Gotland/gotland) påverkar alla queries baserade på municipality. Var medveten tills normalisering är gjord.
 - qc.js permits_inserted är ärlig sedan 25 maj, men self-healing-loopen agerar inte automatiskt förrän steg 3 (avvikelse → rediscovery) är wirat. Manuell re-discovery krävs för tysta kommuner tills dess.
