@@ -227,6 +227,11 @@ sin stabilitet — inte i koden, i arbetssättet.
 
 Vercel är helt avvecklat.
 
+## Senast uppdaterat 2026-06-03
+- ted_reference fylls forward av ted-sync.js (publication-number, rad 412) sedan ~12 april; 13 legacy-rader backfillade från source_url 2026-06-03.
+- ARKITEKTUR-KORRIGERING: event_key + accretion bor i CI (analyze-signals.js), inte Engine. group-signals.js = projekt-tilldelning, ingen merge, ingen event_key. Nästa chatt: anta inte Engine-sidig accretion.
+- group-signals.js: per-anrop Haiku-timeout (AbortSignal.timeout 30s) + hoppa-och-reta vid hängning (commits a2bb753/da49734). Exporterar nu main/askHaikuForMatch + import.meta-guard (speglar daily-run).
+
 ## Senast uppdaterat 2026-06-02
 - TRV TED-sync pausad via exclude-lista (TED_SYNC_EXCLUDE i src/ted-sync.js, commit 01f939e). Guard överst i org-loopen, continue om org.name finns i listan. ci_organizations orört, urvalet fortfarande select=id,name över hela tabellen. Reversibelt.
 - ci_signals.source_id ifylls inte av CI-insert — koppling signal→källa via denormaliserade fält, inte FK. Eget spår.

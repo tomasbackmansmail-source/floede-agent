@@ -1,15 +1,20 @@
 # floede-agent — Kontext för ny chatt
 
 ## Nuläge
+Onsdag 2026-06-03. Kort nuläge:
+- **ETIMEDOUT-härdning i group-signals.js deployad** (commits a2bb753 + da49734). UTESTÅENDE: build-Success-bekräftelse + cron-bevis 04:00 UTC 2026-06-04 (grouping kör utan ETIMEDOUT).
+- **ted_reference-backfill klar** (13 legacy-rader).
+- **event_key over-merge löst gemensamt med CTO CI** — CI kör detect-and-repair, inget Engine-beroende kvar.
+
+Nedan: tidigare nuläge (historik, ej arkiverat).
+
 Tisdag 2026-06-02. CI-piloten (Fredrik) i förberedelse. Aktuellt läge:
 - **TRV pausat för Fredrik-piloten** (kundpassning: Fredrik = hus, TRV = väg/järnväg). Två spakar: ci_sources 3 rader approved=false (org eea26bbc) + TED-sync exclude-lista TED_SYNC_EXCLUDE=['Trafikverket'] (commit 01f939e). Forward-only, reversibelt. Se Senaste besluten.
 - **Ask 1-research klar.** 2 källor för piloten (Akademiska Hus + vaxer.stockholm), inte 4. docs/ci-ask1-source-research.md (899f016).
-- **Opera-dedupens diagnos korrigerad** (inte project_id-fragmentering utan syndikering + över-merge) och spec låst med CTO CI. Byggs i plan mode.
+- **Opera-dedupens diagnos korrigerad** (inte project_id-fragmentering utan syndikering + över-merge) och spec låst med CTO CI. [KORRIGERAT 2026-06-03: accretionen bor i CI (analyze-signals.js), inte Engine — löst på CI-sidan, byggs inte i Engine.]
 - **Ask 2-kontraktet (rapportnarrativ)** påbörjat med CTO CI (financial_report, per-fält-proveniens, Opus).
 
 Nästa steg: **AH project_page-fix** (grönljust, oberoende, ~halvdag).
-
-Nedan: tidigare nuläge (historik, ej arkiverat).
 
 Måndag 25 maj 2026. Två motorfixar KLARA OCH BEVISADE I PROD idag:
 - **Steg 1 (race-bugg):** Akademiska Hus extraherar nu via browser och avbryter rent (0 inserted / 2 skipped, inga falsk-positiva, ingen tyst förlust). 21 maj gav samma källa tyst 0. Commits b4a0f21/8354576/ccf10df, 271/271 test.
@@ -46,7 +51,7 @@ Cron 04:00 UTC = 06:00 CEST. Senaste deploy 7eaa3c98 aktiv. Tidigare deploys 724
 **CI-pilot (Fredrik) — Ask-spår (prioritetsordning):**
 - **AH project_page-fix (NÄST PÅ TUR, grönljust, oberoende, ~halvdag).** Producerar 0 signaler idag. Aktiv config pekar på byggnadskatalog (/campus--fastigheter/vara-byggnader/) via bruten browser-väg. Fungerande ren-HTTP-URL: /om-oss/utveckling/projekt/ (CC-research). Fix = repeka listing_url, needs_browser:false, verify extraction >0, approve.
 - **vaxer GeoJSON-ombygge (efter AH, ~1-2 dagar).** Lever men 23 av ~921 projekt (tyst sedan 19 maj), subpage-crawl i stället för inbäddad GeoJSON. Fas semi-deterministisk (poiType-kategori + LLM för mognad).
-- **Opera-dedup.** Väntar på plan mode + kodläsning av accretionen (group-signals.js/analyze-signals.js). Se Senaste besluten.
+- ~~Opera-dedup~~ — LÖST 2026-06-03 på CI-sidan. Accretion + event_key bor i CI (analyze-signals.js), inte Engine; group-signals.js gör bara projekt-tilldelning, mergar aldrig. CI kör detect-and-repair (ted_reference-särskiljare). Inget Engine-beroende kvar.
 - **Ask 2 rapportnarrativ-kontrakt (köad efter Ask 1).** Skissa fält + typer + per-fält-proveniens, lås ihop med CTO CI (CI-sidans CI_ENGINE_INTERFACE.md). Start Vasakronan + SFV.
 - **Ask 3 leadership_change (köad efter Ask 2-scoping).** Engine Kontrakt 1.
 
@@ -97,8 +102,11 @@ Cron 04:00 UTC = 06:00 CEST. Senaste deploy 7eaa3c98 aktiv. Tidigare deploys 724
 - Fredrik Johansson (Skanska, CI pilot): väntar fortfarande. CI Lager 2 = v0.2 efter förankring med CTO CI.
 
 ## Senaste besluten (nyaste överst)
+- 2026-06-03: ETIMEDOUT i signal grouping rotorsakad + härdad. group-signals.js gjorde seriella per-signal Haiku-anrop utan per-anrop-timeout; ett hängande anrop brände 300s-execSync-budgeten och dödade hela runen (giftsignal blockerar kön framåt). Fix: AbortSignal.timeout(30s) på Haiku-fetch + smal try/catch runt askHaikuForMatch → hoppa-och-reta, project_id orört vid timeout. Commit a2bb753 (export main/askHaikuForMatch + import.meta-guard, beteendeneutral) + da49734 (timeout + regressionstest). 279/279. Deployad 15:11 UTC. Utestående: build-Success + cron-bevis 04:00 UTC 2026-06-04.
+- 2026-06-03: event_key-modellen korrigerad. Accretion + event_key bor i CI (analyze-signals.js), INTE Engine (grep: noll event_key/accret/syndicat i src/). Motorns group-signals.js = projekt-tilldelning (permits: org+property_designation; övriga: Haiku → projekt-uuid/new), mergar aldrig, mintar ingen event_key. Verklig event_key = entity:project, mintas i CI. CTO CI:s delpaket-split: ted_reference-särskiljare, villkorlig (>1 distinkt notis per projekt), detect-and-repair post-accretion, helt CI-sidigt.
+- 2026-06-03: ted_reference-backfill. 13 legacy TED-rader (skapade ≤12 april, ted_reference NULL) fyllda från source_url (.../detail/{publication-number}). Forward friskt sedan ~12 april (288 rader populerade). Fixade event_key over-merge på källsidan. Motiverat undantag från §1.4 forward-only: 13 rader, deterministiskt, pilotsynligt.
 - 2026-06-02: TRV pausat för Fredrik-piloten (kundpassning: Fredrik = hus, TRV = väg/järnväg). Två spakar: ci_sources 3 rader approved=false (org eea26bbc), och TED-sync exclude-lista TED_SYNC_EXCLUDE=['Trafikverket'] i ted-sync.js (commit 01f939e, 276/276). Forward-only, befintliga TRV-rader orörda, reversibelt. Runtime-bevis väntar på nästa CI-cron-logg. TRV var största CI-bidraget via TED (168 rader) och drog tokens i analyssteget. Framåtnot: approved är global på/av per pilot; framtida behov = källfiltrering per användare/revir (CI-sidan).
-- 2026-06-02: Opera-dedup-spec låst med CTO CI. (a) syndikerade republiceringar dedupas till EN händelse på strukturfält (project + datum + belopp + maturity), (b) delpaket = egen event_key under delad project_id (löser beloppsspannet), (c) kanoniskt per händelse = frontier maturity + belopp-vid-fasen, NULL om okänt. Byggs i plan mode efter kodläsning. CI heuristik-mergar inte (stående beslut) — fixen sitter i accretionen.
+- 2026-06-02: Opera-dedup-spec låst med CTO CI. (a) syndikerade republiceringar dedupas till EN händelse på strukturfält (project + datum + belopp + maturity), (b) delpaket = egen event_key under delad project_id (löser beloppsspannet), (c) kanoniskt per händelse = frontier maturity + belopp-vid-fasen, NULL om okänt. Byggs i plan mode efter kodläsning. CI heuristik-mergar inte (stående beslut) — fixen sitter i accretionen. [KORRIGERAT 2026-06-03: accretionen bor i CI:s analyze-signals.js, inte Engine — se beslut 2026-06-03.]
 - 2026-06-02: Ask 2 rapportnarrativ-kontrakt påbörjat (source_type financial_report, Opus). HÅRD INVARIANT: per-fält-proveniens för VARJE påstående, text som siffra — varje extraherat fält bär source_excerpt, saknas den → kod NULL:ar fältet/släpper påståendet. Anti-hallucination, compliance-grad. KPI-fält visas inte för kund förrän precision verifierats på Vasakronan + SFV. det/LLM-uppdelning överens (report_year/type deterministiskt, horisont hybrid, resten LLM, fördelning/KPI:er i structured_meta).
 - 2026-06-02: Ask 1 = 2 källor för piloten (AH + vaxer), inte 4. TRV inköpstidplan + vara-projekt strukna med TRV; inköpstidplanen hade krävt ny XLSX-adapter (motorn saknar binärväg). Stockholm-bruset (119 procurement-signaler, Stockholmshem/SISAB) hanteras på CI-sidan via ramavtalScope-nedprioritering, ingen blanket-filter. Research: docs/ci-ask1-source-research.md (899f016).
 - 2026-06-02: >50 mnkr Stockholm-bilaga = C, parkerat (CTO CI). Ej Engine-uppgift.
@@ -163,8 +171,11 @@ Cron 04:00 UTC = 06:00 CEST. Senaste deploy 7eaa3c98 aktiv. Tidigare deploys 724
 - Regressionstest: test/daily-run-timeout.test.js (5 tester, kärn-assertion: ingen insert efter abort). npm test 271/271.
 
 ## Kända knepiga saker just nu
+- group-signals.js !res.ok → return 'new': transient Anthropic-fel (429/500) skapar spuriöst nytt projekt i stället för match → fragmenterat project_id. Latent, låg frekvens, rör projekt-tilldelning (utanför ETIMEDOUT-härdningen). Eget Engine-ärende.
+- group-signals.js seriella per-rad-Haiku-anrop utan samtidighet: baseline ~86s kan dra mot 300s-taket på TED/pressroom-tunga dagar. ETIMEDOUT-härdningen stoppar giftsignal-döden men inte linjär tillväxt. Separat spår: batching/concurrency.
+- Sentinel amount_sek=1: 2 TED-källrader (705365-2025, 347310-2025), trolig trogen extraktion av källplaceholder. CI:s floor <1000 kr neutraliserar redan (analysrader = NULL). UTESTÅENDE: CC:s läsning av amount-härledningen i ted-sync.js (finns en ||1-fallback?) — ingen motorändring om nej.
 - ci_signals.source_id är inte ifylld — koppling signal→källa sker via denormaliserade fält (organization_name/source_type/source_url), inte FK. Eget Engine-spår, ingen åtgärd nu.
-- Opera (project 60933ceb) är INTE project_id-fragmenterat (vanlig felbild). Allt delar project_id, alla analysrader delar event_key. Problemet är (a) syndikering: samma milstolpe = N analysrader (t.ex. 5× Skanska awarded 2025-11-24 3,5 mdr) för att accretionen inte slår ihop syndikerade republiceringar, och (b) över-merge: fasad/tak (133-177 mkr) under samma project_id som totalrenoveringen (3,5 mdr). Rör inte accretion-nyckeln utan plan mode.
+- Opera (project 60933ceb) var INTE project_id-fragmenterat (vanlig felbild) utan (a) syndikering (samma milstolpe = N analysrader, t.ex. 5× Skanska awarded 2025-11-24 3,5 mdr) och (b) över-merge (fasad/tak 133-177 mkr under samma event_key som totalrenoveringen 3,5 mdr). KORRIGERAD MODELL 2026-06-03: accretion + event_key bor i CI (analyze-signals.js), inte Engine — motorns group-signals.js gör projekt-tilldelning och mergar aldrig. Löst på CI-sidan (detect-and-repair, ted_reference-särskiljare); inget Engine-beroende kvar.
 - qc_runs är inte tillförlitlig signal. Använd permits_v2 direkt för all hälsoanalys. docs/health-queries.md gör detta.
 - Kommunnamn-mismatch (Region Gotland/Gotland/gotland) påverkar alla queries baserade på municipality. Var medveten tills normalisering är gjord.
 - qc.js permits_inserted är ärlig sedan 25 maj, men self-healing-loopen agerar inte automatiskt förrän steg 3 (avvikelse → rediscovery) är wirat. Manuell re-discovery krävs för tysta kommuner tills dess.
