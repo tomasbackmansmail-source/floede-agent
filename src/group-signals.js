@@ -297,7 +297,11 @@ async function main() {
   }
 }
 
-main().catch((err) => {
-  warn(`Fatal: ${err.message}`);
-  process.exit(1);
-});
+export { main, askHaikuForMatch };
+
+if (import.meta.url === `file://${process.argv[1]}`) {
+  main().catch((err) => {
+    warn(`Fatal: ${err.message}`);
+    process.exit(1);
+  });
+}
