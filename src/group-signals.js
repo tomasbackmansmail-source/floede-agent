@@ -25,6 +25,7 @@ const warn = (...args) => console.warn('[group-signals]', ...args);
 
 const HAIKU_MODEL = 'claude-haiku-4-5-20251001';
 const HAIKU_COST = { input: 1.0 / 1_000_000, output: 5.0 / 1_000_000 };
+const HAIKU_TIMEOUT_MS = 30000;   // per-anrop-timeout på Haiku (samma anda som runWithTimeout i daily-run)
 
 const ciHeaders = {
   apikey: CI_SUPABASE_KEY,
@@ -106,6 +107,7 @@ Svara med ett enda ord — antingen ett uuid eller "new". Ingen annan text.`;
       max_tokens: 100,
       messages: [{ role: 'user', content: prompt }],
     }),
+    signal: AbortSignal.timeout(HAIKU_TIMEOUT_MS),
   });
 
   if (!res.ok) {
@@ -226,7 +228,13 @@ async function main() {
       }
 
       // Ask Haiku
-      const { answer, cost } = await askHaikuForMatch(signal, orgProjects);
+      let answer, cost;
+      try {
+        ({ answer, cost } = await askHaikuForMatch(signal, orgProjects));
+      } catch (err) {
+        warn(`Haiku timeout/fel för signal ${signal.id}, lämnas ogrupperad`);
+        continue;
+      }
       totalCost += cost;
 
       if (answer !== 'new') {
