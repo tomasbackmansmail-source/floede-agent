@@ -227,6 +227,10 @@ sin stabilitet — inte i koden, i arbetssättet.
 
 Vercel är helt avvecklat.
 
+## Senast uppdaterat 2026-06-04
+- CI project_page: AH ompekad till /om-oss/utveckling/projekt/ (SSR HTTP, selektor a[href*='/utveckling/projekt/']); Vasakronan-selektor rättad till a[href*='/projekt/'] (detaljsidor på /projekt/<slug>/, ej under listnings-URL). Båda verified=true.
+- ci_sources runtime-config = config-jsonben (listing_url/needs_browser/selektor), INTE topp-kolumnerna url/needs_browser. Ompekning som bara ändrar kolumnerna är verkningslös.
+
 ## Senast uppdaterat 2026-06-03
 - ted_reference fylls forward av ted-sync.js (publication-number, rad 412) sedan ~12 april; 13 legacy-rader backfillade från source_url 2026-06-03.
 - ARKITEKTUR-KORRIGERING: event_key + accretion bor i CI (analyze-signals.js), inte Engine. group-signals.js = projekt-tilldelning, ingen merge, ingen event_key. Nästa chatt: anta inte Engine-sidig accretion.

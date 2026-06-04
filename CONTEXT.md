@@ -1,6 +1,11 @@
 # floede-agent — Kontext för ny chatt
 
 ## Nuläge
+Torsdag 2026-06-04.
+- AH + Vasakronan project_page LÖST + BEVISAT. Rotorsak: CTO CI:s ompekning var kolumn-only; config-jsonben (listing_url/needs_browser/selektor) var orörd. Vasakronan-selektorn var dessutom fel (a[href*='/vara-projekt/'] men detaljsidor ligger på /projekt/<slug>/). Fix: config gjord internt konsekvent + verified=true; gamla AH-byggnadskatalograden a631a2d7 approved=false. Körning: AH 16 subpages/33 signaler, Vasakronan 12/19, HTTP, $0.18. SQL-bevis i ci_signals.
+- Cron 04:00 UTC 2026-06-04 (deploy a348d65b, bär 06-03-fixen): signal grouping ETIMEDOUT igen vid 300s. Gårdagens per-anrop-timeout stoppade giftsignal-död men INTE total körtid (linjär tillväxt; ci-pressroom 8,5 min gav stor grouping-kö). ByggSignal default extraction + QC ETIMEDOUT samma cron.
+- 52 nya project_page-signaler i ci_signals utan webhook-trigger (lokal körning) -> ogrupperade tills grouping fixas. Relä till CTO CI.
+
 Onsdag 2026-06-03. Kort nuläge:
 - **ETIMEDOUT-härdning i group-signals.js deployad** (commits a2bb753 + da49734). UTESTÅENDE: build-Success-bekräftelse + cron-bevis 04:00 UTC 2026-06-04 (grouping kör utan ETIMEDOUT).
 - **ted_reference-backfill klar** (13 legacy-rader).
@@ -37,9 +42,7 @@ Tre status-block:
 Cron 04:00 UTC = 06:00 CEST. Senaste deploy 7eaa3c98 aktiv. Tidigare deploys 7246397a + f9e97dd8 misslyckades — klassificerade som transient infrastructure issues.
 
 ## Nästa konkreta steg
-**PRIO 1 är ledig.** Notify omklassat till parkerat ByggSignal-tillstånd, Phase 5 verifierad icke-bugg (se Kritiska motorbuggar) — ingen av dem är en Engine-uppgift. Två kandidater framåt:
-- (a) Steg 3 avvikelse-övervakning (Managed Agents-arbetsplanen): sänk checkActiveZeroToday-tröskel, koppla till triggerRediscovery med kostnadstak + cooldown (~50 rader). Testfall: Göteborg (0 bytes via browser, tyst sedan mars).
-- (b) Steg 4 cross-source-lärande (discovered_patterns) — också svaret på "bästa tekniken för datainsamling". Kräver egen session med plan mode. source-researchers bedömningslogik (HTTP-vs-JS, rankning) återanvänds, men dess markdown-filformat ersätts av en strukturerad rad i discovered_patterns. Subagenterna ska INTE vara grunden för steg 4 — de är manuella lager-2-verktyg, ej wirade i automatpipelinen.
+Signal grouping batching/concurrency (egen session, plan mode). De seriella per-rad-Haiku-anropen spränger 300s spawnSync-taket på tunga dagar - bekräftat i 06-04-cronen trots 06-03-härdningen. Läs group-signals.js till slut, skissa concurrency, godkänn, kod. Inte band-aid på timeouten.
 
 ## CI-koordinering (status)
 - Webhook + cron_events: inte påbörjat
@@ -49,7 +52,7 @@ Cron 04:00 UTC = 06:00 CEST. Senaste deploy 7eaa3c98 aktiv. Tidigare deploys 724
 ## Aktiva uppgifter
 
 **CI-pilot (Fredrik) — Ask-spår (prioritetsordning):**
-- **AH project_page-fix (NÄST PÅ TUR, grönljust, oberoende, ~halvdag).** Producerar 0 signaler idag. Aktiv config pekar på byggnadskatalog (/campus--fastigheter/vara-byggnader/) via bruten browser-väg. Fungerande ren-HTTP-URL: /om-oss/utveckling/projekt/ (CC-research). Fix = repeka listing_url, needs_browser:false, verify extraction >0, approve.
+- ~~AH project_page-fix~~ KLAR + BEVISAD 2026-06-04 (config-fix, 33 signaler). vaxer GeoJSON-ombygge nu näst i Ask-spåret.
 - **vaxer GeoJSON-ombygge (efter AH, ~1-2 dagar).** Lever men 23 av ~921 projekt (tyst sedan 19 maj), subpage-crawl i stället för inbäddad GeoJSON. Fas semi-deterministisk (poiType-kategori + LLM för mognad).
 - ~~Opera-dedup~~ — LÖST 2026-06-03 på CI-sidan. Accretion + event_key bor i CI (analyze-signals.js), inte Engine; group-signals.js gör bara projekt-tilldelning, mergar aldrig. CI kör detect-and-repair (ted_reference-särskiljare). Inget Engine-beroende kvar.
 - **Ask 2 rapportnarrativ-kontrakt (köad efter Ask 1).** Skissa fält + typer + per-fält-proveniens, lås ihop med CTO CI (CI-sidans CI_ENGINE_INTERFACE.md). Start Vasakronan + SFV.
@@ -102,6 +105,7 @@ Cron 04:00 UTC = 06:00 CEST. Senaste deploy 7eaa3c98 aktiv. Tidigare deploys 724
 - Fredrik Johansson (Skanska, CI pilot): väntar fortfarande. CI Lager 2 = v0.2 efter förankring med CTO CI.
 
 ## Senaste besluten (nyaste överst)
+- 2026-06-04: AH + Vasakronan project_page-fix. Config-jsonb gjord internt konsekvent (listing_url + needs_browser=false + rätt selektor), verified=true, dubblettrad a631a2d7 approved=false. Bevisat 33+19 signaler i ci_signals. Rotorsak config, ej extraktion. Lärdom: motorn läser config-jsonben, inte topp-kolumnerna url/needs_browser.
 - 2026-06-03: ETIMEDOUT i signal grouping rotorsakad + härdad. group-signals.js gjorde seriella per-signal Haiku-anrop utan per-anrop-timeout; ett hängande anrop brände 300s-execSync-budgeten och dödade hela runen (giftsignal blockerar kön framåt). Fix: AbortSignal.timeout(30s) på Haiku-fetch + smal try/catch runt askHaikuForMatch → hoppa-och-reta, project_id orört vid timeout. Commit a2bb753 (export main/askHaikuForMatch + import.meta-guard, beteendeneutral) + da49734 (timeout + regressionstest). 279/279. Deployad 15:11 UTC. Utestående: build-Success + cron-bevis 04:00 UTC 2026-06-04.
 - 2026-06-03: event_key-modellen korrigerad. Accretion + event_key bor i CI (analyze-signals.js), INTE Engine (grep: noll event_key/accret/syndicat i src/). Motorns group-signals.js = projekt-tilldelning (permits: org+property_designation; övriga: Haiku → projekt-uuid/new), mergar aldrig, mintar ingen event_key. Verklig event_key = entity:project, mintas i CI. CTO CI:s delpaket-split: ted_reference-särskiljare, villkorlig (>1 distinkt notis per projekt), detect-and-repair post-accretion, helt CI-sidigt.
 - 2026-06-03: ted_reference-backfill. 13 legacy TED-rader (skapade ≤12 april, ted_reference NULL) fyllda från source_url (.../detail/{publication-number}). Forward friskt sedan ~12 april (288 rader populerade). Fixade event_key over-merge på källsidan. Motiverat undantag från §1.4 forward-only: 13 rader, deterministiskt, pilotsynligt.
@@ -171,6 +175,8 @@ Cron 04:00 UTC = 06:00 CEST. Senaste deploy 7eaa3c98 aktiv. Tidigare deploys 724
 - Regressionstest: test/daily-run-timeout.test.js (5 tester, kärn-assertion: ingen insert efter abort). npm test 271/271.
 
 ## Kända knepiga saker just nu
+- Signal grouping ETIMEDOUT bekräftad i prod-cron 2026-06-04 trots 06-03-härdningen: total körtid spränger 300s på tunga dagar (linjär tillväxt, ej giftsignal). Batching/concurrency krävs.
+- ByggSignal default extraction intermittent ETIMEDOUT mot ~4h spawnSync-tak (06-04: 06:02->10:03). permits_v2/dag: 05-31=0, 06-01=7/1, 06-04=97/37 vs frisk 140-224. Edge-of-budget, ej kundsynligt (notify parkerat). Folds in i concurrency-arbetet.
 - group-signals.js !res.ok → return 'new': transient Anthropic-fel (429/500) skapar spuriöst nytt projekt i stället för match → fragmenterat project_id. Latent, låg frekvens, rör projekt-tilldelning (utanför ETIMEDOUT-härdningen). Eget Engine-ärende.
 - group-signals.js seriella per-rad-Haiku-anrop utan samtidighet: baseline ~86s kan dra mot 300s-taket på TED/pressroom-tunga dagar. ETIMEDOUT-härdningen stoppar giftsignal-döden men inte linjär tillväxt. Separat spår: batching/concurrency.
 - Sentinel amount_sek=1: 2 TED-källrader (705365-2025, 347310-2025), trolig trogen extraktion av källplaceholder. CI:s floor <1000 kr neutraliserar redan (analysrader = NULL). UTESTÅENDE: CC:s läsning av amount-härledningen i ted-sync.js (finns en ||1-fallback?) — ingen motorändring om nej.
