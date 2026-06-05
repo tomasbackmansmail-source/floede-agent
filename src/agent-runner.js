@@ -10,7 +10,7 @@ const SUPABASE_KEY = process.env.SUPABASE_SERVICE_KEY;
 const RESEND_API_KEY = process.env.RESEND_API_KEY;
 const MAX_COST = parseFloat(process.env.AGENT_MAX_COST_PER_RUN_USD || '10.00');
 
-const DEFAULT_VERTICALS = ['byggsignal', 'ci-pressroom'];
+const DEFAULT_VERTICALS = ['byggsignal'];
 
 const log = (...args) => console.log('[agent-runner]', ...args);
 const warn = (...args) => console.warn('[agent-runner]', ...args);
@@ -136,72 +136,6 @@ function runDefaultExtraction() {
     }
     results.push(qcEntry);
   }
-
-  // Property matching: CI fastigheter mot ByggSignal bygglov
-  const matchEntry = { vertical: 'ci-match', job_type: 'shell', status: 'completed', cost_usd: 0 };
-  const matchStart = Date.now();
-  try {
-    log('Running property matching (ci_properties vs permits_v2)');
-    const matchStdout = execSync('node src/match-properties.js', {
-      timeout: 300_000,
-      encoding: 'utf-8',
-      stdio: ['pipe', 'pipe', 'pipe'],
-      env: process.env,
-    });
-    matchEntry.duration_ms = Date.now() - matchStart;
-    matchEntry.result = { stdout: matchStdout, stderr: '', exit_code: 0, duration_ms: matchEntry.duration_ms };
-    log(`Property matching OK (${matchEntry.duration_ms} ms)`);
-  } catch (err) {
-    matchEntry.duration_ms = Date.now() - matchStart;
-    matchEntry.status = 'failed';
-    matchEntry.error = err.message;
-    warn(`Property matching FAILED: ${err.message}`);
-  }
-  results.push(matchEntry);
-
-  // TED sync: EU public procurement notices
-  const tedEntry = { vertical: 'ci-ted', job_type: 'shell', status: 'completed', cost_usd: 0 };
-  const tedStart = Date.now();
-  try {
-    log('Running TED sync');
-    const tedStdout = execSync('node src/ted-sync.js', {
-      timeout: 300_000,
-      encoding: 'utf-8',
-      stdio: ['pipe', 'pipe', 'pipe'],
-      env: process.env,
-    });
-    tedEntry.duration_ms = Date.now() - tedStart;
-    tedEntry.result = { stdout: tedStdout, stderr: '', exit_code: 0, duration_ms: tedEntry.duration_ms };
-    log('TED sync OK (' + tedEntry.duration_ms + ' ms)');
-  } catch (err) {
-    tedEntry.duration_ms = Date.now() - tedStart;
-    tedEntry.status = 'failed';
-    tedEntry.error = err.message;
-    warn('TED sync FAILED: ' + err.message);
-  }
-  results.push(tedEntry);
-
-  // Group signals into projects
-  const groupEntry = { vertical: 'ci-group', job_type: 'shell', status: 'completed', cost_usd: 0 };
-  const groupStart = Date.now();
-  try {
-    log('Running signal grouping');
-    const groupStdout = execSync('node src/group-signals.js', {
-      timeout: 300_000,
-      encoding: 'utf-8',
-      stdio: ['pipe', 'pipe', 'pipe'],
-      env: process.env,
-    });
-    groupEntry.duration_ms = Date.now() - groupStart;
-    groupEntry.result = { stdout: groupStdout, stderr: '', exit_code: 0, duration_ms: groupEntry.duration_ms };
-    log('Signal grouping OK (' + groupEntry.duration_ms + ' ms)');
-  } catch (err) {
-    groupEntry.duration_ms = Date.now() - groupStart;
-    groupEntry.status = 'failed';
-    groupEntry.error = err.message;
-    warn('Signal grouping FAILED: ' + err.message);
-  }
-  results.push(groupEntry);
 
   return results;
 }
