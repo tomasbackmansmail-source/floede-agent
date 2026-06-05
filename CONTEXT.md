@@ -1,6 +1,10 @@
 # floede-agent — Kontext för ny chatt
 
 ## Nuläge
+Fredag 2026-06-05.
+- **CI AVSTÄNGD i floede-agent (commit 535852a, deployad SUCCESS 19:41 UTC).** Repot kör nu bara ByggSignal. DEFAULT_VERTICALS=['byggsignal']; de tre ovillkorliga post-stegen (match-properties/ted-sync/group-signals) borttagna ur agent-runner.js. CTO CI bekräftade före ändringen att clientintelligence-cronen redan kör alla tre stegen (verifierat OK i kvällens körning) — ingen CI-funktion tappad. CI-modulfiler + ci-*.json kvar, körbara manuellt. 284/284 test.
+- **grouping-ETIMEDOUT-spåret (06-04) är inte längre floede-agents** — det flyttade med CI till clientintelligence. ByggSignal-trängseln mot 4h-taket bör lätta när ci-pressroom (~8,5 min) + tre post-steg à upp till 300s bortfaller ur cron-processen; verifiera i morgondagens cron 04:00 UTC (summarymail ska bara ha byggsignal-rader).
+
 Torsdag 2026-06-04.
 - AH + Vasakronan project_page LÖST + BEVISAT. Rotorsak: CTO CI:s ompekning var kolumn-only; config-jsonben (listing_url/needs_browser/selektor) var orörd. Vasakronan-selektorn var dessutom fel (a[href*='/vara-projekt/'] men detaljsidor ligger på /projekt/<slug>/). Fix: config gjord internt konsekvent + verified=true; gamla AH-byggnadskatalograden a631a2d7 approved=false. Körning: AH 16 subpages/33 signaler, Vasakronan 12/19, HTTP, $0.18. SQL-bevis i ci_signals.
 - Cron 04:00 UTC 2026-06-04 (deploy a348d65b, bär 06-03-fixen): signal grouping ETIMEDOUT igen vid 300s. Gårdagens per-anrop-timeout stoppade giftsignal-död men INTE total körtid (linjär tillväxt; ci-pressroom 8,5 min gav stor grouping-kö). ByggSignal default extraction + QC ETIMEDOUT samma cron.
@@ -42,7 +46,7 @@ Tre status-block:
 Cron 04:00 UTC = 06:00 CEST. Senaste deploy 7eaa3c98 aktiv. Tidigare deploys 7246397a + f9e97dd8 misslyckades — klassificerade som transient infrastructure issues.
 
 ## Nästa konkreta steg
-Signal grouping batching/concurrency (egen session, plan mode). De seriella per-rad-Haiku-anropen spränger 300s spawnSync-taket på tunga dagar - bekräftat i 06-04-cronen trots 06-03-härdningen. Läs group-signals.js till slut, skissa concurrency, godkänn, kod. Inte band-aid på timeouten.
+~~Signal grouping batching/concurrency~~ — INTE LÄNGRE FLOEDE-AGENTS 2026-06-05: group-signals flyttade med CI till clientintelligence. Näst på tur enligt arbetsplanen: steg 3 avvikelse-övervakning (se Aktiva uppgifter).
 
 ## CI-koordinering (status)
 - Webhook + cron_events: inte påbörjat
@@ -175,10 +179,8 @@ Signal grouping batching/concurrency (egen session, plan mode). De seriella per-
 - Regressionstest: test/daily-run-timeout.test.js (5 tester, kärn-assertion: ingen insert efter abort). npm test 271/271.
 
 ## Kända knepiga saker just nu
-- Signal grouping ETIMEDOUT bekräftad i prod-cron 2026-06-04 trots 06-03-härdningen: total körtid spränger 300s på tunga dagar (linjär tillväxt, ej giftsignal). Batching/concurrency krävs.
-- ByggSignal default extraction intermittent ETIMEDOUT mot ~4h spawnSync-tak (06-04: 06:02->10:03). permits_v2/dag: 05-31=0, 06-01=7/1, 06-04=97/37 vs frisk 140-224. Edge-of-budget, ej kundsynligt (notify parkerat). Folds in i concurrency-arbetet.
-- group-signals.js !res.ok → return 'new': transient Anthropic-fel (429/500) skapar spuriöst nytt projekt i stället för match → fragmenterat project_id. Latent, låg frekvens, rör projekt-tilldelning (utanför ETIMEDOUT-härdningen). Eget Engine-ärende.
-- group-signals.js seriella per-rad-Haiku-anrop utan samtidighet: baseline ~86s kan dra mot 300s-taket på TED/pressroom-tunga dagar. ETIMEDOUT-härdningen stoppar giftsignal-döden men inte linjär tillväxt. Separat spår: batching/concurrency.
+- ~~Signal grouping ETIMEDOUT~~ + ~~group-signals !res.ok → 'new'~~ + ~~group-signals seriella Haiku-anrop~~ — FLYTTADE MED CI till clientintelligence 2026-06-05. Inte längre floede-agents spår.
+- ByggSignal default extraction intermittent ETIMEDOUT mot ~4h spawnSync-tak (06-04: 06:02->10:03). permits_v2/dag: 05-31=0, 06-01=7/1, 06-04=97/37 vs frisk 140-224. Edge-of-budget, ej kundsynligt (notify parkerat). Bör lätta efter CI-avstängningen 2026-06-05 (ci-pressroom + post-steg ur processen) — verifiera mot kommande cron-körningar.
 - Sentinel amount_sek=1: 2 TED-källrader (705365-2025, 347310-2025), trolig trogen extraktion av källplaceholder. CI:s floor <1000 kr neutraliserar redan (analysrader = NULL). UTESTÅENDE: CC:s läsning av amount-härledningen i ted-sync.js (finns en ||1-fallback?) — ingen motorändring om nej.
 - ci_signals.source_id är inte ifylld — koppling signal→källa sker via denormaliserade fält (organization_name/source_type/source_url), inte FK. Eget Engine-spår, ingen åtgärd nu.
 - Opera (project 60933ceb) var INTE project_id-fragmenterat (vanlig felbild) utan (a) syndikering (samma milstolpe = N analysrader, t.ex. 5× Skanska awarded 2025-11-24 3,5 mdr) och (b) över-merge (fasad/tak 133-177 mkr under samma event_key som totalrenoveringen 3,5 mdr). KORRIGERAD MODELL 2026-06-03: accretion + event_key bor i CI (analyze-signals.js), inte Engine — motorns group-signals.js gör projekt-tilldelning och mergar aldrig. Löst på CI-sidan (detect-and-repair, ted_reference-särskiljare); inget Engine-beroende kvar.

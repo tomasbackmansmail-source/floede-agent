@@ -17,10 +17,11 @@ Motorn är Floedes IP. Vertikala produkter byggs ovanpå den i separata repos.
 | Vertikal | Config-fil | Supabase | Vad den gör |
 |----------|-----------|----------|-------------|
 | ByggSignal | byggsignal.json | abnlmxkgdkyyvbagewgf | Bygglovsdata från svenska kommuner |
-| Client Intelligence | ci-pressroom.json | qvmthuylldpzcoyzryqe | Projektsignaler från organisationers pressrum |
+| Client Intelligence | ci-pressroom.json | qvmthuylldpzcoyzryqe | FLYTTAD 2026-06-05: hela CI-pipelinen körs i clientintelligence-repots egen Railway-cron, inte här |
 | Search & Compliance | (under utveckling) | ebtfvaalsguniuyywjrb | Regulatorisk compliance för kosttillskott |
 
-Vertikalerna kan sälja data till varandra. CI är intern kund till ByggSignal.
+Vertikalerna kan sälja data till varandra. CI är intern kund till ByggSignal
+(läser permits_v2 från sitt eget repo sedan 2026-06-05).
 
 ## ARKITEKTUR
 
@@ -56,7 +57,7 @@ auto-approve om verified/needs_browser → nästa daily-run använder ny config.
 
 ### Agent-runner
 Railway cron triggar `agent-runner.js`. Läser pending tasks från `agent_tasks`.
-Fallback: inga tasks → kör daily-run + QC för alla vertikaler.
+Fallback: inga tasks → kör daily-run + QC för `DEFAULT_VERTICALS = ['byggsignal']`.
 Budget per task (`max_cost_usd`) och per körning (`AGENT_MAX_COST_PER_RUN_USD`).
 
 ## DATABASSCHEMA
@@ -96,7 +97,7 @@ src/
 
 ```bash
 VERTICAL=byggsignal node src/daily-run.js
-VERTICAL=ci-pressroom node src/daily-run.js --source="Statens fastighetsverk"
+VERTICAL=ci-pressroom node src/daily-run.js --source="Statens fastighetsverk"   # endast manuellt — CI ej i cron sedan 2026-06-05
 VERTICAL=byggsignal node src/discover.js --source="Aneby"
 VERTICAL=byggsignal node src/qc.js
 npm test                                         # kör ALLTID innan push
@@ -116,12 +117,12 @@ railway up --service floede-agent --detach       # manuell deploy — GitHub-tri
 | ANTHROPIC_API_KEY | LLM-anrop |
 | SUPABASE_URL | ByggSignal + motortabeller |
 | SUPABASE_SERVICE_KEY | ByggSignal |
-| CI_SUPABASE_SERVICE_KEY | CI-projektet |
+| CI_SUPABASE_SERVICE_KEY | CI-projektet (oanvänd i cron sedan 2026-06-05; behövs bara för manuella CI-körningar) |
 | RESEND_API_KEY | Mailutskick |
 | CRON_SECRET | Skyddar cron-endpoint |
 | NOTIFY_URL | Trigger bevakningsmail efter daily-run (ByggSignal) |
-| CI_ENGINE_WEBHOOK_URL | Post-run webhook till CI-appen (Phase 5, per vertikal via post_run_webhook-block i config). Skickas som X-Cron-Secret-header (rå) |
-| CI_WEBHOOK_SECRET | Secret för CI:s engine-webhook (synkad från CI:s Railway: CI_WEBHOOK_SECRET) |
+| CI_ENGINE_WEBHOOK_URL | Post-run webhook till CI-appen (Phase 5, per vertikal via post_run_webhook-block i config). Oanvänd i cron sedan 2026-06-05 |
+| CI_WEBHOOK_SECRET | Secret för CI:s engine-webhook. Oanvänd i cron sedan 2026-06-05 |
 | AGENT_MAX_COST_PER_RUN_USD | Budget per agent-körning (default 10.00) |
 
 ## REGLER
@@ -226,6 +227,9 @@ sin stabilitet — inte i koden, i arbetssättet.
 | Cloudflare | DNS | byggsignal.se, searchandcompliance.com |
 
 Vercel är helt avvecklat.
+
+## Senast uppdaterat 2026-06-05
+- floede-agent kör inte längre CI (commit 535852a). DEFAULT_VERTICALS=['byggsignal']; ci-pressroom + match-properties/ted-sync/group-signals flyttade till clientintelligence-repot som kör hela CI-pipelinen i egen Railway-cron (verifierat av CTO CI). CI-modulfilerna och ci-*.json kvar men döda ur cronen, körbara manuellt — full borttagning är senare städning.
 
 ## Senast uppdaterat 2026-06-04
 - CI project_page: AH ompekad till /om-oss/utveckling/projekt/ (SSR HTTP, selektor a[href*='/utveckling/projekt/']); Vasakronan-selektor rättad till a[href*='/projekt/'] (detaljsidor på /projekt/<slug>/, ej under listnings-URL). Båda verified=true.
